@@ -13,7 +13,7 @@
 [下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md)
 
 <p align="center">
-  <img src="assets/showcase/clinical-cover.svg" alt="Ye1 临床分析 · 本地 CSV 到统计表图与结果说明" width="960">
+  <img src="assets/showcase/clinical-cover.png" alt="Ye1 临床分析 · 本地 CSV 到统计表图与结果说明" width="960">
 </p>
 
 **提供本地 CSV 和研究问题，让 Agent 帮你完成统计分析、结果表图与说明。免费使用，自有代码采用 MIT 许可。**
