@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-temporal-fine-gray-failure-diagnostic-v1.2.schema.json",
+  "title": "ClinAnalysis FORMAL Temporal Fine-Gray Safe Failure Diagnostic 1.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "aggregate_only", "patient_level_payload",
+    "physical_paths_in_diagnostic", "failure_stage", "last_completed_stage",
+    "error_code", "exception_class", "safe_message", "bootstrap",
+    "acceptable_result_generated", "output_manifest_generated",
+    "acceptable_bundle_generated"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-temporal-fine-gray-failure-diagnostic@1.2.0"
+    },
+    "status": {"const": "FAILED"},
+    "aggregate_only": {"const": true},
+    "patient_level_payload": {"const": false},
+    "physical_paths_in_diagnostic": {"const": false},
+    "failure_stage": {"$ref": "#/$defs/stage"},
+    "last_completed_stage": {
+      "anyOf": [
+        {"const": "NONE"},
+        {"$ref": "#/$defs/stage"}
+      ]
+    },
+    "error_code": {"$ref": "#/$defs/errorCode"},
+    "exception_class": {
+      "enum": [
+        "FORMAL_TASK_CONTRACT_ERROR",
+        "FORMAL_PLUGIN_REGISTRATION_ERROR",
+        "FORMAL_DATA_CONTRACT_ERROR",
+        "FORMAL_STATISTICAL_PIPELINE_ERROR",
+        "FORMAL_RESULT_CONTRACT_ERROR",
+        "FORMAL_BUNDLE_WRITE_ERROR",
+        "FORMAL_UNEXPECTED_STAGE_ERROR"
+      ]
+    },
+    "safe_message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "bootstrap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["internal", "validation"],
+      "properties": {
+        "internal": {"$ref": "#/$defs/internalBootstrap"},
+        "validation": {"$ref": "#/$defs/validationBootstrap"}
+      }
+    },
+    "acceptable_result_generated": {"const": false},
+    "output_manifest_generated": {"const": false},
+    "acceptable_bundle_generated": {"const": false}
+  },
+  "$defs": {
+    "stage": {
+      "enum": [
+        "TASK_VALIDATION", "PLUGIN_LOOKUP", "DATA_SEMANTICS", "IMPUTATION",
+        "PRIMARY_FIT", "INTERNAL_BOOTSTRAP", "VALIDATION_BOOTSTRAP",
+        "SENSITIVITY", "RESULT_VALIDATION", "BUNDLE_WRITE"
+      ]
+    },
+    "errorCode": {
+      "enum": [
+        "TASK_CONTRACT_INVALID", "PLUGIN_LOOKUP_FAILED",
+        "FORMAL_DATA_NOT_SUPPLIED", "REQUIRED_COLUMN_MISSING",
+        "COLUMN_TYPE_INVALID", "BINARY_VALUE_INVALID",
+        "CATEGORY_VALUE_INVALID", "VALIDATION_CATEGORY_NOT_TRANSPORTABLE",
+        "TIME_WINDOW_INVALID", "OUTCOME_SEMANTICS_INVALID",
+        "PATIENT_ISOLATION_INVALID", "PARTITION_INVALID",
+        "EVENT_GATE_FAILED", "DEVELOPMENT_PREDICTOR_ALL_MISSING",
+        "FROZEN_TRANSFORMATION_NONFINITE", "IMPUTATION_FAILED",
+        "IMPUTATION_FOLLOWUP_FEATURE_NONFINITE",
+        "IMPUTATION_FEATURE_MATRIX_NONFINITE",
+        "IMPUTATION_MODEL_STEP_FAILED",
+        "IMPUTATION_TARGET_NO_OBSERVED_CASES",
+        "IMPUTATION_BINARY_FIT_FAILED",
+        "IMPUTATION_BINARY_PREDICTION_FAILED",
+        "IMPUTATION_CATEGORICAL_FIT_FAILED",
+        "IMPUTATION_CATEGORICAL_PREDICTION_FAILED",
+        "IMPUTATION_CONTINUOUS_FIT_FAILED",
+        "IMPUTATION_CONTINUOUS_PREDICTION_FAILED",
+        "IMPUTATION_COMPLETION_INVALID",
+        "PRIMARY_FIT_FAILED",
+        "INTERNAL_BOOTSTRAP_REPLICATE_FAILED",
+        "VALIDATION_BOOTSTRAP_REPLICATE_FAILED", "SENSITIVITY_FAILED",
+        "RESULT_CONTRACT_INVALID", "BUNDLE_WRITE_FAILED",
+        "DATA_SEMANTICS_FAILED", "UNEXPECTED_IMPUTATION_FAILURE",
+        "UNEXPECTED_PRIMARY_FIT_FAILURE",
+        "UNEXPECTED_INTERNAL_BOOTSTRAP_FAILURE",
+        "UNEXPECTED_VALIDATION_BOOTSTRAP_FAILURE",
+        "UNEXPECTED_SENSITIVITY_FAILURE",
+        "PLUGIN_FAILED_WITHOUT_DIAGNOSTIC"
+      ]
+    },
+    "bootstrapBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "requested", "completed", "failed", "first_error_code"
+      ],
+      "properties": {
+        "status": {
+          "enum": ["NOT_STARTED", "RUNNING", "COMPLETE", "FAILED"]
+        },
+        "requested": {"type": "integer", "minimum": 1},
+        "completed": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "first_error_code": {
+          "anyOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/errorCode"}
+          ]
+        }
+      }
+    },
+    "internalBootstrap": {
+      "allOf": [
+        {"$ref": "#/$defs/bootstrapBase"},
+        {"properties": {"requested": {"const": 1000}}}
+      ]
+    },
+    "validationBootstrap": {
+      "allOf": [
+        {"$ref": "#/$defs/bootstrapBase"},
+        {"properties": {"requested": {"const": 2000}}}
+      ]
+    }
+  }
+}

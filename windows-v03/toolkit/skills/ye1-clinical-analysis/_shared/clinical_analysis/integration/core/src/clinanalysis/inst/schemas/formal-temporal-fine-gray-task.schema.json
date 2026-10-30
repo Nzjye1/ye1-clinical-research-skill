@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-temporal-fine-gray-task.schema.json",
+  "title": "ClinAnalysis FORMAL Temporal Fine-Gray Task",
+  "description": "Path-free internal task contract. FORMAL additionally requires frozen SAP and independent human authorization bindings; SYNTHETIC_TEST never conveys FORMAL authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "analysis_id", "seed", "data", "binding", "analysis", "readiness", "outputs"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "analysis_id": {"type": "string", "minLength": 1},
+    "seed": {"const": 20260722},
+    "data": {
+      "type": "object", "additionalProperties": false,
+      "required": ["dataset_id", "sha256", "dataset_tag"],
+      "properties": {
+        "dataset_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "dataset_tag": {"type": "string", "minLength": 1}
+      }
+    },
+    "binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_id", "sap_id", "sap_sha256", "sap_status"],
+      "properties": {
+        "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+        "sap_id": {"type": "string", "minLength": 1},
+        "sap_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "sap_status": {"enum": ["FROZEN", "DRAFT_CAPABILITY_FIXTURE"]},
+        "formal_authorization": {
+          "type": "object", "additionalProperties": false,
+          "required": ["reference", "scope", "candidate_id", "sap_sha256", "dataset_sha256"],
+          "properties": {
+            "reference": {"type": "string", "minLength": 1},
+            "scope": {"const": "FORMAL_ANALYSIS_EXECUTION"},
+            "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+            "sap_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "dataset_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          }
+        }
+      }
+    },
+    "analysis": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "method", "execution_mode", "candidate_id", "patient_id", "time", "event", "competing_event",
+        "outcome_observed", "last_observation_time", "observation_state", "split", "development_value",
+        "validation_value", "landmark_hours", "horizon_hours", "event_semantics", "model_plan", "imputation",
+        "internal_validation", "temporal_validation", "metric_ids", "calibration_gate", "sensitivity_ids",
+        "expected_output_ids", "qc_variables", "pilot_only"
+      ],
+      "properties": {
+        "method": {"const": "temporal_fine_gray_prediction"},
+        "execution_mode": {"enum": ["FORMAL", "SYNTHETIC_TEST"]},
+        "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+        "patient_id": {"const": "record_id"},
+        "time": {"const": "followup_hours"},
+        "event": {"const": "delirium_event"},
+        "competing_event": {"const": "competing_event"},
+        "outcome_observed": {"const": "outcome_observed"},
+        "last_observation_time": {"const": "outcome_observation_time_hours"},
+        "observation_state": {"const": "outcome_observation_state"},
+        "split": {"const": "anchor_era_split"},
+        "development_value": {"const": "development"},
+        "validation_value": {"const": "validation"},
+        "landmark_hours": {"const": 12},
+        "horizon_hours": {"const": 84},
+        "pilot_only": {"const": false},
+        "event_semantics": {
+          "const": {
+            "estimand": "84_HOUR_DOCUMENTED_STRUCTURED_DELIRIUM_POSITIVE_CUMULATIVE_INCIDENCE_ABSOLUTE_RISK",
+            "primary_event": "FIRST_QUALIFYING_STRUCTURED_OVERALL_DELIRIUM_POSITIVE_AFTER_LANDMARK",
+            "competing_events": ["ICU_EXIT", "DEATH"],
+            "simultaneous_event_priority": ["DELIRIUM_POSITIVE", "DEATH", "ICU_EXIT"],
+            "outcome_unobserved_rule": "RIGHT_CENSOR_AT_LAST_KNOWN_OUTCOME_OBSERVATION_TIME_NEVER_RECODE_AS_NO_EVENT",
+            "patient_isolation": "ONE_RECORD_PER_PATIENT_FIRST_ICU_STAY",
+            "split_strategy": "PATIENT_ISOLATED_ANCHOR_ERA_TEMPORAL_SPLIT",
+            "validation_refit": false, "validation_recalibration": false, "logistic_fallback": false
+          }
+        },
+        "model_plan": {
+          "type": "object", "additionalProperties": false,
+          "required": ["engine", "primary_model_id", "baseline_model_id", "primary_predictors", "baseline_predictors", "parameter_df", "transformation_map_sha256", "automatic_selection", "extra_models", "interactions", "tuning", "validation_refit", "validation_recalibration", "logistic_substitution"],
+          "properties": {
+            "engine": {"const": "FINE_GRAY_SUBDISTRIBUTION_HAZARDS"},
+            "primary_model_id": {"const": "MODEL.CVCC-PRED-ISO-001.FG-CLINICAL-27DF.V1"},
+            "baseline_model_id": {"const": "MODEL.CVCC-PRED-ISO-001.FG-AGE-SEX-BASELINE.V1"},
+            "primary_predictors": {"const": ["age", "female", "ami_type", "admission_context", "dementia_history", "alcohol_use_history", "early_cardiac_arrest", "heart_rate_max_0_12h", "systolic_bp_min_0_12h", "respiratory_rate_max_0_12h", "temperature_max_0_12h", "spo2_min_0_12h", "gcs_min_0_12h", "rass_min_0_12h", "lactate_max_0_12h", "ph_min_0_12h", "glucose_max_0_12h", "sodium_latest_0_12h", "creatinine_max_0_12h", "bun_max_0_12h", "wbc_max_0_12h", "mechanical_ventilation_0_12h", "vasoactive_support_0_12h", "sedative_exposure_0_12h", "opioid_exposure_0_12h"]},
+            "baseline_predictors": {"const": ["age", "female"]},
+            "parameter_df": {"const": 27},
+            "transformation_map_sha256": {"const": "a81c3c30c038cede5202d9640c31800dcdcc241987c75e4b071c50e35f2644de"},
+            "automatic_selection": {"const": false}, "extra_models": {"const": 0},
+            "interactions": {"const": false}, "tuning": {"const": false},
+            "validation_refit": {"const": false}, "validation_recalibration": {"const": false},
+            "logistic_substitution": {"const": false}
+          }
+        },
+        "imputation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["method", "m", "iterations", "seed", "development_fit_only", "validation_outcomes_used", "continuous_method", "binary_method", "categorical_method", "include_development_event_and_followup", "pool_coefficients", "pool_predictions"],
+          "properties": {
+            "method": {"const": "MULTIPLE_IMPUTATION_BY_CHAINED_EQUATIONS"}, "m": {"const": 40},
+            "iterations": {"const": 20}, "seed": {"const": 20260722},
+            "development_fit_only": {"const": true}, "validation_outcomes_used": {"const": false},
+            "continuous_method": {"const": "PREDICTIVE_MEAN_MATCHING"},
+            "binary_method": {"const": "LOGISTIC_REGRESSION"},
+            "categorical_method": {"const": "MULTINOMIAL_LOGISTIC_REGRESSION"},
+            "include_development_event_and_followup": {"const": true},
+            "pool_coefficients": {"const": "RUBIN_RULES_WHERE_DEFINED"},
+            "pool_predictions": {"const": "MEAN_CUMULATIVE_INCIDENCE_RISK"}
+          }
+        },
+        "internal_validation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["method", "replicates", "seed", "optimism", "shrinkage", "baseline_hazard_reestimated_from"],
+          "properties": {
+            "method": {"const": "PATIENT_LEVEL_BOOTSTRAP_FULL_PIPELINE"}, "replicates": {"const": 1000},
+            "seed": {"const": 20260722}, "optimism": {"const": "BOOTSTRAP_APPARENT_MINUS_TEST_OPTIMISM"},
+            "shrinkage": {"const": "MIN_ONE_AND_BOOTSTRAP_CORRECTED_CALIBRATION_SLOPE"},
+            "baseline_hazard_reestimated_from": {"const": "DEVELOPMENT_ONLY"}
+          }
+        },
+        "temporal_validation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["method", "replicates", "seed", "interval", "refit", "recalibrate"],
+          "properties": {
+            "method": {"const": "VALIDATION_ONLY_FIXED_MODEL_PATIENT_BOOTSTRAP"}, "replicates": {"const": 2000},
+            "seed": {"const": 20260723}, "interval": {"const": "PERCENTILE_95_CI"},
+            "refit": {"const": false}, "recalibrate": {"const": false}
+          }
+        },
+        "metric_ids": {"const": ["TIME_DEPENDENT_AUC_AT_84H", "IPCW_BRIER_AT_84H", "SCALED_BRIER_VS_NULL", "OE_RATIO_AT_84H", "CALIBRATION_IN_THE_LARGE_CLOGLOG", "CALIBRATION_SLOPE", "FLEXIBLE_CALIBRATION_CURVE", "ICI", "DECILE_ABSOLUTE_ERROR"]},
+        "calibration_gate": {"const": {"generation_rule": "ALL_CALIBRATION_CONDITIONS_MUST_PASS", "oe_ratio_range": [0.8, 1.25], "calibration_slope_range": [0.8, 1.2], "maximum_ici": 0.05, "maximum_decile_absolute_error": 0.1, "thresholds": [0.05, 0.1, 0.15, 0.2, 0.25], "failed_output": "NOT_GENERATED_GATE_FAILED"}},
+        "sensitivity_ids": {
+          "const": ["SENS.CVCC-PRED-ISO-001.COMPLETE-OBSERVATION.V1", "SENS.CVCC-PRED-ISO-001.ASSESSMENT-IPCW.V1"]
+        },
+        "expected_output_ids": {"const": ["TABLE.CVCC-PRED-ISO-001.MAIN.1", "TABLE.CVCC-PRED-ISO-001.MAIN.2", "TABLE.CVCC-PRED-ISO-001.MAIN.3", "FIGURE.CVCC-PRED-ISO-001.MAIN.1", "FIGURE.CVCC-PRED-ISO-001.MAIN.2", "FIGURE.CVCC-PRED-ISO-001.MAIN.3", "FIGURE.CVCC-PRED-ISO-001.MAIN.4", "FIGURE.CVCC-PRED-ISO-001.MAIN.5", "RESULT.CVCC-PRED-ISO-001.STRUCTURED.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.DEFINITIONS.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.VARIABLES.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.MISSINGNESS.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.MODEL-SPEC.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.OBSERVATION.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.LINEAGE.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.SENSITIVITY.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.CALIBRATION-GATE.V1", "SUPPLEMENT.CVCC-PRED-ISO-001.REPRODUCIBILITY.V1"]},
+        "qc_variables": {
+          "type": "object", "additionalProperties": false,
+          "required": ["future_predictor_violation"],
+          "properties": {"future_predictor_violation": {"const": "future_predictor_violation"}}
+        }
+      }
+    },
+    "readiness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["min_development_events", "min_validation_events"],
+      "properties": {"min_development_events": {"const": 400}, "min_validation_events": {"const": 200}}
+    },
+    "outputs": {
+      "const": {"aggregate_only": true, "patient_level_output": false, "physical_paths_in_output": false, "source": "ONE_CHECKSUM_BOUND_STRUCTURED_RESULT"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"analysis": {"properties": {"execution_mode": {"const": "FORMAL"}}}}},
+      "then": {
+        "properties": {
+          "data": {"properties": {"dataset_tag": {"not": {"const": "SYNTHETIC_TEST"}}}},
+          "binding": {"required": ["formal_authorization"], "properties": {"sap_status": {"const": "FROZEN"}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"analysis": {"properties": {"execution_mode": {"const": "SYNTHETIC_TEST"}}}}},
+      "then": {
+        "properties": {
+          "data": {"properties": {"dataset_tag": {"const": "SYNTHETIC_TEST"}}},
+          "binding": {"properties": {"sap_status": {"const": "DRAFT_CAPABILITY_FIXTURE"}}, "not": {"required": ["formal_authorization"]}}
+        }
+      }
+    }
+  ]
+}

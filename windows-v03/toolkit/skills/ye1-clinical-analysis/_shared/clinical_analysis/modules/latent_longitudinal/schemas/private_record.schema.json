@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "model_json": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "individual_results": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "row_index": {
+                "type": "integer"
+              },
+              "partition": {
+                "enum": [
+                  "training",
+                  "holdout",
+                  "external"
+                ]
+              },
+              "class": {
+                "type": "integer"
+              },
+              "posterior": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "score": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "row_index",
+              "partition",
+              "class",
+              "posterior",
+              "score"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "row_index": {
+                "type": "integer"
+              },
+              "prediction": {
+                "type": "number"
+              },
+              "lower": {
+                "type": "number"
+              },
+              "upper": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "row_index",
+              "prediction",
+              "lower",
+              "upper"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "model_json",
+    "model_sha256",
+    "individual_results"
+  ],
+  "additionalProperties": false
+}

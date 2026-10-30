@@ -1,0 +1,565 @@
+{
+  "version": "0.3.0-windows-local-integrated2",
+  "backend_count": 33,
+  "alias_count": 8,
+  "existing_view_count": 11,
+  "legacy_restricted_count": 1,
+  "compat_test_operations": 5,
+  "compat_planning_operations": 4,
+  "skill_entries": [
+    {
+      "kind": "backend",
+      "method_id": "association.linear",
+      "chinese_name": "独立样本 OLS 关联",
+      "skill": "ye1-association-linear",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "association.linear.plan",
+      "chinese_name": "预设 OLS 模型方案",
+      "skill": "ye1-association-linear-plan",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "association.logistic",
+      "chinese_name": "二分类 Logistic 关联",
+      "skill": "ye1-association-logistic",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "association.logistic.plan",
+      "chinese_name": "预设 Logistic 模型方案",
+      "skill": "ye1-association-logistic-plan",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "baseline.table1",
+      "chinese_name": "基线描述表与明确分母",
+      "skill": "ye1-baseline-table1",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "exploration.cluster.gmm",
+      "chinese_name": "探索性 Gaussian mixture 与冻结赋类",
+      "skill": "ye1-exploration-cluster-gmm",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "exploration.cluster.kmeans",
+      "chinese_name": "探索性 KMeans 与冻结赋类",
+      "skill": "ye1-exploration-cluster-kmeans",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "evaluation.survival.cox.ipcw",
+      "chinese_name": "普通 Cox 的 IPCW 时点评价",
+      "skill": "ye1-evaluation-survival-cox-ipcw",
+      "operations": [
+        "evaluate"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "evaluation.survival.cox.penalized.ipcw",
+      "chinese_name": "惩罚 Cox 的 IPCW 时点评价",
+      "skill": "ye1-evaluation-survival-cox-penalized-ipcw",
+      "operations": [
+        "evaluate"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "explanation.binary.hist_gradient_boosting.tree_shap",
+      "chinese_name": "HGB interventional TreeSHAP",
+      "skill": "ye1-explanation-binary-hist-gradient-boosting-tree-shap",
+      "operations": [
+        "explain"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "explanation.binary.random_forest.tree_shap",
+      "chinese_name": "随机森林 interventional TreeSHAP",
+      "skill": "ye1-explanation-binary-random-forest-tree-shap",
+      "operations": [
+        "explain"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "interpretation.linear.interventional",
+      "chinese_name": "冻结惩罚线性模型 interventional 贡献与列线图",
+      "skill": "ye1-interpretation-linear-interventional",
+      "operations": [
+        "explain"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "interpretation.survival.cox.penalized.interventional",
+      "chinese_name": "惩罚 Cox 链接尺度贡献与列线图",
+      "skill": "ye1-interpretation-survival-cox-penalized-interventional",
+      "operations": [
+        "fit_explainer",
+        "explain"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "latent.trajectory.gaussian",
+      "chinese_name": "Gaussian LCGA 或共享协方差增长混合",
+      "skill": "ye1-latent-trajectory-gaussian",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "longitudinal.growth.gaussian",
+      "chinese_name": "Gaussian 普通混合增长模型",
+      "skill": "ye1-longitudinal-growth-gaussian",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "causal.psm.att.binary",
+      "chinese_name": "PSM 后配对二分类风险差与条件 OR",
+      "skill": "ye1-causal-psm-att-binary",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "causal.psm.att.continuous",
+      "chinese_name": "1:1 PSM 与配对连续结局推断",
+      "skill": "ye1-causal-psm-att-continuous",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "causal.psm.matched.survival",
+      "chinese_name": "PSM 后 Cox 配对聚类方差",
+      "skill": "ye1-causal-psm-matched-survival",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "mediation.linear.binary_exposure",
+      "chinese_name": "限定线性中介与联合 bootstrap",
+      "skill": "ye1-mediation-linear-binary-exposure",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.binary.elasticnet",
+      "chinese_name": "二分类 Elastic Net 冻结预测",
+      "skill": "ye1-prediction-binary-elasticnet",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.binary.hist_gradient_boosting",
+      "chinese_name": "二分类 HGB 冻结预测",
+      "skill": "ye1-prediction-binary-hist-gradient-boosting",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer",
+        "explain"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.binary.lasso",
+      "chinese_name": "二分类 LASSO 冻结预测",
+      "skill": "ye1-prediction-binary-lasso",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.binary.random_forest",
+      "chinese_name": "二分类随机森林冻结预测",
+      "skill": "ye1-prediction-binary-random-forest",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer",
+        "explain"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.binary.ridge",
+      "chinese_name": "二分类 Ridge 冻结预测",
+      "skill": "ye1-prediction-binary-ridge",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.continuous.nonnegative.ridge",
+      "chinese_name": "非负连续结局 Ridge 冻结预测",
+      "skill": "ye1-prediction-continuous-nonnegative-ridge",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.continuous.signed.elasticnet",
+      "chinese_name": "有符号连续结局 Elastic Net",
+      "skill": "ye1-prediction-continuous-signed-elasticnet",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.continuous.signed.lasso",
+      "chinese_name": "有符号连续结局 LASSO",
+      "skill": "ye1-prediction-continuous-signed-lasso",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "latent.profile.gaussian",
+      "chinese_name": "限定 EEI/VVI Gaussian LPA",
+      "skill": "ye1-latent-profile-gaussian",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.survival.cox",
+      "chinese_name": "普通 Cox 冻结绝对风险",
+      "skill": "ye1-prediction-survival-cox",
+      "operations": [
+        "train",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.survival.cox.elasticnet",
+      "chinese_name": "惩罚 Cox Elastic Net 与冻结风险",
+      "skill": "ye1-prediction-survival-cox-elasticnet",
+      "operations": [
+        "train",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "prediction.survival.cox.lasso",
+      "chinese_name": "惩罚 Cox LASSO 与冻结风险",
+      "skill": "ye1-prediction-survival-cox-lasso",
+      "operations": [
+        "train",
+        "infer"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "survival.cox.association",
+      "chinese_name": "右删失 Cox 关联与指定 PH 诊断",
+      "skill": "ye1-survival-cox-association",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "backend",
+      "method_id": "survival.kaplan_meier",
+      "chinese_name": "右删失 KM 与风险表",
+      "skill": "ye1-survival-kaplan-meier",
+      "operations": [
+        "analyze"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "alias_skill",
+      "method_ids": [
+        "association.adjusted.linear",
+        "association.adjusted.logistic"
+      ],
+      "chinese_name": "预设模型调整",
+      "skill": "ye1-association-adjusted",
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "alias_skill",
+      "method_ids": [
+        "association.sensitivity.linear",
+        "association.sensitivity.logistic"
+      ],
+      "chinese_name": "预设敏感性分析",
+      "skill": "ye1-association-sensitivity",
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "alias_skill",
+      "method_ids": [
+        "association.subgroup.linear",
+        "association.subgroup.logistic"
+      ],
+      "chinese_name": "亚组效应与交互分析",
+      "skill": "ye1-association-subgroup",
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "alias_skill",
+      "method_ids": [
+        "association.rcs.linear",
+        "association.rcs.logistic"
+      ],
+      "chinese_name": "固定结点RCS分析",
+      "skill": "ye1-association-rcs",
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "existing_result_views_skill",
+      "method_ids": [
+        "result.binary.calibration",
+        "result.binary.dca",
+        "result.binary.roc",
+        "result.importance",
+        "result.nomogram",
+        "result.survival.calibration",
+        "result.survival.dca",
+        "result.survival.ph",
+        "result.survival.roc",
+        "result.baseline.table",
+        "result.association.effects"
+      ],
+      "chinese_name": "已有结果表图提取",
+      "skill": "ye1-analysis-result-views",
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_test",
+      "method_id": "compat.test.welch_t",
+      "chinese_name": "独立两组 Welch t 检验",
+      "skill": "ye1-compat-test-welch-t",
+      "operations": [
+        "compare"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_test",
+      "method_id": "compat.test.paired_t",
+      "chinese_name": "配对 t 检验（每对一行）",
+      "skill": "ye1-compat-test-paired-t",
+      "operations": [
+        "compare"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_test",
+      "method_id": "compat.test.wilcoxon_rank_sum",
+      "chinese_name": "两独立组 Wilcoxon 秩和检验",
+      "skill": "ye1-compat-test-wilcoxon-rank-sum",
+      "operations": [
+        "compare"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_test",
+      "method_id": "compat.test.fisher_2x2",
+      "chinese_name": "2×2 Fisher 精确检验",
+      "skill": "ye1-compat-test-fisher-2x2",
+      "operations": [
+        "compare"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_test",
+      "method_id": "compat.test.chi_square",
+      "chinese_name": "两组列联表 Pearson 卡方检验",
+      "skill": "ye1-compat-test-chi-square",
+      "operations": [
+        "compare"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_planning",
+      "method_id": "compat.sample_size.mean_precision",
+      "chinese_name": "均值估计精度样本量",
+      "skill": "ye1-compat-sample-size-mean-precision",
+      "operations": [
+        "plan"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_planning",
+      "method_id": "compat.sample_size.proportion_precision",
+      "chinese_name": "比例估计精度样本量",
+      "skill": "ye1-compat-sample-size-proportion-precision",
+      "operations": [
+        "plan"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_planning",
+      "method_id": "compat.sample_size.two_mean",
+      "chinese_name": "独立两组均值差样本量",
+      "skill": "ye1-compat-sample-size-two-mean",
+      "operations": [
+        "plan"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    },
+    {
+      "kind": "compat_planning",
+      "method_id": "compat.sample_size.two_proportion",
+      "chinese_name": "独立两组比例差样本量",
+      "skill": "ye1-compat-sample-size-two-proportion",
+      "operations": [
+        "plan"
+      ],
+      "product_test_status": "LOCAL_SYNTHETIC_PRIMARY_PATH_TESTED_SEE_CAPABILITY_MATRIX",
+      "all_parameters_or_real_patients_tested": false
+    }
+  ],
+  "scientific_acceptance_inferred_from_count": false
+}

@@ -1,0 +1,156 @@
+{
+  "schema_version": "latent-longitudinal-root-registration-fragment@1.0",
+  "module_id": "latent_longitudinal",
+  "registry_target": "V1.1",
+  "legacy_at_1_0": "Keep original registry entrypoints and original schemas; this fragment does not replace legacy validators.",
+  "module_request_api_version": "clinical-module-request@1.0",
+  "module_response_api_version": "clinical-module-response@1.0",
+  "entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "analyze",
+    "signature": "analyze(request, context)",
+    "parameters": [
+      "request",
+      "context"
+    ],
+    "call_arity": 2
+  },
+  "projection_entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "project",
+    "signature": "project(response, output_dir, context, request=None)",
+    "parameters": [
+      "response",
+      "output_dir",
+      "context",
+      "request"
+    ],
+    "call_arity": 4,
+    "root_call": "project(response, output_dir, context, original_bound_request)"
+  },
+  "methods": [
+    {
+      "method_id": "exploration.cluster.kmeans",
+      "method_version": "1.0.0-development",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "clustering.py: sklearn.cluster.KMeans",
+      "schemas": {
+        "payload": "real_admission/schemas/cluster.payload.schema.json",
+        "public_record": "real_admission/schemas/legacy.public_record.schema.json",
+        "private_record": "real_admission/schemas/legacy.private_record.schema.json",
+        "diagnostics": "real_admission/schemas/legacy.diagnostics.schema.json"
+      }
+    },
+    {
+      "method_id": "exploration.cluster.gmm",
+      "method_version": "1.0.0-development",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "clustering.py: sklearn.mixture.GaussianMixture",
+      "schemas": {
+        "payload": "real_admission/schemas/cluster.payload.schema.json",
+        "public_record": "real_admission/schemas/legacy.public_record.schema.json",
+        "private_record": "real_admission/schemas/legacy.private_record.schema.json",
+        "diagnostics": "real_admission/schemas/legacy.diagnostics.schema.json"
+      }
+    },
+    {
+      "method_id": "longitudinal.growth.gaussian",
+      "method_version": "1.0.0-development",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "numerical_owner": "growth_engine.R: nlme::lme ML",
+      "schemas": {
+        "payload": "real_admission/schemas/growth.payload.schema.json",
+        "public_record": "real_admission/schemas/legacy.public_record.schema.json",
+        "private_record": "real_admission/schemas/legacy.private_record.schema.json",
+        "diagnostics": "real_admission/schemas/legacy.diagnostics.schema.json"
+      }
+    },
+    {
+      "method_id": "latent.profile.gaussian",
+      "method_version": "1.1.0-development",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "formal_models.R: mclust::me (EEI/VVI Gaussian LPA)",
+      "schemas": {
+        "payload": "real_admission/schemas/profile.payload.schema.json",
+        "public_record": "real_admission/schemas/formal.public_record.schema.json",
+        "private_record": "real_admission/schemas/formal.private_record.schema.json",
+        "diagnostics": "real_admission/schemas/formal.diagnostics.schema.json"
+      }
+    },
+    {
+      "method_id": "latent.trajectory.gaussian",
+      "method_version": "1.1.0-development",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "numerical_owner": "formal_models.R: lcmm::hlme (Gaussian LCGA/shared-covariance growth mixture)",
+      "schemas": {
+        "payload": "real_admission/schemas/trajectory.payload.schema.json",
+        "public_record": "real_admission/schemas/formal.public_record.schema.json",
+        "private_record": "real_admission/schemas/formal.private_record.schema.json",
+        "diagnostics": "real_admission/schemas/formal.diagnostics.schema.json"
+      }
+    }
+  ],
+  "additional_schemas": {
+    "request": "real_admission/schemas/request.schema.json",
+    "response": "real_admission/schemas/response.schema.json",
+    "frozen": "real_admission/schemas/frozen.schema.json"
+  },
+  "new_production_adapter_files": [
+    "real_admission/__init__.py",
+    "real_admission/adapter.py"
+  ],
+  "authorized_transport_functions": {
+    "module.py": [
+      "freeze",
+      "load_frozen"
+    ],
+    "formal_provider.py": [
+      "freeze",
+      "load_frozen",
+      "analyze"
+    ],
+    "artifacts.py": [
+      "artifact",
+      "write_artifacts"
+    ],
+    "formal_artifacts.py": [
+      "write_artifacts"
+    ]
+  },
+  "production_sha256": {
+    "real_admission/__init__.py": "42a68723a556dace639cb47b7d13e8b4e264c11d54b310c9d3d3519a009cc1e3",
+    "real_admission/adapter.py": "799fb28f737381e4a9b2246733d3ed399d7855e3d9299c868dd6822393bff544",
+    "real_admission/schemas/cluster.payload.schema.json": "b5dc18c1c777f82a7f6d61d8e4bd87a960915e64b08f1bf471610e6c79900a43",
+    "real_admission/schemas/formal.diagnostics.schema.json": "eb90fad9691303636f12b004668fbc37db67fb228ea45fc96d8f53239f55e5e6",
+    "real_admission/schemas/formal.private_record.schema.json": "00c2fb0ca7d1a5ff755ad9351b20c68838c386343805ddacbc3455770858a069",
+    "real_admission/schemas/formal.public_record.schema.json": "3f0bfe045dc5d8975cd744d57b770303f4c572626ea657cddf076d72cca4b723",
+    "real_admission/schemas/frozen.schema.json": "c042f4afda4e4c3bdf2782f03585b53473c1575b2f3c5c0454f9b3876a5fcd07",
+    "real_admission/schemas/growth.payload.schema.json": "572051502d2538c4025d5fb903b99871d002e7ab3da038953e11a2560392a519",
+    "real_admission/schemas/legacy.diagnostics.schema.json": "8bc3fe6e8ed161ec24342881e1df10d0809451d9831243c5411bfd21ba1c1198",
+    "real_admission/schemas/legacy.private_record.schema.json": "eea804eb1e5b85e4a6513dadfb2b0f23646d5267d7effd86e51432d77c3d1c36",
+    "real_admission/schemas/legacy.public_record.schema.json": "d1d1551922477f6a57efb189dcf683ce0b2c4dc883c53acacc4e262b53c4a56e",
+    "real_admission/schemas/profile.payload.schema.json": "977cfa74599333e74a6c8cc58c1b40ac5be77787e831de580183f540ffcf0862",
+    "real_admission/schemas/request.schema.json": "aa5e4f5f293588a45ae3584778a0efd951d96f0b84e2c32a321df6281866644e",
+    "real_admission/schemas/response.schema.json": "3788c7693f3e264480c9c32dd8054c565020e2f80fc64973464ec2b2f347e006",
+    "real_admission/schemas/trajectory.payload.schema.json": "c87709cf3302d21648174e7c85f90f43666a498451165ed1fd476fa3685e126e",
+    "module.py": "ab1f6e4e32a2425dc09ef9beb2579c4f3e7f542a1831ca6d2d76da00225b56a9",
+    "formal_provider.py": "942f714b70b527743232bf2327889a019f49bb9643138af58376dee1eeea8228",
+    "artifacts.py": "358508ff1164f7a70f57862c5473cb2f9966f6d44eadfeb1abd9546b49cf3e94",
+    "formal_artifacts.py": "63d72f926eae24faa1ace94d85c5ef634802e6f24eb7c1cb46cb3180f569ee81"
+  }
+}

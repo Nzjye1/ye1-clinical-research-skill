@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-runner-startup-acceptance-receipt.schema.json",
+  "title": "CVCC FORMAL runner startup repair acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "candidate_id",
+    "trigger",
+    "contracts",
+    "implementation",
+    "actual_smoke",
+    "negative_tests",
+    "verification",
+    "execution_boundaries",
+    "privacy",
+    "residual_risks",
+    "completed_at",
+    "next_responsible_actor"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {
+      "const": "RECEIPT.CVCC-PRED-ISO-001.FORMAL-RUNNER-STARTUP-REPAIR.V1"
+    },
+    "status": {
+      "const": "FORMAL_RUNNER_STARTUP_REPAIRED_SYNTHETICALLY_ACCEPTED_NOT_EXECUTION_AUTHORIZED"
+    },
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_commit",
+        "v3_receipt_id",
+        "v3_receipt_sha256",
+        "v3_terminal_status",
+        "v3_retried"
+      ],
+      "properties": {
+        "control_commit": {"const": "825add2"},
+        "v3_receipt_id": {
+          "const": "RECEIPT.CVCC-PRED-ISO-001.FORMAL-EXECUTION.V3"
+        },
+        "v3_receipt_sha256": {
+          "const": "6adb2726f6ad12f30894a11321ea3cd043c3cf6bdf1f747dd0702d108e7b9ee0"
+        },
+        "v3_terminal_status": {
+          "const": "FAILED_PRE_MODEL_NO_RETRY_V3_AUTHORIZATION_CONSUMED"
+        },
+        "v3_retried": {"const": false}
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startup_request",
+        "startup_diagnostic",
+        "task",
+        "result",
+        "manifest",
+        "formal_failure"
+      ],
+      "properties": {
+        "startup_request": {
+          "const": "formal-runner-startup-request@1.0.0"
+        },
+        "startup_diagnostic": {
+          "const": "formal-runner-startup-diagnostic@1.0.0"
+        },
+        "task": {
+          "const": "formal-temporal-fine-gray-task@2.0.0"
+        },
+        "result": {
+          "const": "formal-temporal-fine-gray-result@2.0.0"
+        },
+        "manifest": {
+          "const": "formal-temporal-fine-gray-output-manifest@1.1.0"
+        },
+        "formal_failure": {
+          "const": "formal-temporal-fine-gray-failure-diagnostic@1.0.0"
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "orchestrator",
+        "r_environment",
+        "maximum_timeout_seconds",
+        "dependency_installation",
+        "forbidden_unbound_flags",
+        "pre_data_and_attempt_gate",
+        "raw_error_forwarding"
+      ],
+      "properties": {
+        "orchestrator": {"const": "PYTHON_BOUNDED_SUBPROCESS"},
+        "r_environment": {
+          "const": "PROJECT_RENV_WITH_SANDBOX_LOCK_DISABLED"
+        },
+        "maximum_timeout_seconds": {"const": 60},
+        "dependency_installation": {"const": false},
+        "forbidden_unbound_flags": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "--vanilla"},
+            {"const": "--no-init-file"}
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "pre_data_and_attempt_gate": {"const": true},
+        "raw_error_forwarding": {"const": false}
+      }
+    },
+    "actual_smoke": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "bounded_under_seconds",
+        "checks",
+        "execution_boundary_all_false"
+      ],
+      "properties": {
+        "status": {"const": "PASS"},
+        "bounded_under_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 30
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "project_environment",
+            "dependencies",
+            "namespace",
+            "plugin",
+            "task_contract",
+            "result_contracts"
+          ],
+          "properties": {
+            "project_environment": {"const": "PASS"},
+            "dependencies": {"const": "PASS"},
+            "namespace": {"const": "PASS"},
+            "plugin": {"const": "PASS"},
+            "task_contract": {"const": "PASS"},
+            "result_contracts": {"const": "PASS"}
+          }
+        },
+        "execution_boundary_all_false": {"const": true}
+      }
+    },
+    "negative_tests": {
+      "type": "array",
+      "prefixItems": [
+        {"$ref": "#/$defs/unactivatedVanilla"},
+        {"$ref": "#/$defs/renvLockTimeout"},
+        {"$ref": "#/$defs/namespaceMissing"},
+        {"$ref": "#/$defs/dependencyMissing"},
+        {"$ref": "#/$defs/pluginMissing"},
+        {"$ref": "#/$defs/taskContractMissing"},
+        {"$ref": "#/$defs/resultContractMissing"},
+        {"$ref": "#/$defs/unknownField"},
+        {"$ref": "#/$defs/physicalPathPayload"},
+        {"$ref": "#/$defs/patientLevelPayload"},
+        {"$ref": "#/$defs/rawErrorRedaction"}
+      ],
+      "items": false,
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "python_startup_tests",
+        "python_full_tests",
+        "r_startup_expectations",
+        "r_full_tests",
+        "capability_consistency",
+        "r_cmd_check"
+      ],
+      "properties": {
+        "python_startup_tests": {"const": "13 passed"},
+        "python_full_tests": {"const": "84 passed"},
+        "r_startup_expectations": {"const": "47 passed"},
+        "r_full_tests": {"const": "651 passed, 2 skipped"},
+        "capability_consistency": {"const": "PASS"},
+        "r_cmd_check": {
+          "const": "0 errors, 0 warnings, 1 existing long-path NOTE"
+        }
+      }
+    },
+    "execution_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_read",
+        "other_patient_data_read",
+        "formal_authorization_created_or_consumed",
+        "v3_retried",
+        "formal_runner_called",
+        "fine_gray_called",
+        "imputation_called",
+        "bootstrap_called",
+        "dca_called",
+        "sensitivity_called"
+      ],
+      "properties": {
+        "v2_read": {"const": false},
+        "other_patient_data_read": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "v3_retried": {"const": false},
+        "formal_runner_called": {"const": false},
+        "fine_gray_called": {"const": false},
+        "imputation_called": {"const": false},
+        "bootstrap_called": {"const": false},
+        "dca_called": {"const": false},
+        "sensitivity_called": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "patient_level_payload",
+        "physical_paths_present",
+        "raw_errors_present"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "raw_errors_present": {"const": false}
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "Existing renv dependencies remain required; absence fails closed and never installs."
+        },
+        {
+          "const": "Synthetic startup acceptance does not establish successful FORMAL statistical execution."
+        },
+        {
+          "const": "Any future FORMAL attempt requires a new independent human authorization."
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "completed_at": {
+      "type": "string",
+      "pattern": "^2026-07-23T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+0800$"
+    },
+    "next_responsible_actor": {
+      "const": "ARTICLE_CONTROL_PLANE"
+    }
+  },
+  "$defs": {
+    "negativeBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "status"],
+      "properties": {
+        "case_id": {"type": "string"},
+        "status": {"const": "PASS"}
+      }
+    },
+    "unactivatedVanilla": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "UNACTIVATED_VANILLA"}}}
+      ]
+    },
+    "renvLockTimeout": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "RENV_LOCK_TIMEOUT"}}}
+      ]
+    },
+    "namespaceMissing": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "NAMESPACE_MISSING"}}}
+      ]
+    },
+    "dependencyMissing": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "DEPENDENCY_MISSING"}}}
+      ]
+    },
+    "pluginMissing": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "PLUGIN_MISSING"}}}
+      ]
+    },
+    "taskContractMissing": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "TASK_CONTRACT_MISSING"}}}
+      ]
+    },
+    "resultContractMissing": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "RESULT_CONTRACT_MISSING"}}}
+      ]
+    },
+    "unknownField": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "UNKNOWN_FIELD"}}}
+      ]
+    },
+    "physicalPathPayload": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "PHYSICAL_PATH_PAYLOAD"}}}
+      ]
+    },
+    "patientLevelPayload": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "PATIENT_LEVEL_PAYLOAD"}}}
+      ]
+    },
+    "rawErrorRedaction": {
+      "allOf": [
+        {"$ref": "#/$defs/negativeBase"},
+        {"properties": {"case_id": {"const": "RAW_ERROR_REDACTION"}}}
+      ]
+    }
+  }
+}

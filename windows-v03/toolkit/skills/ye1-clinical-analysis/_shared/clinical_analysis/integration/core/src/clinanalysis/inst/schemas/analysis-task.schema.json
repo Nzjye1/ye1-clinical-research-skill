@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/analysis-task.schema.json",
+  "title": "ClinAnalysis Internal AnalysisTask",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "analysis_id", "data", "analysis"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "analysis_id": {"type": "string", "minLength": 1},
+    "seed": {"type": "integer"},
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "format"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "format": {"enum": ["csv", "parquet", "rds"]},
+        "dictionary_path": {"type": "string"}
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method"],
+      "properties": {
+        "method": {"enum": ["modified_poisson", "cause_specific_cox", "generic_regression", "survival_analysis", "longitudinal_model", "causal_comparison", "prediction_validation", "temporal_logistic_prediction", "temporal_fine_gray_prediction", "categorical_logistic_g_computation"]},
+        "outcome": {"type": "string"},
+        "outcome_label": {"type": "string"},
+        "outcome_type": {"enum": ["continuous", "binary", "count", "ordinal"]},
+        "model_family": {"enum": ["gaussian", "binomial", "poisson", "negative_binomial", "ordinal"]},
+        "estimator": {"enum": ["maximum_likelihood", "bias_reduced"]},
+        "outcome_order": {"type": "array", "items": {"type": ["string", "number"]}, "uniqueItems": true},
+        "time": {"type": "string"},
+        "event": {"type": "string"},
+        "competing_event": {"type": "string"},
+        "exposure": {"type": "string"},
+        "continuous_v4": {
+          "type": "object", "additionalProperties": false,
+          "required": ["physiology", "treatments", "age", "sex", "ami", "ckd", "other_shock", "bounds", "donors", "exposure_unit", "reference", "private_dir"],
+          "properties": {
+            "physiology": {"type": "object", "additionalProperties": false,
+              "required": ["creatinine", "lactate", "map"],
+              "properties": {"creatinine": {"type": "string"}, "lactate": {"type": "string"}, "map": {"type": "string"}}},
+            "treatments": {"type": "object", "additionalProperties": false,
+              "required": ["magnesium", "rrt", "circulatory"],
+              "properties": {"magnesium": {"type": "string"}, "rrt": {"type": "string"}, "circulatory": {"type": "string"}}},
+            "age": {"type": "string"}, "sex": {"type": "string"},
+            "ami": {"type": "string"}, "ckd": {"type": "string"},
+            "other_shock": {"type": "string"},
+            "bounds": {"type": "object", "additionalProperties": false,
+              "required": ["creatinine", "lactate", "map"],
+              "properties": {"creatinine": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+                "lactate": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+                "map": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}}},
+            "donors": {"const": 5}, "exposure_unit": {"const": 0.5},
+            "reference": {"const": 2.0}, "private_dir": {"type": "string", "minLength": 1},
+            "fixed_knots": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+            "subgroups": {"type": "array", "items": {"type": "object", "additionalProperties": false,
+              "required": ["id", "column"], "properties": {"id": {"type": "string"}, "column": {"type": "string"}}}}
+          }
+        },
+        "exposure_label": {"type": "string"},
+        "exposure_group_labels": {"type": "object", "additionalProperties": {"type": "string"}},
+        "exposure_transform": {"enum": ["identity", "log2"]},
+        "cluster_id": {"type": "string"},
+        "covariates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "effect_modifiers": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "multiplicity": {"enum": ["none", "holm", "BH"]},
+        "spline_covariates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "spline_df": {"type": "integer", "minimum": 1},
+        "cox_strata": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "standardized_values": {"type": "array", "items": {"type": "number"}},
+        "confidence_level": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+        "cumulative_incidence_time": {"type": "number", "exclusiveMinimum": 0},
+        "plot_max_time": {"type": "number", "exclusiveMinimum": 0},
+        "time_label": {"type": "string"},
+        "primary_event_label": {"type": "string"},
+        "competing_event_label": {"type": "string"},
+        "survival_engine": {"enum": ["kaplan_meier", "cox", "fine_gray", "rmst"]},
+        "tau": {"type": "number", "exclusiveMinimum": 0},
+        "horizon": {"type": "number", "exclusiveMinimum": 0},
+        "subject_id": {"type": "string"},
+        "repeated_time": {"type": "string"},
+        "longitudinal_engine": {"enum": ["gee", "lmm", "glmm"]},
+        "correlation": {"enum": ["independence", "exchangeable", "ar1"]},
+        "random_slope": {"type": "boolean"},
+        "estimand": {"enum": ["ATE", "ATT", "ATO"]},
+        "propensity_covariates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "outcome_covariates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "causal_estimator": {"enum": ["weighting", "aipw"]},
+        "stabilized_weights": {"type": "boolean"},
+        "truncation_quantiles": {"type": "array", "items": {"type": "number", "minimum": 0, "maximum": 1}, "minItems": 2, "maxItems": 2},
+        "bootstrap_replicates": {"type": "integer", "minimum": 50, "maximum": 5000},
+        "prediction": {"type": "string"},
+        "prediction_scale": {"enum": ["risk", "linear_predictor"]},
+        "validation_type": {"enum": ["binary", "survival"]},
+        "prediction_origin": {"enum": ["external", "internal_holdout", "out_of_fold"]},
+        "subgroup_variables": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "calibration_bins": {"type": "integer", "minimum": 4, "maximum": 20},
+        "decision_thresholds": {"type": "array", "items": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1}, "uniqueItems": true},
+        "split": {"type": "string"},
+        "development_value": {"type": ["string", "number"]},
+        "validation_value": {"type": ["string", "number"]},
+        "outcome_observed": {"type": "string"},
+        "pilot_only": {"type": "boolean"},
+        "baseline_predictors": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+        "median_impute_predictors": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "missing_indicator_map": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+        "variance_estimator": {"enum": ["model_based"]},
+        "bootstrap_scope": {"enum": ["validation_only_fixed_model"]},
+        "bootstrap_interval": {"enum": ["percentile"]},
+        "calibration_intercept_method": {"enum": ["joint_with_slope"]},
+        "decision_curve_enabled": {"type": "boolean"},
+        "prediction_sensitivities": {
+          "type": "array", "maxItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "outcome", "refit"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "outcome": {"type": "string", "minLength": 1},
+              "eligibility": {"type": "string", "minLength": 1},
+              "refit": {"const": true}
+            }
+          }
+        },
+        "timing_analysis": {
+          "type": "object", "additionalProperties": false,
+          "required": ["time", "component", "breaks", "labels"],
+          "properties": {
+            "time": {"type": "string", "minLength": 1},
+            "component": {"type": "string", "minLength": 1},
+            "breaks": {"type": "array", "items": {"type": "number"}, "minItems": 2},
+            "labels": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+          }
+        },
+        "qc_variables": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "record_id": {"type": "string"},
+            "future_predictor_violation": {"type": "string"},
+            "outcome_at_or_before_landmark": {"type": "string"},
+            "drug_free_rule_violation": {"type": "string"},
+            "invalid_interval_count": {"type": "string"},
+            "restart_delay_minutes": {"type": "string"},
+            "restart_same_drug": {"type": "string"},
+            "episode_duration_hours": {"type": "string"},
+            "episode_record_count": {"type": "string"},
+            "icu_exit_before_horizon": {"type": "string"},
+            "hospital_discharge_before_horizon": {"type": "string"}
+          }
+        },
+        "missing_data": {
+          "type": "object",
+          "properties": {
+            "method": {"enum": ["complete_case", "multiple_imputation"]},
+            "m": {"type": "integer", "minimum": 2},
+            "maxit": {"type": "integer", "minimum": 1},
+            "seed": {"type": "integer"},
+            "continuous_method": {"enum": ["pmm", "norm"]},
+            "auxiliary_variables": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+            "log_transform": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+            "excluded_variables": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+          }
+        },
+        "multistate_gate": {
+          "type": "object",
+          "properties": {
+            "baseline_state_indicator": {"type": "string"}
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"method": {"const": "modified_poisson"}}},
+          "then": {"required": ["outcome"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "cause_specific_cox"}}},
+          "then": {"required": ["time", "event", "competing_event"]}
+        },
+        {
+          "if": {"properties": {"method": {"enum": ["modified_poisson", "cause_specific_cox", "generic_regression", "survival_analysis", "longitudinal_model", "causal_comparison"]}}},
+          "then": {"required": ["exposure"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "generic_regression"}}},
+          "then": {"required": ["outcome", "outcome_type", "model_family"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "survival_analysis"}}},
+          "then": {"required": ["time", "event", "survival_engine"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "longitudinal_model"}}},
+          "then": {"required": ["outcome", "outcome_type", "subject_id", "repeated_time", "longitudinal_engine"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "causal_comparison"}}},
+          "then": {"required": ["outcome", "outcome_type", "estimand", "propensity_covariates"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "prediction_validation"}}},
+          "then": {"required": ["outcome", "prediction", "validation_type", "prediction_origin"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "temporal_logistic_prediction"}}},
+          "then": {"required": ["outcome", "split", "development_value", "validation_value", "baseline_predictors", "covariates", "variance_estimator", "bootstrap_replicates", "bootstrap_scope", "bootstrap_interval", "calibration_intercept_method"]}
+        },
+        {
+          "if": {"properties": {"method": {"const": "temporal_fine_gray_prediction"}}},
+          "then": {
+            "required": ["time", "event", "competing_event", "split", "development_value", "validation_value", "baseline_predictors", "outcome_observed", "horizon", "pilot_only"],
+            "properties": {"pilot_only": {"const": true}}
+          }
+        }
+      ]
+    },
+    "readiness": {
+      "type": "object",
+      "properties": {
+        "min_n": {"type": "integer", "minimum": 1},
+        "min_events": {"type": "integer", "minimum": 1},
+        "min_validation_n": {"type": "integer", "minimum": 1},
+        "min_validation_events": {"type": "integer", "minimum": 1},
+        "max_missing_fraction": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "figure_formats": {
+          "type": "array",
+          "items": {"enum": ["png", "pdf", "svg", "tiff"]},
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "figure_dpi": {"type": "integer", "minimum": 72, "maximum": 1200},
+        "target_journal": {"type": "string"},
+        "figure_width_in": {"type": "number", "exclusiveMinimum": 0, "maximum": 12},
+        "html_report": {"type": "boolean"}
+      }
+    },
+    "tfl": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "table1": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "group": {"type": "string", "minLength": 1},
+            "include_overall": {"type": "boolean"},
+            "categorical_denominator": {"enum": ["nonmissing", "all"]},
+            "variables": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "type"],
+                "properties": {
+                  "name": {"type": "string", "minLength": 1},
+                  "label": {"type": "string"},
+                  "type": {"enum": ["continuous", "categorical", "binary"]},
+                  "summary": {"enum": ["mean_sd", "median_iqr"]},
+                  "levels": {"type": "array", "items": {"type": ["string", "number"]}, "uniqueItems": true}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_roles": {
+          "type": "array",
+          "items": {"enum": ["human_statistician", "independent_review_agent"]},
+          "uniqueItems": true
+        },
+        "writing_requires_approval": {"type": "boolean"}
+      }
+    }
+  }
+}

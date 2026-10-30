@@ -1,0 +1,376 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "stage": {
+      "type": "string"
+    },
+    "provider_version": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtime": {
+      "type": "object",
+      "properties": {
+        "python": {
+          "type": "string"
+        },
+        "numpy": {
+          "type": "string"
+        },
+        "scipy": {
+          "type": "string"
+        },
+        "statsmodels": {
+          "type": "string"
+        },
+        "sklearn": {
+          "type": "string"
+        },
+        "pandas": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "python",
+        "numpy",
+        "scipy",
+        "statsmodels",
+        "sklearn",
+        "pandas"
+      ],
+      "additionalProperties": false
+    },
+    "counts": {
+      "type": "object",
+      "properties": {
+        "total_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "total_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "total_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "missing_outcome_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "missing_feature_excluded_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "analyzable_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "analyzable_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "analyzable_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "training_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "training_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "training_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "holdout_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "holdout_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "holdout_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "model_fit_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "model_fit_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "model_fit_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "calibration_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "calibration_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "calibration_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "prediction_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "evaluation_n": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "source_rows": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "evaluation_events": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "evaluation_nonevents": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "fit_metadata": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "transformed_feature_count": {
+              "type": "number"
+            },
+            "epv_status": {
+              "type": "string"
+            },
+            "calibration": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "sample": {
+                  "type": "object",
+                  "properties": {
+                    "n": {
+                      "type": "number"
+                    },
+                    "events": {
+                      "type": "number"
+                    },
+                    "nonevents": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "n",
+                    "events",
+                    "nonevents"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "method",
+                "sample"
+              ],
+              "additionalProperties": false
+            },
+            "native_freeze_max_abs_difference": {
+              "type": "number"
+            },
+            "early_stopping": {
+              "type": "boolean"
+            },
+            "selected_parameters": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "n_estimators": {
+                      "type": "number"
+                    },
+                    "max_depth": {
+                      "type": "number"
+                    },
+                    "min_samples_leaf": {
+                      "type": "number"
+                    },
+                    "max_features": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "n_estimators",
+                    "max_depth",
+                    "min_samples_leaf",
+                    "max_features"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "max_iter": {
+                      "type": "number"
+                    },
+                    "max_leaf_nodes": {
+                      "type": "number"
+                    },
+                    "min_samples_leaf": {
+                      "type": "number"
+                    },
+                    "learning_rate": {
+                      "type": "number"
+                    },
+                    "l2_regularization": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "max_iter",
+                    "max_leaf_nodes",
+                    "min_samples_leaf",
+                    "learning_rate",
+                    "l2_regularization"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "transformed_feature_count",
+            "epv_status",
+            "calibration",
+            "native_freeze_max_abs_difference",
+            "early_stopping",
+            "selected_parameters"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "bindings_checked": {
+      "type": "string"
+    },
+    "model_refitted": {
+      "type": "boolean"
+    },
+    "preprocessing_refitted": {
+      "type": "boolean"
+    },
+    "calibration_refitted": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "stage",
+    "provider_version",
+    "runtime",
+    "counts",
+    "fit_metadata",
+    "bindings_checked",
+    "model_refitted",
+    "preprocessing_refitted",
+    "calibration_refitted"
+  ],
+  "additionalProperties": false
+}

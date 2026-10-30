@@ -1,0 +1,14 @@
+{
+  "schema_version": "ye1-public-fixture-provenance@1.0",
+  "fixture_id": "survival-pbc-3.8-6-composite-km-v1",
+  "data_origin": "public_fixture",
+  "task_purpose": "public_fixture_acceptance",
+  "test_only": true,
+  "source": {"package": "survival", "version": "3.8-6", "dataset": "pbc", "upstream": "https://github.com/therneau/survival", "license": "LGPL (>= 2)", "separate_dataset_license_recorded": false, "acquisition": "existing local R recommended library; no fresh network retrieval claimed"},
+  "projection": {"columns": ["time", "status"], "rows": 418, "bytes": 2845, "sha256": "92cc9dc9f6e8b95e2bedc9f7bab201755e761795374765bdd3c466b2d516d151", "identifiers_exported": false, "source_rows_bundled": false},
+  "protocol": {"time_zero": "Registration in the Mayo PBC study", "time_unit": "day", "event": "First death or liver transplantation; source status 1 or 2", "censoring": "Source status 0 at recorded follow-up end; study analysis July 1986", "grid": [0,365,730,1095,1825,3650], "missing": "complete_case_no_imputation", "n_used": 418, "events": 186, "censored": 232},
+  "numerical_owner": {"path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival.py", "sha256": "c2742f940e44f440b2d064ae1cd51c300c8e35e1a54253620b074b2b4239684d", "changed": false},
+  "independent_reference": {"implementation": "R survival::survfit 3.8-6", "conf_type": "log-log", "comparison_grid": "union of prespecified and all observed times", "absolute_tolerance": 1e-12},
+  "ordinary_customer_admission_changed": false,
+  "scientific_review": "pending"
+}

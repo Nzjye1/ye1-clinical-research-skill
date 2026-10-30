@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-credibility-results.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "rows"],
+  "properties": {
+    "schema_version": {
+      "const": "categorical-gcomp-credibility-results@1.0.0"
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "analysis_id",
+          "status",
+          "n",
+          "source_counts",
+          "converged",
+          "finite",
+          "standardized_risks",
+          "risk_differences",
+          "maximum_absolute_standardized_risk_change",
+          "risk_difference_sign_reversal",
+          "threshold_assessment",
+          "noninformative_reason"
+        ],
+        "properties": {
+          "analysis_id": {
+            "enum": [
+              "S1_RECENT_PRIOR_TRANSFER_1H",
+              "S2_EXCLUDE_OTHER_ICU"
+            ]
+          },
+          "status": {
+            "enum": [
+              "ESTIMATED",
+              "TECHNICAL_THRESHOLD_FAILED",
+              "NON_INFORMATIVE_EMPTY_SOURCE"
+            ]
+          },
+          "n": {"type": "integer", "minimum": 0},
+          "source_counts": {
+            "type": "object",
+            "additionalProperties": {"type": "integer", "minimum": 0}
+          },
+          "converged": {"type": "boolean"},
+          "finite": {"type": "boolean"},
+          "standardized_risks": {
+            "type": "object",
+            "additionalProperties": {"type": ["number", "null"]}
+          },
+          "risk_differences": {
+            "type": "object",
+            "additionalProperties": {"type": ["number", "null"]}
+          },
+          "maximum_absolute_standardized_risk_change": {
+            "type": ["number", "null"],
+            "minimum": 0
+          },
+          "risk_difference_sign_reversal": {"type": "boolean"},
+          "threshold_assessment": {
+            "enum": ["PASS", "FAIL", "NOT_ASSESSED_NONINFORMATIVE"]
+          },
+          "noninformative_reason": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

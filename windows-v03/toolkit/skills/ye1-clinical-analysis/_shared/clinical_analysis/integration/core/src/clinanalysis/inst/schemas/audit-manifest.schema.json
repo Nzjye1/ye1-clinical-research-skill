@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/audit-manifest.schema.json",
+  "title": "ClinAnalysis audit manifest",
+  "type": "object",
+  "required": ["schema_version", "analysis_id", "task_checksum_md5", "result_checksum_md5", "input_provenance", "artifacts", "review_gate", "writing_allowed"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "analysis_id": {"type": "string"},
+    "generated_at_utc": {"type": "string"},
+    "task_checksum_md5": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "result_checksum_md5": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "input_provenance": {"type": "object"},
+    "artifacts": {"type": "array", "items": {"type": "object"}},
+    "review_gate": {"type": "object"},
+    "writing_allowed": {"type": "boolean"},
+    "review_gate_refreshed_at_utc": {"type": "string"}
+  }
+}

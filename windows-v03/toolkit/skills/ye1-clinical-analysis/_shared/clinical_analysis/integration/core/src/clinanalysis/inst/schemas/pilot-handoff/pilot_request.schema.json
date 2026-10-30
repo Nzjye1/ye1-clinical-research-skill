@@ -1,0 +1,222 @@
+{
+  "$defs": {
+    "FrozenDesignReference": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "maxLength": 128,
+          "minLength": 3,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "frozen_plan_ref": {
+          "maxLength": 128,
+          "minLength": 3,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+          "title": "Frozen Plan Ref",
+          "type": "string"
+        },
+        "plan_checksum": {
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "title": "Plan Checksum",
+          "type": "string"
+        },
+        "research_fingerprint": {
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "title": "Research Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "research_fingerprint",
+        "frozen_plan_ref",
+        "plan_checksum"
+      ],
+      "title": "FrozenDesignReference",
+      "type": "object"
+    },
+    "PilotCheck": {
+      "enum": [
+        "COHORT_COUNT",
+        "EVENT_COUNT",
+        "KEY_MISSINGNESS",
+        "EXPOSURE_ACTUAL_VARIATION",
+        "OUTCOME_WINDOW_COVERAGE",
+        "MODEL_TECHNICAL_RUNNABILITY"
+      ],
+      "title": "PilotCheck",
+      "type": "string"
+    },
+    "PilotLimits": {
+      "additionalProperties": false,
+      "description": "A deliberately narrow feasibility scope, not a formal analysis plan.",
+      "properties": {
+        "formal_outputs_requested": {
+          "const": false,
+          "default": false,
+          "title": "Formal Outputs Requested",
+          "type": "boolean"
+        },
+        "max_adjusted_models": {
+          "const": 1,
+          "default": 1,
+          "title": "Max Adjusted Models",
+          "type": "integer"
+        },
+        "max_primary_models": {
+          "const": 1,
+          "default": 1,
+          "title": "Max Primary Models",
+          "type": "integer"
+        },
+        "max_sensitivity_checks": {
+          "default": 0,
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "title": "Max Sensitivity Checks",
+          "type": "integer"
+        },
+        "result_driven_design_changes_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Result Driven Design Changes Allowed",
+          "type": "boolean"
+        }
+      },
+      "title": "PilotLimits",
+      "type": "object"
+    },
+    "RegisteredDatasetReference": {
+      "additionalProperties": false,
+      "description": "An opaque registry reference.  It intentionally contains no location.",
+      "properties": {
+        "data_source_id": {
+          "maxLength": 128,
+          "minLength": 3,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+          "title": "Data Source Id",
+          "type": "string"
+        },
+        "dataset_id": {
+          "maxLength": 128,
+          "minLength": 3,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "dataset_tag": {
+          "const": "SYNTHETIC_TEST",
+          "title": "Dataset Tag",
+          "type": "string"
+        },
+        "patient_level_payload": {
+          "const": false,
+          "default": false,
+          "title": "Patient Level Payload",
+          "type": "boolean"
+        },
+        "registry_checksum": {
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "title": "Registry Checksum",
+          "type": "string"
+        },
+        "schema_contract_ref": {
+          "maxLength": 128,
+          "minLength": 3,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+          "title": "Schema Contract Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_tag",
+        "data_source_id",
+        "dataset_id",
+        "schema_contract_ref",
+        "registry_checksum"
+      ],
+      "title": "RegisteredDatasetReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Request sent through the control plane to the clinical analysis module.",
+  "properties": {
+    "design": {
+      "$ref": "#/$defs/FrozenDesignReference"
+    },
+    "execution_mode": {
+      "const": "PILOT",
+      "default": "PILOT",
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "human_execution_authorized": {
+      "const": true,
+      "title": "Human Execution Authorized",
+      "type": "boolean"
+    },
+    "limits": {
+      "$ref": "#/$defs/PilotLimits"
+    },
+    "registered_dataset": {
+      "$ref": "#/$defs/RegisteredDatasetReference"
+    },
+    "request_id": {
+      "maxLength": 128,
+      "minLength": 3,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "requested_checks": {
+      "items": {
+        "$ref": "#/$defs/PilotCheck"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "title": "Requested Checks",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_module_id": {
+      "const": "research-topic-module",
+      "default": "research-topic-module",
+      "title": "Source Module Id",
+      "type": "string"
+    },
+    "study_id": {
+      "maxLength": 128,
+      "minLength": 3,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+      "title": "Study Id",
+      "type": "string"
+    },
+    "target_module_id": {
+      "const": "clinical-analysis-module",
+      "default": "clinical-analysis-module",
+      "title": "Target Module Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "study_id",
+    "design",
+    "registered_dataset",
+    "requested_checks",
+    "human_execution_authorized"
+  ],
+  "title": "PilotRequest",
+  "type": "object"
+}

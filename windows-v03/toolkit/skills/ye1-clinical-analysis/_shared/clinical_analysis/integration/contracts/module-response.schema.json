@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private module response envelope; registered record/diagnostic schemas ALSO REQUIRED",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "api_version",
+    "ok",
+    "reason_code",
+    "diagnostics",
+    "public_record",
+    "private_record"
+  ],
+  "properties": {
+    "api_version": {
+      "const": "clinical-module-response@1.0"
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "reason_code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$",
+          "maxLength": 160
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "diagnostics": {
+      "type": "object"
+    },
+    "public_record": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "private_record": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ok": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason_code": {
+            "type": "null"
+          },
+          "public_record": {
+            "type": "object"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "reason_code": {
+            "type": "string"
+          },
+          "public_record": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

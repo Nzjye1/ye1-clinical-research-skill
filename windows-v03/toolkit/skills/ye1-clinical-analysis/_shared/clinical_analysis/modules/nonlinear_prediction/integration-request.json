@@ -1,0 +1,142 @@
+{
+  "schema_version": "clinical-module-integration@1.0",
+  "module_id": "nonlinear_prediction",
+  "owner": "MODULE_NONLINEAR_PREDICTION",
+  "language": "python",
+  "entrypoint": {
+    "path": "interface.py",
+    "function": "analyze"
+  },
+  "projection_entrypoint": {
+    "path": "projection.R",
+    "function": "project_nonlinear_module"
+  },
+  "provider_files": [
+    "provider.py",
+    "adapter.py",
+    "contracts.py",
+    "interface.py",
+    "projection.R",
+    "run_module.py",
+    "tests/render.R"
+  ],
+  "dependencies": [
+    {
+      "name": "python",
+      "version": "3.12.15",
+      "role": "runtime"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4",
+      "role": "runtime"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "role": "runtime"
+    },
+    {
+      "name": "statsmodels",
+      "version": "0.14.6",
+      "role": "runtime"
+    },
+    {
+      "name": "sklearn",
+      "version": "1.9.1",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "pandas",
+      "version": "2.3.3",
+      "role": "runtime"
+    },
+    {
+      "name": "R",
+      "version": "4.6.1",
+      "role": "runtime"
+    },
+    {
+      "name": "jsonlite",
+      "version": "2.0.0",
+      "role": "runtime"
+    },
+    {
+      "name": "digest",
+      "version": "0.6.39",
+      "role": "runtime"
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.7.0",
+      "role": "runtime"
+    }
+  ],
+  "methods": [
+    {
+      "method_id": "prediction.binary.random_forest",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer",
+        "explain"
+      ],
+      "numerical_owner": "sklearn.ensemble.RandomForestClassifier@1.9.1; sigmoid=sklearn.CalibratedClassifierCV; evaluation=clinical_methods.prediction",
+      "schemas": {
+        "payload": "schemas/payload.schema.json",
+        "diagnostics": "schemas/diagnostics.schema.json",
+        "public_record": "schemas/public-record.schema.json",
+        "private_record": "schemas/private-record.schema.json"
+      }
+    },
+    {
+      "method_id": "prediction.binary.hist_gradient_boosting",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer",
+        "explain"
+      ],
+      "numerical_owner": "sklearn.ensemble.HistGradientBoostingClassifier@1.9.1; sigmoid=sklearn.CalibratedClassifierCV; evaluation=clinical_methods.prediction",
+      "schemas": {
+        "payload": "schemas/payload.schema.json",
+        "diagnostics": "schemas/diagnostics.schema.json",
+        "public_record": "schemas/public-record.schema.json",
+        "private_record": "schemas/private-record.schema.json"
+      }
+    }
+  ],
+  "shared_change_requests": [
+    {
+      "target": "method registry and shared prediction contract",
+      "reason": "Register both methods and the owned schemas; call analyze only after trusted expected-bindings validation.",
+      "affected_methods": [
+        "prediction.binary.random_forest",
+        "prediction.binary.hist_gradient_boosting"
+      ],
+      "required_regression": [
+        "module facade contract tests",
+        "existing prediction rejection branches"
+      ]
+    },
+    {
+      "target": "clinical_prediction_common.R binary predicate/model_role and result extension",
+      "reason": "Use shared binary metrics/figures without ridge-only identity; preserve base-fit/calibration counts and explanation artifacts.",
+      "affected_methods": [
+        "prediction.binary.random_forest",
+        "prediction.binary.hist_gradient_boosting",
+        "prediction.binary.ridge"
+      ],
+      "required_regression": [
+        "binary denominators and no-operating-point tests",
+        "nonlinear R projection and export audit"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/validation-20261024T033701081933Z/receipt.json",
+    "evidence/interface-validation.json"
+  ]
+}

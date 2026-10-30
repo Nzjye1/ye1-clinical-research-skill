@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "format": {
+      "const": "R_serialize_v3_base64"
+    },
+    "media_type": {
+      "const": "application/x-r-serialized"
+    },
+    "blob": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "format",
+    "media_type",
+    "blob"
+  ],
+  "additionalProperties": false
+}

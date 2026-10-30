@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "module_id": {
+      "const": "mediation_matching"
+    },
+    "stage": {
+      "enum": [
+        "request_contract",
+        "payload_contract",
+        "analysis"
+      ]
+    },
+    "numerical_owner": {
+      "const": "R/provider.R"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "partial",
+        "unavailable"
+      ]
+    },
+    "causal_assumptions_verified": {
+      "const": false
+    }
+  },
+  "required": [
+    "module_id",
+    "stage",
+    "numerical_owner",
+    "status",
+    "causal_assumptions_verified"
+  ],
+  "additionalProperties": false
+}

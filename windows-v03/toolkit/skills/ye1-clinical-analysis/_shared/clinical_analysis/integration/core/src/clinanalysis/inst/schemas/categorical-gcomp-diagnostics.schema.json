@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-diagnostics.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "formula",
+    "reference",
+    "analysis_n",
+    "model_parameters",
+    "converged",
+    "finite",
+    "covariance_method",
+    "covariance_valid",
+    "observed_source_levels",
+    "empty_source_levels",
+    "failure_codes",
+    "draw_count",
+    "requested_seed",
+    "effective_r_seed",
+    "paired_contrasts",
+    "separate_marginal_intervals_subtracted"
+  ],
+  "properties": {
+    "schema_version": {"const": "categorical-gcomp-diagnostics@1.0.0"},
+    "formula": {"type": "string", "minLength": 1},
+    "reference": {"type": "string", "minLength": 1},
+    "analysis_n": {"type": "integer", "minimum": 0},
+    "model_parameters": {"type": "integer", "minimum": 1},
+    "converged": {"const": true},
+    "finite": {"const": true},
+    "covariance_method": {"const": "HC0"},
+    "covariance_valid": {"const": true},
+    "observed_source_levels": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "empty_source_levels": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "failure_codes": {"const": []},
+    "draw_count": {"const": 2000},
+    "requested_seed": {"const": 80320260724},
+    "effective_r_seed": {"type": "integer", "minimum": 1},
+    "paired_contrasts": {"const": true},
+    "separate_marginal_intervals_subtracted": {"const": false}
+  }
+}

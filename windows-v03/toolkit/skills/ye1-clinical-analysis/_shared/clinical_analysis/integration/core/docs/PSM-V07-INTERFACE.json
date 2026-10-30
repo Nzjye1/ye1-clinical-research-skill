@@ -1,0 +1,132 @@
+{
+  "method_id": "causal.psm.att.continuous",
+  "input_version": "clinical-study-input@0.7.0-candidate1",
+  "result_version": "clinical-analysis-result@0.7.0-candidate1",
+  "authorization_ref": "codex_delegation:clinical-core-psm-v07-20261024",
+  "analysis_effect_scale": "matched_mean_difference",
+  "analysis_variance": "paired_t",
+  "missingness": {
+    "strategy": "complete_case_covariates_outcome_required",
+    "fit_scope": "propensity_covariates_only",
+    "exclusion_denominator": "source_subjects"
+  },
+  "normalized_fields": [
+    "psm_options",
+    "psm_semantics"
+  ],
+  "numeric_api": "psm_v07_analyze(data, options, semantics) -> list(record=aggregate, private=list(pairs=data.frame, subjects=data.frame, model=list))",
+  "semantics_fields": [
+    "subject_id",
+    "treatment_definition",
+    "outcome_definition",
+    "outcome_unit",
+    "index_time",
+    "time_unit",
+    "target_population"
+  ],
+  "default_options": {
+    "treatment": "treatment",
+    "outcome": "outcome",
+    "covariates": [
+      "age",
+      "severity",
+      "sex"
+    ],
+    "categorical": {
+      "sex": {
+        "levels": [
+          "F",
+          "M"
+        ],
+        "reference": "F"
+      }
+    },
+    "propensity_model": "logistic_mle",
+    "link": "logit",
+    "estimand": "ATT_retained_matched_treated",
+    "ratio": 1,
+    "replacement": false,
+    "distance": "logit_ps",
+    "caliper": {
+      "width": 0.2,
+      "scale": "sd_logit_ps",
+      "sd_scope": "common_support_retained",
+      "ddof": 1,
+      "boundary": "inclusive"
+    },
+    "common_support": {
+      "strategy": "minmax_both",
+      "boundary": "inclusive",
+      "refit": false
+    },
+    "ordering": {
+      "treated": "descending_logit_ps_then_subject_id_utf8",
+      "control_tie": "subject_id_utf8_ascending",
+      "row_order": "subject_id_utf8_ascending"
+    },
+    "inference": {
+      "method": "paired_t",
+      "ci_level": 0.95,
+      "variance": "sample_variance_of_pair_differences",
+      "conditioning": "formed_matched_pairs"
+    },
+    "diagnostics": {
+      "smd_denominator": "pre_support_complete_case_treated_sample_sd",
+      "standardize_binary": true,
+      "ps_overlap_edges": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
+      ],
+      "balance_reference": 0.1,
+      "indicator_sd": "bernoulli_p1mp"
+    },
+    "guards": {
+      "min_arm_n": 2,
+      "min_probability": 1e-06,
+      "max_glm_iterations": 100,
+      "glm_epsilon": 1e-10,
+      "separation_detection": "numerical_guards_only"
+    },
+    "prespecified": true
+  },
+  "aggregate_sections": [
+    "method_id",
+    "status",
+    "reason_code",
+    "options",
+    "semantics",
+    "flow",
+    "propensity",
+    "support",
+    "effect",
+    "balance",
+    "overlap",
+    "warnings",
+    "limitations"
+  ],
+  "public_additions": "root adds top result_id and per effect/balance/overlap result_id; no patient identities or coefficient values",
+  "private_files": [
+    "psm_pairs.csv",
+    "psm_subjects.csv",
+    "psm_model.json"
+  ],
+  "public_tables": [
+    "psm_flow.csv",
+    "psm_balance.csv",
+    "psm_overlap.csv",
+    "psm_effect.csv"
+  ],
+  "public_figures": [
+    "psm_balance.png",
+    "psm_overlap.png"
+  ]
+}

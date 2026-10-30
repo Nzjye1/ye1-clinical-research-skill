@@ -1,0 +1,4 @@
+interface:
+  display_name: "冻结惩罚线性模型 interventional 贡献与列线图"
+  short_description: "冻结惩罚线性模型 interventional 贡，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-interpretation-linear-interventional 处理这项分析，先自检并核对我提供的问题和变量字典。"

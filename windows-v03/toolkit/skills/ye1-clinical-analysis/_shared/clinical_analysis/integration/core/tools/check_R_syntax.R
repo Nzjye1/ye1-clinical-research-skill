@@ -1,0 +1,6 @@
+args <- commandArgs(trailingOnly=TRUE)
+if(length(args)!=1L) stop("ROOT_REQUIRED")
+root <- normalizePath(args[[1L]],winslash="/",mustWork=TRUE)
+files <- c(list.files(file.path(root,"src/clinanalysis/R"),pattern="\\.R$",full.names=TRUE),file.path(root,"tools/run_core.R"))
+for(f in files) parse(file=f,encoding="UTF-8")
+cat("R_SYNTAX_PASS",length(files),"files\n")

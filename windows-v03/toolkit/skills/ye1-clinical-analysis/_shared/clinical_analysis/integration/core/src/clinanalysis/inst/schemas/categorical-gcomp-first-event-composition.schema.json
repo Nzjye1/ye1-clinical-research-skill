@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-first-event-composition.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "rows"],
+  "properties": {
+    "schema_version": {
+      "const": "categorical-gcomp-first-event-composition@1.0.0"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "first_event",
+          "status",
+          "count",
+          "source_composite_event_denominator",
+          "source_all_row_denominator",
+          "proportion",
+          "ci_low",
+          "ci_high",
+          "interval_method"
+        ],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "first_event": {"type": "string", "minLength": 1},
+          "status": {
+            "enum": [
+              "ESTIMATED",
+              "NOT_ESTIMABLE_EMPTY_SOURCE",
+              "NOT_ESTIMABLE_NO_COMPOSITE_EVENTS"
+            ]
+          },
+          "count": {"type": "integer", "minimum": 0},
+          "source_composite_event_denominator": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "source_all_row_denominator": {"type": "integer", "minimum": 0},
+          "proportion": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "ci_low": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "ci_high": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "interval_method": {"const": "WILSON_SCORE"}
+        }
+      }
+    }
+  }
+}

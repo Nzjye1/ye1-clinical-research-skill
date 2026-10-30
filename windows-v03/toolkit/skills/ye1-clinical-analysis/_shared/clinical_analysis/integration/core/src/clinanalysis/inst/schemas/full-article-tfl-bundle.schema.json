@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/full-article-tfl-bundle.schema.json",
+  "title": "Full article TFL bundle manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "result_bundle_schema_version",
+    "source_result_sha256",
+    "candidate_id",
+    "task_id",
+    "analysis_result_manifest_id",
+    "research_bindings",
+    "execution_authorization_binding",
+    "full_article_target_id",
+    "full_article_profile_checksum",
+    "planned_display_contract_id",
+    "planned_display_contract_sha256",
+    "prior_result_exposure",
+    "confirmatory_claim_allowed",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {"const": "full-article-tfl-bundle@1.0.0"},
+    "manifest_id": {"$ref": "#/$defs/logical_id"},
+    "result_bundle_schema_version": {"const": "categorical-gcomp-result-bundle@1.1.0"},
+    "source_result_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+    "candidate_id": {"$ref": "#/$defs/logical_id"},
+    "task_id": {"$ref": "#/$defs/logical_id"},
+    "analysis_result_manifest_id": {"$ref": "#/$defs/logical_id"},
+    "research_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "candidate_sha256",
+        "sap_id",
+        "sap_sha256",
+        "analysis_task_id",
+        "analysis_task_sha256",
+        "value_set_id",
+        "value_set_sha256",
+        "source_snapshot_id",
+        "source_snapshot_sha256"
+      ],
+      "properties": {
+        "candidate_id": {"$ref": "#/$defs/logical_id"},
+        "candidate_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "sap_id": {"$ref": "#/$defs/logical_id"},
+        "sap_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "analysis_task_id": {"$ref": "#/$defs/logical_id"},
+        "analysis_task_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "value_set_id": {"$ref": "#/$defs/logical_id"},
+        "value_set_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "source_snapshot_id": {"$ref": "#/$defs/logical_id"},
+        "source_snapshot_sha256": {"$ref": "#/$defs/prefixed_sha256"}
+      }
+    },
+    "execution_authorization_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "authorization_id",
+        "authorization_sha256",
+        "candidate_id"
+      ],
+      "properties": {
+        "schema_version": {"const": "categorical-gcomp-formal-execution-binding@1.0.0"},
+        "authorization_id": {"$ref": "#/$defs/logical_id"},
+        "authorization_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "candidate_id": {"$ref": "#/$defs/logical_id"}
+      }
+    },
+    "full_article_target_id": {"$ref": "#/$defs/logical_id"},
+    "full_article_profile_checksum": {"$ref": "#/$defs/prefixed_sha256"},
+    "planned_display_contract_id": {"$ref": "#/$defs/logical_id"},
+    "planned_display_contract_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+    "prior_result_exposure": {"type": "boolean"},
+    "confirmatory_claim_allowed": {"type": "boolean"},
+    "artifacts": {
+      "type": "array",
+      "prefixItems": [
+        {"$ref": "#/$defs/cohort"},
+        {"$ref": "#/$defs/primary_unadjusted"},
+        {"$ref": "#/$defs/primary_adjusted"},
+        {"$ref": "#/$defs/deepening"},
+        {"$ref": "#/$defs/credibility"},
+        {"$ref": "#/$defs/diagnostics"},
+        {"$ref": "#/$defs/table1"},
+        {"$ref": "#/$defs/primary_estimates"},
+        {"$ref": "#/$defs/deepening_credibility"},
+        {"$ref": "#/$defs/figure_cohort"},
+        {"$ref": "#/$defs/figure_primary"},
+        {"$ref": "#/$defs/figure_credibility"}
+      ],
+      "items": false,
+      "minItems": 12,
+      "maxItems": 12
+    }
+  },
+  "$defs": {
+    "prefixed_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "filename": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "logical_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_id",
+        "filename",
+        "source_result_sha256",
+        "sha256",
+        "aggregate_only"
+      ],
+      "properties": {
+        "output_id": {"type": "string"},
+        "filename": {"$ref": "#/$defs/filename"},
+        "source_result_sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "sha256": {"$ref": "#/$defs/prefixed_sha256"},
+        "aggregate_only": {"const": true}
+      }
+    },
+    "cohort": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "OUT_COHORT"}, "filename": {"const": "cohort_flow.json"}}}
+      ]
+    },
+    "primary_unadjusted": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "OUT_PRIMARY_UNADJUSTED"}, "filename": {"const": "unadjusted_source_risks.csv"}}}
+      ]
+    },
+    "primary_adjusted": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "OUT_PRIMARY_ADJUSTED"}, "filename": {"const": "adjusted_standardized_risks_and_differences.csv"}}}
+      ]
+    },
+    "deepening": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "OUT_DEEPENING"}, "filename": {"const": "first_event_composition.csv"}}}
+      ]
+    },
+    "credibility": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "OUT_CREDIBILITY"}, "filename": {"const": "credibility_results.json"}}}
+      ]
+    },
+    "diagnostics": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "OUT_DIAGNOSTICS"}, "filename": {"const": "diagnostics.json"}}}
+      ]
+    },
+    "table1": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "TABLE1"}, "filename": {"const": "table1.csv"}}}
+      ]
+    },
+    "primary_estimates": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "TABLE_PRIMARY_ESTIMATES"}, "filename": {"const": "primary_estimates.csv"}}}
+      ]
+    },
+    "deepening_credibility": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "TABLE_DEEPENING_CREDIBILITY"}, "filename": {"const": "deepening_credibility.csv"}}}
+      ]
+    },
+    "figure_cohort": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "FIGURE_COHORT_FLOW"}, "filename": {"const": "figure_cohort_flow.png"}}}
+      ]
+    },
+    "figure_primary": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "FIGURE_PRIMARY_EFFECT"}, "filename": {"const": "figure_primary_effect.png"}}}
+      ]
+    },
+    "figure_credibility": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {"properties": {"output_id": {"const": "FIGURE_CLINICAL_DEEPENING_FIRST_EVENT_COMPOSITION"}, "filename": {"const": "figure_clinical_deepening_first_event_composition.png"}}}
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "prior_result_exposure": {"const": true}
+        },
+        "required": ["prior_result_exposure"]
+      },
+      "then": {
+        "properties": {
+          "confirmatory_claim_allowed": {"const": false}
+        }
+      }
+    }
+  ]
+}

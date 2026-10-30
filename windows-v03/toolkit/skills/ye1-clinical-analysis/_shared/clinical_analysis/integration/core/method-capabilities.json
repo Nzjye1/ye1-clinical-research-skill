@@ -1,0 +1,1746 @@
+{
+  "schema_version": "clinical-method-capabilities@0.10.0-candidate1",
+  "core_version": "0.10.0-candidate1",
+  "registration_owner": "clinanalysis::register_clinical_common",
+  "single_task_entry": "clinanalysis::run_analysis_task",
+  "methods": [
+    {
+      "method_id": "baseline.table1",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.table1",
+      "provider_version": "ac81e9d41a8744b4d47156f9712c04bfa1cccad44a150baccd9acb00e8c574eb",
+      "provider_code_path": "src/clinanalysis/R/table1.R",
+      "provider_version_scope": "numerical_source_file",
+      "input_schema": "clinical-study-input@0.1.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide",
+        "encounter_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "categorical_denominator": [
+          "nonmissing",
+          "all"
+        ],
+        "summary": [
+          "mean_sd",
+          "median_iqr"
+        ]
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/acceptance-20261024-085638/acceptance-receipt.json",
+          "sha256": "4bf80d69a40ed626f3d01bbc059a71f69da7d6d795bc349360ba0137ce6f4d53",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "association.linear",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.association",
+      "provider_version": "5769cedffafea9e49a81d96e7f7c1ff6b0d5ce81654d81e742dc43ca7828de42",
+      "provider_code_path": "python/clinical_methods/association.py",
+      "provider_version_scope": "numerical_source_file",
+      "input_schema": "clinical-study-input@0.1.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide",
+        "encounter_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "model": "linear",
+        "covariance": "HC3",
+        "missing": "complete_case",
+        "ci_level": 0.95
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/acceptance-20261024-085638/acceptance-receipt.json",
+          "sha256": "4bf80d69a40ed626f3d01bbc059a71f69da7d6d795bc349360ba0137ce6f4d53",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "association.logistic",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.association",
+      "provider_version": "5769cedffafea9e49a81d96e7f7c1ff6b0d5ce81654d81e742dc43ca7828de42",
+      "provider_code_path": "python/clinical_methods/association.py",
+      "provider_version_scope": "numerical_source_file",
+      "input_schema": "clinical-study-input@0.1.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide",
+        "encounter_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "model": "logistic",
+        "covariance": "model",
+        "missing": "complete_case",
+        "ci_level": 0.95
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/acceptance-20261024-085638/acceptance-receipt.json",
+          "sha256": "4bf80d69a40ed626f3d01bbc059a71f69da7d6d795bc349360ba0137ce6f4d53",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.binary.ridge",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.prediction.binary",
+      "provider_version": "9ab7b3fff4690d2d3c4125b647a6a797ba87aa66af1a154da108e83fcbe2abf1",
+      "provider_code_path": "python/clinical_methods/prediction.py",
+      "provider_version_scope": "composite_adapter_and_fixed_numerical_sources",
+      "input_schema": "clinical-study-input@0.2.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "operations": [
+          "train",
+          "evaluate",
+          "infer"
+        ],
+        "split": [
+          "random",
+          "group",
+          "temporal"
+        ],
+        "preprocessing": "training_fold_only",
+        "unknown_categories": "reject",
+        "thresholds": "prespecified_and_frozen",
+        "algorithm": "fixed_Ridge_Logistic"
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6",
+          "sklearn": "1.9.1",
+          "pandas": "2.3.3"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/prediction-acceptance-20261024-090406/acceptance-receipt.json",
+          "sha256": "d8bb1e5e3a1d0bf6fed4a4ed5052b046f9a257af549e9d56a81141ba4d9e7605",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.continuous.nonnegative.ridge",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.prediction.continuous",
+      "provider_version": "8bfd5077c1a49c40f8b1c1f80d35658da2e74c9eba8cbfbdbd5beb075cec5def",
+      "provider_code_path": "python/clinical_methods/continuous_ridge/prediction_engine.py",
+      "provider_version_scope": "composite_adapter_and_fixed_numerical_sources",
+      "input_schema": "clinical-study-input@0.2.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "operations": [
+          "train",
+          "evaluate",
+          "infer"
+        ],
+        "split": [
+          "group"
+        ],
+        "target_policy": {
+          "domain": "nonnegative",
+          "transform": "identity",
+          "inverse_transform": "identity",
+          "output_policy": "clip_lower_zero",
+          "lower_bound": 0
+        },
+        "preprocessing": "training_fold_only",
+        "unknown_categories": "reject",
+        "algorithm": "fixed_Ridge",
+        "inner_CV_minimums": {
+          "train_subjects": 100,
+          "validation_subjects": 30
+        }
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6",
+          "sklearn": "1.9.1",
+          "pandas": "2.3.3"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/prediction-acceptance-20261024-090406/acceptance-receipt.json",
+          "sha256": "d8bb1e5e3a1d0bf6fed4a4ed5052b046f9a257af549e9d56a81141ba4d9e7605",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "association.linear.plan",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.association.plan",
+      "provider_version": "d6f47d7ca6329355492198081394037a0a56d9496126a75db29aac531f3b4277",
+      "provider_code_path": "python/clinical_methods/association.py",
+      "provider_version_scope": "composite_association_source_and_plan_bridge",
+      "input_schema": "clinical-study-input@0.3.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide",
+        "encounter_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "max_prespecified_models": 6,
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "primary_model": "exactly_one_first",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "ci_level": 0.95,
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sensitivity": {
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters_only_in": "sensitivity models",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons"
+        },
+        "subgroup": {
+          "moderator": "declared categorical levels and reference",
+          "exposure": "numeric linear exposure only",
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        },
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ],
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "extrapolation": "refused",
+          "effect_scale": "mean_difference",
+          "standard_error_scale": "outcome_units",
+          "interval_method": "Wald t using full HC3 covariance"
+        },
+        "causal_interpretation": false,
+        "automatic_fallback": false,
+        "model": "linear",
+        "covariance": "HC3"
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/association-plan-acceptance-20261024-085904/acceptance-receipt.json",
+          "sha256": "eb542ea6bafca9916ec8b377e757a687754a66295e816742730fd551ce593491",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "association.logistic.plan",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.association.plan",
+      "provider_version": "d6f47d7ca6329355492198081394037a0a56d9496126a75db29aac531f3b4277",
+      "provider_code_path": "python/clinical_methods/association.py",
+      "provider_version_scope": "composite_association_source_and_plan_bridge",
+      "input_schema": "clinical-study-input@0.3.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide",
+        "encounter_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit character subject/record keys",
+        "declared units/coding/timing/missingness",
+        "bound source/plan/code",
+        "explicit denominator and method scale"
+      ],
+      "supported_options": {
+        "max_prespecified_models": 6,
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "primary_model": "exactly_one_first",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "ci_level": 0.95,
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sensitivity": {
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters_only_in": "sensitivity models",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons"
+        },
+        "subgroup": {
+          "moderator": "declared categorical levels and reference",
+          "exposure": "numeric linear exposure only",
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        },
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ],
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "extrapolation": "refused",
+          "effect_scale": "odds_ratio",
+          "standard_error_scale": "log_odds",
+          "interval_method": "Wald normal on log odds contrast, exponentiated"
+        },
+        "causal_interpretation": false,
+        "automatic_fallback": false,
+        "model": "logistic",
+        "covariance": "model"
+      },
+      "unsupported_conditions": [
+        "real-data execution",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "private_outputs": "models, transforms, raw numerical records and any individual predictions remain local private artifacts",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/association-plan-acceptance-20261024-085904/acceptance-receipt.json",
+          "sha256": "eb542ea6bafca9916ec8b377e757a687754a66295e816742730fd551ce593491",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "survival.kaplan_meier",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.survival",
+      "provider_version": "c2879ba0be5126833b797b9555e30f52d79772908def99d0bc61723e14145264",
+      "provider_code_path": "python/clinical_methods/survival.py",
+      "provider_version_scope": "single_survival_owner_and_registered_bridge",
+      "input_schema": "clinical-study-input@0.4.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "survival_subject"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique character subject key",
+        "explicit origin/duration unit/event and censor codes",
+        "prespecified evaluation grid",
+        "complete-case missing policy",
+        "baseline-only prespecified Cox covariates"
+      ],
+      "supported_options": {
+        "outcome": "single event right censoring",
+        "time_units": [
+          "day",
+          "hour"
+        ],
+        "curve": "unadjusted KM on method complete-case cohort",
+        "risk_table": "t-minus, events before censoring at tied times",
+        "ci": "pointwise Greenwood log-log; boundary endpoints descriptive",
+        "grid": "prespecified, inside complete-case followup; not full event-time staircase",
+        "cox_ties": "breslow",
+        "cox_ci": "normal Wald log HR, exponentiated",
+        "cox_guard": "finite MLE, information conditioning, at least max(20, 10 per parameter) events; engineering guards not adequacy proof",
+        "ph_diagnostic": "descriptive-only Schoenfeld residual vs log-time Spearman rho; no formal p or PH pass",
+        "no_events": "NO_TARGET_EVENTS with counts; no curve or HR",
+        "failed_cox": "partial with exact reason and unadjusted KM; no algorithm fallback"
+      },
+      "unsupported_conditions": [
+        "competing risks",
+        "recurrent events",
+        "delayed entry",
+        "interval censoring",
+        "time-varying covariates",
+        "weights",
+        "clustered/stratified inference",
+        "individual absolute-risk prediction",
+        "formal PH test"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/survival-acceptance-20261024-090853/acceptance-receipt.json",
+          "sha256": "dd16c7a142ae9d1b07959c0331757fc0c4012fc689e675f7bb281cecc03528f8",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "survival.cox.association",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.survival",
+      "provider_version": "c2879ba0be5126833b797b9555e30f52d79772908def99d0bc61723e14145264",
+      "provider_code_path": "python/clinical_methods/survival.py",
+      "provider_version_scope": "single_survival_owner_and_registered_bridge",
+      "input_schema": "clinical-study-input@0.4.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "survival_subject"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique character subject key",
+        "explicit origin/duration unit/event and censor codes",
+        "prespecified evaluation grid",
+        "complete-case missing policy",
+        "baseline-only prespecified Cox covariates"
+      ],
+      "supported_options": {
+        "outcome": "single event right censoring",
+        "time_units": [
+          "day",
+          "hour"
+        ],
+        "curve": "unadjusted KM on method complete-case cohort",
+        "risk_table": "t-minus, events before censoring at tied times",
+        "ci": "pointwise Greenwood log-log; boundary endpoints descriptive",
+        "grid": "prespecified, inside complete-case followup; not full event-time staircase",
+        "cox_ties": "breslow",
+        "cox_ci": "normal Wald log HR, exponentiated",
+        "cox_guard": "finite MLE, information conditioning, at least max(20, 10 per parameter) events; engineering guards not adequacy proof",
+        "ph_diagnostic": "v04 descriptive only; v05 explicit formal nuisance-adjusted score test, km or identity transform, terms=True/singledf=False/global=True, Breslow exact ties",
+        "no_events": "NO_TARGET_EVENTS with counts; no curve or HR",
+        "failed_cox": "partial with exact reason and unadjusted KM; no algorithm fallback",
+        "ph_interpretation": "Asymptotic diagnostic test only; no P value verifies proportional hazards or clinical validity"
+      },
+      "unsupported_conditions": [
+        "competing risks",
+        "recurrent events",
+        "delayed entry",
+        "interval censoring",
+        "time-varying covariates",
+        "weights",
+        "clustered/stratified inference",
+        "individual absolute-risk prediction"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/survival-v05-acceptance-20261024-091150-d93c6b/acceptance-receipt.json",
+          "sha256": "a08cef7046fb648622f5288a49b5afb8ec459041f00e261d260a6bf14599145d",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only",
+      "input_schemas": [
+        "clinical-study-input@0.4.0-candidate1",
+        "clinical-study-input@0.5.0-candidate1"
+      ]
+    },
+    {
+      "method_id": "prediction.survival.cox",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.survival.cox_prediction",
+      "provider_version": "b9a571b01d46bca54dab4606ee5ffc5d09898e55cfbeee3e054ecbb60d6cd7b8",
+      "provider_code_path": "python/clinical_methods/survival.py",
+      "provider_version_scope": "single_survival_owner_and_cox_prediction_bridge",
+      "input_schema": "clinical-study-input@0.5.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "survival_subject"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "explicit disjoint full subject partition before complete-case selection",
+        "canonical identity namespace",
+        "time-zero/time-unit/event/censor definitions",
+        "prespecified horizons",
+        "fixed covariate roles/units/levels/references"
+      ],
+      "supported_options": {
+        "operations": [
+          "train",
+          "infer"
+        ],
+        "fit_engine": "existing statsmodels.PHReg Breslow owner",
+        "missing": "training complete cases only; application feature missingness rejected",
+        "preprocessing": "freeze training design mean/std and declared categorical coding; no application fitting",
+        "baseline": "right-continuous centered Breslow cumulative hazard, event times included",
+        "risk": "1-exp(-H0(t)*exp((x-center) beta)); not HR-as-probability",
+        "support": "0 through last training event, no extrapolation",
+        "application": "same model/namespace/semantics, known training ID overlap rejected",
+        "public_results": "prediction summaries and separate training/application event-censor counts; no individual identifiers",
+        "private_results": "strict JSON frozen model and individual predictions; no pickle",
+        "validation": "synthetic technical application and independent R reference only",
+        "evaluation_entry": "Separate evaluation.survival.cox.ipcw consumes unchanged frozen inference; this method emits predictions only."
+      },
+      "unsupported_conditions": [
+        "time-dependent ROC/AUC",
+        "IPCW Brier",
+        "survival calibration",
+        "survival DCA",
+        "prediction confidence intervals",
+        "missing application features",
+        "unknown categories",
+        "time extrapolation",
+        "competing events",
+        "delayed entry",
+        "recurrent events",
+        "time-varying covariates",
+        "weights/clustered/stratified inference"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/survival-v05-acceptance-20261024-091150-d93c6b/acceptance-receipt.json",
+          "sha256": "a08cef7046fb648622f5288a49b5afb8ec459041f00e261d260a6bf14599145d",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "evaluation.survival.cox.ipcw",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinical_methods.survival.evaluation",
+      "provider_version": "f61cfc4a25013017da127e9bb08d2865fdddb6101a5a1a17e2deb26a13774c22",
+      "provider_code_path": "python/clinical_methods/survival_evaluation.py",
+      "provider_version_scope": "evaluation_owner_bridge_and_unchanged_frozen_Cox_owner_bridge",
+      "frozen_model_provider_version": "b9a571b01d46bca54dab4606ee5ffc5d09898e55cfbeee3e054ecbb60d6cd7b8",
+      "input_schema": "clinical-study-input@0.6.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "survival_subject"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "hash-bound frozen v05 Cox model",
+        "complete features and followup labels",
+        "prespecified horizons and ROC/DCA grids and calibration bins",
+        "canonical identity namespace with training overlap check",
+        "explicit single-event right-censoring time/event semantics",
+        "declared independence of censoring from event time and model features"
+      ],
+      "supported_options": {
+        "censoring": "evaluation-cohort marginal reverse KM, original events before original censors",
+        "cases": "event and U<=t; G(U-) weight",
+        "controls": "U>t; G(t) weight",
+        "early_censor": "zero contribution, retained in population n",
+        "auc": "exact weighted cumulative/dynamic case-control rank; half exact-score ties",
+        "roc": "prespecified grid plus all-negative boundary; not integrated for AUC",
+        "brier": "IPCW squared error divided by all evaluation subjects",
+        "calibration": "descriptive fixed bins, Hajek observed proportions; separate prediction n and weight denominators",
+        "dca": "IPCW population moments, fixed thresholds, treat-all and none; not positive-group KM",
+        "weight_guards": "G>=0.05, weight<=20; equality allowed, no clipping; engineering bounds only",
+        "support": "0 through last training event; metric-specific no-case/control reasons",
+        "uncertainty": "not_implemented",
+        "frozen_model_format": "clinical-frozen-survival-cox@0.5.0-candidate1"
+      },
+      "unsupported_conditions": [
+        "conditional or informative censoring",
+        "unknown categories or missing evaluation labels/features",
+        "data-adaptive horizon/threshold/bin selection",
+        "risk model refit or external baseline update",
+        "competing risks/delayed entry/recurrent events",
+        "survey or case weights",
+        "metric confidence intervals",
+        "calibration slope/intercept/test or smooth calibration",
+        "integrated Brier/incident-dynamic AUC",
+        "real database or clinical external validation"
+      ],
+      "runtime_requirements": {
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        },
+        "python": {
+          "python": "3.12.15",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.6"
+        }
+      },
+      "private_outputs": "frozen model, individual predictions, censoring time grid and IPCW contributions",
+      "reference_scope": "R survival censoring construction and independent source-formula metrics, not specialist-package metric validation",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/survival-v06-acceptance-20261024-091644-140c05/acceptance-receipt.json",
+          "sha256": "d0777f88791159fb4e1aa44af81d4a4b8efdade40e5f3b8987aed00cbe266f8e",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "causal.psm.att.continuous",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.psm_v07",
+      "provider_version": "ad78577603355f69d7f6717294e739ae95bf88d629bcd83d30fe7423c1187c31",
+      "provider_code_path": "src/clinanalysis/R/psm_v07.R",
+      "provider_version_scope": "sole_PSM_numerical_owner",
+      "input_schema": "clinical-study-input@0.7.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "patient_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique string subject ID",
+        "binary 0/1 treatment at index",
+        "1..8 declared pre-treatment PS covariates",
+        "complete signed continuous post-index outcome with unit",
+        "prespecified matching and inference options"
+      ],
+      "supported_options": {
+        "propensity": "single unpenalized stats::glm binomial logit MLE; explicit categories and fixed controls",
+        "missing": "complete-case PS covariates; missing treatment or outcome refused before any filtering",
+        "distance": "raw fitted logit PS, no clipping",
+        "support": "inclusive observed minmax intersection, discard both arms, no PS refit",
+        "caliper": "preset multiplier default 0.2 times support-retained combined sample SD; inclusive boundary",
+        "matching": "1:1 greedy without replacement; descending treated logit; exact ties by UTF-8 ID bytes",
+        "target": "complete-covariate support-retained matched treated; not original full-cohort ATT",
+        "effect": "treated-minus-control mean pair difference; conditional paired t inference",
+        "variance": "sample variance of pair differences / pair count; no independent-sample SE",
+        "degenerate": "<2 pairs or zero difference variance retains defined descriptive contrast with null CI/p and reason",
+        "balance": "fixed pre-support complete-case treated SD; numeric sample SD, categorical Bernoulli indicator SD",
+        "overlap": "prespecified probability bins for fit, support-retained and matched populations",
+        "separation": "numerical guards only; no formal complete/quasi-separation proof",
+        "maximum_synthetic_subjects": 200
+      },
+      "unsupported_conditions": [
+        "binary or survival outcomes",
+        "imputation or missing outcomes/treatment",
+        "multilevel or time-varying treatment",
+        "replacement or other ratios/optimal matching",
+        "adaptive calipers or balance/significance tuning",
+        "survey/clustered samples",
+        "full-cohort ATT after treatment discard",
+        "PS-estimation and matching-selection uncertainty",
+        "formal separation diagnosis",
+        "real database/clinical causal validation"
+      ],
+      "runtime_requirements": {
+        "R_stats": {
+          "R": "4.6.1",
+          "stats": "4.6.1"
+        },
+        "core_R": {
+          "R": "4.6.1",
+          "jsonlite": "2.0.0",
+          "digest": "0.6.39"
+        }
+      },
+      "private_outputs": "individual PS/status, pair relations with outcome differences, and fitted coefficients/design; local only",
+      "reference_scope": "independent R glm/design and source-formula matcher plus paired t.test; MatchIt unavailable and not installed",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/psm-v07-acceptance-20261024-091945-31adc0/acceptance-receipt.json",
+          "sha256": "150efd33bca2318423c2eab1d996427af8e8a81e461cce8c6a0808721f4c9661",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.continuous.signed.lasso",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.penalized_v08",
+      "provider_version": "079a547b0e570e7d3a88469a492819f8da17c204c5fe37a9bee7bb270162ec28",
+      "provider_code_path": "src/clinanalysis/R/penalized_v08.R",
+      "provider_version_scope": "single preprocessing/CV/fitting/inference owner plus separately hashed fixed glmnet and Matrix dependencies",
+      "input_schema": "clinical-study-input@0.8.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique canonical string patient ID",
+        "explicit feature roles/units/availability",
+        "preassigned patient/group partition and nonempty CV folds",
+        "complete labels for train/evaluate",
+        "same canonical identity namespace and frozen pipeline for external application"
+      ],
+      "supported_options": {
+        "family": "gaussian",
+        "penalty": "lasso",
+        "alpha": "exactly 1",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category",
+        "response": "training mean/population-SD transform and inverse transform; signed outputs without clipping",
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "class_counts": "not applicable",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12,
+        "maximum_encoded_columns_before_variance_filter": 60
+      },
+      "unsupported_conditions": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "runtime_requirements": {
+        "versions": {
+          "R": "4.6.1",
+          "glmnet": "5.1",
+          "Matrix": "1.7.5"
+        }
+      },
+      "private_outputs": "full frozen transform/model and training IDs/groups; fold and individual predictions stay local only",
+      "reference_scope": "independent preprocessing and direct installed glmnet calls, plus frozen-coefficient formula inference; not a second optimization engine",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/penalized-v08-acceptance-20261024-092128-0e1304/acceptance-receipt.json",
+          "sha256": "9f7147fd5685f51ae6f73fb367ee7e2cdb01f654cab513f473c1a692ce11f349",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.continuous.signed.elasticnet",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.penalized_v08",
+      "provider_version": "079a547b0e570e7d3a88469a492819f8da17c204c5fe37a9bee7bb270162ec28",
+      "provider_code_path": "src/clinanalysis/R/penalized_v08.R",
+      "provider_version_scope": "single preprocessing/CV/fitting/inference owner plus separately hashed fixed glmnet and Matrix dependencies",
+      "input_schema": "clinical-study-input@0.8.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique canonical string patient ID",
+        "explicit feature roles/units/availability",
+        "preassigned patient/group partition and nonempty CV folds",
+        "complete labels for train/evaluate",
+        "same canonical identity namespace and frozen pipeline for external application"
+      ],
+      "supported_options": {
+        "family": "gaussian",
+        "penalty": "elasticnet",
+        "alpha": "one prespecified value strictly between 0 and 1",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category",
+        "response": "training mean/population-SD transform and inverse transform; signed outputs without clipping",
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "class_counts": "not applicable",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12,
+        "maximum_encoded_columns_before_variance_filter": 60
+      },
+      "unsupported_conditions": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "runtime_requirements": {
+        "versions": {
+          "R": "4.6.1",
+          "glmnet": "5.1",
+          "Matrix": "1.7.5"
+        }
+      },
+      "private_outputs": "full frozen transform/model and training IDs/groups; fold and individual predictions stay local only",
+      "reference_scope": "independent preprocessing and direct installed glmnet calls, plus frozen-coefficient formula inference; not a second optimization engine",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/penalized-v08-acceptance-20261024-092128-0e1304/acceptance-receipt.json",
+          "sha256": "9f7147fd5685f51ae6f73fb367ee7e2cdb01f654cab513f473c1a692ce11f349",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.binary.lasso",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.penalized_v08",
+      "provider_version": "079a547b0e570e7d3a88469a492819f8da17c204c5fe37a9bee7bb270162ec28",
+      "provider_code_path": "src/clinanalysis/R/penalized_v08.R",
+      "provider_version_scope": "single preprocessing/CV/fitting/inference owner plus separately hashed fixed glmnet and Matrix dependencies",
+      "input_schema": "clinical-study-input@0.8.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique canonical string patient ID",
+        "explicit feature roles/units/availability",
+        "preassigned patient/group partition and nonempty CV folds",
+        "complete labels for train/evaluate",
+        "same canonical identity namespace and frozen pipeline for external application"
+      ],
+      "supported_options": {
+        "family": "binomial",
+        "penalty": "lasso",
+        "alpha": "exactly 1",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category",
+        "response": "explicit 0/1 with 1 event; probability is logistic of frozen linear score",
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "class_counts": "at least 8 per class in every fit subset",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12,
+        "maximum_encoded_columns_before_variance_filter": 60
+      },
+      "unsupported_conditions": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "runtime_requirements": {
+        "versions": {
+          "R": "4.6.1",
+          "glmnet": "5.1",
+          "Matrix": "1.7.5"
+        }
+      },
+      "private_outputs": "full frozen transform/model and training IDs/groups; fold and individual predictions stay local only",
+      "reference_scope": "independent preprocessing and direct installed glmnet calls, plus frozen-coefficient formula inference; not a second optimization engine",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/penalized-v08-acceptance-20261024-092128-0e1304/acceptance-receipt.json",
+          "sha256": "9f7147fd5685f51ae6f73fb367ee7e2cdb01f654cab513f473c1a692ce11f349",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.binary.elasticnet",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.penalized_v08",
+      "provider_version": "079a547b0e570e7d3a88469a492819f8da17c204c5fe37a9bee7bb270162ec28",
+      "provider_code_path": "src/clinanalysis/R/penalized_v08.R",
+      "provider_version_scope": "single preprocessing/CV/fitting/inference owner plus separately hashed fixed glmnet and Matrix dependencies",
+      "input_schema": "clinical-study-input@0.8.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique canonical string patient ID",
+        "explicit feature roles/units/availability",
+        "preassigned patient/group partition and nonempty CV folds",
+        "complete labels for train/evaluate",
+        "same canonical identity namespace and frozen pipeline for external application"
+      ],
+      "supported_options": {
+        "family": "binomial",
+        "penalty": "elasticnet",
+        "alpha": "one prespecified value strictly between 0 and 1",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category",
+        "response": "explicit 0/1 with 1 event; probability is logistic of frozen linear score",
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "class_counts": "at least 8 per class in every fit subset",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12,
+        "maximum_encoded_columns_before_variance_filter": 60
+      },
+      "unsupported_conditions": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "runtime_requirements": {
+        "versions": {
+          "R": "4.6.1",
+          "glmnet": "5.1",
+          "Matrix": "1.7.5"
+        }
+      },
+      "private_outputs": "full frozen transform/model and training IDs/groups; fold and individual predictions stay local only",
+      "reference_scope": "independent preprocessing and direct installed glmnet calls, plus frozen-coefficient formula inference; not a second optimization engine",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/penalized-v08-acceptance-20261024-092128-0e1304/acceptance-receipt.json",
+          "sha256": "9f7147fd5685f51ae6f73fb367ee7e2cdb01f654cab513f473c1a692ce11f349",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "interpretation.linear.interventional",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.interpretation_v09",
+      "provider_version": "0460be8b56fa85432343f5bf200aa9ab226c335d2481edf179df46c0516cd82c",
+      "provider_code_path": "src/clinanalysis/R/interpretation_v09.R",
+      "provider_version_scope": "single grouped interventional affine contribution and nomogram owner; existing frozen preprocessing and prediction are reused",
+      "input_schema": "clinical-study-input@0.9.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "frozen v08 penalized model",
+        "v09 training-only frozen explainer",
+        "same canonical semantics and disjoint synthetic application subjects",
+        "explicit feature units/availability"
+      ],
+      "supported_options": {
+        "models": [
+          "prediction.continuous.signed.lasso",
+          "prediction.continuous.signed.elasticnet",
+          "prediction.binary.lasso",
+          "prediction.binary.elasticnet"
+        ],
+        "definition": "raw-feature-grouped interventional linear SHAP, full equal-weight empirical training background",
+        "score_scales": [
+          "signed original continuous outcome units",
+          "raw log odds"
+        ],
+        "background": "full final-training partition; frozen transformation applied without learning; stable private bundle",
+        "importance": "application-population mean of absolute grouped contribution; sum within feature before absolute value",
+        "nomogram": "frozen original-unit/category domains and missing-value path; numeric score and separate identity/logistic output backcheck",
+        "constant_model": "zero contributions and points with a constant score/output map",
+        "extrapolation": "reject outside frozen per-feature numeric domain; domain box does not prove joint support",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12
+      },
+      "unsupported_conditions": [
+        "conditional or probability-scale SHAP",
+        "nonlinear models",
+        "Cox/Ridge/association interpretation and nomograms",
+        "causal importance",
+        "training patient explanation through this disjoint application contract",
+        "uncertainty and selection inference",
+        "real clinical validation"
+      ],
+      "runtime_requirements": {
+        "R": "4.6.1",
+        "frozen_model_runtime": {
+          "R": "4.6.1",
+          "glmnet": "5.1",
+          "Matrix": "1.7.5"
+        }
+      },
+      "private_outputs": "training background, individual grouped/encoded contributions and per-subject nomogram points",
+      "reference_scope": "independent complete raw-feature Shapley coalition enumeration and affine/points formulas; not official SHAP or rms runtime execution",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/interpretation-v09-acceptance-20261024-092625-5ccc40/acceptance-receipt.json",
+          "sha256": "e826b94607dba0b48984f8e39565fe793e5237e2dcb3465c638929aac8e12edc",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.survival.cox.lasso",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.cox_penalized_v10",
+      "provider_version": "47bbff552812aa612838ab5aaa795b7923e3d0d7ed165a89219658bfacd058a5",
+      "provider_code_path": "src/clinanalysis/R/cox_penalized_v10.R",
+      "provider_version_scope": "glmnet is the sole coefficient optimizer; installed survival estimates only a fixed-offset training baseline; unchanged v08 preprocessing owner",
+      "input_schema": "clinical-study-input@0.10.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique patient and optional group identities",
+        "positive duration and exact event=1/censor=0 in training",
+        "pre-index feature semantics",
+        "preset partitions/folds/alpha/lambda/horizons",
+        "training-bound frozen baseline and preprocessing for inference"
+      ],
+      "supported_options": {
+        "operations": [
+          "train",
+          "infer"
+        ],
+        "penalty": "lasso",
+        "alpha": 1,
+        "ties": "breslow_explicit",
+        "censoring": "single_event_right_censored",
+        "cv": "sum heldout-only fold Breslow deviance divided by total validation events; largest lambda on exact loss ties",
+        "preprocessing": "fit-fold median/mode, observed categories, treatment encoding, population SD",
+        "baseline": "fixed eta-mean(eta) offset only; no coefficient refitting; right-continuous Breslow step",
+        "prediction_scales": [
+          "log_relative_hazard",
+          "centered_log_relative_hazard",
+          "horizon_specific_event_probability"
+        ],
+        "support": "prespecified nonnegative horizons through maximum observed training follow-up; no extrapolation",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12,
+        "maximum_horizons": 8
+      },
+      "unsupported_conditions": [
+        "competing/recurrent events, delayed entry, strata or time-varying features",
+        "weights or clustered inference",
+        "temporal or nested CV and multi-alpha tuning",
+        "unseen observed category",
+        "new Cox-penalized IPCW evaluation bridge",
+        "selection-adjusted inference, p-values, intervals and formal PH tests",
+        "Cox explanation, SHAP and nomograms",
+        "real clinical external validation"
+      ],
+      "runtime_requirements": {
+        "R": "4.6.1",
+        "glmnet": "5.1",
+        "Matrix": "1.7.5",
+        "survival": "3.8.6"
+      },
+      "private_outputs": "full frozen pipeline including subject/group identity provenance, individual scores and risks",
+      "reference_scope": "independent preprocessing and direct calls share glmnet solver; independent Breslow formulas and fixed-coefficient survival baseline/risk references; not independent optimizer or clinical validation",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/cox-penalized-v10-acceptance-20261024-final-01/acceptance-receipt.json",
+          "sha256": "d5354407c21f243a08a4f2c9f9942ebe3d7db924a1e9de09cfe62f0da179387f",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    },
+    {
+      "method_id": "prediction.survival.cox.elasticnet",
+      "method_version": "1.0.0-candidate1",
+      "provider_id": "clinanalysis.cox_penalized_v10",
+      "provider_version": "47bbff552812aa612838ab5aaa795b7923e3d0d7ed165a89219658bfacd058a5",
+      "provider_code_path": "src/clinanalysis/R/cox_penalized_v10.R",
+      "provider_version_scope": "glmnet is the sole coefficient optimizer; installed survival estimates only a fixed-offset training baseline; unchanged v08 preprocessing owner",
+      "input_schema": "clinical-study-input@0.10.0-candidate1",
+      "result_schema": "clinical-analysis-result@0.10.0-candidate1",
+      "supported_view_kinds": [
+        "subject_wide"
+      ],
+      "supported_designs": [
+        "iid"
+      ],
+      "supported_weights": [
+        "none"
+      ],
+      "required_fields": [
+        "unique patient and optional group identities",
+        "positive duration and exact event=1/censor=0 in training",
+        "pre-index feature semantics",
+        "preset partitions/folds/alpha/lambda/horizons",
+        "training-bound frozen baseline and preprocessing for inference"
+      ],
+      "supported_options": {
+        "operations": [
+          "train",
+          "infer"
+        ],
+        "penalty": "elasticnet",
+        "alpha": "single prespecified value strictly between zero and one",
+        "ties": "breslow_explicit",
+        "censoring": "single_event_right_censored",
+        "cv": "sum heldout-only fold Breslow deviance divided by total validation events; largest lambda on exact loss ties",
+        "preprocessing": "fit-fold median/mode, observed categories, treatment encoding, population SD",
+        "baseline": "fixed eta-mean(eta) offset only; no coefficient refitting; right-continuous Breslow step",
+        "prediction_scales": [
+          "log_relative_hazard",
+          "centered_log_relative_hazard",
+          "horizon_specific_event_probability"
+        ],
+        "support": "prespecified nonnegative horizons through maximum observed training follow-up; no extrapolation",
+        "maximum_synthetic_subjects": 200,
+        "maximum_raw_features": 12,
+        "maximum_horizons": 8
+      },
+      "unsupported_conditions": [
+        "competing/recurrent events, delayed entry, strata or time-varying features",
+        "weights or clustered inference",
+        "temporal or nested CV and multi-alpha tuning",
+        "unseen observed category",
+        "new Cox-penalized IPCW evaluation bridge",
+        "selection-adjusted inference, p-values, intervals and formal PH tests",
+        "Cox explanation, SHAP and nomograms",
+        "real clinical external validation"
+      ],
+      "runtime_requirements": {
+        "R": "4.6.1",
+        "glmnet": "5.1",
+        "Matrix": "1.7.5",
+        "survival": "3.8.6"
+      },
+      "private_outputs": "full frozen pipeline including subject/group identity provenance, individual scores and risks",
+      "reference_scope": "independent preprocessing and direct calls share glmnet solver; independent Breslow formulas and fixed-coefficient survival baseline/risk references; not independent optimizer or clinical validation",
+      "validation_evidence": [
+        {
+          "local_ref": "evidence/cox-penalized-v10-acceptance-20261024-final-01/acceptance-receipt.json",
+          "sha256": "d5354407c21f243a08a4f2c9f9942ebe3d7db924a1e9de09cfe62f0da179387f",
+          "scope": "Bounded synthetic software checks only; scientific review pending"
+        }
+      ],
+      "integration_status": "synthetic_engineering_validated",
+      "scope": "SYNTHETIC_TEST_ONLY_LOCAL_CANDIDATE",
+      "test_only": true,
+      "scientific_review": "pending",
+      "export_status": "local_only"
+    }
+  ],
+  "unregistered_capabilities": [
+    {
+      "method_group": "RCS_with_subgroup_interaction",
+      "integration_status": "integration_pending"
+    },
+    {
+      "method_group": "categorical_exposure_subgroup_contrasts",
+      "integration_status": "integration_pending"
+    },
+    {
+      "method_group": "survey",
+      "integration_status": "integration_pending"
+    },
+    {
+      "method_group": "longitudinal",
+      "integration_status": "integration_pending"
+    },
+    {
+      "method_group": "trajectory/clustering",
+      "integration_status": "integration_pending"
+    },
+    {
+      "method_group": "postindex_outcome_descriptive_baseline_roles",
+      "integration_status": "integration_pending"
+    },
+    {
+      "method_group": "competing_risk_survival",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "delayed_entry_recurrent_timevarying_survival",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "survival_prediction_uncertainty",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "real_external_survival_validation_and_transportability",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "conditional_censoring_IPCW",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "survival_calibration_slope_intercept_tests_intervals",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "survival_metric_uncertainty_and_integrated_scores",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "shared_IPTW_other_causal_methods",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "PSM_binary_survival_other_ratios_and_designs",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "formal_propensity_separation_detection",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "PS_estimation_matching_selection_uncertainty",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "penalized_multi_alpha_search_temporal_nested_CV",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "valid_postselection_inference_and_selection_stability",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "penalized_prediction_uncertainty_and_calibration",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "signed_continuous_Ridge_without_legacy_clipping",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "conditional_probability_scale_and_nonlinear_SHAP",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "Cox_Ridge_association_nomograms_and_explanations",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "binary_and_survival_matched_outcome_inference",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    },
+    {
+      "method_group": "penalized_Cox_IPCW_PH_explanations_nomograms_uncertainty",
+      "integration_status": "not_implemented_in_shared_core",
+      "followup_required": true
+    }
+  ],
+  "publication_status": "NOT_RELEASED",
+  "real_database_adapters": "NOT_VALIDATED",
+  "clinical_scientific_acceptance": "NOT_PERFORMED",
+  "original_35_row_crosswalk": "docs/CAPABILITY-CROSSWALK-V10.json"
+}

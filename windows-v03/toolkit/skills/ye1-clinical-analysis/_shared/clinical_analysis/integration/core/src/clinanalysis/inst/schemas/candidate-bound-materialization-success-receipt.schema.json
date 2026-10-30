@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/candidate-bound-materialization-success-receipt.schema.json",
+  "title": "CVCC V2 candidate-bound materialization success receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "receipt_id", "status", "candidate_id", "scope", "bindings", "dataset", "field_contract", "counts", "sodium_qc", "integrity", "model_readiness", "execution_boundaries", "privacy", "next_responsible_actor"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {"const": "RECEIPT.CVCC-PRED-ISO-001.ANALYSIS-READY-V2-MATERIALIZATION-RESUME.V3"},
+    "status": {"const": "MATERIALIZED_FIELD_CONTRACT_PASS_MODEL_READINESS_BLOCKED"},
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "scope": {"const": "CANDIDATE_BOUND_V2_MATERIALIZATION_NO_MODEL_EXECUTION"},
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sap_id", "sap_sha256", "task_id", "task_sha256", "handoff_id", "handoff_sha256", "sodium_amendment_id", "sodium_amendment_sha256", "preflight_sha256", "freeze_manifest_sha256", "source_id", "source_integrity_receipt_sha256"],
+      "properties": {
+        "sap_id": {"const": "SAP.CVCC-PRED-ISO-001.FROZEN.V2"},
+        "sap_sha256": {"const": "ec1a37f5269d97095a3397965dbcccd54d237a1ea4f967c27c0fe3c766cccd5f"},
+        "task_id": {"const": "TASK.CVCC-PRED-ISO-001.FORMAL-FG.V3"},
+        "task_sha256": {"const": "aa241c8586effa96f827b0b00e4adb02c90a4936ccf0c9b04cb0d98043d85d0a"},
+        "handoff_id": {"const": "HANDOFF.CVCC-PRED-ISO-001.V2-MATERIALIZATION-RESUME.V3"},
+        "handoff_sha256": {"const": "2a4e5c9f13071a59bb29ac7a389ac1ebc3f43aa437b1fd3cbdc5a852611e8dd4"},
+        "sodium_amendment_id": {"const": "AMENDMENT.CVCC-PRED-ISO-001.SODIUM-LATEST-TIE.V1"},
+        "sodium_amendment_sha256": {"const": "3d84089d2573f81b8304be4d292e710279cf1156960030ecd5d3d4a2bf7f74ee"},
+        "preflight_sha256": {"const": "f123d1407904f3ef43bd17e5528aaabe528152d0979c0b638acc3f494688a5b2"},
+        "freeze_manifest_sha256": {"const": "907f472bdaee07585f2e7c04689b3f744d5ef0cb10ce5eb47e1fb612093cee90"},
+        "source_id": {"const": "MIMIC-IV-V3.1-LOCAL"},
+        "source_integrity_receipt_sha256": {"const": "bf4f26bec29c0929d0aba2c45ca3c8d1122d3bfad85512c2cf8aae825e9fb03b"}
+      }
+    },
+    "dataset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["dataset_id", "created", "registration_requested", "sha256", "row_count", "column_count", "patient_level_file_git_ignored"],
+      "properties": {
+        "dataset_id": {"const": "DATASET.CVCC-PRED-ISO-001.ANALYSIS-READY.V2"},
+        "created": {"const": true},
+        "registration_requested": {"const": true},
+        "sha256": {"const": "d9d79eb2f9521b6e1c909c533f09ffe6a94514ebfc1600a4d948b5849a676801"},
+        "row_count": {"const": 5735},
+        "column_count": {"const": 34},
+        "patient_level_file_git_ignored": {"const": true}
+      }
+    },
+    "field_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_field_count", "validated_field_count", "status", "patient_isolation_pass", "outcome_semantics_pass", "transformation_domain_pass", "future_information_pass"],
+      "properties": {
+        "required_field_count": {"const": 34},
+        "validated_field_count": {"const": 34},
+        "status": {"const": "PASS"},
+        "patient_isolation_pass": {"const": true},
+        "outcome_semantics_pass": {"const": true},
+        "transformation_domain_pass": {"const": true},
+        "future_information_pass": {"const": true}
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["row_count", "development_n", "validation_n", "delirium_event_n", "competing_event_n", "outcome_observed_n", "uta_only_n", "other_unobserved_n"],
+      "properties": {
+        "row_count": {"const": 5735}, "development_n": {"const": 3655},
+        "validation_n": {"const": 2080}, "delirium_event_n": {"const": 793},
+        "competing_event_n": {"const": 3977}, "outcome_observed_n": {"const": 5271},
+        "uta_only_n": {"const": 120}, "other_unobserved_n": {"const": 344}
+      }
+    },
+    "sodium_qc": {
+      "type": "object", "additionalProperties": false,
+      "required": ["records_with_valid_0_12h_value_n", "output_nonmissing_n", "output_missing_n", "SODIUM_SEMANTIC_CONFLICT_n", "SODIUM_NO_LANDMARK_AVAILABLE_RESULT_n", "prohibited_selectors_used"],
+      "properties": {
+        "records_with_valid_0_12h_value_n": {"const": 4743},
+        "output_nonmissing_n": {"const": 4053},
+        "output_missing_n": {"const": 1682},
+        "SODIUM_SEMANTIC_CONFLICT_n": {"const": 0},
+        "SODIUM_NO_LANDMARK_AVAILABLE_RESULT_n": {"const": 690},
+        "prohibited_selectors_used": {"type": "array", "maxItems": 0}
+      }
+    },
+    "integrity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_manifest_sha256_before", "source_manifest_sha256_after", "prior_dataset_sha256_before", "prior_dataset_sha256_after", "identity_mismatch_n", "frozen_lineage_mismatch_n", "source_mutated", "prior_dataset_mutated"],
+      "properties": {
+        "source_manifest_sha256_before": {"const": "b1f75ad5aba53104bce181da819b17fa1ef47f9f53ba09bde2cb7f8ca10f2675"},
+        "source_manifest_sha256_after": {"const": "b1f75ad5aba53104bce181da819b17fa1ef47f9f53ba09bde2cb7f8ca10f2675"},
+        "prior_dataset_sha256_before": {"const": "f3a6e99448e605f3ce60ab3bcce5ce8cc9da19857484aa998489886b6bd18600"},
+        "prior_dataset_sha256_after": {"const": "f3a6e99448e605f3ce60ab3bcce5ce8cc9da19857484aa998489886b6bd18600"},
+        "identity_mismatch_n": {"const": 0}, "frozen_lineage_mismatch_n": {"const": 0},
+        "source_mutated": {"const": false}, "prior_dataset_mutated": {"const": false}
+      }
+    },
+    "model_readiness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "blocker_codes", "all_missing_predictors", "variable_drop_allowed", "untimed_ami_fallback_allowed"],
+      "properties": {
+        "status": {"const": "BLOCKED"},
+        "blocker_codes": {"type": "array", "prefixItems": [{"const": "DEVELOPMENT_PREDICTOR_ALL_MISSING"}], "items": false, "minItems": 1, "maxItems": 1},
+        "all_missing_predictors": {"type": "array", "prefixItems": [{"const": "ami_type"}], "items": false, "minItems": 1, "maxItems": 1},
+        "variable_drop_allowed": {"const": false}, "untimed_ami_fallback_allowed": {"const": false}
+      }
+    },
+    "execution_boundaries": {
+      "type": "object", "additionalProperties": false,
+      "required": ["run_analysis_task_called", "fine_gray_called", "imputation_called", "bootstrap_called", "dca_called", "sensitivity_called", "formal_authorization_created_or_consumed", "formal_model_execution_authorized"],
+      "properties": {
+        "run_analysis_task_called": {"const": false}, "fine_gray_called": {"const": false},
+        "imputation_called": {"const": false}, "bootstrap_called": {"const": false},
+        "dca_called": {"const": false}, "sensitivity_called": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "formal_model_execution_authorized": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["aggregate_only", "patient_level_payload", "physical_paths_present", "patient_level_file_committed"],
+      "properties": {
+        "aggregate_only": {"const": true}, "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false}, "patient_level_file_committed": {"const": false}
+      }
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE_REGISTER_DATASET_AND_ROUTE_MODEL_READINESS_BLOCKER"}
+  }
+}

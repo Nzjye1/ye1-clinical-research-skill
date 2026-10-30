@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/cvcc-v5-imputation-repair-acceptance-receipt.schema.json",
+  "title": "CVCC V5 imputation root-cause repair acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "receipt_id", "status", "candidate_id", "trigger",
+    "root_cause", "repair", "contracts", "synthetic_acceptance",
+    "verification", "execution_boundaries", "privacy", "residual_risks",
+    "completed_at", "next_responsible_actor"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {
+      "const": "RECEIPT.CVCC-PRED-ISO-001.V5-IMPUTATION-ROOT-CAUSE-REPAIR.V1"
+    },
+    "status": {
+      "const": "V5_IMPUTATION_ROOT_CAUSE_CONFIRMED_SYNTHETICALLY_REPAIRED_NOT_EXECUTION_AUTHORIZED"
+    },
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_commit", "analysis_failure_commit", "failure_receipt_sha256",
+        "failure_diagnostic_sha256", "v5_terminal", "v5_retried"
+      ],
+      "properties": {
+        "control_commit": {"const": "b549535"},
+        "analysis_failure_commit": {
+          "const": "f4d568c1b0b6b1e6da7c40928615525385fffc5f"
+        },
+        "failure_receipt_sha256": {
+          "const": "7ea5dba6f89102c1b4b7aa70f3d3870755747a838e9b4d926cb5c7953ad14d6d"
+        },
+        "failure_diagnostic_sha256": {
+          "const": "cb13db6057b03f4125a6ded2816edd7a38fb1460ad4cf4ac8e7d216042204dcc"
+        },
+        "v5_terminal": {"const": true},
+        "v5_retried": {"const": false}
+      }
+    },
+    "root_cause": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failure_stage", "last_completed_stage", "original_safe_code",
+        "minimum_failing_substage", "defect", "legacy_auxiliary_transform",
+        "zero_semantics", "confirmation", "historical_raw_condition_available"
+      ],
+      "properties": {
+        "failure_stage": {"const": "IMPUTATION"},
+        "last_completed_stage": {"const": "DATA_SEMANTICS"},
+        "original_safe_code": {"const": "UNEXPECTED_IMPUTATION_FAILURE"},
+        "minimum_failing_substage": {
+          "const": "CHAINED_EQUATION_AUXILIARY_FEATURE_CONSTRUCTION"
+        },
+        "defect": {"const": "LOG_OF_ALLOWED_ZERO_RIGHT_CENSORING_TIME"},
+        "legacy_auxiliary_transform": {"const": "log(followup_hours)"},
+        "zero_semantics": {
+          "const": "UTA_ONLY_OR_OTHER_UNOBSERVED_RIGHT_CENSORING_AT_ZERO_ALLOWED"
+        },
+        "confirmation": {
+          "const": "STATIC_CODE_PATH_PLUS_EXACT_SYNTHETIC_FAILURE_SHAPE"
+        },
+        "historical_raw_condition_available": {"const": false}
+      }
+    },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "auxiliary_transform", "zero_finite", "positive_monotone",
+        "development_fit_only", "validation_outcomes_used",
+        "residual_nonfinite_policy", "frozen_statistical_spec_changed",
+        "sap_or_task_change_required"
+      ],
+      "properties": {
+        "auxiliary_transform": {"const": "log1p(followup_hours)"},
+        "zero_finite": {"const": true},
+        "positive_monotone": {"const": true},
+        "development_fit_only": {"const": true},
+        "validation_outcomes_used": {"const": false},
+        "residual_nonfinite_policy": {"const": "FAIL_CLOSED_ALLOWLISTED_CODE"},
+        "frozen_statistical_spec_changed": {"const": false},
+        "sap_or_task_change_required": {"const": false}
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task", "result", "manifest", "prior_failure_diagnostic",
+        "current_failure_diagnostic", "prior_evidence_compatibility"
+      ],
+      "properties": {
+        "task": {"const": "formal-temporal-fine-gray-task@2.0.0"},
+        "result": {"const": "formal-temporal-fine-gray-result@2.0.0"},
+        "manifest": {
+          "const": "formal-temporal-fine-gray-output-manifest@1.1.0"
+        },
+        "prior_failure_diagnostic": {
+          "const": "formal-temporal-fine-gray-failure-diagnostic@1.0.0"
+        },
+        "current_failure_diagnostic": {
+          "const": "formal-temporal-fine-gray-failure-diagnostic@1.1.0"
+        },
+        "prior_evidence_compatibility": {"const": true}
+      }
+    },
+    "synthetic_acceptance": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {"$ref": "#/$defs/acceptanceCase"}
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "r_imputation_repair_expectations", "r_related_contract_tests",
+        "r_full_tests", "python_full_tests", "capability_consistency",
+        "bounded_startup_smoke", "r_cmd_check"
+      ],
+      "properties": {
+        "r_imputation_repair_expectations": {"type": "string", "minLength": 1},
+        "r_related_contract_tests": {"type": "string", "minLength": 1},
+        "r_full_tests": {"type": "string", "minLength": 1},
+        "python_full_tests": {"type": "string", "minLength": 1},
+        "capability_consistency": {"const": "PASS"},
+        "bounded_startup_smoke": {"type": "string", "minLength": 1},
+        "r_cmd_check": {"type": "string", "minLength": 1}
+      }
+    },
+    "execution_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_read", "mimic_or_other_patient_data_read",
+        "formal_authorization_created_or_consumed", "v5_retried",
+        "production_formal_entry_invoked", "synthetic_public_entry_mock_invoked",
+        "synthetic_imputation_exercised", "real_patient_imputation_run",
+        "fine_gray_called", "bootstrap_called", "dca_called",
+        "sensitivity_called"
+      ],
+      "properties": {
+        "v2_read": {"const": false},
+        "mimic_or_other_patient_data_read": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "v5_retried": {"const": false},
+        "production_formal_entry_invoked": {"const": false},
+        "synthetic_public_entry_mock_invoked": {"const": true},
+        "synthetic_imputation_exercised": {"const": true},
+        "real_patient_imputation_run": {"const": false},
+        "fine_gray_called": {"const": false},
+        "bootstrap_called": {"const": false},
+        "dca_called": {"const": false},
+        "sensitivity_called": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only", "patient_level_payload",
+        "physical_paths_present", "raw_errors_present"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "raw_errors_present": {"const": false}
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "The immutable V5 raw condition is unavailable, so historical causation is supported by exact static and synthetic reproduction rather than recovered raw evidence."
+        },
+        {
+          "const": "Synthetic acceptance does not establish successful future FORMAL execution."
+        },
+        {
+          "const": "Any future FORMAL execution requires a new independent human one-shot authorization."
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "completed_at": {
+      "type": "string",
+      "pattern": "^2026-07-23T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+0800$"
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE"}
+  },
+  "$defs": {
+    "acceptanceCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "status"],
+      "properties": {
+        "case_id": {
+          "enum": [
+            "LEGACY_LOG_ZERO_FAILURE_REPRODUCED",
+            "ZERO_SAFE_LOG1P_FEATURE_FINITE",
+            "UTA_OTHER_ZERO_CENSORING_PRESERVED",
+            "OBSERVED_ZERO_REJECTED",
+            "POSITIVE_FOLLOWUP_FINITE",
+            "DEVELOPMENT_ONLY_LEARNING_PRESERVED",
+            "VALIDATION_OUTCOME_ZERO_ACCESS_PRESERVED",
+            "RESIDUAL_NONFINITE_FAILS_CLOSED",
+            "PUBLIC_TASK_V2_SYNTHETIC_IMPUTATION_STAGE_PASS",
+            "PRIMARY_FIT_AND_BOOTSTRAP_NOT_CALLED"
+          ]
+        },
+        "status": {"const": "PASS"}
+      }
+    }
+  }
+}

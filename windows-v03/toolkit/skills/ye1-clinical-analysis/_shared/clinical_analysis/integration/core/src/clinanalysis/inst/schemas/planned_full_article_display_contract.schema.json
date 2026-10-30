@@ -1,0 +1,295 @@
+{
+  "$defs": {
+    "ArticleTargetProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "automatic_volume_gate_required": {
+          "const": true,
+          "default": true,
+          "title": "Automatic Volume Gate Required",
+          "type": "boolean"
+        },
+        "compact_article_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Compact Article Allowed",
+          "type": "boolean"
+        },
+        "human_volume_detection_required": {
+          "const": false,
+          "default": false,
+          "title": "Human Volume Detection Required",
+          "type": "boolean"
+        },
+        "minimum_figure_count": {
+          "default": 3,
+          "minimum": 3,
+          "title": "Minimum Figure Count",
+          "type": "integer"
+        },
+        "minimum_table_count": {
+          "default": 3,
+          "minimum": 3,
+          "title": "Minimum Table Count",
+          "type": "integer"
+        },
+        "minimum_total_display_count": {
+          "default": 6,
+          "minimum": 6,
+          "title": "Minimum Total Display Count",
+          "type": "integer"
+        },
+        "profile_id": {
+          "pattern": "^[A-Z0-9][A-Z0-9._-]{2,127}$",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "required_figure_roles": {
+          "items": {
+            "enum": [
+              "COHORT_FLOW",
+              "PRIMARY_EFFECT",
+              "CLINICAL_DEEPENING",
+              "CREDIBILITY"
+            ],
+            "type": "string"
+          },
+          "title": "Required Figure Roles",
+          "type": "array"
+        },
+        "required_scientific_domains": {
+          "default": [
+            "MAIN_ANSWER",
+            "CLINICAL_DEEPENING",
+            "CREDIBILITY"
+          ],
+          "items": {
+            "enum": [
+              "MAIN_ANSWER",
+              "CLINICAL_DEEPENING",
+              "CREDIBILITY"
+            ],
+            "type": "string"
+          },
+          "title": "Required Scientific Domains",
+          "type": "array"
+        },
+        "required_table_roles": {
+          "items": {
+            "enum": [
+              "BASELINE_CHARACTERISTICS",
+              "PRIMARY_ESTIMATES",
+              "CLINICAL_DEEPENING",
+              "CREDIBILITY"
+            ],
+            "type": "string"
+          },
+          "title": "Required Table Roles",
+          "type": "array"
+        },
+        "result_driven_replacement_allowed": {
+          "const": false,
+          "default": false,
+          "title": "Result Driven Replacement Allowed",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": "full-article-target-profile@1.0.0",
+          "default": "full-article-target-profile@1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "submission_authorized": {
+          "const": false,
+          "default": false,
+          "title": "Submission Authorized",
+          "type": "boolean"
+        },
+        "target_positioning": {
+          "const": "FULL_ORIGINAL_APPROX_SCI6",
+          "default": "FULL_ORIGINAL_APPROX_SCI6",
+          "title": "Target Positioning",
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile_id",
+        "required_figure_roles",
+        "required_table_roles"
+      ],
+      "title": "ArticleTargetProfile",
+      "type": "object"
+    },
+    "PlannedDisplay": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregate_only": {
+          "const": true,
+          "title": "Aggregate Only",
+          "type": "boolean"
+        },
+        "cosmetic_only": {
+          "const": false,
+          "title": "Cosmetic Only",
+          "type": "boolean"
+        },
+        "display_id": {
+          "pattern": "^(FIGURE|TABLE)\\.[A-Z0-9][A-Z0-9._-]{2,127}$",
+          "title": "Display Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "FIGURE",
+            "TABLE"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "nonredundant": {
+          "const": true,
+          "title": "Nonredundant",
+          "type": "boolean"
+        },
+        "required": {
+          "const": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "role": {
+          "anyOf": [
+            {
+              "enum": [
+                "COHORT_FLOW",
+                "PRIMARY_EFFECT",
+                "CLINICAL_DEEPENING",
+                "CREDIBILITY"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "BASELINE_CHARACTERISTICS",
+                "PRIMARY_ESTIMATES",
+                "CLINICAL_DEEPENING",
+                "CREDIBILITY"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Role"
+        },
+        "scientific_domain": {
+          "enum": [
+            "MAIN_ANSWER",
+            "CLINICAL_DEEPENING",
+            "CREDIBILITY"
+          ],
+          "title": "Scientific Domain",
+          "type": "string"
+        },
+        "source_result_id": {
+          "pattern": "^[A-Z0-9][A-Z0-9._-]{2,127}$",
+          "title": "Source Result Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "display_id",
+        "kind",
+        "role",
+        "scientific_domain",
+        "source_result_id",
+        "required",
+        "aggregate_only",
+        "nonredundant",
+        "cosmetic_only"
+      ],
+      "title": "PlannedDisplay",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "all_displays_from_single_structured_result": {
+      "const": true,
+      "title": "All Displays From Single Structured Result",
+      "type": "boolean"
+    },
+    "candidate_id": {
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,127}$",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "confirmatory_claim_allowed": {
+      "title": "Confirmatory Claim Allowed",
+      "type": "boolean"
+    },
+    "contract_id": {
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,127}$",
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "displays": {
+      "items": {
+        "$ref": "#/$defs/PlannedDisplay"
+      },
+      "title": "Displays",
+      "type": "array"
+    },
+    "figure_manifest_required": {
+      "const": true,
+      "title": "Figure Manifest Required",
+      "type": "boolean"
+    },
+    "prior_result_exposure": {
+      "title": "Prior Result Exposure",
+      "type": "boolean"
+    },
+    "result_driven_replacement_allowed": {
+      "const": false,
+      "title": "Result Driven Replacement Allowed",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "planned-full-article-display-contract@1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "synthetic_tfl_acceptance_required": {
+      "const": true,
+      "title": "Synthetic Tfl Acceptance Required",
+      "type": "boolean"
+    },
+    "table1_required": {
+      "const": true,
+      "title": "Table1 Required",
+      "type": "boolean"
+    },
+    "target_profile": {
+      "$ref": "#/$defs/ArticleTargetProfile"
+    },
+    "target_profile_sha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Target Profile Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "contract_id",
+    "candidate_id",
+    "target_profile",
+    "target_profile_sha256",
+    "prior_result_exposure",
+    "confirmatory_claim_allowed",
+    "displays",
+    "table1_required",
+    "figure_manifest_required",
+    "all_displays_from_single_structured_result",
+    "synthetic_tfl_acceptance_required",
+    "result_driven_replacement_allowed"
+  ],
+  "title": "PlannedDisplayContract",
+  "type": "object"
+}

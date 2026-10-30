@@ -1,0 +1,1585 @@
+{
+  "commit": "e506c155f50d1624d6746cc1189ba03470ac8bb2",
+  "files": [
+    {
+      "path": "_shared/clinical_analysis/REAL-INPUT-CONTRACT.md",
+      "sha256": "1a86aa03dd06c637ec4b354d8ab6f80640a582c54d1ad4633c902345270d88c1"
+    },
+    {
+      "path": "_shared/clinical_analysis/agent/analysis_call.py",
+      "sha256": "b258304916c3cae907a2ab0e9c95124ede426ddcfbc7fac7d2d45f770d192e27"
+    },
+    {
+      "path": "_shared/clinical_analysis/agent/artifact_views.py",
+      "sha256": "3ab18e35af8eb12ea7704b87483f8fe5f40725e086d55cfd479fec251c69f30f"
+    },
+    {
+      "path": "_shared/clinical_analysis/agent/catalog.json",
+      "sha256": "0d3d21d2a913ce8b37eddcac19af8d271c0315d5bbc3b15d45f5eaadb2249940"
+    },
+    {
+      "path": "_shared/clinical_analysis/configure_runtime.py",
+      "sha256": "fe37d26ae0ce157f6a0e6019148b6522d1d0ec4cee7c08507f4a2be0f265527d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/REAL-ADMISSION-INTERFACE.md",
+      "sha256": "588fbfafcb79cd09bf4986c4dbeb099ed3955342aaa25a6635c1b9772bc4b881"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/admitted-module-lock.json",
+      "sha256": "ffad9bd4e27d7fde3cc0110edb0dc0430ec370c3246c7a87257381a324e7b0af"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/admitted_modules.py",
+      "sha256": "267c4d85274b605f7b516af3fba210519ce052efdbba53aa2c415588a239953f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/captured_study.py",
+      "sha256": "b010669310228c8d5c72a30a0553b2743055ad50fd91a9e407cb16f23d984992"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/README.md",
+      "sha256": "5e199df934b6cf92daaeea32ed6905baed2849dc8c5a858000d7cb1c57d2c6bd"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/integration-request.schema.json",
+      "sha256": "6e76a21584116b743fadff661d12107808f538b0e7cabba4eb93eddec075ddaa"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/module-request.schema.json",
+      "sha256": "ca69508cdef7992324ce6b98e2e8aaad7f84ebc64efcb60a4295e6d2cc51c7b4"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/module-response.schema.json",
+      "sha256": "36526b2d8dc26e26763ed4324979dfbbe7f8b86d0e5bda7a3b54981db6befaed"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/module-task-origin.schema.json",
+      "sha256": "d49485cf3bf5d4b927958cc0eb226bbd8baba2f7b88adeb4fedc8b8558d7eceb"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/real-engineering-result.schema.json",
+      "sha256": "14528451a6ec4086daa1b9b3cae7f86ee13554101f3f8ba924aa3871447eddb0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/contracts/real-engineering-task.schema.json",
+      "sha256": "d5e72c178a6229b1a1214fa4fc6f9927445cbe8c7125e833f066d205fd9094de"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/CANDIDATE-SHA256SUMS.txt",
+      "sha256": "7d34aa5701a4f338a4af031e2bbbc6eb8e8206e8a5067516f45b8cf53a696e5a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/config/resource-budget-profiles.json",
+      "sha256": "6688d9dda381512a3687a8367fa39432b0224e06b1f4e6906abced983378d809"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/docs/PSM-V07-INTERFACE.json",
+      "sha256": "34f3733300824d2ced1b38addd66c47396fbf9b4a9a5fc71869a96f3abe45521"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/docs/V06-PROVIDER-CONTRACT.json",
+      "sha256": "3e14e8cc169f5e6d6b75996898b9ece081a33ce77bab882d7ef7eb06dabf6943"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/docs/acceptance-psm-v07.md",
+      "sha256": "6b5764e7f9354cdf73ce22d39485bcaf8140841f4c6119b9301e8e1258bddaf6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/docs/acceptance-survival-v06.md",
+      "sha256": "4cec466b2abbb906e2d9fef305c79785e3b40387bd5fbe1b432b0e130c9d6d81"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/method-capabilities.json",
+      "sha256": "a57f233c6b7a6deec8414c6200737f357717f1fca1735691b3d2a19ce9679ab9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/__init__.py",
+      "sha256": "4fc1239b7ced5507be5a37d8d7b22404dc9fcdd8acc64a671ae73a4513ade976"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/association.py",
+      "sha256": "5769cedffafea9e49a81d96e7f7c1ff6b0d5ce81654d81e742dc43ca7828de42"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/association_plan_admission.py",
+      "sha256": "32bf9f11f03c643052b6f40319d96f50207731724470b2e7c175f197556cbd85"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/association_plan_bridge.py",
+      "sha256": "1863e3254b378be3efbcef1c1f08d74b287232e11dd0d910761a5869f8726dd5"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/association_plan_contracts.py",
+      "sha256": "8c54242a898294bbfc3ed5680f28d9456cbba8cd5383ad142f856e78d365d591"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/bridge.py",
+      "sha256": "65e8458f35ab2e27b22a76bf4235d73ecf5a2560ab9de9d39409d627daa1c308"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/continuous_ridge/__init__.py",
+      "sha256": "321520bd36ad041c50f9a39929767863893f1a8c079f62e52bd25987a0ebba36"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/continuous_ridge/core.py",
+      "sha256": "612ce84b291a967fc96c5ca02de1718bdb39fc8afe65fd70b0f8ee7432b595d7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/continuous_ridge/prediction_engine.py",
+      "sha256": "d41f27cdff816f3261a38bf95838aeefb04c62a1d27cb5c46cee820bbbd58978"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/continuous_ridge/prediction_metrics.py",
+      "sha256": "bec7da5ef10e0f239a7457b7c20e9b0135b8246d8183631b594ddebfc4c60b66"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/contracts.py",
+      "sha256": "c0ab7a000742432dc4a76b89c43e265a035fdbb9569d7ba73703030839030a77"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/cox_penalized_v10_contracts.py",
+      "sha256": "60f1fb8baf5469a5db38f122a7538ba5b8dcfa41c6e0e268ab4907223a419fea"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/cox_prediction_bridge.py",
+      "sha256": "7eba35d08f89eb7bdcb2e0a987d133cac87648f638ea69a12b428260066faece"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/interpretation_v09_contracts.py",
+      "sha256": "998851a18719290fa38125a182b150bdb516a565196ab0b9877b67c3265e47bf"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/penalized_v08_contracts.py",
+      "sha256": "67e7cb848eeaacbc20845ff4e50d02331e266e6e464900fb65341f884e4440eb"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/prediction.py",
+      "sha256": "4d610ba853c1e2c82e8502e544b5f777179d199b6ffc58952bffa61d3b7171a0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/prediction_bridge.py",
+      "sha256": "4cd89ef6a9943cf3f03ea0ceba4ff582e68d21a7c077bc9acda527ada5b5139d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/prediction_contracts.py",
+      "sha256": "b98ca4c4233dff184eb7579c0d0f68fd5558a87e14352c34789f8f11dbaa12c2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/psm_v07_admission.py",
+      "sha256": "57a713afd304fbe06df0c819733d1f2b698452aa79a5a671864e67b3cd0b7853"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/psm_v07_contracts.py",
+      "sha256": "22771143e8ec5829479e011d6d63a903c95e5c1e0632f92e823a04ed95c076cc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/real_family_admission.py",
+      "sha256": "244b757f97f99d13c3720ffc5e9b62ee78f186cbdb6fad0dbea56b7bc816d3bd"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/resource_budget.py",
+      "sha256": "8fdc878ab11114e07ff0a86f41afd2ab755424c1fa0f3852cbb0ba25d7bac1bc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/study_artifacts.py",
+      "sha256": "84b857f04d45d93d78a74b039dee33f9c6dbcd6f1bb84b0882798f602ce28a96"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/study_input.py",
+      "sha256": "474b789a1cd1c597584ab71b4255e0281f5508a93a21bf94fd29e6971a279214"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival.py",
+      "sha256": "c2742f940e44f440b2d064ae1cd51c300c8e35e1a54253620b074b2b4239684d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival_bridge.py",
+      "sha256": "d864a57b5b0d738ddf3eff4562d31c375446f1a748cca9bab7e622e3341f2391"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival_contracts.py",
+      "sha256": "ac3ade6f815e661cdf44da47e20f82a2f02ab66ce449b1100a4aa35406ec16d4"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival_evaluation.py",
+      "sha256": "793df575d9d4935dda82b20a8a7daee738973ab43ac11b2378be12f58764bc44"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival_evaluation_bridge.py",
+      "sha256": "2f3a5e33d86e7399f43f70c8c8338d300b0757aa3d3bff35237b8d6997cd863d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival_v05_contracts.py",
+      "sha256": "648b10308a5821e8443077b3906e81257d1045928ae8369772e0c737169a8a5a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/python/clinical_methods/survival_v06_contracts.py",
+      "sha256": "330a52410bf4eacf6b447d52f708d755f905450b26f3b8310ffd136b39644754"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/schemas/input.schema.json",
+      "sha256": "7b23a2accc1f5c7df5a3e2f33521464fef5815ed090ba5bd2ba9a60b6ecf14b0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/schemas/result.schema.json",
+      "sha256": "6e0d4dced8a05302b3340bf6edf331908f97675690d6f3dac5ec7862aef39a07"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/schemas/study-input.schema.json",
+      "sha256": "6af348be8315a9f15a21dc534758311739b1d16a291b7c5c3185cd3a347d0e95"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/schemas/study-result.schema.json",
+      "sha256": "333db15ed5c03c6c4c29276a703b15b3ef944d6a2202c5c13c7e3fabe05784d2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/DESCRIPTION",
+      "sha256": "a3961f838429a519b57b4d009095bed05078038a2ecf2e1496c4f7cc7cf86f63"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/LICENSE",
+      "sha256": "9112f635f308f19b2cc2ad60253f3a8b7b6d2fbc8eb24375d8bf60add77c1630"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/NAMESPACE",
+      "sha256": "823b98810629264d7c171525d9f14f7a5b48891e8f9da771d35f8232541a0bf3"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/audit.R",
+      "sha256": "b6262bcfeba4ec4264699743ab8b9bb1a554aa1ebcf82898e612199ae3f55d27"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_association_plan.R",
+      "sha256": "db31523e3c5ca71276a96b5f812e681c03b6cd84aa74bda5e9f8b7224b73b810"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_common.R",
+      "sha256": "45f033965b0f7bb7ac68be5218634b5971522d0810b14248708fcf6d949e8dcc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_cox_penalized_v10.R",
+      "sha256": "776b43386c531f35d8dbfb6e58194d5fc74a371d0287e1f561d917cdb01eb948"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_interpretation_v09.R",
+      "sha256": "3aba9a62642439bc6546e085d4e78fbec91c53db0fb111e0e276c4e39bedfce1"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_modular.R",
+      "sha256": "47b7e93b001b0632854e1b592fe763ecc7a4f3fa682cea2a0977a46d0f04ab13"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_penalized_v08.R",
+      "sha256": "39d203910d06a4e0dc3b6b70371bb60e24e7c79ecd554445d4b8c1e64b91bb36"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_prediction_common.R",
+      "sha256": "6ff64ccdd81d24864f9309eb27bdcd007ecde359fbe281e4e7c3f415bdcff75a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_psm_v07.R",
+      "sha256": "6e5c6eab586eb2e706d329b04f5d4894e003812b992e31953cc80a51d1398082"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_real_engineering.R",
+      "sha256": "423050b609277b8d4a1b75eac1d07bcb70ea6bdf783195d085c52fa4cef1fd33"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_resource_budget.R",
+      "sha256": "3dde3dbbed5f9a36dbdc22f0bca46294aa1bcf345536bcaf385d6da43a7c95c4"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_study.R",
+      "sha256": "4faeed18020ba1a65836d270eb22b790e0c88a15aab5ffd9a2cdb72e63290ddc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_study_contract.R",
+      "sha256": "7055cb329cfa76830f3fb7f6d3fd4ff3070d784956390b8243007ce87e8aacc7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_survival.R",
+      "sha256": "aed42bdcad666dd23093ff95c52a3c7b1ecb25d54055a694823c745efc8004a0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_survival_v05.R",
+      "sha256": "c17133b284a1f7f702c0360a082338f6250bc0847316fca197ae8968f2108b4e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_survival_v06.R",
+      "sha256": "5d19beb5750d8dcf91bfcb65e9ee038d2bf24128c35cecb7bacb204a4322449c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/competing_tve_analysis.R",
+      "sha256": "c8703d43cbb434f8e093d4ad57de7da95fd6f5687e7541cf754cc13613d2b530"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/competing_tve_imputation.R",
+      "sha256": "ca448c95bdc7938eb2e211b5887d19ca91a707a89282e0e1efab6e73cb1d1763"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/continuous_mi_diagnostics.R",
+      "sha256": "c39f3d31922be93421a9d910a91adae0afa6022326f6f08a1c9ef0e606e19309"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/contracts.R",
+      "sha256": "47216024efba0680e18d9006300b7c839db48b1eebeca3d23760dc19a606b153"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/cox_penalized_v10.R",
+      "sha256": "35e8b9cbd47e7d80f7d016b963be09b07193759480a620e521f11a9ae42c87dc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/figures.R",
+      "sha256": "18eb9471f7b3a3107e26bd2d1b4304090af89484ccf136a68c2e9e11a920c1fb"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/formal_execution_diagnostics.R",
+      "sha256": "0a17519582a0c121c3622657793cc5fedc891b8688cdb83d88979f945eefa8b5"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/formal_runner_startup.R",
+      "sha256": "fdd884a7661685d00a953ff42a22dd1bcd104cc5ca2dc156368070818d3e4508"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/formal_temporal_fine_gray_contract.R",
+      "sha256": "019f8b6d691b5840a3b66bb1b3d7030e45391b8aa76bc8761996ddd252b80753"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/formal_temporal_fine_gray_result_contract.R",
+      "sha256": "b9fbefbd22234398a69202ac34b1180a0281f080c33a33f52e5f5798ccd22eda"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/interpretation_v09.R",
+      "sha256": "dc64253ecf46a944b79e2a9ebf40dffe916f3828e3d513b0e0bca030bba3349c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/io.R",
+      "sha256": "a1329e596c8df7979ee3076a6f5ee7e96664e4c90f1d67e571307efc34649e3c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/mainline_v2_scientific_contracts.R",
+      "sha256": "3e77389f4726b02897891942eb18967bdaed2a99962261975b41eb06c80afedd"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/model_utils.R",
+      "sha256": "e6d103755340af1ec9d75927caa770d6b04cadfbc89e2d6204538b033ad673c2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/penalized_v08.R",
+      "sha256": "e8a5d3d5307624010e3d77169bd3f5a69692b1cd24f1e2fbdb35fed3d8a345bc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_categorical_logistic_gcomp.R",
+      "sha256": "5dbf1af881147a454080a0dd7a8e72d2b00ebd6db44d701e5c74277972f6c8f6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_causal_comparison.R",
+      "sha256": "056f9e798a54acffce5fc045db922678306a969c6598399286fcc8ed82458fdd"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_cause_specific_cox.R",
+      "sha256": "fe934259b0fda671df496de91ad7159100b345e9fcf08e37f369352cd583fbb7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_cause_specific_cox_continuous.R",
+      "sha256": "a17e22489eb949a632cb47a8f8cb9ef5972e48b1ce6b4f6bf084eaf6b625a571"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_formal_temporal_fine_gray_prediction.R",
+      "sha256": "0c666aacae771f9d017400fdcaab597d2f6d08c95bf4300f31a70ea6abbd1570"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_generic_regression.R",
+      "sha256": "0fe8ba06659f9c5d19408b008f57f1f9f6cccfb7f4128464aa7405c032a348c9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_longitudinal.R",
+      "sha256": "b7485f7c4b0b6baa9e9db75d00f0826704447c203b6ac225570e684d5955b4f2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_modified_poisson.R",
+      "sha256": "02e7b7cad3f4a8637dc54ffe8d78934541fa2a3040c972439d0d7f940607deb5"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_prediction_validation.R",
+      "sha256": "7efb2fa04000d5fb3d5a5fcf19ea9d7486e622cf18fcde09b48ff0e41751b7a8"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_survival_analysis.R",
+      "sha256": "a67e3251963a176cf93b565dfb7b1d4323f72abf744cbee9563c19c1cc8d297d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_temporal_fine_gray_prediction.R",
+      "sha256": "7365aaf78ce370bc3035ce1d75bdb3fb31c7eb78e01f8ed34197837d5c773c26"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/plugin_temporal_logistic_prediction.R",
+      "sha256": "fac06cf0535a93302329ed0bf4e5ac1ee7467e41c33c78d4479eec250361d8d2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/psm_v07.R",
+      "sha256": "ea001b38fae962be0ecc140d9c91acc1e01df9fee9c80ae99404404f144c2f17"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/readiness.R",
+      "sha256": "3d5466a2f2c260152f93c693c2c079f9acccb61268bb1a97c8f55704460c9192"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/registry.R",
+      "sha256": "2b11e00ba7d9e2b215b6a2f1b84fa6d9f8bef630c6a9dee9ebeaf3f74c44c51f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/report.R",
+      "sha256": "e46f1dcf5f40a2b6e3fe24eed1cd102f1af15df56b8ec9f47366cac26e10c3c1"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/result_standardization.R",
+      "sha256": "ebe5ca19d01ca4190a88186ad32142f766cc9e75c8e9105e17a6f25bbd3502c1"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/run.R",
+      "sha256": "b3438f70c2c4901b370b9de6de77b73368c61a9afbe70d57a31789eecb722074"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/table1.R",
+      "sha256": "ac81e9d41a8744b4d47156f9712c04bfa1cccad44a150baccd9acb00e8c574eb"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/time_varying_competing_risks.R",
+      "sha256": "66516466318f64078c9ab1a82a2126da4f76bb86eefb2787109eecfa5d65e9e7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/zzz.R",
+      "sha256": "fd73320b1bd3791bfc60f841c374e7836dad5f8b0e9f42135bf849b84b974ab6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/capabilities/analysis-capabilities.yml",
+      "sha256": "e139e0c7080c420851731ac2a3a80f772b07b68a5739e0b107e22c431af9ff51"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/analysis-result.schema.json",
+      "sha256": "136dc3a08f85e23245be7366030f5736d3546abf621c6f5c20b35febe0e907f3"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/analysis-task.schema.json",
+      "sha256": "fd2a10bb06d131c8d6b9b2f2ff9ee9a6438611ee17901cfed38b83117b6efe19"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/audit-manifest.schema.json",
+      "sha256": "c88d08ef07d267f6de941107d96103c8d8a964be37ccb306882b468f001b4a4e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/candidate-analysis-capability-acceptance.schema.json",
+      "sha256": "7418289f1542729dd53ccc76bb9aafb8d0516095c7e1a3a7a807be833d056813"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/candidate-bound-materialization-receipt.schema.json",
+      "sha256": "dd81bf3b81f7593e1b06b457dde8d55525373928659036471281c2ae1ed93f0d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/candidate-bound-materialization-success-receipt.schema.json",
+      "sha256": "532f5a4626516faa800bbd028d91b88bb5934956c0f93a9151e12ab121b6233c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-adjusted-risks.schema.json",
+      "sha256": "4b25d2b0599ba1eff03f0af6b4be24d1563ee428f48c1552a3ce19c53607ec4c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-cohort-flow.schema.json",
+      "sha256": "798bb0576d364091494abc079ec1bcc703718ff049ebbb11f29aa86f822a00c6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-credibility-results.schema.json",
+      "sha256": "80ae943a586993daf43049b2290fc7fca40dcc69225a36dbcd51e821fc161075"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-diagnostics.schema.json",
+      "sha256": "44ff14a7d1c810274a92ea3043a6be60f774f70698e7035826707786c3a6862c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-failure-diagnostic.schema.json",
+      "sha256": "11d66a51d6f5f357de719ddc89d90ae3f9fac84d9a7b0ecd3f70c4cb8f8a632d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-first-event-composition.schema.json",
+      "sha256": "af047fbc261887e97a66a36962ae4536e5e3b8b505f940baaf7f8fb0d48077d5"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-formal-execution-binding@1.0.0.schema.json",
+      "sha256": "67961db5a417d0a5afa93af9e5ac12bbbb3158bafdc2e05e3a57a9ebe1308ded"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-result-bundle-v1.1.schema.json",
+      "sha256": "8e1328932132c477f5fee6d09c4ca5708f9435d3f6fcdeb116f08fe007bf67e6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-result-bundle.schema.json",
+      "sha256": "532429c4a2f7e0ec82c26824a6955e29174c9b7e08d02b5640e17ad3b07d5f39"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-s1-eligibility-acceptance-receipt.schema.json",
+      "sha256": "8dab2b829ecd1f7a890ce258f0ae9636d8a071d603372ae5f6fdc6f0f946bdd2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-s1-eligibility-preflight-receipt.schema.json",
+      "sha256": "b6166696bbc35600e8d2f895787c27e0ee627f55091583777927aa61bc95a85a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-gcomp-unadjusted-source-risks.schema.json",
+      "sha256": "787387f5532e49f0dccac777b5d18f3c44fa2c306daefb8267aa7c412cad6255"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-transfer-gcomp-task-v1.1.schema.json",
+      "sha256": "7bcb24db3a4e25c654f7e0ba630f159ec6008be5bfff9d104ceb598489c512b6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-transfer-gcomp-task-v1.2.schema.json",
+      "sha256": "cb79d9f47142d017d90fedfc79aa5e9530063bc8c11de4c4286f8ac1acb97b02"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/categorical-transfer-gcomp-task.schema.json",
+      "sha256": "a40747b341a801e39b09b7439f9b6c55a4639ef316dad1215242cd2afabb7de4"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/cvcc-v4-rebind-acceptance-receipt.schema.json",
+      "sha256": "f33629e299f2dfca5012b2b686758cde15a464398547756b37d2a96cb5d41d08"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/cvcc-v5-imputation-repair-acceptance-receipt.schema.json",
+      "sha256": "ad69f73d09a45540983494043383403c6e7b630cb8123fae154fc5fd4ce23971"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/cvcc-v6-imputation-model-step-repair-acceptance-receipt.schema.json",
+      "sha256": "c041a9da223c1d8963d3a9c3a1a0046196d68b7cbdc5da906852d407a9d8ed09"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/cvcc-v7-primary-fit-repair-acceptance-receipt.schema.json",
+      "sha256": "8bf80abd65632b2abe04805633c27832171c30ccf8b555717bfd4b7b799586b4"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-model-entry-ready-receipt.schema.json",
+      "sha256": "37dc9ac379e74702339317f282cb31c478ce84f4bf09703895082e94cc4917ee"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-v5-failure-receipt.schema.json",
+      "sha256": "0a2892c2a2ed727c32f4913ca20207fc26ddf9dbad7d4411e2f3d15e0a47125b"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-v6-failure-receipt.schema.json",
+      "sha256": "e95bf1f2c295b9876638d7f8259416294e722f34e8e6827e7134834835ca4a83"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-v6-model-entry-ready-receipt.schema.json",
+      "sha256": "eb34b30012f4aa2976afe4a818952ba25e2ed17629cc990de2ac31949719d58c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-v7-failure-receipt.schema.json",
+      "sha256": "4845810cfdb1ffd9531514f84f8e6c9eef5d8b8717a69493471120ae55e1750d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-v7-model-entry-ready-receipt.schema.json",
+      "sha256": "be89c49549cb11bc4d5a2fcc0adb08660fc4419e62ed45b26a6bd7e2a27f00a9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-execution-v8-model-entry-ready-receipt.schema.json",
+      "sha256": "f7f548c3a080e87a204eded62983835d53bee7a4e389d7e73f46dd6333c29a37"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-runner-startup-acceptance-receipt.schema.json",
+      "sha256": "99b792300cb64bc6dd2987dd957968a4bfef44d0eb2523b6fb97312469667e08"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-runner-startup-diagnostic.schema.json",
+      "sha256": "36e296584f244a702a351c787000ce1dfd302f96cf62b86f22a7a96677bd4589"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-runner-startup-request.schema.json",
+      "sha256": "2b9d6b74c96938ff4263cf279795052ddf828442500f4fa5a2467e11993bd02a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-task-v2-plugin-dispatch-acceptance-receipt.schema.json",
+      "sha256": "43bb72ce6ab0f7797ddc1f4e746770c988a69dc87b956e95ff7729bdb751ff32"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-failure-diagnostic-v1.1.schema.json",
+      "sha256": "1b849505f2bd31057be98a4f5090778f8ddfc8497f40e8ba114c61a94f82e8fa"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-failure-diagnostic-v1.2.schema.json",
+      "sha256": "c2ad26ef1288546d997fcc62350e1a05bc6cb8d30a787920d43496def5b88683"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-failure-diagnostic-v1.3.schema.json",
+      "sha256": "f93ea0d3e1724ce253d63ec3db5fc0f065f7ac35fd77ecbfa609f9052afd6a3d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-failure-diagnostic.schema.json",
+      "sha256": "d42cad665567bb47e201f0abf4934169f2548852d5b2773178e53afbc63666e8"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-output-manifest.schema.json",
+      "sha256": "575c84718f9de1107f776405908fe60cbb122017b91df99ee1c80ddda121bace"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-result-v4.schema.json",
+      "sha256": "cfb1d0ad66de538b1fac85dd164f9d1b5f02c72bb1e82514e1c495f6423b92f6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-result.schema.json",
+      "sha256": "7b42641da435609d789628972256ee345c0c6256e184affab779df072ac72380"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-task-v4.schema.json",
+      "sha256": "a2e7764d4bf9213d7291725b968502d22dfc9fc2ed96330276eb298e6cb58110"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/formal-temporal-fine-gray-task.schema.json",
+      "sha256": "46317c764a0d1e894a6e4012d4c5a65a327e92741696aaabe0b86aedda3ceb2f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/full-article-tfl-bundle.schema.json",
+      "sha256": "c287b4d28b879eb30213e2671cf4b73b22a2c1e8b0a679c93cb8b003ead757f4"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/full_article_target_profile.schema.json",
+      "sha256": "d66e399ccd93eeb127c481d27ae8fd76863fd439a09700187a1f9f07cfd2ba74"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/local-pilot/model-runnability-receipt.schema.json",
+      "sha256": "8de490d673f59caf97b58c21081feb799c9e19981de6dd28d5b7d7ba43828ea3"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/local-public-data-governance-receipt.schema.json",
+      "sha256": "2665a86820614ee6463f29e755c45a72c6ac62a7df34f49aed3cc274b541c3d6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/module-capabilities.schema.json",
+      "sha256": "e8fb8fa407aadcf53721d7d48640c925d0464245928dac6556c173d9268067d9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/pilot-handoff/pilot_receipt.schema.json",
+      "sha256": "5f396534206d9d6b78f9fffc63144fc0b4a1e1f0323fe7173c346a22e9f33ae3"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/pilot-handoff/pilot_request.schema.json",
+      "sha256": "71106f1337e223d054a891355ca2bba5069488a5daf72f65399d4e8660d9e09f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/planned_full_article_display_contract.schema.json",
+      "sha256": "cb2c26b83832761044a3a58f02a4d7dd2446b59539234eb2b84769dc27bcc010"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/review-decision.schema.json",
+      "sha256": "339660b88373196f1b9f34297d34d6c6c4277ccee119f8e1404c3124ddc212ea"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/inst/schemas/reviewer-input.schema.json",
+      "sha256": "75d2218d06fa0bdfc0ed54e98acf77d92693e4a8cea48b005be114fc866e54e0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/analysis_plugin_registry.Rd",
+      "sha256": "35b125b604d2bd0e868899f819cdcc1aff7f9894a7d12eed51fe23fe8762c2c9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/check_analysis_readiness.Rd",
+      "sha256": "3c4435fd1ba600e794cbe02fa768c6101ce4f144da39851372068bd6343dd354"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/load_analysis_data.Rd",
+      "sha256": "04db0cc5cef52e1cebef98e913ab35d9b9e1017d4a9718ade5a9337d8c96e714"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/read_analysis_task.Rd",
+      "sha256": "8117beb3c9ff3ae33ad4ac33de9f4693862a0f1262e224157f60b4243aa4d99a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/refresh_review_gate.Rd",
+      "sha256": "85e0115588df9032e881b198834c5d0847ee8b8ee4aeaa61a4b46cb1fc562214"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/register_analysis_plugin.Rd",
+      "sha256": "7eb6a0977884c2191d6012095beb2d7b3fdb585f8b489fc1b6aa8dbb5e9deff0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/register_result_contract.Rd",
+      "sha256": "60dec155af92465f9ecb9901ee9b635a68035301675be77fd8ed8a8f812e5a29"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/register_task_contract.Rd",
+      "sha256": "dafc593bea73d3655a29527e098179104ad4a670078db26b701b9f2f92900f82"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/result_contract_registry.Rd",
+      "sha256": "8c427115f567bd85d2a6f4dd868cc4c3dda0871e3bed81f8090fd2eaf55bd2a0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/run_analysis_task.Rd",
+      "sha256": "4ee8d604fc575013983ad8db207083f373550b41ac558f062fef3c2fc7710c5f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/task_contract_registry.Rd",
+      "sha256": "ecc6088cbf994a0f8ca6e283887fb0fd5e1209d6e0f725ec29dfbda68c692c3f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/validate_analysis_task.Rd",
+      "sha256": "f3ee96c1291279c7c4e2c55ebd622db9eecdcbd7581862f2a40b074cbdd1001e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/validate_formal_temporal_fine_gray_result.Rd",
+      "sha256": "f13880bdb9b7ac12781a6f8b982da9a5ca053aaa8b2e64a4b0bbdf8e52ef0065"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/validate_formal_temporal_fine_gray_task.Rd",
+      "sha256": "f56c80ed5d9c0ab77c3945bbad2a5dc5ad6860421e3b63a3dce6012e5c261911"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/validate_registered_result_contract.Rd",
+      "sha256": "037bbae36b58e6156d5c6cab9107e2ac7feda81a1cc97a983ba446b805a3cd79"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/validate_registered_task_contract.Rd",
+      "sha256": "0a63562a1b51901595666114fbb56c4d0f7e8e8661d198a7ed19e80d6c13b5ec"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/man/write_result_bundle.Rd",
+      "sha256": "34748c4b3a5b4d125d61fa9c7609607fa41d47e95c5348636f7445d292e6fabf"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_association_plan_exports.py",
+      "sha256": "62275ca1ff144388c2689c5f9c4fccecf53faf36592b245f674a68487d8133d0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_cox_penalized_v10_exports.py",
+      "sha256": "c4900827ae29744719be01e886a1deb0a80b01b25126ef759e2be8e722b600ac"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_interpretation_v09_exports.py",
+      "sha256": "3a681e43cea7d79e53d6dd372d703efc2c6887dc906ee21bd71de7d471792c5a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_penalized_v08_exports.py",
+      "sha256": "4e940f9fe166c3e8b2774cee6da9d1c2f76b102c2671624874e57c01ef560845"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_psm_v07_exports.py",
+      "sha256": "eb3fcd01956c7853d9b9dbed614d8bc076d77a53bc438e70fd198a666d441fdd"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_survival_exports.py",
+      "sha256": "be93c3b22c46bc9e5791d3083d5e860ae35465529a78fd2e108dd992b79804c3"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_survival_v05_exports.py",
+      "sha256": "3cd109f60e759fbfdd4dbffd70dc44c7f8af90e101aa5cfea0d1682e03f05702"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/audit_survival_v06_exports.py",
+      "sha256": "6eeaa1bc013ff003a0c8bb2158c28b376dc1f000e1ea08bf0491493169389e9e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/build_p1_snapshot.py",
+      "sha256": "e7eb67762321ba059f5b03ba522a9da04abd51f02326473d464c9b2c0efbd40e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/check_R_syntax.R",
+      "sha256": "a5f42d2548ef05fb5eafb1a24c951b8630b390f4f5d42e748749686de06ef724"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/clinical_test_paths.py",
+      "sha256": "1c8853b294cb6ed064ea8a27d1e99b8f64139bb02b9883fe316b243ed4294a79"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/diagnose_result_v05.py",
+      "sha256": "5abbf287fc3132e7f9c39770844a295d6e8f8b78148f397f2b4800501774aa42"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence.py",
+      "sha256": "55232496d148585f931202b56bcc7687531da22b25503ee8536decef1979de6e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v02.py",
+      "sha256": "62f6cd477cd3679406feda6fdab3fc545469b572898bf074eda3728a80a84e46"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v03.py",
+      "sha256": "601a271a0d8d2a7a3c68eff5ef1c987d41b8f7bdf8591a20f93d2f5c0692d03c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v04.py",
+      "sha256": "1fb7dc0b508c48083d43c3392e6845623e2976f32213da971e474cff03bf1810"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v05.py",
+      "sha256": "d521d593d1f03ca82b68448654e73ac90db48ed2249093922a523839468dfc4b"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v06.py",
+      "sha256": "c80c141abbcc6f3804695b777f5677ba517b79c312d8a4fc282a60f9fd643812"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v07.py",
+      "sha256": "04ea597c4748dc0da152dc1a8c4588207df1d0d7a3debb14443c305610c4afde"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v08.py",
+      "sha256": "28ca9f14db9e453036eb52ee4eb45d3e13fd57a503a8994fa58632fe24ff0f69"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v09.py",
+      "sha256": "481ad9665afab35030d92bf3078f84ae148d0891ca68616c47aa0e2e0c6d5ef7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/finalize_evidence_v10.py",
+      "sha256": "8148224186101bb57f52fe5e88cd127932fa16f5fd14a6479bc4492157140944"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/freeze_core.py",
+      "sha256": "c4c5c6adba7a532a0eddef0c75322281ff1c191756d716df31936795f24b1ac0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/guard_frozen_v01.py",
+      "sha256": "312912e32ffef9bf665083104f73f84410cb0f7ddfd0c37dd0e26469e9c3e632"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/guard_previous_candidates.py",
+      "sha256": "906fca5ffa2bd7c89cd38e395ae0cdfaaa9be6c34a8abd5c21afd3e883eaa416"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_association_plan_fixtures.py",
+      "sha256": "92492518291ef0c049bb095de7b0491a04472fa825ac5a039ac7449c9f862765"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_cox_penalized_v10_fixtures.py",
+      "sha256": "773c2c9807160d414383a5d5a835c30253d55ca22ed1b6c845372a07a3beb146"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_fixtures.py",
+      "sha256": "f4f8ae27af3531a6bc15f3866c5f386809e19254c763ecff82b555de947f11fa"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_interpretation_v09_fixtures.py",
+      "sha256": "033008dae8aec2ba22970758e7c118dd9aab5f293232d2219324a10ddc823645"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_penalized_v08_fixtures.py",
+      "sha256": "705d49dbd8eb2a4b1ed6e4c339ae362f831589f6401392fadbb46bf16ed3d355"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_prediction_fixtures.py",
+      "sha256": "8d2e88267541f8b4067841ca3d1a61d2ee35fef361df819b3922331193079d2a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_psm_v07_fixtures.py",
+      "sha256": "b548e0db2e615f868d623b186a37652b0db67986d5c0c293081d77a213e26451"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_survival_fixtures.py",
+      "sha256": "958ff2762949825a2556752e80d141efa40e9977605f1ef3648e1191823bb3cf"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_survival_v05_fixtures.py",
+      "sha256": "97ec1298139437edc7830a96136e2390f1079e28c8345a4e6ecbaf8a6bd5f33f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/make_survival_v06_fixtures.py",
+      "sha256": "927d9a9cdeb8da6204182b868b718847808b609321dc5602934117bc7f29744a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/prepare_p1_retest_v02.py",
+      "sha256": "c7bc936a5b984fee340aec052b16a65e9eb164421c03e36bd4b759b33a36288d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/probe_runtime.R",
+      "sha256": "df2ee204d55d579785c3931f8b52020d5f1d5ab09cdac1b79a4fd1e1b69529da"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/probe_runtime_v08.R",
+      "sha256": "93913f764e97648229c92ac9bc0c2d7eb3dccb780ed54973bf68823cf6e0f8d0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/probe_runtime_v10.R",
+      "sha256": "1fca65d5a4a02ec8bfd2b5e106fb2c36cac7b12c041c06a83a514d7ef33f3ca1"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/replay_nomogram_label_p1_v10.py",
+      "sha256": "9cea9cfb0718b909dc69c644403736823c1204c311a4d7aec3119cb351469de6"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/retest_p1_v02.py",
+      "sha256": "38b0351537553a21168b07ea8cc3d76940d9e82d27f6047a43d6f761d3533fd1"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_core.R",
+      "sha256": "a802e7ebc1f7410dd3914431dfcbb1cea66d4124bace6ec0acd72634ea28ec8e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_export_audits_v10.py",
+      "sha256": "c47bfd8ba4d143efcd3e22525860cce1ea15465734b52d4d33990d15e1018d94"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_regressions_v06.py",
+      "sha256": "5b221de4c4f38c3316edcf7152fd17266780e3563796742c2a66eeed39ea5453"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_regressions_v07.py",
+      "sha256": "793fdcdc2d4303a7986108a9a34b3723ff7abb9000628acdb2ad0c6365230963"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_regressions_v08.py",
+      "sha256": "2745dd5ec332e33f6cdafc2b00556e855da525e8c95bd34f44d5aab7510057de"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_regressions_v09.py",
+      "sha256": "720246f7305e9bc34fc53b7f2cdb8729f93d7e864651d60fc2a8b9fd9fbff187"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_regressions_v10.py",
+      "sha256": "ff85200c0b36989c892995215687b5cf50104b4d1e6357ab2d0a8431e5f88aa0"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_units_v07.py",
+      "sha256": "bd2c54a3a13ab952b4abcea92700dac19ffde2ddce9d365d97d599d0ef3ad1d2"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_units_v08.py",
+      "sha256": "4ef39a712eedbddb3e59225e07fbc808da3f65ad4e14d71b1dd474a3bc266815"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_units_v09.py",
+      "sha256": "72a29c76e15a020a788fac6117e1e943bdda8e4f6395a3c4af0b3039f2d84551"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/run_units_v10.py",
+      "sha256": "1fa06fe405169f43e828225b34c40f7ce28eabcc8fc51a9b5190c397cf4fef1c"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/smoke_v05.py",
+      "sha256": "3e177640124f0c7f4ec17204698b807f2f63e98ee50e4ee46d3288594d15d88f"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/smoke_v06.py",
+      "sha256": "8b60680ae883667c7867c96118ff3a02197e6bf4a0bebf62572cf1a822c49ebf"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/smoke_v07.py",
+      "sha256": "bc72b17bf17ad06dd9e1a4e7d35227357c268a28a492c7e8dc01e85aebf780ee"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/smoke_v08.py",
+      "sha256": "7f8143d79ba0015dba998ca2970ac3863666720a6d9d54b7f044f9e29234ca53"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/smoke_v09.py",
+      "sha256": "cb9be191feecdf3b05ec31e8ce6ed3af5c15e43ee39f0fa034cda13e8604f3d9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/smoke_v10.py",
+      "sha256": "f1c464bb245a261e467fbe463879ee7bd3a750db76be7f5883a010b865c26214"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_candidate.py",
+      "sha256": "b2e759d5a02394de0df57f782da343fd7919fe662dee76e8df000e99445a0fa7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_candidate_v02.py",
+      "sha256": "b2e759d5a02394de0df57f782da343fd7919fe662dee76e8df000e99445a0fa7"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_plot_headroom_v09.py",
+      "sha256": "82bd859ce50b559c62ee9b27f43db0f1faf94185253d0b527310f24bc70ec7c9"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_test_expectations_v05.py",
+      "sha256": "24a9d6d0a6ae35cb066c7ee88e90aee2ba828000cdde972876679011e7d264bc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_test_expectations_v06.py",
+      "sha256": "2661101e049120454be8dd3121fe5ec550156f22020c5e2c41d20def41f5c147"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_test_expectations_v07.py",
+      "sha256": "323806b15e69750efa7f78523d0b5dcc7d0763819e0212bf3a198115fe48d2ce"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_test_expectations_v08.py",
+      "sha256": "c9ec23ae3460445f45cc2063dd77cc283033c70b4c40fa7990465d283b11b707"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_test_expectations_v09.py",
+      "sha256": "92fed844ba0c71e2c9975aa24bb44e874b16a6f63191456f4b53a4f5dca13695"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_test_expectations_v10.py",
+      "sha256": "6fa38441723af3dce89bbc297ec943ec2d4920df53b84b4cef8dd705ad65c986"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/verify_v10_inheritance.py",
+      "sha256": "ccce13bf47b51bd73d2db6128370e9b5ee7c173f405171f4f7353f3c079d3f49"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities.py",
+      "sha256": "f246c9844d8ff51b06106dceff2e3975caf1e47aa8c07d8c255ea6e6bd61d246"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v02.py",
+      "sha256": "47ebf5ccb7823bc97f0a5f9009c50695ef5105b7971fe219743c2acaae506de1"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v03.py",
+      "sha256": "c2730b61971b65ce8251b03c237d1f65874c360bd223c14b2db27b4543bd190b"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v04.py",
+      "sha256": "ce10d308b1226e69a3c2c82129c382a2454e7407cc3a5b0cb9c17cb273856034"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v05.py",
+      "sha256": "03cb67b03a29717ad41f4b2d5c3db864d63d33f3ce7bb31337a2315376726d31"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v06.py",
+      "sha256": "2fe1cc9878c425d562aa9f912a62182b4ceff86be97de5a2c060404bd485647b"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v07.py",
+      "sha256": "e7f443dc90071550aa2824e6b2f563671d4f5a0f7c13c77138f6dab27fe0c0bd"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v08.py",
+      "sha256": "2457c782b360006d879d3b89f2072122a0a6945a7939c523bb0e4c46791a5423"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v09.py",
+      "sha256": "25e6f7ab1cfa6e83ceb5487f18048693e2aa2e3d0cb7eaef8ed5653ade4fd843"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capabilities_v10.py",
+      "sha256": "19a0f97f0d59aa28fa1b0f185a03099129135f50a797a2e45381c91218239453"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capability_crosswalk_v09.py",
+      "sha256": "c0251337a4653d7a21a475e71a97b3397a4dfdd27b0ab07b46cd258abacef094"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_capability_crosswalk_v10.py",
+      "sha256": "6ee0ced77147162df8dce267db69fec63c1c33331735d40a82011abb1a5357cb"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_delivery_docs_v06.py",
+      "sha256": "74d81471f31bb12c8cc7896037ebe3e1da449ab57fdd63c0010ea45320deb496"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/core/tools/write_result_schema.py",
+      "sha256": "be7fb6021642d1bec6e17a81a22d71d6ae4733bc0b94e7e323f82110886e8d1a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/data_disclosure.py",
+      "sha256": "dc8a93adbf4293cc8bb66176c0059c10f44b1392321489d28bd0f2f425b8114e"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/module-lock.json",
+      "sha256": "a6a2de754adc2a80d6c1c9e25bface041bd92dd846aaf7eb94676c72f779a28d"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/module_contract.py",
+      "sha256": "b355520a33c2d8612e3cbd64e17028a7875d6866dc61af86fd0756017fd97348"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/module_task.py",
+      "sha256": "913e2a597f3f10ddceb97b27f47d05512de79bc6a59f9506eeebe886753ee6c5"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/module_transport.R",
+      "sha256": "f62e8a14a89a765b0f5b89b4502af8d51605f3cb5e246272cd48f2411afa7864"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/module_worker.py",
+      "sha256": "95113eb24236e7cf928946ee7334187ea41e42e47fa72c8252e228b6ad4254bc"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/origin_context.py",
+      "sha256": "06c70830c2bcf1e6508045b21541dbcd709ca908ea4ed2c5d30b187d6478052a"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/real_engineering.py",
+      "sha256": "34c3c1854a5efb71c185934cd35e1cd457d06da1c4120df0df9615e49f606c13"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/training_background.py",
+      "sha256": "85e436de286cbfb021d0f84b7fc112d97f5d9f33e29e4502a697f6a7e7927639"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/training_background_admission.py",
+      "sha256": "39e75083d852d758904e27f48e009c86307b7e58cf418fd8f067962fe9570dec"
+    },
+    {
+      "path": "_shared/clinical_analysis/integration/update_development_lock.py",
+      "sha256": "44b1bb207fa0d5cbd2c6fb09de46896f17b2e25fa948418c76a3a64e09bab5d2"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/__init__.py",
+      "sha256": "79b208fcdb80fa6455a9b5c35c787374a28e5b64385f3629fd8a78e4b534203b"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/association.py",
+      "sha256": "b3741bf3ab81b3e3b20d3a5f54dd041c10b063fa79f92bf888dfb4eb2b7000e3"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/clustering.py",
+      "sha256": "ac3bc16cf1daed564a6eadda812fda8e60c5dd29fe1a2ab7620961aede15ea27"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/plots.py",
+      "sha256": "4328208599fdcb5874cc3a6a8335d98be227838e3c850791b7fb35fad5eba35c"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/prediction.py",
+      "sha256": "4d610ba853c1e2c82e8502e544b5f777179d199b6ffc58952bffa61d3b7171a0"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/survival.py",
+      "sha256": "4350bfb0de6a7ff40323cc010b266e9fd44e4d774b97e71c9516987d4f878216"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/synthetic.py",
+      "sha256": "ab1ed7797bdb41616c92d46cfa96e884c6cf19d8ca7ca842b516b5aaa40f3a41"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical/trajectory.py",
+      "sha256": "872fb46e7638a38b58c0cb675f5d5a34418fd2d5102584000d5ec195e6d6b975"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/clinical_engine.py",
+      "sha256": "8bd246528ab76657af61e8311289c5be3a33a6149c31261c2302f877016add17"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/confirmation_evidence.py",
+      "sha256": "0565b89b4cb2f2de2989c3c204d8a83af00543deb2b02c9d5b26df8bd25f7321"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/font_support.py",
+      "sha256": "b3c4f8a1c4e2157bcadca8e13458277f0e335ff6faf9d39f41cd409f1d0d967c"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/scripts/privacy_boundary.py",
+      "sha256": "4f6d399d0a47c1fe0ea17976cb6c884a115d68cbe98cb589dab5f215ee29cfbb"
+    },
+    {
+      "path": "_shared/clinical_analysis/legacy/source-manifest.json",
+      "sha256": "bbc167f0540071cd081052ced35694298ce65c87f2d95dcaba3184a4ed157911"
+    },
+    {
+      "path": "_shared/clinical_analysis/materialize_fixtures.py",
+      "sha256": "c2643745c0a19051aeaa96851704e8d3eb6948c1480fbc7e07e22c8c9b3666bd"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/GAPS.md",
+      "sha256": "f3c13f13419b0c22b030980abb591524257f112683dd95fbe42fb2201ac9160e"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/METHODS.md",
+      "sha256": "798b68e1a179588b48a817936ff57c6ea9fd8cd69d58f4bed21218138567d70d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/R/projection.R",
+      "sha256": "b85cb1f6089f1d81348d9d6d812e00f8a243ee7edcdac1fee0074afa31e40c8b"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/R/provider.R",
+      "sha256": "bc983e64af3b281d1ffaae3afd6eedc5c247424630b662c7caa27aabca6a66de"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/R/worker.R",
+      "sha256": "3835a69f106385bbf007a3fcbcc0e09a2828103d522c791e7b01504e5f5c110d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/README.md",
+      "sha256": "0665583dcdac9fb39dda219ec87b4e0bd935dc1b65980e8977855a7053bae041"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/adapters.py",
+      "sha256": "001df9f2fdb782c0e84b6255836de334d909c30e455706a97f2afb4f47bc19b9"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/contracts/diagnostics.schema.json",
+      "sha256": "1aae5d49b4c006f9edea3a5dc498d3a31efebfaf82cde7244d1b35ed98428305"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/contracts/explainer.schema.json",
+      "sha256": "118c94203c63030ebd711b623ea64a1c4c864706e2b2d63289439c88aaeed317"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/contracts/payload.schema.json",
+      "sha256": "15b74badb7007acd87137fb028f492d79887818473fcceb43b94ebe0f5109611"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/contracts/private_record.schema.json",
+      "sha256": "7d1cb16755b6f0a56866fe759bce5c35f937a2735e0289b4d73d84c8294f6735"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/contracts/public_record.schema.json",
+      "sha256": "6ac116b8196965d3ef0fbb7c5be704160a124d3953bb9f59f1ec532d45def7d4"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/integration-request.json",
+      "sha256": "6a26d8894cff86a6207659e2ccc5bc0f13a2dcf7cd88824c9597540519c7d857"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/module_api.py",
+      "sha256": "f77e580cbe452db5125e277bbf7b39f3ed235742c0a23b80b52116a5bd8ed673"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/schema_defs.py",
+      "sha256": "e150a4d862b27e4c67733288726fe3fa5ffe3ad66ff5345603baa979be5dd8f2"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/cox-evaluation-explanation/tools/build_schemas.py",
+      "sha256": "d3b65c9808af6e43399b85c0e4974e3a2dac29040465837677f3e9384d3f498d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/CAPABILITIES.json",
+      "sha256": "ce2be42f1305e6df61b2e5ef45144054ce617ceeb844f316e0e7220b456f34ab"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/FORMAL-IMPLEMENTATION.md",
+      "sha256": "6f2ffb410a99d8533c51748fdba1e413555731c1e6ed3b2ba8711634b6bd119d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/FORMAL-METHODS-BOUNDARY.md",
+      "sha256": "21091b6782ccd674d6dedc6c81dec96f448212869825f451f833a1c96768a819"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/README.md",
+      "sha256": "812ce2fb7c3d0b45fab48c0b2089a6d511a374e8bbe7cbbb6ad475c41535de0b"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/__init__.py",
+      "sha256": "3d158bcf70e4ed75f0a0b641a675b01c8b6b077b46713067fcce7fe550cf9665"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/api.py",
+      "sha256": "2920b7dec5b27d72630e2a7db3a8b5a1df6833be0d189d0cd7ad942531864045"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/artifacts.py",
+      "sha256": "358508ff1164f7a70f57862c5473cb2f9966f6d44eadfeb1abd9546b49cf3e94"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/clustering.py",
+      "sha256": "2710b22aaa4b21f511c4d039823e21608d09ada79e887076148b2e62ca162d3d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/contracts.py",
+      "sha256": "71be0ba11cc6ce5bf8e06c5c5fff9dd95b93380c9340fbedf3d676ae394aea10"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/dispatch_api.py",
+      "sha256": "55ebde33aba3f87c8be79490c3c4a0a23396a1976637863db4b10d6c2f3ec4c8"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_api.py",
+      "sha256": "548ff203207163ca632410987f6cad5e76a938c5d911823906f82ec6314d2101"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_artifacts.py",
+      "sha256": "63d72f926eae24faa1ace94d85c5ef634802e6f24eb7c1cb46cb3180f569ee81"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_engine.R",
+      "sha256": "4670a49514aa997f1d4f6555e95d1231803e430046ed587530ced96e2dc45b4c"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_models.R",
+      "sha256": "1d57259fd313839dee463884e7b8d9ebafa3fc0a5e38f504799c24227d465876"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_provider.py",
+      "sha256": "942f714b70b527743232bf2327889a019f49bb9643138af58376dee1eeea8228"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_runtime.py",
+      "sha256": "ac5efe99404a5dcc02c579b47db3b4efdab62ae6302a1a4d6e5801be5330bf81"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_schemas/diagnostics.schema.json",
+      "sha256": "eb90fad9691303636f12b004668fbc37db67fb228ea45fc96d8f53239f55e5e6"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_schemas/private_record.schema.json",
+      "sha256": "00c2fb0ca7d1a5ff755ad9351b20c68838c386343805ddacbc3455770858a069"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_schemas/profile.payload.schema.json",
+      "sha256": "357d127712d4f50c7d93af7955f662426ca5edf4e7c7cfc60e5f91d046eb594c"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_schemas/public_record.schema.json",
+      "sha256": "a223a178780dc37d86a48874e351512f9f33324e596c9d6c8ae3b6ab15ffebae"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/formal_schemas/trajectory.payload.schema.json",
+      "sha256": "5d52d94e1332c34cf18b59f78e7194ad10205ec7eecc26d61b87bd714758d9d8"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/growth.py",
+      "sha256": "2a7f1121ebd4e3ac3e19db6f3c50d38e3f75b0a28cf60c55d7dce7cae3d68f67"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/growth_engine.R",
+      "sha256": "d6e073d6e26ce4ec7ed38772bd0402cc6c4b818e51e704775aca257005440b94"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/integration-request.json",
+      "sha256": "b830a82c3d97bcee45bf7c6ff9101369624a8f4aae6fb25a513214aa94bbb7f7"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/latent_longitudinal_adapter.R",
+      "sha256": "1a7f45efe6f564ae2534220cbd1f16e7028f6327e10ab949b272bae833d8e5e9"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/module.py",
+      "sha256": "ab1f6e4e32a2425dc09ef9beb2579c4f3e7f542a1831ca6d2d76da00225b56a9"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schema_tools.py",
+      "sha256": "51cfac9c6c3ccf9ed52b446ec5d2926ac560a2fb87005a0e73910f6dabd4f8f9"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/cluster.payload.schema.json",
+      "sha256": "340ddcce1662a9090d4b71c18e0826b559bebb704deacb0faf4cc2fbc40ed409"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/diagnostics.schema.json",
+      "sha256": "8bc3fe6e8ed161ec24342881e1df10d0809451d9831243c5411bfd21ba1c1198"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/growth.payload.schema.json",
+      "sha256": "d181fbe2a842158eb64eb252fef6593ada1dcf86b4d26111430f7f7afd2b2edb"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/private_record.schema.json",
+      "sha256": "eea804eb1e5b85e4a6513dadfb2b0f23646d5267d7effd86e51432d77c3d1c36"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/profile.payload.schema.json",
+      "sha256": "967750444be639c96d9e5969b46e8206ddc09d70da8dc17c1719eddc972fb45a"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/public_record.schema.json",
+      "sha256": "eb3707c2d259ec5c0dad433e7fc4e9b1237b3d63c00d914c5cccce163586b60c"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/schemas/trajectory.payload.schema.json",
+      "sha256": "26dff8cc92dae94733c51c9242bdbfd318e47b47e92acce4e8d1f5d7e71bcbc7"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/tools/build_formal_schemas.py",
+      "sha256": "e5fd169b50b065f6c5deeb7dee3732961727fbea7234bd040e0d0ddad1edf7bf"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/tools/build_schemas.py",
+      "sha256": "056eae966bdafccfb4ed17868f0e71fbd33ca9786524075ee16ccb55432fd260"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/tools/finalize_install_receipt.py",
+      "sha256": "e60035177f4de963be98be5bad3d2b247b4f48831f60802e276c6d03354fd6cd"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/latent_longitudinal/tools/prepare_formal_manifest.py",
+      "sha256": "9a67bf36cbec962821a71f804eb6ddb7c532b41cd1872bf4d56630154d334507"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/METHODS.md",
+      "sha256": "a2eaea6d4f7f9bf3e493bf417b082250eadfa3fba2e819ab9d14f3ec7950b650"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/R/adapter.R",
+      "sha256": "1c7a7cf712533a14b8b27abb441df4b2704cbc0e749e41cc5f8b9a9e5a7bff70"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/R/module_api.R",
+      "sha256": "54d6494fa2be85a2e6d53f6fd6714e02c1544202eb6021aaa51547c0924b3183"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/R/provider.R",
+      "sha256": "73bfee7afc6203fc82c9ce46273b3f4e8cd275dfd0ef133438f075ce083c7451"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/R/run.R",
+      "sha256": "97d331270254f9c1ecb797b8ee43629986a0ebec2d66d56092186e60d8b4c647"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/README.md",
+      "sha256": "4cd63700ee60b280f5abdfe143525440e3dc7c882710b2005d613ecca3270335"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/SCOPE.md",
+      "sha256": "443e83bb8cb1fb91046212c330b4782f6e4379508301546ca5145732e7999cd0"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/contracts/diagnostics.schema.json",
+      "sha256": "c37473621e9d9ca5cf4fa23043e355c3d9340ddbb47a9ec1359f7744dd816118"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/contracts/input.fragment.schema.json",
+      "sha256": "5bd6365ec105c0ec2eb3aa772663a86a29f00a261d684f64d09b12e326afb02b"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/contracts/payload.schema.json",
+      "sha256": "dd42a0ffbec96a75f91ebf5b27c874dc6a9254e437c86232909d2ec186e965f5"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/contracts/private_record.schema.json",
+      "sha256": "724076229fa6bc5f0fd6bf354fa15d32699b90b9c315604a2a1491854c49d673"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/contracts/public_record.schema.json",
+      "sha256": "c4175799200a909d6a14fd12a37b48cd2676aab2659bcf2ec39b77a48f8aeaa3"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/contracts/result.fragment.schema.json",
+      "sha256": "217d70eb3156dd2e3223d0b09adcccb22ca689ddb5fd29fbd72cdb7b2bc6681f"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/integration-request.json",
+      "sha256": "6fc3e71875fade703cf0ddfa4d59f59794fd8726f9aef2c8ca3f8a69c40db6ee"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/python/adapter.py",
+      "sha256": "bcba0b70114b798bab047c7379c3ad1ccf85d18691301538f04a76acc7e9ed9d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/python/contracts.py",
+      "sha256": "1dd117957293b7dea9d3ef99976573209590b0782fa528fe1be9700e0d4471d5"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/mediation_matching/python/module_request.py",
+      "sha256": "1cd96e19c8c2d6f9a5ab0411b31d42fca61b04e2a3bab33f89b0a710b0f4785d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/README.md",
+      "sha256": "c87e98c135d4ff9d60f0eb61c664b21559a306c33244627226c867b545f65d47"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/adapter.py",
+      "sha256": "b868f7de96de834a432c7fb2d7907bc2621997fbf087e247fb7b5bf99c7927e7"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/contracts.py",
+      "sha256": "065130d6bcf39bb9d9356c7506635f1a20fb99f338832fcdf693489e7c6939f5"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/integration-request-tree-shap.json",
+      "sha256": "5bf6aa79cecc54ec8e8f103698fa6cb34b9e39d73b4e0ce101f0782ccd736e0c"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/integration-request.json",
+      "sha256": "6ac05b8ec761111574485864578ce805cd7db020e904f10e11047075c900ba54"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/interface.py",
+      "sha256": "47bd3cb862995e47818bb8c51563fcca85b1d24da775a9081d0bd04078e69b79"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/projection.R",
+      "sha256": "7b4fdca232e5ba4f734da01d1eee104ffde22d7427d1a3461c237debce9039e7"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/provider.py",
+      "sha256": "d8cf34c723b586f102a4b9d6975e5a4bd3f68981151f56e82434caacef6e48b6"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/run_module.py",
+      "sha256": "4aafd0bcf2e01965dce0f83d87a659b93bc47ab7c4e7811af90da0f8b3bee3da"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/schemas/diagnostics.schema.json",
+      "sha256": "8bbd250cca36ab2189ad93c9a738a1f885f754d60ea1b170bb61aa43e1fef475"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/schemas/payload.schema.json",
+      "sha256": "9b8f9650f7e13cfd0c5019578145d24c754fcc757131570b89d0ecb254f5c1ad"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/schemas/private-record.schema.json",
+      "sha256": "bed9be8b70338834d04e3f69e0d6aa9cab095bbe66ab71da1a10be39044b4fe0"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/schemas/public-record.schema.json",
+      "sha256": "9fcb5b707aa63a75d2b9039d915810f84ef2f3b42859e451748e64f8d621c0c1"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/README.md",
+      "sha256": "a88fa927c6ab991d7f5243e8706350d1c0327c4b6beb4b38d51cc2981fcfb276"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/__init__.py",
+      "sha256": "999bc76ee1067b5ebd21c1afed1d766c0c30133338306a8ea982c475c0f92e11"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/background.py",
+      "sha256": "e732ebf11539cde5cee8e6445748099563eaeb54912085b12bb0dae3d2d3c9e7"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/build_schemas.py",
+      "sha256": "f0096ef8b0a1d0b2aeacd7e4b20f084f5f5a1d0143a540dec12dbeb136794daa"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/explain.py",
+      "sha256": "e763fa4c69f8311778a2378e15782d21454fd1d956696db8682c55c870addd49"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/interface.py",
+      "sha256": "d9ba76857f2d811098037311858512887a33e6aeae462bc3056f3686f77f30ec"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/projection.py",
+      "sha256": "67943ad59464f0c9cd127ec06831f6ebef8861a129443e10af37289307caecb3"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/requirements.txt",
+      "sha256": "9660509ed9cb4624607fc130ec4233bcebb5a44e3fbd6d77746c4fdbc3d3fc9f"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/run.py",
+      "sha256": "3edd54b352961df81a8552e4800b8766fc68a2e45b9a0f04eee552621e8129ef"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/runtime.py",
+      "sha256": "60ac355ced787aed2d07f4e9319d04619832c822355665e3d034a07d54f5d63a"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/schemas/background.schema.json",
+      "sha256": "1b29c8ecb25ced3375890927fcd4a7d453a6a182dd17454fb6e61fe9c0437fe1"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/schemas/diagnostics.schema.json",
+      "sha256": "8c0433368be68a52612b9ed66e9a787096771cd01d21dad2fc974543d1b0002b"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/schemas/payload.schema.json",
+      "sha256": "ee288de9d275c69349239048ac429d68b3a6560a28146c4649d9d931a56eb56c"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/schemas/private-record.schema.json",
+      "sha256": "c6fcea4476fc85da322c169355581228649b49aa2fba360d71b40757f7d9ebc2"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/schemas/public-record.schema.json",
+      "sha256": "0601736299e0797c243f90cd2a69e00eec3f49a5fb634958640dbc3e0be4944d"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/smoke.py",
+      "sha256": "3fcdd4ce5905b8fe4d92663c40dd174341806be857db6a28e992ef668b5c8d50"
+    },
+    {
+      "path": "_shared/clinical_analysis/modules/nonlinear_prediction/write_interface_schemas.py",
+      "sha256": "d30751545e2a10d7d99d17f33af2cb3e2f112187e1bcaac78462399fa9722c27"
+    },
+    {
+      "path": "_shared/clinical_analysis/runtime-requirements.json",
+      "sha256": "06108926d18b48733470a64e29a8503cf840cbc4f09799bf55f4bc30e4a918e1"
+    }
+  ]
+}

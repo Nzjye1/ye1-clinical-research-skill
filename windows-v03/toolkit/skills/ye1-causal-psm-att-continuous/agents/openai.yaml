@@ -1,0 +1,4 @@
+interface:
+  display_name: "1:1 PSM 与配对连续结局推断"
+  short_description: "1:1 PSM 与配对连续结局推断，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-causal-psm-att-continuous 处理这项分析，先自检并核对我提供的问题和变量字典。"

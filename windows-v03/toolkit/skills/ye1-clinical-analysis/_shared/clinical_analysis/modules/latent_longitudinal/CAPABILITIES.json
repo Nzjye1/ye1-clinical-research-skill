@@ -1,0 +1,122 @@
+{
+  "status": "complete_with_explicit_supported_model_bounds",
+  "scientific_review": "pending",
+  "test_only": true,
+  "export_status": "local_only",
+  "entrypoint": "dispatch_api.py:analyze",
+  "projection": "dispatch_api.py:project",
+  "methods": [
+    {
+      "method_id": "exploration.cluster.kmeans",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "clustering.py: sklearn.cluster.KMeans",
+      "implementation": "verified_native_windows"
+    },
+    {
+      "method_id": "exploration.cluster.gmm",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "clustering.py: sklearn.mixture.GaussianMixture",
+      "implementation": "verified_native_windows"
+    },
+    {
+      "method_id": "longitudinal.growth.gaussian",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "numerical_owner": "growth_engine.R: nlme::lme ML",
+      "implementation": "verified_native_windows"
+    },
+    {
+      "method_id": "latent.profile.gaussian",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "formal_models.R: mclust::me (EEI/VVI Gaussian LPA)",
+      "implementation": "verified_native_windows"
+    },
+    {
+      "method_id": "latent.trajectory.gaussian",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "numerical_owner": "formal_models.R: lcmm::hlme (Gaussian LCGA/shared-covariance growth mixture)",
+      "implementation": "verified_native_windows"
+    }
+  ],
+  "formal_models": [
+    "Gaussian LPA EEI",
+    "Gaussian LPA VVI",
+    "Gaussian LCGA linear/quadratic",
+    "Gaussian growth mixture shared random-intercept covariance",
+    "Gaussian growth mixture shared correlated random-intercept/slope covariance"
+  ],
+  "formal_limitations": [
+    "Continuous Gaussian indicators/outcomes only",
+    "Complete-case profiles; observed-outcome MAR trajectory likelihood; no informative dropout handling",
+    "Intercept-only class probabilities; no covariates/weights/residual AR/class-varying random covariance",
+    "No BLRT/LMR, parameter CI, three-step downstream inference or causal effects",
+    "20-200 starts do not establish the global optimum; bootstrap fixes selected K",
+    "Frozen trajectory predict is posterior assignment from observed outcomes, not prospective prediction",
+    "K<=6, 30-3000 training subjects, max 20000 rows, at least 10 training subjects per maximum candidate K; engineering limits not sample-size guidance",
+    "No real-patient/source-database/clinical scientific validation; not a released Skill"
+  ],
+  "evidence": [
+    "evidence/acceptance-20261024T034749239135Z/receipt.json",
+    "evidence/acceptance-20261024T034749239135Z/tests.log",
+    "evidence/affected-regression-20261024T033841649880Z/receipt.json",
+    "HANDOFF.md",
+    "FORMAL-METHODS-BOUNDARY.md",
+    "FORMAL-IMPLEMENTATION.md",
+    "formal-integration-change-request.json",
+    "evidence/formal-install/receipt.json",
+    "tests/formal_acceptance.py",
+    "tests/formal_references.py",
+    "tests/reference_formal_lme4.R",
+    "evidence/formal-acceptance-20261024T041905016723Z/receipt.json",
+    "evidence/formal-acceptance-20261024T041905016723Z/source-lock.json",
+    "evidence/formal-acceptance-20261024T041905016723Z/artifact-audit.json",
+    "evidence/formal-contract-20261024T042151388661Z/receipt.json",
+    "CAPABILITIES.json"
+  ],
+  "pending_shared_actions": [
+    {
+      "target": "integration/module_worker.py:load_python and the development module lock",
+      "reason": "Honor manifest.entrypoint.path when importing latent_longitudinal as a package; dispatch_api routes to existing api or new formal_api. Formal payload adds split, controls and explicit time origin/scale. Existing three provider code/schema bytes remain unchanged.",
+      "affected_methods": [
+        "latent.profile.gaussian",
+        "latent.trajectory.gaussian"
+      ],
+      "required_regression": [
+        "five method IDs route to their sole owners",
+        "formal training subject/holdout boundary",
+        "private frozen artifact persisted verbatim",
+        "subject-time branch cannot relax existing subject-only guards",
+        "strict own payload/result schemas",
+        "zero-fit frozen assignment",
+        "common provenance and aggregate-only projection"
+      ]
+    },
+    {
+      "target": "integration/module_task.py runtime binding and final integration verification",
+      "reason": "Current common runtime_sha256 binds core/runtime-lock.json. Formal provider also binds the actual six isolated package binaries and R.dll/BLAS/LAPACK through formal_runtime.binding(probe), frozen artifact and diagnostics.runtime_hash. Preserve that separate module binding or include it in the common runtime provenance; do not claim the shared lock alone covers newly isolated binaries.",
+      "affected_methods": [
+        "latent.profile.gaussian",
+        "latent.trajectory.gaussian"
+      ],
+      "required_regression": [
+        "actual common run_analysis_task train and frozen application for both formal IDs",
+        "preserve actual module runtime binding",
+        "projection failures remain partial and private records remain private"
+      ]
+    }
+  ]
+}

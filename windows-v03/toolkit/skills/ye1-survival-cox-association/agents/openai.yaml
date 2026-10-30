@@ -1,0 +1,4 @@
+interface:
+  display_name: "右删失 Cox 关联与指定 PH 诊断"
+  short_description: "右删失 Cox 关联与指定 PH 诊断，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-survival-cox-association 处理这项分析，先自检并核对我提供的问题和变量字典。"

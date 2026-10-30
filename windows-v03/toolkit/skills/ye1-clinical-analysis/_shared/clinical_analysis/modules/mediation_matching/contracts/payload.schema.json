@@ -1,0 +1,964 @@
+{
+  "type": "object",
+  "properties": {
+    "spec": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "mediation-matching-input@1.0.0",
+      "description": "Module spec only; row-level, chronology, rank and causal assumption checks remain mandatory.",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "mediation-matching-input@1.0.0"
+            },
+            "method_id": {
+              "const": "mediation.linear.binary_exposure"
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposure": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "mediator": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "time": {
+                  "type": "null"
+                },
+                "event": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "subject",
+                "exposure",
+                "outcome",
+                "mediator",
+                "time",
+                "event"
+              ],
+              "additionalProperties": false
+            },
+            "covariates": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "maxItems": 8
+            },
+            "semantics": {
+              "type": "object",
+              "properties": {
+                "population": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposure_definition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_definition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_unit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "time_unit": {
+                  "enum": [
+                    "hour",
+                    "day",
+                    "year"
+                  ]
+                },
+                "exposure_time": {
+                  "type": "number"
+                },
+                "covariate_latest_time": {
+                  "type": "number"
+                },
+                "mediator_time": {
+                  "type": "number"
+                },
+                "outcome_time": {
+                  "type": "number"
+                },
+                "design": {
+                  "const": "iid_subjects"
+                },
+                "weights": {
+                  "const": "none"
+                },
+                "causal_assumptions_verified": {
+                  "const": false
+                },
+                "treatment_induced_confounder": {
+                  "const": false
+                },
+                "censoring": {
+                  "const": "none"
+                },
+                "delayed_entry": {
+                  "const": false
+                },
+                "competing_events": {
+                  "const": false
+                },
+                "recurrent_events": {
+                  "const": false
+                },
+                "time_varying": {
+                  "const": false
+                },
+                "binary_horizon_complete": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "population",
+                "exposure_definition",
+                "outcome_definition",
+                "outcome_unit",
+                "time_unit",
+                "exposure_time",
+                "covariate_latest_time",
+                "mediator_time",
+                "outcome_time",
+                "design",
+                "weights",
+                "causal_assumptions_verified",
+                "treatment_induced_confounder",
+                "censoring",
+                "delayed_entry",
+                "competing_events",
+                "recurrent_events",
+                "time_varying",
+                "binary_horizon_complete"
+              ],
+              "additionalProperties": false
+            },
+            "options": {
+              "type": "object",
+              "properties": {
+                "exposure_type": {
+                  "const": "binary"
+                },
+                "mediator_type": {
+                  "const": "continuous"
+                },
+                "outcome_type": {
+                  "const": "continuous"
+                },
+                "interaction": {
+                  "type": "boolean"
+                },
+                "bootstrap_replicates": {
+                  "type": "integer",
+                  "minimum": 200,
+                  "maximum": 5000
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483646
+                },
+                "ci_level": {
+                  "const": 0.95
+                },
+                "missingness": {
+                  "const": "complete_case_joint_models"
+                },
+                "estimand": {
+                  "const": "complete_case_empirical_natural_contrasts"
+                }
+              },
+              "required": [
+                "exposure_type",
+                "mediator_type",
+                "outcome_type",
+                "interaction",
+                "bootstrap_replicates",
+                "seed",
+                "ci_level",
+                "missingness",
+                "estimand"
+              ],
+              "additionalProperties": false
+            },
+            "execution": {
+              "type": "object",
+              "properties": {
+                "test_only": {
+                  "const": true
+                },
+                "data_origin": {
+                  "const": "synthetic"
+                }
+              },
+              "required": [
+                "test_only",
+                "data_origin"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "schema_version",
+            "method_id",
+            "fields",
+            "covariates",
+            "semantics",
+            "options",
+            "execution"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "mediation-matching-input@1.0.0"
+            },
+            "method_id": {
+              "const": "causal.psm.att.binary"
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposure": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "mediator": {
+                  "type": "null"
+                },
+                "time": {
+                  "type": "null"
+                },
+                "event": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "subject",
+                "exposure",
+                "outcome",
+                "mediator",
+                "time",
+                "event"
+              ],
+              "additionalProperties": false
+            },
+            "covariates": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "maxItems": 8
+            },
+            "semantics": {
+              "type": "object",
+              "properties": {
+                "population": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposure_definition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_definition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_unit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "time_unit": {
+                  "enum": [
+                    "hour",
+                    "day",
+                    "year"
+                  ]
+                },
+                "exposure_time": {
+                  "type": "number"
+                },
+                "covariate_latest_time": {
+                  "type": "number"
+                },
+                "mediator_time": {
+                  "type": "null"
+                },
+                "outcome_time": {
+                  "type": "number"
+                },
+                "design": {
+                  "const": "iid_subjects"
+                },
+                "weights": {
+                  "const": "none"
+                },
+                "causal_assumptions_verified": {
+                  "const": false
+                },
+                "treatment_induced_confounder": {
+                  "const": false
+                },
+                "censoring": {
+                  "const": "none"
+                },
+                "delayed_entry": {
+                  "const": false
+                },
+                "competing_events": {
+                  "const": false
+                },
+                "recurrent_events": {
+                  "const": false
+                },
+                "time_varying": {
+                  "const": false
+                },
+                "binary_horizon_complete": {
+                  "const": true
+                }
+              },
+              "required": [
+                "population",
+                "exposure_definition",
+                "outcome_definition",
+                "outcome_unit",
+                "time_unit",
+                "exposure_time",
+                "covariate_latest_time",
+                "mediator_time",
+                "outcome_time",
+                "design",
+                "weights",
+                "causal_assumptions_verified",
+                "treatment_induced_confounder",
+                "censoring",
+                "delayed_entry",
+                "competing_events",
+                "recurrent_events",
+                "time_varying",
+                "binary_horizon_complete"
+              ],
+              "additionalProperties": false
+            },
+            "options": {
+              "type": "object",
+              "properties": {
+                "outcome_type": {
+                  "const": "binary"
+                },
+                "caliper_width": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "categorical": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "levels": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 2
+                      },
+                      "reference": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "levels",
+                      "reference"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "ratio": {
+                  "const": 1
+                },
+                "replacement": {
+                  "const": false
+                },
+                "estimand": {
+                  "const": "ATT_retained_matched_treated_risk_difference"
+                },
+                "inference": {
+                  "const": "paired_rd_exact_discordance"
+                },
+                "ci_level": {
+                  "const": 0.95
+                },
+                "missingness": {
+                  "const": "complete_case_covariates_endpoint_required"
+                },
+                "risk_times": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 0,
+                  "maxItems": 0
+                }
+              },
+              "required": [
+                "outcome_type",
+                "caliper_width",
+                "categorical",
+                "ratio",
+                "replacement",
+                "estimand",
+                "inference",
+                "ci_level",
+                "missingness",
+                "risk_times"
+              ],
+              "additionalProperties": false
+            },
+            "execution": {
+              "type": "object",
+              "properties": {
+                "test_only": {
+                  "const": true
+                },
+                "data_origin": {
+                  "const": "synthetic"
+                }
+              },
+              "required": [
+                "test_only",
+                "data_origin"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "schema_version",
+            "method_id",
+            "fields",
+            "covariates",
+            "semantics",
+            "options",
+            "execution"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "mediation-matching-input@1.0.0"
+            },
+            "method_id": {
+              "const": "causal.psm.matched.survival"
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposure": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome": {
+                  "type": "null"
+                },
+                "mediator": {
+                  "type": "null"
+                },
+                "time": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "event": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "subject",
+                "exposure",
+                "outcome",
+                "mediator",
+                "time",
+                "event"
+              ],
+              "additionalProperties": false
+            },
+            "covariates": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "maxItems": 8
+            },
+            "semantics": {
+              "type": "object",
+              "properties": {
+                "population": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposure_definition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_definition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_unit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "time_unit": {
+                  "enum": [
+                    "hour",
+                    "day",
+                    "year"
+                  ]
+                },
+                "exposure_time": {
+                  "type": "number"
+                },
+                "covariate_latest_time": {
+                  "type": "number"
+                },
+                "mediator_time": {
+                  "type": "null"
+                },
+                "outcome_time": {
+                  "type": "null"
+                },
+                "design": {
+                  "const": "iid_subjects"
+                },
+                "weights": {
+                  "const": "none"
+                },
+                "causal_assumptions_verified": {
+                  "const": false
+                },
+                "treatment_induced_confounder": {
+                  "const": false
+                },
+                "censoring": {
+                  "const": "right_independent_conditional_on_treatment"
+                },
+                "delayed_entry": {
+                  "const": false
+                },
+                "competing_events": {
+                  "const": false
+                },
+                "recurrent_events": {
+                  "const": false
+                },
+                "time_varying": {
+                  "const": false
+                },
+                "binary_horizon_complete": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "population",
+                "exposure_definition",
+                "outcome_definition",
+                "outcome_unit",
+                "time_unit",
+                "exposure_time",
+                "covariate_latest_time",
+                "mediator_time",
+                "outcome_time",
+                "design",
+                "weights",
+                "causal_assumptions_verified",
+                "treatment_induced_confounder",
+                "censoring",
+                "delayed_entry",
+                "competing_events",
+                "recurrent_events",
+                "time_varying",
+                "binary_horizon_complete"
+              ],
+              "additionalProperties": false
+            },
+            "options": {
+              "type": "object",
+              "properties": {
+                "outcome_type": {
+                  "const": "survival"
+                },
+                "caliper_width": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 2
+                },
+                "categorical": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "levels": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 2
+                      },
+                      "reference": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "levels",
+                      "reference"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "ratio": {
+                  "const": 1
+                },
+                "replacement": {
+                  "const": false
+                },
+                "estimand": {
+                  "const": "matched_population_working_marginal_hazard_ratio"
+                },
+                "inference": {
+                  "const": "pooled_cox_pair_cluster_efron"
+                },
+                "ci_level": {
+                  "const": 0.95
+                },
+                "missingness": {
+                  "const": "complete_case_covariates_endpoint_required"
+                },
+                "risk_times": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "minItems": 2,
+                  "maxItems": 12
+                }
+              },
+              "required": [
+                "outcome_type",
+                "caliper_width",
+                "categorical",
+                "ratio",
+                "replacement",
+                "estimand",
+                "inference",
+                "ci_level",
+                "missingness",
+                "risk_times"
+              ],
+              "additionalProperties": false
+            },
+            "execution": {
+              "type": "object",
+              "properties": {
+                "test_only": {
+                  "const": true
+                },
+                "data_origin": {
+                  "const": "synthetic"
+                }
+              },
+              "required": [
+                "test_only",
+                "data_origin"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "schema_version",
+            "method_id",
+            "fields",
+            "covariates",
+            "semantics",
+            "options",
+            "execution"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "structure": {
+      "type": "object",
+      "properties": {
+        "grain": {
+          "const": "subject_wide"
+        },
+        "subject_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "cluster_key": {
+          "type": "null"
+        },
+        "weights": {
+          "const": "none"
+        },
+        "missingness": {
+          "enum": [
+            "complete_case_joint_models",
+            "complete_case_covariates_endpoint_required"
+          ]
+        },
+        "time_origin": {
+          "type": "number"
+        },
+        "time_unit": {
+          "enum": [
+            "day",
+            "hour",
+            "year"
+          ]
+        },
+        "analysis_as_of": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "grain",
+        "subject_key",
+        "record_keys",
+        "cluster_key",
+        "weights",
+        "missingness",
+        "time_origin",
+        "time_unit",
+        "analysis_as_of"
+      ],
+      "additionalProperties": false
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dtype": {
+            "enum": [
+              "id",
+              "number",
+              "category"
+            ]
+          },
+          "role": {
+            "enum": [
+              "subject",
+              "exposure",
+              "mediator",
+              "outcome",
+              "time",
+              "event",
+              "covariate"
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "time_role": {
+            "enum": [
+              "identifier",
+              "baseline",
+              "exposure",
+              "mediator",
+              "outcome",
+              "followup_duration",
+              "event_at_followup"
+            ]
+          },
+          "measured_at": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "available_at": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "dtype",
+          "role",
+          "unit",
+          "time_role",
+          "measured_at",
+          "available_at"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 4,
+      "maxItems": 14
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subject_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exposure": {
+            "type": "number"
+          },
+          "mediator": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "time": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "event": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "covariates": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "subject_id",
+          "exposure",
+          "mediator",
+          "outcome",
+          "time",
+          "event",
+          "covariates"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 100000
+    }
+  },
+  "required": [
+    "spec",
+    "structure",
+    "variables",
+    "rows"
+  ],
+  "additionalProperties": false
+}

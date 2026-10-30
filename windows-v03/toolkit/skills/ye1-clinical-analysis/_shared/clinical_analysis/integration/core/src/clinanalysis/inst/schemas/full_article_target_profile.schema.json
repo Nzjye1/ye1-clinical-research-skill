@@ -1,0 +1,120 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "automatic_volume_gate_required": {
+      "const": true,
+      "default": true,
+      "title": "Automatic Volume Gate Required",
+      "type": "boolean"
+    },
+    "compact_article_allowed": {
+      "const": false,
+      "default": false,
+      "title": "Compact Article Allowed",
+      "type": "boolean"
+    },
+    "human_volume_detection_required": {
+      "const": false,
+      "default": false,
+      "title": "Human Volume Detection Required",
+      "type": "boolean"
+    },
+    "minimum_figure_count": {
+      "default": 3,
+      "minimum": 3,
+      "title": "Minimum Figure Count",
+      "type": "integer"
+    },
+    "minimum_table_count": {
+      "default": 3,
+      "minimum": 3,
+      "title": "Minimum Table Count",
+      "type": "integer"
+    },
+    "minimum_total_display_count": {
+      "default": 6,
+      "minimum": 6,
+      "title": "Minimum Total Display Count",
+      "type": "integer"
+    },
+    "profile_id": {
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,127}$",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "required_figure_roles": {
+      "items": {
+        "enum": [
+          "COHORT_FLOW",
+          "PRIMARY_EFFECT",
+          "CLINICAL_DEEPENING",
+          "CREDIBILITY"
+        ],
+        "type": "string"
+      },
+      "title": "Required Figure Roles",
+      "type": "array"
+    },
+    "required_scientific_domains": {
+      "default": [
+        "MAIN_ANSWER",
+        "CLINICAL_DEEPENING",
+        "CREDIBILITY"
+      ],
+      "items": {
+        "enum": [
+          "MAIN_ANSWER",
+          "CLINICAL_DEEPENING",
+          "CREDIBILITY"
+        ],
+        "type": "string"
+      },
+      "title": "Required Scientific Domains",
+      "type": "array"
+    },
+    "required_table_roles": {
+      "items": {
+        "enum": [
+          "BASELINE_CHARACTERISTICS",
+          "PRIMARY_ESTIMATES",
+          "CLINICAL_DEEPENING",
+          "CREDIBILITY"
+        ],
+        "type": "string"
+      },
+      "title": "Required Table Roles",
+      "type": "array"
+    },
+    "result_driven_replacement_allowed": {
+      "const": false,
+      "default": false,
+      "title": "Result Driven Replacement Allowed",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "full-article-target-profile@1.0.0",
+      "default": "full-article-target-profile@1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "submission_authorized": {
+      "const": false,
+      "default": false,
+      "title": "Submission Authorized",
+      "type": "boolean"
+    },
+    "target_positioning": {
+      "const": "FULL_ORIGINAL_APPROX_SCI6",
+      "default": "FULL_ORIGINAL_APPROX_SCI6",
+      "title": "Target Positioning",
+      "type": "string"
+    }
+  },
+  "required": [
+    "profile_id",
+    "required_figure_roles",
+    "required_table_roles"
+  ],
+  "title": "ArticleTargetProfile",
+  "type": "object"
+}

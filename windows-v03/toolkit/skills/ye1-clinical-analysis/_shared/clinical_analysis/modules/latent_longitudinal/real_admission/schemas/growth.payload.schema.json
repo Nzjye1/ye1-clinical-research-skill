@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "spec": {
+      "type": "object",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "unit": {
+              "type": "string"
+            },
+            "origin": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "name",
+            "unit",
+            "origin",
+            "scale"
+          ],
+          "additionalProperties": false
+        },
+        "outcome": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "name",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        "covariates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "name",
+              "unit"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 10
+        },
+        "degree": {
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "random": {
+          "enum": [
+            "intercept",
+            "intercept_slope"
+          ]
+        },
+        "estimation": {
+          "const": "ML"
+        },
+        "correlation": {
+          "const": "independent"
+        },
+        "missing": {
+          "const": "complete_case_rows"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "max_iter": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        }
+      },
+      "required": [
+        "subject_id",
+        "cohort_id",
+        "time",
+        "outcome",
+        "covariates",
+        "degree",
+        "random",
+        "estimation",
+        "correlation",
+        "missing",
+        "seed",
+        "max_iter"
+      ],
+      "additionalProperties": false
+    },
+    "semantics": {
+      "type": "object",
+      "properties": {
+        "grain": {
+          "enum": [
+            "subject",
+            "subject_time"
+          ]
+        },
+        "subject_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+        },
+        "record_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "group_key": {
+          "type": "null"
+        },
+        "independence": {
+          "const": "independent_subjects"
+        },
+        "event_coding": {
+          "type": "null"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+              },
+              "dtype": {
+                "enum": [
+                  "id",
+                  "number",
+                  "category"
+                ]
+              },
+              "role": {
+                "enum": [
+                  "subject_id",
+                  "indicator",
+                  "time",
+                  "outcome",
+                  "covariate",
+                  "partition"
+                ]
+              },
+              "unit": {
+                "type": "string"
+              },
+              "measured_at": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "const": "row_time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "available_at": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "const": "row_time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "dtype",
+              "role",
+              "unit",
+              "measured_at",
+              "available_at"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 24
+        },
+        "time": {
+          "type": "object",
+          "properties": {
+            "unit": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "origin": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "scale": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "measurement_time_field": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "availability": {
+              "enum": [
+                "declared_per_field",
+                "row_time"
+              ]
+            }
+          },
+          "required": [
+            "unit",
+            "origin",
+            "scale",
+            "measurement_time_field",
+            "availability"
+          ],
+          "additionalProperties": false
+        },
+        "weights": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "none"
+            },
+            "field": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "kind",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        "missing_policy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "grain",
+        "subject_key",
+        "record_keys",
+        "group_key",
+        "independence",
+        "event_coding",
+        "fields",
+        "time",
+        "weights",
+        "missing_policy"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        }
+      },
+      "minItems": 1,
+      "maxItems": 20000
+    },
+    "test_only": {
+      "type": "boolean"
+    },
+    "model_ref": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "work_dir": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "spec",
+    "semantics",
+    "data",
+    "test_only",
+    "model_ref",
+    "work_dir"
+  ],
+  "additionalProperties": false,
+  "description": "Dynamic data columns are additionally closed by api.check_semantics against the declared field list; no undeclared column is allowed."
+}

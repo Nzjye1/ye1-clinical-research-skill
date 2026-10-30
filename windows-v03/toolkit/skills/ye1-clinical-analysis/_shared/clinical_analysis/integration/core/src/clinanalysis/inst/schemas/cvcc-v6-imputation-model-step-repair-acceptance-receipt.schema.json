@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/cvcc-v6-imputation-model-step-repair-acceptance-receipt.schema.json",
+  "title": "CVCC V6 imputation model-step repair acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "receipt_id", "status", "candidate_id", "trigger",
+    "aggregate_diagnosis", "root_cause", "repair", "contracts",
+    "synthetic_acceptance", "verification", "execution_boundaries", "privacy",
+    "residual_risks", "completed_at", "next_responsible_actor"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {
+      "const": "RECEIPT.CVCC-PRED-ISO-001.V6-IMPUTATION-MODEL-STEP-REPAIR.V1"
+    },
+    "status": {
+      "const": "V6_IMPUTATION_MODEL_STEP_ROOT_CAUSE_CONFIRMED_SYNTHETICALLY_REPAIRED_NOT_EXECUTION_AUTHORIZED"
+    },
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_commit", "analysis_failure_commit", "execution_receipt_sha256",
+        "failure_diagnostic_sha256", "v6_terminal", "v6_retried"
+      ],
+      "properties": {
+        "control_commit": {"const": "a2e5f45"},
+        "analysis_failure_commit": {
+          "const": "73b7e4d94b9677df9db90425a2c5d5af6870d5f1"
+        },
+        "execution_receipt_sha256": {
+          "const": "8811dfcb025d0adbe64d700750818b5971f1afc70f8eda9147c94bc1f58211fe"
+        },
+        "failure_diagnostic_sha256": {
+          "const": "056465e16e46f75148a5b78c4fbad7fd229a6497704af7e2e81d95f88e1adb81"
+        },
+        "v6_terminal": {"const": true},
+        "v6_retried": {"const": false}
+      }
+    },
+    "aggregate_diagnosis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataset_sha256_verified_before", "dataset_sha256_verified_after",
+        "development_n", "validation_n", "imputation_target_count",
+        "first_target", "second_same_condition_target",
+        "remaining_targets_full_rank", "v2_model_fit"
+      ],
+      "properties": {
+        "dataset_sha256_verified_before": {"const": true},
+        "dataset_sha256_verified_after": {"const": true},
+        "development_n": {"const": 3655},
+        "validation_n": {"const": 2080},
+        "imputation_target_count": {"const": 16},
+        "first_target": {"$ref": "#/$defs/firstTarget"},
+        "second_same_condition_target": {"$ref": "#/$defs/secondTarget"},
+        "remaining_targets_full_rank": {"const": 14},
+        "v2_model_fit": {"const": false}
+      }
+    },
+    "root_cause": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failure_stage", "last_completed_stage", "original_safe_code",
+        "minimum_failing_operation", "target_kind", "defect",
+        "confirmation", "historical_raw_condition_available"
+      ],
+      "properties": {
+        "failure_stage": {"const": "IMPUTATION"},
+        "last_completed_stage": {"const": "DATA_SEMANTICS"},
+        "original_safe_code": {"const": "IMPUTATION_MODEL_STEP_FAILED"},
+        "minimum_failing_operation": {
+          "const": "FIRST_BINARY_CHAINED_EQUATION_LOGISTIC_FIT_AND_FINITE_COEFFICIENT_CHECK"
+        },
+        "target_kind": {"const": "BINARY_SINGLE_OBSERVED_LEVEL"},
+        "defect": {
+          "const": "UNIDENTIFIED_REGRESSION_ATTEMPTED_FOR_NO_INFORMATION_TARGET"
+        },
+        "confirmation": {
+          "const": "V2_AGGREGATE_PREFIT_CONDITIONS_PLUS_STATIC_LOOP_ORDER_PLUS_SYNTHETIC_FAILURE_SHAPE"
+        },
+        "historical_raw_condition_available": {"const": false}
+      }
+    },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "single_level_policy", "applies_to", "development_learning_only",
+        "validation_outcomes_used", "observed_values_changed",
+        "multi_level_model_steps_unchanged", "operation_specific_safe_codes",
+        "frozen_statistical_spec_changed", "sap_or_task_change_required"
+      ],
+      "properties": {
+        "single_level_policy": {
+          "const": "DETERMINISTIC_TRANSPORT_OF_SOLE_OBSERVED_DEVELOPMENT_VALUE"
+        },
+        "applies_to": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "BINARY"},
+            {"const": "CATEGORICAL"},
+            {"const": "CONTINUOUS"}
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "development_learning_only": {"const": true},
+        "validation_outcomes_used": {"const": false},
+        "observed_values_changed": {"const": false},
+        "multi_level_model_steps_unchanged": {"const": true},
+        "operation_specific_safe_codes": {"const": true},
+        "frozen_statistical_spec_changed": {"const": false},
+        "sap_or_task_change_required": {"const": false}
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task", "result", "manifest", "prior_failure_diagnostic",
+        "current_failure_diagnostic", "prior_evidence_compatibility"
+      ],
+      "properties": {
+        "task": {"const": "formal-temporal-fine-gray-task@2.0.0"},
+        "result": {"const": "formal-temporal-fine-gray-result@2.0.0"},
+        "manifest": {
+          "const": "formal-temporal-fine-gray-output-manifest@1.1.0"
+        },
+        "prior_failure_diagnostic": {
+          "const": "formal-temporal-fine-gray-failure-diagnostic@1.1.0"
+        },
+        "current_failure_diagnostic": {
+          "const": "formal-temporal-fine-gray-failure-diagnostic@1.2.0"
+        },
+        "prior_evidence_compatibility": {"const": true}
+      }
+    },
+    "synthetic_acceptance": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {"$ref": "#/$defs/acceptanceCase"}
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "r_repair_expectations", "r_related_contract_tests", "r_full_tests",
+        "python_full_tests", "capability_consistency",
+        "bounded_startup_smoke", "r_cmd_check"
+      ],
+      "properties": {
+        "r_repair_expectations": {"type": "string", "minLength": 1},
+        "r_related_contract_tests": {"type": "string", "minLength": 1},
+        "r_full_tests": {"type": "string", "minLength": 1},
+        "python_full_tests": {"type": "string", "minLength": 1},
+        "capability_consistency": {"const": "PASS"},
+        "bounded_startup_smoke": {"type": "string", "minLength": 1},
+        "r_cmd_check": {"type": "string", "minLength": 1}
+      }
+    },
+    "execution_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_read", "v2_aggregate_prefit_only", "v2_model_fit",
+        "formal_authorization_created_or_consumed", "attempt_marker_written",
+        "v6_retried", "production_formal_entry_invoked",
+        "synthetic_public_entry_mock_invoked", "synthetic_imputation_exercised",
+        "real_patient_imputation_run", "fine_gray_called", "bootstrap_called",
+        "dca_called", "sensitivity_called"
+      ],
+      "properties": {
+        "v2_read": {"const": true},
+        "v2_aggregate_prefit_only": {"const": true},
+        "v2_model_fit": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "attempt_marker_written": {"const": false},
+        "v6_retried": {"const": false},
+        "production_formal_entry_invoked": {"const": false},
+        "synthetic_public_entry_mock_invoked": {"const": true},
+        "synthetic_imputation_exercised": {"const": true},
+        "real_patient_imputation_run": {"const": false},
+        "fine_gray_called": {"const": false},
+        "bootstrap_called": {"const": false},
+        "dca_called": {"const": false},
+        "sensitivity_called": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only", "patient_level_payload", "patient_data_rows_output",
+        "physical_paths_present", "raw_errors_present", "external_transfer"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "patient_data_rows_output": {"const": 0},
+        "physical_paths_present": {"const": false},
+        "raw_errors_present": {"const": false},
+        "external_transfer": {"const": false}
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "The immutable V6 raw condition is unavailable; the root cause is established by exact aggregate pre-fit conditions, static loop order, and synthetic reproduction."
+        },
+        {
+          "const": "Synthetic acceptance does not establish successful future FORMAL execution."
+        },
+        {
+          "const": "Any future FORMAL execution requires a new independent human one-shot authorization."
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "completed_at": {
+      "type": "string",
+      "pattern": "^2026-07-23T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+0800$"
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE"}
+  },
+  "$defs": {
+    "firstTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field", "kind", "observed_development_n", "observed_levels",
+        "missing_development_n", "missing_validation_n",
+        "fit_design_columns", "fit_design_rank"
+      ],
+      "properties": {
+        "field": {"const": "dementia_history"},
+        "kind": {"const": "BINARY"},
+        "observed_development_n": {"const": 46},
+        "observed_levels": {"const": 1},
+        "missing_development_n": {"const": 3609},
+        "missing_validation_n": {"const": 2060},
+        "fit_design_columns": {"const": 25},
+        "fit_design_rank": {"const": 24}
+      }
+    },
+    "secondTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field", "kind", "observed_development_n", "observed_levels",
+        "missing_development_n", "missing_validation_n",
+        "fit_design_columns", "fit_design_rank"
+      ],
+      "properties": {
+        "field": {"const": "alcohol_use_history"},
+        "kind": {"const": "BINARY"},
+        "observed_development_n": {"const": 78},
+        "observed_levels": {"const": 1},
+        "missing_development_n": {"const": 3577},
+        "missing_validation_n": {"const": 2069},
+        "fit_design_columns": {"const": 25},
+        "fit_design_rank": {"const": 24}
+      }
+    },
+    "acceptanceCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "status"],
+      "properties": {
+        "case_id": {
+          "enum": [
+            "LEGACY_SINGLE_LEVEL_BINARY_FAILURE_SHAPE_REPRODUCED",
+            "BINARY_CONSTANT_TRANSPORT_PASS",
+            "CONTINUOUS_CONSTANT_TRANSPORT_PASS",
+            "DEVELOPMENT_ONLY_LEARNING_PRESERVED",
+            "VALIDATION_OUTCOME_ZERO_ACCESS_PRESERVED",
+            "POSITIVE_AND_ZERO_FOLLOWUP_REMAIN_FINITE",
+            "OPERATION_SPECIFIC_SAFE_CODES_PASS",
+            "UNKNOWN_RESIDUAL_FAILS_CLOSED",
+            "PUBLIC_TASK_V2_SYNTHETIC_IMPUTATION_STAGE_PASS",
+            "FINE_GRAY_AND_BOOTSTRAP_CALLS_ZERO"
+          ]
+        },
+        "status": {"const": "PASS"}
+      }
+    }
+  }
+}

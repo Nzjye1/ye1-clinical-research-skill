@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-result-bundle-v1.1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "analysis_id",
+    "task_id",
+    "candidate_id",
+    "dataset_id",
+    "dataset_sha256",
+    "synthetic_only",
+    "authority",
+    "data_access",
+    "cohort",
+    "unadjusted",
+    "adjusted",
+    "first_event_composition",
+    "credibility",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": {"const": "categorical-gcomp-result-bundle@1.1.0"},
+    "status": {"const": "COMPLETE"},
+    "analysis_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "dataset_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "synthetic_only": {"type": "boolean"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "materialization_authorized",
+        "formal_execution_authorized",
+        "formal_authorization_consumed"
+      ],
+      "properties": {
+        "materialization_authorized": {"type": "boolean"},
+        "formal_execution_authorized": {"type": "boolean"},
+        "formal_authorization_consumed": {"type": "boolean"}
+      }
+    },
+    "data_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "real_data_read",
+        "patient_level_data_read",
+        "synthetic_fixture_rows_processed"
+      ],
+      "properties": {
+        "real_data_read": {"type": "boolean"},
+        "patient_level_data_read": {"type": "boolean"},
+        "synthetic_fixture_rows_processed": {"type": "boolean"}
+      }
+    },
+    "cohort": {"$ref": "categorical-gcomp-cohort-flow.schema.json"},
+    "unadjusted": {
+      "$ref": "categorical-gcomp-unadjusted-source-risks.schema.json"
+    },
+    "adjusted": {"$ref": "categorical-gcomp-adjusted-risks.schema.json"},
+    "first_event_composition": {
+      "$ref": "categorical-gcomp-first-event-composition.schema.json"
+    },
+    "credibility": {
+      "$ref": "categorical-gcomp-credibility-results.schema.json"
+    },
+    "diagnostics": {"$ref": "categorical-gcomp-diagnostics.schema.json"}
+  }
+}

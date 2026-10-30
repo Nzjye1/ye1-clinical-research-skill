@@ -1,0 +1,178 @@
+{
+  "schema_version": "clinical-module-root-registration-fragment@1.1",
+  "module_id": "mediation_matching",
+  "path_base": "module_root",
+  "registration_scope": "Root-admitted V1 pipeline only; do not change the legacy @1.0 registry or validators",
+  "operations": [
+    {
+      "method_id": "mediation.linear.binary_exposure",
+      "operation": "analyze",
+      "request_validation": "Validate the entire request, not only payload; then invoke the context-bound adapter semantic validation",
+      "schemas": {
+        "request": "real_admission/contracts/request.schema.json",
+        "payload": "real_admission/contracts/payload.schema.json",
+        "public_record": "real_admission/contracts/public_record.schema.json",
+        "private_record": "real_admission/contracts/private_record.schema.json",
+        "diagnostics": "real_admission/contracts/diagnostics.schema.json",
+        "response": "real_admission/contracts/response.schema.json"
+      },
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze",
+        "arguments": [
+          "request",
+          "context"
+        ]
+      },
+      "projection_entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "project",
+        "arguments": [
+          "response",
+          "output_dir",
+          "context",
+          "request"
+        ],
+        "call": "project(response, output_dir, context, request=request)",
+        "request_required": true,
+        "private_native_output_only": true
+      }
+    },
+    {
+      "method_id": "causal.psm.att.binary",
+      "operation": "analyze",
+      "request_validation": "Validate the entire request, not only payload; then invoke the context-bound adapter semantic validation",
+      "schemas": {
+        "request": "real_admission/contracts/request.schema.json",
+        "payload": "real_admission/contracts/payload.schema.json",
+        "public_record": "real_admission/contracts/public_record.schema.json",
+        "private_record": "real_admission/contracts/private_record.schema.json",
+        "diagnostics": "real_admission/contracts/diagnostics.schema.json",
+        "response": "real_admission/contracts/response.schema.json"
+      },
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze",
+        "arguments": [
+          "request",
+          "context"
+        ]
+      },
+      "projection_entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "project",
+        "arguments": [
+          "response",
+          "output_dir",
+          "context",
+          "request"
+        ],
+        "call": "project(response, output_dir, context, request=request)",
+        "request_required": true,
+        "private_native_output_only": true
+      }
+    },
+    {
+      "method_id": "causal.psm.matched.survival",
+      "operation": "analyze",
+      "request_validation": "Validate the entire request, not only payload; then invoke the context-bound adapter semantic validation",
+      "schemas": {
+        "request": "real_admission/contracts/request.schema.json",
+        "payload": "real_admission/contracts/payload.schema.json",
+        "public_record": "real_admission/contracts/public_record.schema.json",
+        "private_record": "real_admission/contracts/private_record.schema.json",
+        "diagnostics": "real_admission/contracts/diagnostics.schema.json",
+        "response": "real_admission/contracts/response.schema.json"
+      },
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze",
+        "arguments": [
+          "request",
+          "context"
+        ]
+      },
+      "projection_entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "project",
+        "arguments": [
+          "response",
+          "output_dir",
+          "context",
+          "request"
+        ],
+        "call": "project(response, output_dir, context, request=request)",
+        "request_required": true,
+        "private_native_output_only": true
+      }
+    }
+  ],
+  "context_contract": {
+    "require_request": "require_request(method_id, operation, payload) must bind the admitted method/operation/payload before row inspection",
+    "required_attributes": [
+      "data_origin",
+      "task_purpose",
+      "scientific_review",
+      "test_only",
+      "project_root"
+    ],
+    "scientific_review": "pending",
+    "caller_may_supply_context_as_json": false
+  },
+  "response_contract": {
+    "api_version": "clinical-admitted-module-response@1.0",
+    "public_record_nullable": true,
+    "private_record_nullable": true,
+    "diagnostics_scope": "Top-level admitted response diagnostics, distinct from numerical public_record.diagnostics",
+    "full_response_validation_required": true,
+    "private_record_must_remain_local": true
+  },
+  "schema_extractions": {
+    "real_admission/contracts/public_record.schema.json": {
+      "source": "real_admission/contracts/response.schema.json",
+      "json_pointer": "/properties/public_record",
+      "structural_copy": true
+    },
+    "real_admission/contracts/private_record.schema.json": {
+      "source": "real_admission/contracts/response.schema.json",
+      "json_pointer": "/properties/private_record",
+      "structural_copy": true
+    },
+    "real_admission/contracts/diagnostics.schema.json": {
+      "source": "real_admission/contracts/response.schema.json",
+      "json_pointer": "/properties/diagnostics",
+      "structural_copy": true
+    }
+  },
+  "production_files_sha256": {
+    "real_admission/__init__.py": "b07f9e00b019b4ff39834df058426fb4b62c48c70a2b71b8d27b0d9dae2a6a9d",
+    "real_admission/adapter.py": "8eb28d43e570c66f2b391029fd58916d098e09284e5d7296f490920046611060",
+    "real_admission/schema.py": "2328377ede1ac720060c1d1301aeab0f51fb91111228a6af949a3c435414430f",
+    "real_admission/worker.R": "8be7c1284e3af17720a3fe79d49332d2fe4c759bfb8a7696a4ca2373874112e4",
+    "real_admission/project_worker.R": "d021400bafd1c5e57640d81f1f7a63ef8632efef33a46d62eb2154e3001225aa",
+    "real_admission/manifest.json": "476330ee93ecf8f3a61eedf1d52dd2692dd6b73e61a7af92b026420e3f6b4c57",
+    "real_admission/contracts/diagnostics.schema.json": "43097696f645a15529697e4fa1030e5a2330e3f22c96694b15c249f345d015a8",
+    "real_admission/contracts/payload.schema.json": "e8dd9d427524d7ad662e85461a93130a7f52512c3eeaf8ee6c0c6de68fd883d9",
+    "real_admission/contracts/private_record.schema.json": "cceced1e9d76d55e7d3317b6f15a5f9dbed7e62e822dbc69f0bdf6a0df4f3102",
+    "real_admission/contracts/public_record.schema.json": "4d03677f4a70565891770331c7a3f579d67923bb8ea20b81013119a03ace7710",
+    "real_admission/contracts/request.schema.json": "91f193185830530fd9b76395c25474b712d58bab571aaf148c6569141368757d",
+    "real_admission/contracts/response.schema.json": "6cbbfae3ab8620d0740b111f3d27e44ffac5225b23577f3944d47608dcb76857",
+    "R/adapter.R": "1c7a7cf712533a14b8b27abb441df4b2704cbc0e749e41cc5f8b9a9e5a7bff70"
+  },
+  "authorized_legacy_plot_extension": {
+    "path": "R/adapter.R",
+    "sha256": "1c7a7cf712533a14b8b27abb441df4b2704cbc0e749e41cc5f8b9a9e5a7bff70",
+    "scope": "Only two optional disclosure_label arguments and three display expressions; numerical expressions and layout unchanged",
+    "legacy_default_disclosure_label": "SYNTHETIC TEST ONLY"
+  },
+  "unchanged_numerical_owners_sha256": {
+    "R/provider.R": "54ab4eb319d8a99e7ed5a705053d0501ffc003c24e9941b75a928075d35a3ce5",
+    "../../integration/core/src/clinanalysis/R/psm_v07.R": "ad78577603355f69d7f6717294e739ae95bf88d629bcd83d30fe7423c1187c31"
+  },
+  "compatibility_limits": {
+    "matching_source_rows_maximum": 200,
+    "matching_limit_owner": "Unchanged frozen psm_v07 validation; no silent truncation",
+    "mediation_has_matching_row_limit": false
+  },
+  "actual_real_data_e2e": false
+}

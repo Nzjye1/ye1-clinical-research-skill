@@ -1,0 +1,4 @@
+interface:
+  display_name: "HGB interventional TreeSHAP"
+  short_description: "HGB interventional TreeSH，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-explanation-binary-hist-gradient-boosting-tree-shap 处理这项分析，先自检并核对我提供的问题和变量字典。"

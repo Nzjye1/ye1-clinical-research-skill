@@ -1,0 +1,4236 @@
+{
+  "version": "0.3.0-windows-local-integrated2",
+  "scope": "Bounded inherited implementations; counts are not algorithm or validation counts",
+  "entries": [
+    {
+      "method_id": "association.adjusted.linear",
+      "chinese_name": "预设调整模型（linear）",
+      "kind": "alias",
+      "backend_method_id": "association.linear.plan",
+      "skill": "ye1-association-adjusted",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "HC3",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "linear",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "mean_difference",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald t using full HC3 covariance",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "outcome_units",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.adjusted.logistic",
+      "chinese_name": "预设调整模型（logistic）",
+      "kind": "alias",
+      "backend_method_id": "association.logistic.plan",
+      "skill": "ye1-association-adjusted",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "model",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "logistic",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "odds_ratio",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald normal on log odds contrast, exponentiated",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "log_odds",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.linear",
+      "chinese_name": "独立样本 OLS 关联",
+      "kind": "backend",
+      "backend_method_id": "association.linear",
+      "skill": "ye1-association-linear",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "supported_options": {
+        "ci_level": 0.95,
+        "covariance": "HC3",
+        "missing": "complete_case",
+        "model": "linear"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.linear.plan",
+      "chinese_name": "预设 OLS 模型方案",
+      "kind": "backend",
+      "backend_method_id": "association.linear.plan",
+      "skill": "ye1-association-linear-plan",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "HC3",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "linear",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "mean_difference",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald t using full HC3 covariance",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "outcome_units",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.logistic",
+      "chinese_name": "二分类 Logistic 关联",
+      "kind": "backend",
+      "backend_method_id": "association.logistic",
+      "skill": "ye1-association-logistic",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "supported_options": {
+        "ci_level": 0.95,
+        "covariance": "model",
+        "missing": "complete_case",
+        "model": "logistic"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.logistic.plan",
+      "chinese_name": "预设 Logistic 模型方案",
+      "kind": "backend",
+      "backend_method_id": "association.logistic.plan",
+      "skill": "ye1-association-logistic-plan",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "model",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "logistic",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "odds_ratio",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald normal on log odds contrast, exponentiated",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "log_odds",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.rcs.linear",
+      "chinese_name": "固定结点 RCS（linear）",
+      "kind": "alias",
+      "backend_method_id": "association.linear.plan",
+      "skill": "ye1-association-rcs",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "HC3",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "linear",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "mean_difference",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald t using full HC3 covariance",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "outcome_units",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.rcs.logistic",
+      "chinese_name": "固定结点 RCS（logistic）",
+      "kind": "alias",
+      "backend_method_id": "association.logistic.plan",
+      "skill": "ye1-association-rcs",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "model",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "logistic",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "odds_ratio",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald normal on log odds contrast, exponentiated",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "log_odds",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.sensitivity.linear",
+      "chinese_name": "预设敏感性分析（linear）",
+      "kind": "alias",
+      "backend_method_id": "association.linear.plan",
+      "skill": "ye1-association-sensitivity",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "HC3",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "linear",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "mean_difference",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald t using full HC3 covariance",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "outcome_units",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.sensitivity.logistic",
+      "chinese_name": "预设敏感性分析（logistic）",
+      "kind": "alias",
+      "backend_method_id": "association.logistic.plan",
+      "skill": "ye1-association-sensitivity",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "model",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "logistic",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "odds_ratio",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald normal on log odds contrast, exponentiated",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "log_odds",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.subgroup.linear",
+      "chinese_name": "亚组效应与交互检验（linear）",
+      "kind": "alias",
+      "backend_method_id": "association.linear.plan",
+      "skill": "ye1-association-subgroup",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "HC3",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "linear",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "mean_difference",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald t using full HC3 covariance",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "outcome_units",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "association.subgroup.logistic",
+      "chinese_name": "亚组效应与交互检验（logistic）",
+      "kind": "alias",
+      "backend_method_id": "association.logistic.plan",
+      "skill": "ye1-association-subgroup",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims",
+        "RCS with subgroup interaction",
+        "categorical-exposure subgroup contrasts",
+        "nested legacy sensitivity requests",
+        "data-driven model/knots/reference selection",
+        "simultaneous RCS confidence bands",
+        "absolute RCS outcome risk predictions",
+        "Current V1 plan execution uses the shared finite resource profile (default 10,000 rows); explicit lower budgets are preserved, with no silent sampling."
+      ],
+      "supported_options": {
+        "automatic_fallback": false,
+        "causal_interpretation": false,
+        "ci_level": 0.95,
+        "common_complete_case_order": [
+          "union_model_fields_complete_cases",
+          "prespecified_filter"
+        ],
+        "common_union_fields": "all model outcomes, exposures, covariates and subgroup fields; filter-only fields excluded",
+        "covariance": "model",
+        "filter_missingness": "missing filter-only values excluded at filter step and counted separately",
+        "max_prespecified_models": 6,
+        "model": "logistic",
+        "model_selection": "none",
+        "multiplicity": "unadjusted_prespecified",
+        "per_model_complete_case_order": [
+          "prespecified_filter",
+          "model_complete_cases"
+        ],
+        "primary_model": "exactly_one_first",
+        "rcs": {
+          "basis": "existing restricted cubic spline with linear tails",
+          "confidence_intervals": "pointwise 95%; no simultaneous-band claim",
+          "contrast": "exposure value versus fixed reference; full model covariance",
+          "effect_scale": "odds_ratio",
+          "extrapolation": "refused",
+          "grid": "3 to 101 finite strictly increasing prespecified values",
+          "interval_method": "Wald normal on log odds contrast, exponentiated",
+          "knot_or_reference_selection": "none; no outcome/significance-driven search",
+          "knots": "3 to 7 finite strictly increasing prespecified values",
+          "reference": "explicit; within declared increasing domain",
+          "standard_error_scale": "log_odds",
+          "support": "knots and declared domain within actual model complete-case exposure support; grid inside domain",
+          "tests": [
+            "overall exposure joint Wald",
+            "nonlinear terms joint Wald"
+          ]
+        },
+        "roles": [
+          "primary",
+          "adjustment",
+          "sensitivity"
+        ],
+        "same_sample_claim": "common eligibility does not imply equal samples after different sensitivity filters",
+        "sample_strategies": [
+          "per_model_complete_case",
+          "common_complete_case"
+        ],
+        "sensitivity": {
+          "filter_roles": [
+            "exposure",
+            "covariate",
+            "group"
+          ],
+          "filters": [
+            "eq",
+            "ne",
+            "lt",
+            "le",
+            "gt",
+            "ge",
+            "in"
+          ],
+          "filters_only_in": "sensitivity models",
+          "flow": "source/common/filter/complete-case counts and exact blocked reasons",
+          "nested_legacy_sensitivity": "unsupported",
+          "per_model_covariates": "explicit and prespecified"
+        },
+        "subgroup": {
+          "effect": "within-level exposure slope contrast from one pooled interaction model",
+          "exposure": "numeric linear exposure only",
+          "heterogeneity": "joint interaction Wald test, not comparison of within-level P values",
+          "minimum_group_n": "explicit integer at least 5; engineering gate, not sufficient-sample guarantee",
+          "moderator": "declared categorical levels and reference",
+          "no_events_or_nonevents": "exact model block with preserved group counts",
+          "separate_subgroup_fits": false
+        }
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "baseline.table1",
+      "chinese_name": "基线描述表与明确分母",
+      "kind": "backend",
+      "backend_method_id": "baseline.table1",
+      "skill": "ye1-baseline-table1",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "supported_options": {
+        "categorical_denominator": [
+          "nonmissing",
+          "all"
+        ],
+        "summary": [
+          "mean_sd",
+          "median_iqr"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "exploration.cluster.gmm",
+      "chinese_name": "探索性 Gaussian mixture 与冻结赋类",
+      "kind": "backend",
+      "backend_method_id": "exploration.cluster.gmm",
+      "skill": "ye1-exploration-cluster-gmm",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-2",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "assign",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "assign"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "assign",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "exploration.cluster.kmeans",
+      "chinese_name": "探索性 KMeans 与冻结赋类",
+      "kind": "backend",
+      "backend_method_id": "exploration.cluster.kmeans",
+      "skill": "ye1-exploration-cluster-kmeans",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-1",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "assign",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "assign"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "assign",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "evaluation.survival.cox.ipcw",
+      "chinese_name": "普通 Cox 的 IPCW 时点评价",
+      "kind": "backend",
+      "backend_method_id": "evaluation.survival.cox.ipcw",
+      "skill": "ye1-evaluation-survival-cox-ipcw",
+      "operations": [
+        "evaluate"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/frozen-forward-1",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "evaluate",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "conditional or informative censoring",
+        "unknown categories or missing evaluation labels/features",
+        "data-adaptive horizon/threshold/bin selection",
+        "risk model refit or external baseline update",
+        "competing risks/delayed entry/recurrent events",
+        "survey or case weights",
+        "metric confidence intervals",
+        "calibration slope/intercept/test or smooth calibration",
+        "integrated Brier/incident-dynamic AUC",
+        "real database or clinical external validation",
+        "Legacy synthetic contracts do not authorize real data; real input requires V1 project admission."
+      ],
+      "supported_options": {
+        "auc": "exact weighted cumulative/dynamic case-control rank; half exact-score ties",
+        "brier": "IPCW squared error divided by all evaluation subjects",
+        "calibration": "descriptive fixed bins, Hajek observed proportions; separate prediction n and weight denominators",
+        "cases": "event and U<=t; G(U-) weight",
+        "censoring": "evaluation-cohort marginal reverse KM, original events before original censors",
+        "controls": "U>t; G(t) weight",
+        "dca": "IPCW population moments, fixed thresholds, treat-all and none; not positive-group KM",
+        "early_censor": "zero contribution, retained in population n",
+        "frozen_model_format": "clinical-frozen-survival-cox@0.5.0-candidate1",
+        "roc": "prespecified grid plus all-negative boundary; not integrated for AUC",
+        "support": "0 through last training event; metric-specific no-case/control reasons",
+        "uncertainty": "not_implemented",
+        "weight_guards": "G>=0.05, weight<=20; equality allowed, no clipping; engineering bounds only"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "evaluation.survival.cox.penalized.ipcw",
+      "chinese_name": "惩罚 Cox 的 IPCW 时点评价",
+      "kind": "backend",
+      "backend_method_id": "evaluation.survival.cox.penalized.ipcw",
+      "skill": "ye1-evaluation-survival-cox-penalized-ipcw",
+      "operations": [
+        "evaluate"
+      ],
+      "dependency_groups": [
+        "penalized",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/frozen-forward-1",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "evaluate",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "evaluate"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.binary.calibration",
+      "chinese_name": "二分类已有校准（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.binary.calibration",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "binary-calibration"
+        ],
+        "metrics": [
+          "calibration_",
+          "observed_prevalence",
+          "mean_prediction"
+        ],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "prediction.binary.ridge",
+          "prediction.binary.random_forest",
+          "prediction.binary.hist_gradient_boosting"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.binary.dca",
+      "chinese_name": "二分类已有 DCA（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.binary.dca",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "binary-dca"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "prediction.binary.ridge",
+          "prediction.binary.random_forest",
+          "prediction.binary.hist_gradient_boosting"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.binary.roc",
+      "chinese_name": "二分类已有 ROC/AUC（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.binary.roc",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "binary-roc-grid"
+        ],
+        "metrics": [
+          "auc"
+        ],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "prediction.binary.ridge",
+          "prediction.binary.random_forest",
+          "prediction.binary.hist_gradient_boosting"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.importance",
+      "chinese_name": "已有全局加性贡献重要性（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.importance",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/alias-views-1/importance-retest3.json",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "interpretation_global_importance"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "interpretation.linear.interventional"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.nomogram",
+      "chinese_name": "已有冻结惩罚模型列线图（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.nomogram",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "nomogram",
+          "nomogram_domains",
+          "nomogram_axes",
+          "nomogram_mapping"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "interpretation.linear.interventional"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.survival.calibration",
+      "chinese_name": "普通 Cox 已有 IPCW 校准（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.survival.calibration",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "survival-evaluation-calibration"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "evaluation.survival.cox.ipcw"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.survival.dca",
+      "chinese_name": "普通 Cox 已有 IPCW DCA（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.survival.dca",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "survival-evaluation-dca"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "evaluation.survival.cox.ipcw"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.survival.ph",
+      "chinese_name": "已有正式 PH 检验（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.survival.ph",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "ph-score-tests"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "survival.cox.association"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.survival.roc",
+      "chinese_name": "普通 Cox 已有 IPCW ROC（仅提取）",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.survival.roc",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "survival-evaluation-roc"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "evaluation.survival.cox.ipcw"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "explanation.binary.hist_gradient_boosting.tree_shap",
+      "chinese_name": "HGB interventional TreeSHAP",
+      "kind": "backend",
+      "backend_method_id": "explanation.binary.hist_gradient_boosting.tree_shap",
+      "skill": "ye1-explanation-binary-hist-gradient-boosting-tree-shap",
+      "operations": [
+        "explain"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot",
+        "shap"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/frozen-guard-retest-2",
+          "operation": "explain",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "explain",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "explain"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "explain"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "explanation.binary.random_forest.tree_shap",
+      "chinese_name": "随机森林 interventional TreeSHAP",
+      "kind": "backend",
+      "backend_method_id": "explanation.binary.random_forest.tree_shap",
+      "skill": "ye1-explanation-binary-random-forest-tree-shap",
+      "operations": [
+        "explain"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot",
+        "shap"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/frozen-guard-retest-2",
+          "operation": "explain",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "explain",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "explain"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "explain"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "interpretation.linear.interventional",
+      "chinese_name": "冻结惩罚线性模型 interventional 贡献与列线图",
+      "kind": "backend",
+      "backend_method_id": "interpretation.linear.interventional",
+      "skill": "ye1-interpretation-linear-interventional",
+      "operations": [
+        "explain"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/frozen-guard-retest-2",
+          "operation": "explain",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "explain",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "conditional or probability-scale SHAP",
+        "nonlinear models",
+        "Cox/Ridge/association interpretation and nomograms",
+        "causal importance",
+        "training patient explanation through this disjoint application contract",
+        "uncertainty and selection inference",
+        "real clinical validation"
+      ],
+      "supported_options": {
+        "background": "full final-training partition; frozen transformation applied without learning; stable private bundle",
+        "constant_model": "zero contributions and points with a constant score/output map",
+        "definition": "raw-feature-grouped interventional linear SHAP, full equal-weight empirical training background",
+        "extrapolation": "reject outside frozen per-feature numeric domain; domain box does not prove joint support",
+        "importance": "application-population mean of absolute grouped contribution; sum within feature before absolute value",
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "models": [
+          "prediction.continuous.signed.lasso",
+          "prediction.continuous.signed.elasticnet",
+          "prediction.binary.lasso",
+          "prediction.binary.elasticnet"
+        ],
+        "nomogram": "frozen original-unit/category domains and missing-value path; numeric score and separate identity/logistic output backcheck",
+        "score_scales": [
+          "signed original continuous outcome units",
+          "raw log odds"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "explain"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "interpretation.survival.cox.penalized.interventional",
+      "chinese_name": "惩罚 Cox 链接尺度贡献与列线图",
+      "kind": "backend",
+      "backend_method_id": "interpretation.survival.cox.penalized.interventional",
+      "skill": "ye1-interpretation-survival-cox-penalized-interventional",
+      "operations": [
+        "fit_explainer",
+        "explain"
+      ],
+      "dependency_groups": [
+        "penalized",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/frozen-forward-1",
+          "operation": "fit_explainer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/frozen-forward-1",
+          "operation": "explain",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "fit_explainer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/frozen",
+          "operation": "explain",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "fit_explainer",
+          "explain"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "explain",
+        "fit_explainer"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "latent.trajectory.gaussian",
+      "chinese_name": "Gaussian LCGA 或共享协方差增长混合",
+      "kind": "backend",
+      "backend_method_id": "latent.trajectory.gaussian",
+      "skill": "ye1-latent-trajectory-gaussian",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot",
+        "formal_latent"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-2",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "predict",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "predict"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "predict",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "longitudinal.growth.gaussian",
+      "chinese_name": "Gaussian 普通混合增长模型",
+      "kind": "backend",
+      "backend_method_id": "longitudinal.growth.gaussian",
+      "skill": "ye1-longitudinal-growth-gaussian",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot",
+        "growth"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-2",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "predict",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "predict"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "predict",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "causal.psm.att.binary",
+      "chinese_name": "PSM 后配对二分类风险差与条件 OR",
+      "kind": "backend",
+      "backend_method_id": "causal.psm.att.binary",
+      "skill": "ye1-causal-psm-att-binary",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "matching",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-2",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "analyze"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "causal.psm.att.continuous",
+      "chinese_name": "1:1 PSM 与配对连续结局推断",
+      "kind": "backend",
+      "backend_method_id": "causal.psm.att.continuous",
+      "skill": "ye1-causal-psm-att-continuous",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "binary or survival outcomes",
+        "imputation or missing outcomes/treatment",
+        "multilevel or time-varying treatment",
+        "replacement or other ratios/optimal matching",
+        "adaptive calipers or balance/significance tuning",
+        "survey/clustered samples",
+        "full-cohort ATT after treatment discard",
+        "PS-estimation and matching-selection uncertainty",
+        "formal separation diagnosis",
+        "real database/clinical causal validation"
+      ],
+      "supported_options": {
+        "balance": "fixed pre-support complete-case treated SD; numeric sample SD, categorical Bernoulli indicator SD",
+        "caliper": "preset multiplier default 0.2 times support-retained combined sample SD; inclusive boundary",
+        "degenerate": "<2 pairs or zero difference variance retains defined descriptive contrast with null CI/p and reason",
+        "distance": "raw fitted logit PS, no clipping",
+        "effect": "treated-minus-control mean pair difference; conditional paired t inference",
+        "matching": "1:1 greedy without replacement; descending treated logit; exact ties by UTF-8 ID bytes",
+        "maximum_synthetic_subjects": 200,
+        "missing": "complete-case PS covariates; missing treatment or outcome refused before any filtering",
+        "overlap": "prespecified probability bins for fit, support-retained and matched populations",
+        "propensity": "single unpenalized stats::glm binomial logit MLE; explicit categories and fixed controls",
+        "separation": "numerical guards only; no formal complete/quasi-separation proof",
+        "support": "inclusive observed minmax intersection, discard both arms, no PS refit",
+        "target": "complete-covariate support-retained matched treated; not original full-cohort ATT",
+        "variance": "sample variance of pair differences / pair count; no independent-sample SE"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "causal.psm.matched.survival",
+      "chinese_name": "PSM 后 Cox 配对聚类方差",
+      "kind": "backend",
+      "backend_method_id": "causal.psm.matched.survival",
+      "skill": "ye1-causal-psm-matched-survival",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "matching",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-2",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "analyze"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "mediation.linear.binary_exposure",
+      "chinese_name": "限定线性中介与联合 bootstrap",
+      "kind": "backend",
+      "backend_method_id": "mediation.linear.binary_exposure",
+      "skill": "ye1-mediation-linear-binary-exposure",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "matching",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-1",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "analyze"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.binary.elasticnet",
+      "chinese_name": "二分类 Elastic Net 冻结预测",
+      "kind": "backend",
+      "backend_method_id": "prediction.binary.elasticnet",
+      "skill": "ye1-prediction-binary-elasticnet",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "supported_options": {
+        "alpha": "one prespecified value strictly between 0 and 1",
+        "class_counts": "at least 8 per class in every fit subset",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "family": "binomial",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "maximum_encoded_columns_before_variance_filter": 60,
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "penalty": "elasticnet",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "response": "explicit 0/1 with 1 event; probability is logistic of frozen linear score",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.binary.hist_gradient_boosting",
+      "chinese_name": "二分类 HGB 冻结预测",
+      "kind": "backend",
+      "backend_method_id": "prediction.binary.hist_gradient_boosting",
+      "skill": "ye1-prediction-binary-hist-gradient-boosting",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer",
+        "explain"
+      ],
+      "dependency_groups": [
+        "ml",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-2",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "explain",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "evaluate",
+          "infer",
+          "explain"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "explain",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.binary.lasso",
+      "chinese_name": "二分类 LASSO 冻结预测",
+      "kind": "backend",
+      "backend_method_id": "prediction.binary.lasso",
+      "skill": "ye1-prediction-binary-lasso",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "supported_options": {
+        "alpha": "exactly 1",
+        "class_counts": "at least 8 per class in every fit subset",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "family": "binomial",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "maximum_encoded_columns_before_variance_filter": 60,
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "penalty": "lasso",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "response": "explicit 0/1 with 1 event; probability is logistic of frozen linear score",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.binary.random_forest",
+      "chinese_name": "二分类随机森林冻结预测",
+      "kind": "backend",
+      "backend_method_id": "prediction.binary.random_forest",
+      "skill": "ye1-prediction-binary-random-forest",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer",
+        "explain"
+      ],
+      "dependency_groups": [
+        "ml",
+        "plot"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-1",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "explain",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "explain",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "evaluate",
+          "infer",
+          "explain"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "explain",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.binary.ridge",
+      "chinese_name": "二分类 Ridge 冻结预测",
+      "kind": "backend",
+      "backend_method_id": "prediction.binary.ridge",
+      "skill": "ye1-prediction-binary-ridge",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "supported_options": {
+        "algorithm": "fixed_Ridge_Logistic",
+        "operations": [
+          "train",
+          "evaluate",
+          "infer"
+        ],
+        "preprocessing": "training_fold_only",
+        "split": [
+          "random",
+          "group",
+          "temporal"
+        ],
+        "thresholds": "prespecified_and_frozen",
+        "unknown_categories": "reject"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.continuous.nonnegative.ridge",
+      "chinese_name": "非负连续结局 Ridge 冻结预测",
+      "kind": "backend",
+      "backend_method_id": "prediction.continuous.nonnegative.ridge",
+      "skill": "ye1-prediction-continuous-nonnegative-ridge",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "Real input under a legacy synthetic-only task version; select the explicitly supported clinical-study-input@1.0 real protocol",
+        "unreconciled repeated subjects",
+        "joins without reconstructed evidence",
+        "unselected covariance or algorithm",
+        "unknown categories",
+        "undeclared units or future fields",
+        "unknown or non-none weights",
+        "causal claims"
+      ],
+      "supported_options": {
+        "algorithm": "fixed_Ridge",
+        "inner_CV_minimums": {
+          "train_subjects": 100,
+          "validation_subjects": 30
+        },
+        "operations": [
+          "train",
+          "evaluate",
+          "infer"
+        ],
+        "preprocessing": "training_fold_only",
+        "split": [
+          "group"
+        ],
+        "target_policy": {
+          "domain": "nonnegative",
+          "inverse_transform": "identity",
+          "lower_bound": 0,
+          "output_policy": "clip_lower_zero",
+          "transform": "identity"
+        },
+        "unknown_categories": "reject"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.continuous.signed.elasticnet",
+      "chinese_name": "有符号连续结局 Elastic Net",
+      "kind": "backend",
+      "backend_method_id": "prediction.continuous.signed.elasticnet",
+      "skill": "ye1-prediction-continuous-signed-elasticnet",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "supported_options": {
+        "alpha": "one prespecified value strictly between 0 and 1",
+        "class_counts": "not applicable",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "family": "gaussian",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "maximum_encoded_columns_before_variance_filter": 60,
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "penalty": "elasticnet",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "response": "training mean/population-SD transform and inverse transform; signed outputs without clipping",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.continuous.signed.lasso",
+      "chinese_name": "有符号连续结局 LASSO",
+      "kind": "backend",
+      "backend_method_id": "prediction.continuous.signed.lasso",
+      "skill": "ye1-prediction-continuous-signed-lasso",
+      "operations": [
+        "train",
+        "evaluate",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "evaluate",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "alpha grid search",
+        "outcome-adaptive splits/lambda grids or test tuning",
+        "temporal split/CV",
+        "nested-CV performance estimation",
+        "real database and clinical external validation",
+        "survey/weighted sampling",
+        "postselection inferential p-values or causal variable claims",
+        "Cox-LASSO",
+        "prediction or calibration uncertainty",
+        "General, conditional or probability-scale SHAP and other ML engines; bounded affine interpretation is a separate v09 method"
+      ],
+      "supported_options": {
+        "alpha": "exactly 1",
+        "class_counts": "not applicable",
+        "cv": "3..5 prespecified nonempty folds confined by canonical subject/group; no holdout use",
+        "evaluation": "holdout or disjoint synthetic external; row-appropriate metric denominators; no postselection coefficient p-values",
+        "family": "gaussian",
+        "inference": "frozen coefficients and transformations, no refitting or glmnet predict interpolation",
+        "lambda": "2..30 positive strictly decreasing prespecified values; same requested grid in every fit; returned path checked with machine representation tolerance and selected by column index",
+        "maximum_encoded_columns_before_variance_filter": 60,
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "minimum_fit_design": "two nonconstant encoded columns; all-zero fitted slopes are supported",
+        "missing": "training-fitted feature imputation; all-missing training features refused; complete train/evaluate labels required",
+        "penalty": "lasso",
+        "preprocessing": "fold-training numeric median/categorical mode, observed UTF-8 category dictionary, treatment coding and population-SD scaling; final training-only refit",
+        "response": "training mean/population-SD transform and inverse transform; signed outputs without clipping",
+        "selection": "minimum total out-of-fold loss / total CV validation subjects; exact ties choose largest lambda",
+        "unknown_categories": "reject with fit scope/feature/fold; declared but unobserved level is not a trained category"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "evaluate",
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "latent.profile.gaussian",
+      "chinese_name": "限定 EEI/VVI Gaussian LPA",
+      "kind": "backend",
+      "backend_method_id": "latent.profile.gaussian",
+      "skill": "ye1-latent-profile-gaussian",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "dependency_groups": [
+        "base",
+        "ml",
+        "plot",
+        "formal_latent"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/module-forward-1",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-4",
+          "operation": "assign",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/module",
+          "operation": "train",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "unregistered operation or payload fields",
+        "unbound model or explanation background",
+        "V1.0 remains synthetic-only; real tasks require explicit V1.1 and current project admission"
+      ],
+      "supported_options": {
+        "details": "Read the exact provider payload schema; no heuristic method substitution.",
+        "operations": [
+          "train",
+          "assign"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "assign",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.survival.cox",
+      "chinese_name": "普通 Cox 冻结绝对风险",
+      "kind": "backend",
+      "backend_method_id": "prediction.survival.cox",
+      "skill": "ye1-prediction-survival-cox",
+      "operations": [
+        "train",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "time-dependent ROC/AUC",
+        "IPCW Brier",
+        "survival calibration",
+        "survival DCA",
+        "prediction confidence intervals",
+        "missing application features",
+        "unknown categories",
+        "time extrapolation",
+        "competing events",
+        "delayed entry",
+        "recurrent events",
+        "time-varying covariates",
+        "weights/clustered/stratified inference",
+        "Legacy synthetic contracts do not authorize real data; real input requires V1 project admission."
+      ],
+      "supported_options": {
+        "application": "same model/namespace/semantics, known training ID overlap rejected",
+        "baseline": "right-continuous centered Breslow cumulative hazard, event times included",
+        "evaluation_entry": "Separate evaluation.survival.cox.ipcw consumes unchanged frozen inference; this method emits predictions only.",
+        "fit_engine": "existing statsmodels.PHReg Breslow owner",
+        "missing": "training complete cases only; application feature missingness rejected",
+        "operations": [
+          "train",
+          "infer"
+        ],
+        "preprocessing": "freeze training design mean/std and declared categorical coding; no application fitting",
+        "private_results": "strict JSON frozen model and individual predictions; no pickle",
+        "public_results": "prediction summaries and separate training/application event-censor counts; no individual identifiers",
+        "risk": "1-exp(-H0(t)*exp((x-center) beta)); not HR-as-probability",
+        "support": "0 through last training event, no extrapolation",
+        "validation": "synthetic technical application and independent R reference only"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.survival.cox.elasticnet",
+      "chinese_name": "惩罚 Cox Elastic Net 与冻结风险",
+      "kind": "backend",
+      "backend_method_id": "prediction.survival.cox.elasticnet",
+      "skill": "ye1-prediction-survival-cox-elasticnet",
+      "operations": [
+        "train",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "competing/recurrent events, delayed entry, strata or time-varying features",
+        "weights or clustered inference",
+        "temporal or nested CV and multi-alpha tuning",
+        "unseen observed category",
+        "new Cox-penalized IPCW evaluation bridge",
+        "selection-adjusted inference, p-values, intervals and formal PH tests",
+        "Cox explanation, SHAP and nomograms",
+        "real clinical external validation"
+      ],
+      "supported_options": {
+        "alpha": "single prespecified value strictly between zero and one",
+        "baseline": "fixed eta-mean(eta) offset only; no coefficient refitting; right-continuous Breslow step",
+        "censoring": "single_event_right_censored",
+        "cv": "sum heldout-only fold Breslow deviance divided by total validation events; largest lambda on exact loss ties",
+        "maximum_horizons": 8,
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "operations": [
+          "train",
+          "infer"
+        ],
+        "penalty": "elasticnet",
+        "prediction_scales": [
+          "log_relative_hazard",
+          "centered_log_relative_hazard",
+          "horizon_specific_event_probability"
+        ],
+        "preprocessing": "fit-fold median/mode, observed categories, treatment encoding, population SD",
+        "support": "prespecified nonnegative horizons through maximum observed training follow-up; no extrapolation",
+        "ties": "breslow_explicit"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "prediction.survival.cox.lasso",
+      "chinese_name": "惩罚 Cox LASSO 与冻结风险",
+      "kind": "backend",
+      "backend_method_id": "prediction.survival.cox.lasso",
+      "skill": "ye1-prediction-survival-cox-lasso",
+      "operations": [
+        "train",
+        "infer"
+      ],
+      "dependency_groups": [
+        "base",
+        "penalized"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/reload-operations-3",
+          "operation": "infer",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "train",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/reload",
+          "operation": "infer",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "competing/recurrent events, delayed entry, strata or time-varying features",
+        "weights or clustered inference",
+        "temporal or nested CV and multi-alpha tuning",
+        "unseen observed category",
+        "new Cox-penalized IPCW evaluation bridge",
+        "selection-adjusted inference, p-values, intervals and formal PH tests",
+        "Cox explanation, SHAP and nomograms",
+        "real clinical external validation"
+      ],
+      "supported_options": {
+        "alpha": 1,
+        "baseline": "fixed eta-mean(eta) offset only; no coefficient refitting; right-continuous Breslow step",
+        "censoring": "single_event_right_censored",
+        "cv": "sum heldout-only fold Breslow deviance divided by total validation events; largest lambda on exact loss ties",
+        "maximum_horizons": 8,
+        "maximum_raw_features": 12,
+        "maximum_synthetic_subjects": 200,
+        "operations": [
+          "train",
+          "infer"
+        ],
+        "penalty": "lasso",
+        "prediction_scales": [
+          "log_relative_hazard",
+          "centered_log_relative_hazard",
+          "horizon_specific_event_probability"
+        ],
+        "preprocessing": "fit-fold median/mode, observed categories, treatment encoding, population SD",
+        "support": "prespecified nonnegative horizons through maximum observed training follow-up; no extrapolation",
+        "ties": "breslow_explicit"
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "infer",
+        "train"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "survival.cox.association",
+      "chinese_name": "右删失 Cox 关联与指定 PH 诊断",
+      "kind": "backend",
+      "backend_method_id": "survival.cox.association",
+      "skill": "ye1-survival-cox-association",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "competing risks",
+        "recurrent events",
+        "delayed entry",
+        "interval censoring",
+        "time-varying covariates",
+        "weights",
+        "clustered/stratified inference",
+        "individual absolute-risk prediction",
+        "Legacy synthetic contracts do not authorize real data; real input requires V1 project admission."
+      ],
+      "supported_options": {
+        "ci": "pointwise Greenwood log-log; boundary endpoints descriptive",
+        "cox_ci": "normal Wald log HR, exponentiated",
+        "cox_guard": "finite MLE, information conditioning, at least max(20, 10 per parameter) events; engineering guards not adequacy proof",
+        "cox_ties": "breslow",
+        "curve": "unadjusted KM on method complete-case cohort",
+        "failed_cox": "partial with exact reason and unadjusted KM; no algorithm fallback",
+        "grid": "prespecified, inside complete-case followup; not full event-time staircase",
+        "no_events": "NO_TARGET_EVENTS with counts; no curve or HR",
+        "outcome": "single event right censoring",
+        "ph_diagnostic": "v04 descriptive only; v05 explicit formal nuisance-adjusted score test, km or identity transform, terms=True/singledf=False/global=True, Breslow exact ties",
+        "ph_interpretation": "Asymptotic diagnostic test only; no P value verifies proportional hazards or clinical validity",
+        "risk_table": "t-minus, events before censoring at tied times",
+        "time_units": [
+          "day",
+          "hour"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "survival.kaplan_meier",
+      "chinese_name": "右删失 KM 与风险表",
+      "kind": "backend",
+      "backend_method_id": "survival.kaplan_meier",
+      "skill": "ye1-survival-kaplan-meier",
+      "operations": [
+        "analyze"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/core-forward-4",
+          "operation": "analyze",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/core",
+          "operation": "analyze",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "competing risks",
+        "recurrent events",
+        "delayed entry",
+        "interval censoring",
+        "time-varying covariates",
+        "weights",
+        "clustered/stratified inference",
+        "individual absolute-risk prediction",
+        "formal PH test"
+      ],
+      "supported_options": {
+        "ci": "pointwise Greenwood log-log; boundary endpoints descriptive",
+        "cox_ci": "normal Wald log HR, exponentiated",
+        "cox_guard": "finite MLE, information conditioning, at least max(20, 10 per parameter) events; engineering guards not adequacy proof",
+        "cox_ties": "breslow",
+        "curve": "unadjusted KM on method complete-case cohort",
+        "failed_cox": "partial with exact reason and unadjusted KM; no algorithm fallback",
+        "grid": "prespecified, inside complete-case followup; not full event-time staircase",
+        "no_events": "NO_TARGET_EVENTS with counts; no curve or HR",
+        "outcome": "single event right censoring",
+        "ph_diagnostic": "descriptive-only Schoenfeld residual vs log-time Spearman rho; no formal p or PH pass",
+        "risk_table": "t-minus, events before censoring at tied times",
+        "time_units": [
+          "day",
+          "hour"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "analyze"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "baseline.summary",
+      "chinese_name": "真实切片总体描述（仅本地工程验证）",
+      "kind": "legacy_restricted",
+      "backend_method_id": "baseline.summary",
+      "skill": null,
+      "operations": [
+        "describe"
+      ],
+      "dependency_groups": [],
+      "local_synthetic_test": [],
+      "callable": false,
+      "limits": [
+        "formal clinical hypothesis/model/forecast",
+        "unregistered source permission or direct identifiers",
+        "unknown units, grain, joins, weights or missingness"
+      ],
+      "supported_options": {
+        "group_comparison": false,
+        "maximum_patients": 200,
+        "model_fits": 0,
+        "purpose": "local_engineering_e2e",
+        "summary": "median_iqr",
+        "variables": [
+          "age",
+          "bmi",
+          "preop_cr"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [],
+      "untested_operations": [
+        "describe"
+      ],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.baseline.table",
+      "chinese_name": "已有总体或分组基线表",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.baseline.table",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "ph-score-tests"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "survival.cox.association"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "result.association.effects",
+      "chinese_name": "已有OLS或Logistic效应表图",
+      "kind": "existing_result_view",
+      "backend_method_id": "result.association.effects",
+      "skill": "ye1-analysis-result-views",
+      "operations": [
+        "export_existing"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/alias-views-1",
+          "operation": "export_existing",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/aliases-views",
+          "operation": "export_existing",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [
+        "source without bound agent-artifacts.json",
+        "missing component or unsupported source model",
+        "new evaluation/fitting from raw scores or individual rows"
+      ],
+      "supported_options": {
+        "artifact_ids": [
+          "ph-score-tests"
+        ],
+        "metrics": [],
+        "not_new_evaluation": true,
+        "operation": "export_existing",
+        "source_methods": [
+          "survival.cox.association"
+        ]
+      },
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "export_existing"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.test.welch_t",
+      "chinese_name": "独立两组 Welch t 检验",
+      "kind": "compat_test",
+      "backend_method_id": "compat.test.welch_t",
+      "skill": "ye1-compat-test-welch-t",
+      "operations": [
+        "compare"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "compare",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "compare",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "compare"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.test.paired_t",
+      "chinese_name": "配对 t 检验（每对一行）",
+      "kind": "compat_test",
+      "backend_method_id": "compat.test.paired_t",
+      "skill": "ye1-compat-test-paired-t",
+      "operations": [
+        "compare"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "compare",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "compare",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "compare"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.test.wilcoxon_rank_sum",
+      "chinese_name": "两独立组 Wilcoxon 秩和检验",
+      "kind": "compat_test",
+      "backend_method_id": "compat.test.wilcoxon_rank_sum",
+      "skill": "ye1-compat-test-wilcoxon-rank-sum",
+      "operations": [
+        "compare"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "compare",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "compare",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "compare"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.test.fisher_2x2",
+      "chinese_name": "2×2 Fisher 精确检验",
+      "kind": "compat_test",
+      "backend_method_id": "compat.test.fisher_2x2",
+      "skill": "ye1-compat-test-fisher-2x2",
+      "operations": [
+        "compare"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "compare",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "compare",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "compare"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.test.chi_square",
+      "chinese_name": "两组列联表 Pearson 卡方检验",
+      "kind": "compat_test",
+      "backend_method_id": "compat.test.chi_square",
+      "skill": "ye1-compat-test-chi-square",
+      "operations": [
+        "compare"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "compare",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "compare",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "compare"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.sample_size.mean_precision",
+      "chinese_name": "均值估计精度样本量",
+      "kind": "compat_planning",
+      "backend_method_id": "compat.sample_size.mean_precision",
+      "skill": "ye1-compat-sample-size-mean-precision",
+      "operations": [
+        "plan"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "plan",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "plan",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "plan"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.sample_size.proportion_precision",
+      "chinese_name": "比例估计精度样本量",
+      "kind": "compat_planning",
+      "backend_method_id": "compat.sample_size.proportion_precision",
+      "skill": "ye1-compat-sample-size-proportion-precision",
+      "operations": [
+        "plan"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "plan",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "plan",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "plan"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.sample_size.two_mean",
+      "chinese_name": "独立两组均值差样本量",
+      "kind": "compat_planning",
+      "backend_method_id": "compat.sample_size.two_mean",
+      "skill": "ye1-compat-sample-size-two-mean",
+      "operations": [
+        "plan"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "plan",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "plan",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "plan"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    },
+    {
+      "method_id": "compat.sample_size.two_proportion",
+      "chinese_name": "独立两组比例差样本量",
+      "kind": "compat_planning",
+      "backend_method_id": "compat.sample_size.two_proportion",
+      "skill": "ye1-compat-sample-size-two-proportion",
+      "operations": [
+        "plan"
+      ],
+      "dependency_groups": [
+        "base"
+      ],
+      "local_synthetic_test": [
+        {
+          "suite": ".pilot-local/v03/legacy-forward-2",
+          "operation": "plan",
+          "status": "PASS"
+        },
+        {
+          "suite": ".pilot-local/v03/final2/validation/legacy",
+          "operation": "plan",
+          "status": "PASS"
+        }
+      ],
+      "callable": true,
+      "limits": [],
+      "supported_options": {},
+      "clinical_validation": "NOT_ESTABLISHED",
+      "real_patient_e2e": "NOT_TESTED",
+      "independent_scientific_review": "PENDING",
+      "tested_operations": [
+        "plan"
+      ],
+      "untested_operations": [],
+      "parameter_and_design_combinations": "ONLY_LISTED_SYNTHETIC_EXAMPLES_NOT_EXHAUSTIVE"
+    }
+  ],
+  "evidence_note": "Development-source regression and installed candidate-final2 examples; exact final archive key retest is bound by external FINAL-RECEIPT.json. No tests on real patients."
+}

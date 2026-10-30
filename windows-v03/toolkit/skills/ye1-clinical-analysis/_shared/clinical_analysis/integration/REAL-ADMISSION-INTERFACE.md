@@ -1,0 +1,11 @@
+# 独立模块真实准入接线
+
+公共入口、任务与结果schema、权限/来源检查、投影和锁由集成负责人单独维护。模块只负责其 `real_admission/` 适配与定向测试；潜在类别模块获准对五个冻结/派发transport函数增加可选admission参数，数值表达式和R估计不改。
+
+适配入口为 `analyze(request, context)`。request保持method_id/operation/payload/bindings的既有数值请求形状；context由公共transport核验V1任务及项目数据选择后创建，不接受payload自报权限。入口首先调用 `context.require_request(method_id,operation,payload)`，核对实际method/operation/完整payload哈希和本次受控调用。属性为data_origin(real/synthetic)、task_purpose(engineering_test/research_analysis)、test_only(由用途决定)、scientific_review(固定pending)、project_root。
+
+模块V1任务将来源绑定到本次规范化payload的确切字节语义；它不冒称重建原始数据库join、认证来源机构或认证去标识。原始源与映射证据可作为实际项目provenance保留。所有行/模型/背景仅项目本地private；导出仍是本地汇总表图和绑定清单。不能把真实数据标签改synthetic调用旧门禁，也不能以缺科研假说作为通用工程准入的法律权限条件。
+
+TreeSHAP额外调用 `context.require_training_background(artifact)`：只有根提供的可信训练登记回调成功才可解释，payload自报背景不算证明。每个模块保留原数值owner、冻结转换链和适用性拒绝；新增独立冻结来源版本不得偷偷给旧模型补哈希或重新拟合。
+
+协议测试中构造的数据即使测试real分支，也必须明确actual_real_data_e2e=false。实际本地源E2E与科学审核分别记录。旧synthetic任务协议不自动升格为真实授权。

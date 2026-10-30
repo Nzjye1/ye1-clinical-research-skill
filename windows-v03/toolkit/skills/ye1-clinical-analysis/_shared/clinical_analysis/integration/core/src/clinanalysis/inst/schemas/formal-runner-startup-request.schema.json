@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-runner-startup-request.schema.json",
+  "title": "ClinAnalysis FORMAL runner startup request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mode",
+    "synthetic_only"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-runner-startup-request@1.0.0"
+    },
+    "mode": {
+      "const": "STARTUP_PROBE_ONLY"
+    },
+    "synthetic_only": {
+      "const": true
+    }
+  }
+}

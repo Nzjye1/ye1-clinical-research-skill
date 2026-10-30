@@ -1,0 +1,5 @@
+# CPU wheels only; official PyPI SHA256, inspected 2026-10-24.
+# Install into tree_shap/_vendor with --no-deps; shared runtime is read-only.
+shap==0.54.1 --hash=sha256:102f7b748e3f4e7deaf53cf005958186e47db9c13768de3612ec27e8760bced7
+slicer==0.0.8 --hash=sha256:6c206258543aecd010d497dc2eca9d2805860a0b3758673903456b7df7934dc3
+tqdm==4.70.1 --hash=sha256:c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73

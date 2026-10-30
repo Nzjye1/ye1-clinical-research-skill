@@ -1,0 +1,318 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "study_id",
+    "method_id",
+    "method_version",
+    "execution_status",
+    "purpose",
+    "data_origin",
+    "test_only",
+    "scientific_review",
+    "export_status",
+    "structure",
+    "provider",
+    "bindings",
+    "counts",
+    "source_binding",
+    "artifacts",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "clinical-real-engineering-result@1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "study_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "method_id": {
+      "const": "baseline.summary"
+    },
+    "method_version": {
+      "const": "1.0.0-descriptive-owner"
+    },
+    "execution_status": {
+      "const": "complete"
+    },
+    "purpose": {
+      "const": "local_engineering_e2e"
+    },
+    "data_origin": {
+      "const": "real_local_normalized"
+    },
+    "test_only": {
+      "const": true
+    },
+    "scientific_review": {
+      "const": "pending"
+    },
+    "export_status": {
+      "const": "local_only"
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_grain",
+        "analysis_grain",
+        "joins",
+        "weights",
+        "missingness",
+        "time_policy"
+      ],
+      "properties": {
+        "source_grain": {
+          "const": "encounter_wide"
+        },
+        "analysis_grain": {
+          "const": "one_selected_encounter_per_patient"
+        },
+        "joins": {
+          "const": "none"
+        },
+        "weights": {
+          "const": "none"
+        },
+        "missingness": {
+          "const": "observed_per_variable_no_imputation"
+        },
+        "time_policy": {
+          "const": "recorded_snapshot_no_prediction_claim"
+        }
+      }
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "code_sha256",
+        "numerical_fits"
+      ],
+      "properties": {
+        "id": {
+          "const": "clinanalysis.table1::table1_group_summary"
+        },
+        "code_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "numerical_fits": {
+          "const": 0
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_sha256",
+        "plan_sha256"
+      ],
+      "properties": {
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "plan_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_records",
+        "source_patients",
+        "patients_with_multiple_records",
+        "extra_records_not_represented",
+        "selected_patients",
+        "selected_records",
+        "unselected_patients",
+        "missing_by_variable",
+        "literal_zero_by_variable"
+      ],
+      "properties": {
+        "source_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_patients": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "patients_with_multiple_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "extra_records_not_represented": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "selected_patients": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "selected_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unselected_patients": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing_by_variable": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "age",
+            "bmi",
+            "preop_cr"
+          ],
+          "properties": {
+            "age": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "bmi": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "preop_cr": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "literal_zero_by_variable": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "age",
+            "bmi",
+            "preop_cr"
+          ],
+          "properties": {
+            "age": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "bmi": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "preop_cr": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "source_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_sha256",
+        "authorization_sha256",
+        "canonical_selected_sha256",
+        "host_isolation",
+        "selection_claim"
+      ],
+      "properties": {
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "authorization_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "canonical_selected_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "host_isolation": {
+          "const": "not_established"
+        },
+        "selection_claim": {
+          "const": "deterministic engineering sample; not first surgery or a formal clinical cohort"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relative_path",
+          "kind",
+          "sha256",
+          "bytes",
+          "source_result_id",
+          "input_sha256",
+          "method_id",
+          "method_version",
+          "semantics_source"
+        ],
+        "properties": {
+          "relative_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "table",
+              "figure",
+              "report"
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "source_result_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "method_id": {
+            "const": "baseline.summary"
+          },
+          "method_version": {
+            "const": "1.0.0-descriptive-owner"
+          },
+          "semantics_source": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

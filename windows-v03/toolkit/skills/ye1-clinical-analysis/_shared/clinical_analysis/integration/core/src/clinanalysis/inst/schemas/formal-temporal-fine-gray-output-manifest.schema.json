@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-temporal-fine-gray-output-manifest.schema.json",
+  "title": "ClinAnalysis FORMAL Temporal Fine-Gray Aggregate Output Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_result_sha256", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "formal-temporal-fine-gray-output-manifest@1.1.0"},
+    "source_result_sha256": {"$ref": "#/$defs/sha256"},
+    "artifacts": {
+      "type": "array",
+      "prefixItems": [
+        {"$ref": "#/$defs/table1"}, {"$ref": "#/$defs/table2"}, {"$ref": "#/$defs/table3"},
+        {"$ref": "#/$defs/figure1"}, {"$ref": "#/$defs/figure2"}, {"$ref": "#/$defs/figure3"}, {"$ref": "#/$defs/figure4"}, {"$ref": "#/$defs/figure5"},
+        {"$ref": "#/$defs/result"}, {"$ref": "#/$defs/supplement1"}, {"$ref": "#/$defs/supplement2"}, {"$ref": "#/$defs/supplement3"},
+        {"$ref": "#/$defs/supplement4"}, {"$ref": "#/$defs/supplement5"}, {"$ref": "#/$defs/supplement6"}, {"$ref": "#/$defs/supplement7"},
+        {"$ref": "#/$defs/supplement8"}, {"$ref": "#/$defs/supplement9"}
+      ],
+      "items": false, "minItems": 18, "maxItems": 18
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "filename": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["output_id", "filename", "source_result_sha256", "aggregate_only"],
+      "properties": {"output_id": {"type": "string"}, "filename": {"$ref": "#/$defs/filename"}, "source_result_sha256": {"$ref": "#/$defs/sha256"}, "aggregate_only": {"const": true}}
+    },
+    "table1": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "TABLE.CVCC-PRED-ISO-001.MAIN.1"}}}]},
+    "table2": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "TABLE.CVCC-PRED-ISO-001.MAIN.2"}}}]},
+    "table3": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "TABLE.CVCC-PRED-ISO-001.MAIN.3"}}}]},
+    "figure1": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.1"}}}]},
+    "figure2": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.2"}}}]},
+    "figure3": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.3"}}}]},
+    "figure4": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.4"}}}]},
+    "figure5": {
+      "oneOf": [
+        {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.5"}}}]},
+        {"type": "object", "additionalProperties": false, "required": ["output_id", "status", "source_result_sha256", "aggregate_only"], "properties": {"output_id": {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.5"}, "status": {"const": "NOT_GENERATED_GATE_FAILED"}, "source_result_sha256": {"$ref": "#/$defs/sha256"}, "aggregate_only": {"const": true}}}
+      ]
+    },
+    "result": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "RESULT.CVCC-PRED-ISO-001.STRUCTURED.V1"}, "filename": {"const": "structured_result.json"}}}]},
+    "supplement1": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.DEFINITIONS.V1"}}}]},
+    "supplement2": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.VARIABLES.V1"}}}]},
+    "supplement3": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.MISSINGNESS.V1"}}}]},
+    "supplement4": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.MODEL-SPEC.V1"}}}]},
+    "supplement5": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.OBSERVATION.V1"}}}]},
+    "supplement6": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.LINEAGE.V1"}}}]},
+    "supplement7": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.SENSITIVITY.V1"}}}]},
+    "supplement8": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.CALIBRATION-GATE.V1"}}}]},
+    "supplement9": {"allOf": [{"$ref": "#/$defs/artifact"}, {"properties": {"output_id": {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.REPRODUCIBILITY.V1"}}}]}
+  }
+}

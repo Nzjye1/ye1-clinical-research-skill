@@ -1,0 +1,128 @@
+{
+  "schema_version": "clinical-module-real-admission-manifest@1.0",
+  "status": "ADAPTER_IMPLEMENTED_SHARED_REGISTRATION_PENDING",
+  "module_id": "mediation_matching",
+  "entrypoint": {
+    "path": "adapter.py",
+    "function": "analyze",
+    "signature": "analyze(request, context)"
+  },
+  "validation_entrypoint": {
+    "path": "adapter.py",
+    "function": "validate_request"
+  },
+  "methods": [
+    "mediation.linear.binary_exposure",
+    "causal.psm.att.binary",
+    "causal.psm.matched.survival"
+  ],
+  "operation": "analyze",
+  "input_contract": "clinical-study-input@1.0 admission and row/variable normalization remain root-owned; independent normalized module request fragment",
+  "request_schema": "contracts/request.schema.json",
+  "response_schema": "contracts/response.schema.json",
+  "context_required": [
+    "require_request(method_id, operation, payload)",
+    "data_origin",
+    "task_purpose",
+    "scientific_review",
+    "test_only",
+    "project_root",
+    "resource_limits()"
+  ],
+  "transport": "worker.R",
+  "projection": {
+    "entrypoint": {
+      "path": "adapter.py",
+      "function": "project",
+      "signature": "project(response, output_dir, context, request=None)"
+    },
+    "request_required": true,
+    "native_private_only": true,
+    "global_csv_metadata_manifest_png_origin_marks": "ROOT_OWNED",
+    "old_primitive_default": "SYNTHETIC TEST ONLY; legacy calls unchanged",
+    "actual_real_data_e2e": false
+  },
+  "dependencies": {
+    "R": "4.6.1",
+    "stats": "4.6.1",
+    "survival": "3.8.6",
+    "jsonlite": "2.0.0",
+    "digest": "0.6.39"
+  },
+  "numerical_owners": {
+    "mediation": "../R/provider.R::mm_med_analyze -> stats::lm.fit",
+    "matching": "../R/provider.R::mm_match_analyze -> frozen psm_v07_analyze",
+    "binary": "../R/provider.R::mm_binary_effects -> paired variance and stats::binom.test",
+    "survival": "../R/provider.R::mm_cox_effect -> survival::coxph Efron/pair-cluster sandwich"
+  },
+  "unchanged_numerical_sources_sha256": {
+    "../R/provider.R": "73bfee7afc6203fc82c9ce46273b3f4e8cd275dfd0ef133438f075ce083c7451",
+    "../../../integration/core/src/clinanalysis/R/psm_v07.R": "ea001b38fae962be0ecc140d9c91acc1e01df9fee9c80ae99404404f144c2f17",
+    "../contracts/payload.schema.json": "dd42a0ffbec96a75f91ebf5b27c874dc6a9254e437c86232909d2ec186e965f5",
+    "../contracts/public_record.schema.json": "c4175799200a909d6a14fd12a37b48cd2676aab2659bcf2ec39b77a48f8aeaa3",
+    "../contracts/private_record.schema.json": "724076229fa6bc5f0fd6bf354fa15d32699b90b9c315604a2a1491854c49d673",
+    "../../../integration/core/src/clinanalysis/R/clinical_resource_budget.R": "3dde3dbbed5f9a36dbdc22f0bca46294aa1bcf345536bcaf385d6da43a7c95c4",
+    "../../../integration/core/config/resource-budget-profiles.json": "6688d9dda381512a3687a8367fa39432b0224e06b1f4e6906abced983378d809"
+  },
+  "compatibility_limits": {
+    "matching_source_rows_maximum": 20000,
+    "reason": "Shared finite resource budgets replace the historical 200-row engineering guard. Estimator, match ordering, support, caliper, convergence and statistical sample guards remain unchanged.",
+    "covariates_maximum": 8,
+    "bootstrap_replicates": [
+      200,
+      5000
+    ],
+    "matching_source_rows_default": 2000,
+    "max_candidate_pairs_default": 4000000,
+    "max_candidate_pairs_maximum": 100000000
+  },
+  "actual_real_data_e2e": false,
+  "global_admission_result_projection_and_actual_local_e2e": "Parent integration owner only",
+  "old_numerical_sources_modified": true,
+  "authorized_legacy_plot_change": {
+    "path": "../R/adapter.R",
+    "proof": "PLOT-LABEL-CHANGE.json",
+    "diff": "plot-label-extension.diff",
+    "scope": "Two optional disclosure_label arguments and three label expressions only; reversing the five exact ASCII replacements restores original bytes"
+  },
+  "projection_sources_sha256": {
+    "../R/adapter.R": "1c7a7cf712533a14b8b27abb441df4b2704cbc0e749e41cc5f8b9a9e5a7bff70",
+    "project_worker.R": "d021400bafd1c5e57640d81f1f7a63ef8632efef33a46d62eb2154e3001225aa"
+  },
+  "local_verification": {
+    "protocol": {
+      "receipt": "evidence/protocol-20261024T114239670097Z/receipt.json",
+      "status": "PASS",
+      "tests": 18,
+      "actual_R_numerical_transports": 3,
+      "actual_real_data_e2e": false
+    },
+    "projection": {
+      "receipt": "evidence/projection-20261024T121416999614Z/receipt.json",
+      "status": "PASS",
+      "cases": 7,
+      "assertions": 170,
+      "new_numerical_owner_calls": 0,
+      "actual_real_data_e2e": false,
+      "visual_review": "evidence/projection-20261024T121416999614Z/visual-review.json"
+    },
+    "retained_projection_failures": [
+      "evidence/projection-20261024T115748587394Z",
+      "evidence/projection-20261024T120034955431Z",
+      "evidence/projection-20261024T120656814976Z"
+    ],
+    "corrected_locale_diagnosis": "evidence/PROJECTION-DIAGNOSIS-CORRECTION.json",
+    "new_dependencies_installed": false
+  },
+  "resource_guard_transition": {
+    "scope": "Resource configuration, validation and preflight only; numerical calculations and statistical support guards unchanged",
+    "core_psm_default_signature": "psm_v07_analyze(data, options, semantics, resource_budget=NULL)",
+    "module_default_signature": "analyze(request, resource_budget=NULL)",
+    "shared_profile": "pair_matching",
+    "old_new_numerical_evidence": ".clinical-local/owner-guard-short/psm/owner-guards-receipt.json",
+    "module_entry_evidence": ".clinical-local/owner-guard-short/psm/module-guards-receipt.json",
+    "data_origin": "synthetic",
+    "actual_real_data_e2e": false,
+    "output_counter_guard_closure": "Explicit named inherited PSM counters follow finite pair_matching ceiling; probability, intervals, method shape, and small support-state bounds preserved."
+  }
+}

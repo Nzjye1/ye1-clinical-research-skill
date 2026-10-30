@@ -1,0 +1,242 @@
+{
+  "schema_version": "clinical-module-integration@1.0",
+  "module_id": "latent_longitudinal",
+  "owner": "delegated latent_longitudinal module owner",
+  "language": "python",
+  "entrypoint": {
+    "path": "dispatch_api.py",
+    "function": "analyze"
+  },
+  "projection_entrypoint": {
+    "path": "dispatch_api.py",
+    "function": "project"
+  },
+  "provider_files": [
+    "__init__.py",
+    "api.py",
+    "schema_tools.py",
+    "module.py",
+    "contracts.py",
+    "clustering.py",
+    "growth.py",
+    "growth_engine.R",
+    "artifacts.py",
+    "latent_longitudinal_adapter.R",
+    "dispatch_api.py",
+    "formal_api.py",
+    "formal_provider.py",
+    "formal_runtime.py",
+    "formal_models.R",
+    "formal_engine.R",
+    "formal_artifacts.py"
+  ],
+  "dependencies": [
+    {
+      "name": "Python",
+      "version": "3.12.15",
+      "role": "runtime"
+    },
+    {
+      "name": "R",
+      "version": "4.6.1",
+      "role": "runtime"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4",
+      "role": "runtime"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "role": "runtime"
+    },
+    {
+      "name": "scikit-learn",
+      "version": "1.9.1",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "nlme",
+      "version": "3.1.169",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "jsonlite",
+      "version": "2.0.0",
+      "role": "runtime"
+    },
+    {
+      "name": "matplotlib",
+      "version": "3.11.2",
+      "role": "runtime"
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.7.0",
+      "role": "runtime"
+    },
+    {
+      "name": "lme4",
+      "version": "2.0.6",
+      "role": "validation_reference"
+    },
+    {
+      "name": "mclust",
+      "version": "6.1.3",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "lcmm",
+      "version": "2.2.2",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "mvtnorm",
+      "version": "1.4.2",
+      "role": "runtime"
+    },
+    {
+      "name": "spacefillr",
+      "version": "0.4.0",
+      "role": "runtime"
+    },
+    {
+      "name": "marqLevAlg",
+      "version": "2.0.8",
+      "role": "runtime"
+    },
+    {
+      "name": "doParallel",
+      "version": "1.0.17",
+      "role": "runtime"
+    }
+  ],
+  "methods": [
+    {
+      "method_id": "exploration.cluster.kmeans",
+      "method_version": "1.0.0-development",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "clustering.py: sklearn.cluster.KMeans",
+      "schemas": {
+        "payload": "schemas/cluster.payload.schema.json",
+        "diagnostics": "schemas/diagnostics.schema.json",
+        "public_record": "schemas/public_record.schema.json",
+        "private_record": "schemas/private_record.schema.json"
+      }
+    },
+    {
+      "method_id": "exploration.cluster.gmm",
+      "method_version": "1.0.0-development",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "clustering.py: sklearn.mixture.GaussianMixture",
+      "schemas": {
+        "payload": "schemas/cluster.payload.schema.json",
+        "diagnostics": "schemas/diagnostics.schema.json",
+        "public_record": "schemas/public_record.schema.json",
+        "private_record": "schemas/private_record.schema.json"
+      }
+    },
+    {
+      "method_id": "longitudinal.growth.gaussian",
+      "method_version": "1.0.0-development",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "numerical_owner": "growth_engine.R: nlme::lme ML",
+      "schemas": {
+        "payload": "schemas/growth.payload.schema.json",
+        "diagnostics": "schemas/diagnostics.schema.json",
+        "public_record": "schemas/public_record.schema.json",
+        "private_record": "schemas/private_record.schema.json"
+      }
+    },
+    {
+      "method_id": "latent.profile.gaussian",
+      "method_version": "1.1.0-development",
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "numerical_owner": "formal_models.R: mclust::me (EEI/VVI Gaussian LPA)",
+      "schemas": {
+        "payload": "formal_schemas/profile.payload.schema.json",
+        "diagnostics": "formal_schemas/diagnostics.schema.json",
+        "public_record": "formal_schemas/public_record.schema.json",
+        "private_record": "formal_schemas/private_record.schema.json"
+      }
+    },
+    {
+      "method_id": "latent.trajectory.gaussian",
+      "method_version": "1.1.0-development",
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "numerical_owner": "formal_models.R: lcmm::hlme (Gaussian LCGA/shared-covariance growth mixture)",
+      "schemas": {
+        "payload": "formal_schemas/trajectory.payload.schema.json",
+        "diagnostics": "formal_schemas/diagnostics.schema.json",
+        "public_record": "formal_schemas/public_record.schema.json",
+        "private_record": "formal_schemas/private_record.schema.json"
+      }
+    }
+  ],
+  "shared_change_requests": [
+    {
+      "target": "integration/module_worker.py:load_python and the development module lock",
+      "reason": "Honor manifest.entrypoint.path when importing latent_longitudinal as a package; dispatch_api routes to existing api or new formal_api. Formal payload adds split, controls and explicit time origin/scale. Existing three provider code/schema bytes remain unchanged.",
+      "affected_methods": [
+        "latent.profile.gaussian",
+        "latent.trajectory.gaussian"
+      ],
+      "required_regression": [
+        "five method IDs route to their sole owners",
+        "formal training subject/holdout boundary",
+        "private frozen artifact persisted verbatim",
+        "subject-time branch cannot relax existing subject-only guards",
+        "strict own payload/result schemas",
+        "zero-fit frozen assignment",
+        "common provenance and aggregate-only projection"
+      ]
+    },
+    {
+      "target": "integration/module_task.py runtime binding and final integration verification",
+      "reason": "Current common runtime_sha256 binds core/runtime-lock.json. Formal provider also binds the actual six isolated package binaries and R.dll/BLAS/LAPACK through formal_runtime.binding(probe), frozen artifact and diagnostics.runtime_hash. Preserve that separate module binding or include it in the common runtime provenance; do not claim the shared lock alone covers newly isolated binaries.",
+      "affected_methods": [
+        "latent.profile.gaussian",
+        "latent.trajectory.gaussian"
+      ],
+      "required_regression": [
+        "actual common run_analysis_task train and frozen application for both formal IDs",
+        "preserve actual module runtime binding",
+        "projection failures remain partial and private records remain private"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/acceptance-20261024T034749239135Z/receipt.json",
+    "evidence/acceptance-20261024T034749239135Z/tests.log",
+    "evidence/affected-regression-20261024T033841649880Z/receipt.json",
+    "HANDOFF.md",
+    "FORMAL-METHODS-BOUNDARY.md",
+    "FORMAL-IMPLEMENTATION.md",
+    "formal-integration-change-request.json",
+    "evidence/formal-install/receipt.json",
+    "tests/formal_acceptance.py",
+    "tests/formal_references.py",
+    "tests/reference_formal_lme4.R",
+    "evidence/formal-acceptance-20261024T041905016723Z/receipt.json",
+    "evidence/formal-acceptance-20261024T041905016723Z/source-lock.json",
+    "evidence/formal-acceptance-20261024T041905016723Z/artifact-audit.json",
+    "evidence/formal-contract-20261024T042151388661Z/receipt.json",
+    "CAPABILITIES.json"
+  ]
+}

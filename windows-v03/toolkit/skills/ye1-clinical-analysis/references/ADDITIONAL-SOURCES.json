@@ -1,0 +1,386 @@
+{
+  "source_git_commit": "e506c155f50d1624d6746cc1189ba03470ac8bb2",
+  "registered_missing_sources_and_method_guides_added": [
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/adapter.py",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/adapter.py",
+      "sha256": "638c79a2ecf115afbfc81cb3881eb3dc283a90215746fb6b3822e3c9cfbd7730",
+      "bytes": 5942
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/manifest.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/manifest.json",
+      "sha256": "48f7fa65b0535f618e48e3f9bffef789dc4607386330b03276650600d09ae90a",
+      "bytes": 1783
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/root-registration-fragment.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/root-registration-fragment.json",
+      "sha256": "fe0ba4c41f87cea2dbde54ec41a2062aee4f7efdff41a2bb60096d3a6ea4a708",
+      "bytes": 3156
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/diagnostics.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/diagnostics.schema.json",
+      "sha256": "1aae5d49b4c006f9edea3a5dc498d3a31efebfaf82cde7244d1b35ed98428305",
+      "bytes": 3189
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/explainer.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/explainer.schema.json",
+      "sha256": "d2806de2694fc1b05f912fc9489408701031f12e9010a69e77e0219544089431",
+      "bytes": 12791
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/payload.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/payload.schema.json",
+      "sha256": "15b74badb7007acd87137fb028f492d79887818473fcceb43b94ebe0f5109611",
+      "bytes": 10177
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/private_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/private_record.schema.json",
+      "sha256": "7d1cb16755b6f0a56866fe759bce5c35f937a2735e0289b4d73d84c8294f6735",
+      "bytes": 10383
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/public_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/public_record.schema.json",
+      "sha256": "4609a9788068e88cc2153eec8fdfc3e4178df50a8863c1d8469cbb5449f57ef2",
+      "bytes": 51659
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/request.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/request.schema.json",
+      "sha256": "0fc9cb4a7a2a5ab2af7f2ffc6e3d396377b3738adc0fc13981b338f41dcba891",
+      "bytes": 13596
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/response.schema.json",
+      "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/schemas/response.schema.json",
+      "sha256": "ebeeb66ee3d86d9ff0714492f6b93e26f3314c843798bddfe5a41e71f7427e20",
+      "bytes": 74884
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/__init__.py",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/__init__.py",
+      "sha256": "42a68723a556dace639cb47b7d13e8b4e264c11d54b310c9d3d3519a009cc1e3",
+      "bytes": 150
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/adapter.py",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/adapter.py",
+      "sha256": "799fb28f737381e4a9b2246733d3ed399d7855e3d9299c868dd6822393bff544",
+      "bytes": 15412
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/manifest.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/manifest.json",
+      "sha256": "68e89ccdb772879f6ef54af232ad0c3a3f78102bee7acd6986f5929c26a3a2d0",
+      "bytes": 6002
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/root-registration-fragment.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/root-registration-fragment.json",
+      "sha256": "d68f0e4af4054859d29cc50a7070ba447f491fa3fb131c9f7a4d559e861a9fc4",
+      "bytes": 7038
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/cluster.payload.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/cluster.payload.schema.json",
+      "sha256": "b5dc18c1c777f82a7f6d61d8e4bd87a960915e64b08f1bf471610e6c79900a43",
+      "bytes": 9431
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/formal.diagnostics.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/formal.diagnostics.schema.json",
+      "sha256": "eb90fad9691303636f12b004668fbc37db67fb228ea45fc96d8f53239f55e5e6",
+      "bytes": 5207
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/formal.private_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/formal.private_record.schema.json",
+      "sha256": "00c2fb0ca7d1a5ff755ad9351b20c68838c386343805ddacbc3455770858a069",
+      "bytes": 1617
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/formal.public_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/formal.public_record.schema.json",
+      "sha256": "3f0bfe045dc5d8975cd744d57b770303f4c572626ea657cddf076d72cca4b723",
+      "bytes": 37485
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/frozen.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/frozen.schema.json",
+      "sha256": "c042f4afda4e4c3bdf2782f03585b53473c1575b2f3c5c0454f9b3876a5fcd07",
+      "bytes": 50253
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/growth.payload.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/growth.payload.schema.json",
+      "sha256": "572051502d2538c4025d5fb903b99871d002e7ab3da038953e11a2560392a519",
+      "bytes": 9090
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/legacy.diagnostics.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/legacy.diagnostics.schema.json",
+      "sha256": "8bc3fe6e8ed161ec24342881e1df10d0809451d9831243c5411bfd21ba1c1198",
+      "bytes": 10086
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/legacy.private_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/legacy.private_record.schema.json",
+      "sha256": "eea804eb1e5b85e4a6513dadfb2b0f23646d5267d7effd86e51432d77c3d1c36",
+      "bytes": 2470
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/legacy.public_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/legacy.public_record.schema.json",
+      "sha256": "d1d1551922477f6a57efb189dcf683ce0b2c4dc883c53acacc4e262b53c4a56e",
+      "bytes": 31980
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/profile.payload.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/profile.payload.schema.json",
+      "sha256": "977cfa74599333e74a6c8cc58c1b40ac5be77787e831de580183f540ffcf0862",
+      "bytes": 9622
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/request.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/request.schema.json",
+      "sha256": "aa5e4f5f293588a45ae3584778a0efd951d96f0b84e2c32a321df6281866644e",
+      "bytes": 72621
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/response.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/response.schema.json",
+      "sha256": "3788c7693f3e264480c9c32dd8054c565020e2f80fc64973464ec2b2f347e006",
+      "bytes": 294976
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/trajectory.payload.schema.json",
+      "product": "_shared/clinical_analysis/modules/latent_longitudinal/real_admission/schemas/trajectory.payload.schema.json",
+      "sha256": "c87709cf3302d21648174e7c85f90f43666a498451165ed1fd476fa3685e126e",
+      "bytes": 10607
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/__init__.py",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/__init__.py",
+      "sha256": "b07f9e00b019b4ff39834df058426fb4b62c48c70a2b71b8d27b0d9dae2a6a9d",
+      "bytes": 78
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/adapter.py",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/adapter.py",
+      "sha256": "db040969b692ac4815f13d5ef4caaeb7ec091b1b30285610c54a58e50d95eaff",
+      "bytes": 16619
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/diagnostics.schema.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/diagnostics.schema.json",
+      "sha256": "43097696f645a15529697e4fa1030e5a2330e3f22c96694b15c249f345d015a8",
+      "bytes": 577
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/payload.schema.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/payload.schema.json",
+      "sha256": "e8dd9d427524d7ad662e85461a93130a7f52512c3eeaf8ee6c0c6de68fd883d9",
+      "bytes": 26090
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/private_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/private_record.schema.json",
+      "sha256": "cceced1e9d76d55e7d3317b6f15a5f9dbed7e62e822dbc69f0bdf6a0df4f3102",
+      "bytes": 508
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/public_record.schema.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/public_record.schema.json",
+      "sha256": "c2c1064007732430c7a527f9098de253fbd8809af73e1f6cf141822791fab29c",
+      "bytes": 250706
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/request.schema.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/request.schema.json",
+      "sha256": "91f193185830530fd9b76395c25474b712d58bab571aaf148c6569141368757d",
+      "bytes": 31016
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/response.schema.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/contracts/response.schema.json",
+      "sha256": "ed2f467eb98ce4907711c748b0dd346a27626815b4e1fd4d2b4c8dd5f54071c9",
+      "bytes": 277588
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/manifest.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/manifest.json",
+      "sha256": "e30540ea066da1c862a138a9dc99e1bca976d76678057c12fadd72c4ba05d90f",
+      "bytes": 5921
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/project_worker.R",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/project_worker.R",
+      "sha256": "d021400bafd1c5e57640d81f1f7a63ef8632efef33a46d62eb2154e3001225aa",
+      "bytes": 5452
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/root-registration-fragment.json",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/root-registration-fragment.json",
+      "sha256": "ff02ab5fbaf632c2b945d160682689a578e9d577f5dee2f88458cde5907eb307",
+      "bytes": 8013
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/schema.py",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/schema.py",
+      "sha256": "184ef127ab1e3b7b0ec5e9557f23d2f757bf5f2fffd23231558c2ad8fd834521",
+      "bytes": 3421
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/mediation_matching/real_admission/worker.R",
+      "product": "_shared/clinical_analysis/modules/mediation_matching/real_admission/worker.R",
+      "sha256": "7b771a915aa6b679ef1187e34e15a6c3ab8c206124a0c565de7df6ffefda0096",
+      "bytes": 3835
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/adapter.py",
+      "product": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/adapter.py",
+      "sha256": "27559a2e1af833decaec8c071c84ea4b4910eb6cef2d97a92d60d9cabfd824eb",
+      "bytes": 27380
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/failure-diagnostics.schema.json",
+      "product": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/failure-diagnostics.schema.json",
+      "sha256": "34ce8e6a3cffe2f7801365057f818d89e752cbd0536a7c1a16fd9aca1ddb76a9",
+      "bytes": 5636
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/frozen-model.schema.json",
+      "product": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/frozen-model.schema.json",
+      "sha256": "3b9e51091cf698e451a298ab92dae1f3aebb2f21c8e6ba69705109434829bf41",
+      "bytes": 1411
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/manifest.json",
+      "product": "_shared/clinical_analysis/modules/nonlinear_prediction/real_admission/manifest.json",
+      "sha256": "23083275eaad3529a6816feb1c2724c880774048276261f3629dc20d238b8300",
+      "bytes": 2637
+    },
+    {
+      "upstream": "_shared/clinical_analysis/modules/nonlinear_prediction/tests/render.R",
+      "product": "_shared/clinical_analysis/modules/nonlinear_prediction/tests/render.R",
+      "sha256": "c2eb0b807d01dba745b0b657816cf0b7652dabbff17c67f8d871372796bba02e",
+      "bytes": 1310
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.adjusted.linear.md",
+      "product": "references/analysis/methods/association.adjusted.linear.md",
+      "sha256": "2743a7e033de24fe24f8c5e5f55a735b5f5cc6931cc7a03c2c1d13f6e45332f3",
+      "bytes": 5149
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.adjusted.logistic.md",
+      "product": "references/analysis/methods/association.adjusted.logistic.md",
+      "sha256": "7d246da4a80aaf464cc842132629df6f7acbb09b74514313b08c4e6a8205c64b",
+      "bytes": 5170
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.linear.md",
+      "product": "references/analysis/methods/association.linear.md",
+      "sha256": "6a5ccf5482e7dadb75aa6e79600365e0e6374418f2fded1b3c363336d4fc48c8",
+      "bytes": 1961
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.linear.plan.md",
+      "product": "references/analysis/methods/association.linear.plan.md",
+      "sha256": "f1d310d069f84e0c7ee2d574b367bbefd87a02861427522018195ffd05f77fc9",
+      "bytes": 4929
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.logistic.md",
+      "product": "references/analysis/methods/association.logistic.md",
+      "sha256": "e30a2cb5cd3361e6534f3892d5b11276da195686dda00e19dabf838c5a5ebea8",
+      "bytes": 1979
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.logistic.plan.md",
+      "product": "references/analysis/methods/association.logistic.plan.md",
+      "sha256": "ebb7ad04d240d79f82834c78876a81ee927a2fcda0d74d8a00618dd046a7949c",
+      "bytes": 4956
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.rcs.linear.md",
+      "product": "references/analysis/methods/association.rcs.linear.md",
+      "sha256": "caca877351830c601e5125afaa770a25f1018de9c2ac1fa2fa3214879ebd67b3",
+      "bytes": 5125
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.rcs.logistic.md",
+      "product": "references/analysis/methods/association.rcs.logistic.md",
+      "sha256": "dfff0973807228be3cbb311427022491323e96cf4eca81126c1bafa05500ed61",
+      "bytes": 5146
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.sensitivity.linear.md",
+      "product": "references/analysis/methods/association.sensitivity.linear.md",
+      "sha256": "76788f8e0a894028a7ea80977e000361248e627d1b3180835df5d7138933c03c",
+      "bytes": 5167
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.sensitivity.logistic.md",
+      "product": "references/analysis/methods/association.sensitivity.logistic.md",
+      "sha256": "b1a819df106c99bfd2870851974b6dc949f7f79e7b3f748b7987a9e29ff00672",
+      "bytes": 5188
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.subgroup.linear.md",
+      "product": "references/analysis/methods/association.subgroup.linear.md",
+      "sha256": "f80b63498eea727797c5e708fb42f33d8ee99e9920804d0a7f2c49ae5cea2844",
+      "bytes": 5167
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/association.subgroup.logistic.md",
+      "product": "references/analysis/methods/association.subgroup.logistic.md",
+      "sha256": "6af2d56f954bcd0f9071e81eaf0e0b66d098f62be7c238ed7bdce783547a990e",
+      "bytes": 5188
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/causal.psm.att.binary.md",
+      "product": "references/analysis/methods/causal.psm.att.binary.md",
+      "sha256": "1fdec6b328025f17a2d9759621242e8f402d0e265b345cdb7cf92c0bcd633b53",
+      "bytes": 2225
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/causal.psm.att.continuous.md",
+      "product": "references/analysis/methods/causal.psm.att.continuous.md",
+      "sha256": "d8ba627e453562539bffb52ff144544f32df375ecdaaa9720c434e8e09dcc286",
+      "bytes": 3715
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/causal.psm.matched.survival.md",
+      "product": "references/analysis/methods/causal.psm.matched.survival.md",
+      "sha256": "2ebb273eb62ddc4398502f10e5edd2d349b2dec59479c3ea74c835eaea9cd795",
+      "bytes": 2366
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/mediation.linear.binary_exposure.md",
+      "product": "references/analysis/methods/mediation.linear.binary_exposure.md",
+      "sha256": "17ba7f35bfafcf95b41bee5c498eed13dad365fa520f8ec1d250c076d0d4afd9",
+      "bytes": 2268
+    },
+    {
+      "upstream": "skills/ye1-association/references/analysis/methods/result.association.effects.md",
+      "product": "references/analysis/methods/result.association.effects.md",
+      "sha256": "d5849e2571169af2e968c0b0b1c803c69a8123f7050000e299a8b8d71d379379",
+      "bytes": 408
+    },
+    {
+      "upstream": "skills/ye1-association/scripts/stats_worker.R",
+      "product": "_shared/compat/stats_worker.R",
+      "sha256": "ddbb9d77532fc4cf4198a3efe5e57aedfff239bb929e587f34ebf9440ed0124b",
+      "bytes": 17776
+    }
+  ],
+  "no_source_csv_or_old_evidence_copied": true,
+  "original_worktree_not_modified": true,
+  "v02_not_modified": true
+}

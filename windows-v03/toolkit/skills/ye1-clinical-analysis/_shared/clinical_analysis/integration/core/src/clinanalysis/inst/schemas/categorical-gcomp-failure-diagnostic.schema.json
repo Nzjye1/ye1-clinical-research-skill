@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-failure-diagnostic.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "failure_code",
+    "stage",
+    "synthetic_only",
+    "authority",
+    "data_access",
+    "aggregate_counts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "categorical-gcomp-failure-diagnostic@1.0.0"
+    },
+    "status": {"const": "BLOCKED"},
+    "failure_code": {
+      "enum": [
+        "TASK_CONTRACT_INVALID",
+        "DATA_SEMANTICS_INVALID",
+        "UNKNOWN_SOURCE_VALUE",
+        "DUPLICATE_RECORD_ID",
+        "MISSING_REFERENCE_SUPPORT",
+        "MODEL_NONCONVERGENCE",
+        "NONFINITE_ESTIMATE",
+        "INVALID_COVARIANCE",
+        "NONFINITE_PREDICTION",
+        "RESULT_CONTRACT_INVALID",
+        "OUTPUT_ALREADY_EXISTS",
+        "INTERNAL_ERROR"
+      ]
+    },
+    "stage": {"type": "string", "minLength": 1},
+    "synthetic_only": {"type": "boolean"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "materialization_authorized",
+        "formal_execution_authorized",
+        "formal_authorization_consumed"
+      ],
+      "properties": {
+        "materialization_authorized": {"type": "boolean"},
+        "formal_execution_authorized": {"type": "boolean"},
+        "formal_authorization_consumed": {"const": false}
+      }
+    },
+    "data_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "real_data_read",
+        "patient_level_data_read",
+        "synthetic_fixture_rows_processed"
+      ],
+      "properties": {
+        "real_data_read": {"type": "boolean"},
+        "patient_level_data_read": {"type": "boolean"},
+        "synthetic_fixture_rows_processed": {"type": "boolean"}
+      }
+    },
+    "aggregate_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_n"],
+      "properties": {
+        "input_n": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

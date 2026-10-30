@@ -1,0 +1,8 @@
+def specification(method=RF, split='group', calibration='sigmoid'):
+    params = [{'n_estimators': 30, 'max_depth': 3, 'min_samples_leaf': 5, 'max_features': 1.0}, {'n_estimators': 30, 'max_depth': 5, 'min_samples_leaf': 8, 'max_features': 'sqrt'}] if method == RF else [{'max_iter': 35, 'max_leaf_nodes': 5, 'min_samples_leaf': 10, 'learning_rate': 0.1, 'l2_regularization': 1.0}, {'max_iter': 35, 'max_leaf_nodes': 7, 'min_samples_leaf': 15, 'learning_rate': 0.08, 'l2_regularization': 2.0}]
+    definition = {'method': split, 'test_fraction': 0.25, 'seed': 1729}
+    if split == 'group':
+        definition['group'] = 'site'
+    if split == 'temporal':
+        definition.update(time='time', label_available_time='label_ready')
+    return {'id': 'id', 'outcome': 'binary', 'event': '1', 'non_event': '0', 'cohort_id': 'synthetic-development', 'prediction_time': 'baseline', 'outcome_window': '24h', 'features': [{'name': 'x', 'type': 'number', 'available_at_prediction': True}, {'name': 'z', 'type': 'number', 'available_at_prediction': True}, {'name': 'category', 'type': 'category', 'levels': ['0', '1'], 'available_at_prediction': True}], 'split': definition, 'cv_folds': 3, 'bootstrap': 0, 'selection': 'none', 'missing': 'train_median_mode', 'independent_subjects': True, 'dca_thresholds': [0.1, 0.2, 0.4, 0.6], 'clinical_decision_threshold': 0.4, 'calibration': {'method': calibration, 'fraction': 0.25 if calibration == 'sigmoid' else None}, 'tuning': {'metric': 'log_loss', 'candidates': params}, 'explanation': {'permutation_repeats': 3, 'pdp_features': ['x', 'category']}}

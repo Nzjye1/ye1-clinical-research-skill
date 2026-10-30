@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "status": {
+      "const": "EXPLAINED"
+    },
+    "algorithm": {
+      "const": "official_shap.TreeExplainer"
+    },
+    "feature_perturbation": {
+      "const": "interventional"
+    },
+    "output_scale": {
+      "enum": [
+        "uncalibrated_probability",
+        "uncalibrated_log_odds",
+        "calibrated_log_odds"
+      ]
+    },
+    "base_value": {
+      "type": "number"
+    },
+    "n_explained": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "n_background": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "encoded_importance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "feature": {
+            "type": "string"
+          },
+          "sum_absolute_contribution": {
+            "type": "number"
+          },
+          "mean_absolute_contribution": {
+            "type": "number"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "feature",
+          "sum_absolute_contribution",
+          "mean_absolute_contribution",
+          "n"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 80
+    },
+    "variable_aggregates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "variable": {
+            "type": "string"
+          },
+          "encoded_columns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 0,
+            "maxItems": 100000
+          },
+          "sum_absolute_aggregated_contribution": {
+            "type": "number"
+          },
+          "mean_absolute_aggregated_contribution": {
+            "type": "number"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "interpretation": {
+            "const": "sum_of_encoded_column_SHAP_not_group_Shapley"
+          }
+        },
+        "required": [
+          "variable",
+          "encoded_columns",
+          "sum_absolute_aggregated_contribution",
+          "mean_absolute_aggregated_contribution",
+          "n",
+          "interpretation"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 30
+    },
+    "importance_definition": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0,
+      "maxItems": 100000
+    }
+  },
+  "required": [
+    "status",
+    "algorithm",
+    "feature_perturbation",
+    "output_scale",
+    "base_value",
+    "n_explained",
+    "n_background",
+    "encoded_importance",
+    "variable_aggregates",
+    "importance_definition",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

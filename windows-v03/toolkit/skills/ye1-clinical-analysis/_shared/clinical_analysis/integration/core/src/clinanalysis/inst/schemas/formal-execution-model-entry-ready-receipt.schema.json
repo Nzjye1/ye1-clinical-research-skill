@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-execution-model-entry-ready-receipt.schema.json",
+  "title": "Reserved FORMAL execution model-entry readiness receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "candidate_id",
+    "phase",
+    "authority",
+    "binding",
+    "repairs",
+    "runtime_task",
+    "preflight_checks",
+    "aggregate_counts",
+    "execution_boundary",
+    "privacy",
+    "generated_at",
+    "next_responsible_actor",
+    "next_required_artifact"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-execution-model-entry-ready-receipt@1.0.0"
+    },
+    "receipt_id": {
+      "const": "RECEIPT.CVCC-PRED-ISO-001.FORMAL-EXECUTION.V5.MODEL-ENTRY-READY.V1"
+    },
+    "status": {
+      "const": "MODEL_ENTRY_READY_AWAITING_FORMAL_EXECUTION_MODEL_ENTRY_RECEIPT"
+    },
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "phase": {"const": "PRE_MODEL_RESERVED_AUTHORIZATION"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_commit",
+        "authorization_id",
+        "authorization_sha256",
+        "authorization_expires_at",
+        "dispatch_id",
+        "dispatch_envelope_sha256",
+        "reservation_receipt_sha256",
+        "reserved_ledger_sha256",
+        "ledger_state",
+        "attempts_started",
+        "authorization_consumed"
+      ],
+      "properties": {
+        "control_commit": {
+          "const": "ad59aa22ec73d228a318c346d2014732771fce07"
+        },
+        "authorization_id": {
+          "const": "AUTH.CVCC-PRED-ISO-001.FORMAL-EXECUTION.V5"
+        },
+        "authorization_sha256": {"$ref": "#/$defs/sha256"},
+        "authorization_expires_at": {
+          "const": "2026-07-24T07:03:00+08:00"
+        },
+        "dispatch_id": {
+          "const": "DISPATCH.CVCC-PRED-ISO-001.FORMAL-EXECUTION.V5"
+        },
+        "dispatch_envelope_sha256": {"$ref": "#/$defs/sha256"},
+        "reservation_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "reserved_ledger_sha256": {"$ref": "#/$defs/sha256"},
+        "ledger_state": {"const": "DISPATCHED_RESERVED"},
+        "attempts_started": {"const": 0},
+        "authorization_consumed": {"const": false}
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "task_sha256",
+        "task_contract",
+        "sap_id",
+        "sap_sha256",
+        "sap_status",
+        "dataset_id",
+        "dataset_sha256",
+        "implementation_head"
+      ],
+      "properties": {
+        "task_id": {
+          "const": "TASK.CVCC-PRED-ISO-001.FORMAL-FG.V4"
+        },
+        "task_sha256": {"$ref": "#/$defs/sha256"},
+        "task_contract": {
+          "const": "formal-temporal-fine-gray-task@2.0.0"
+        },
+        "sap_id": {"const": "SAP.CVCC-PRED-ISO-001.FROZEN.V3"},
+        "sap_sha256": {"$ref": "#/$defs/sha256"},
+        "sap_status": {"const": "FROZEN"},
+        "dataset_id": {
+          "const": "DATASET.CVCC-PRED-ISO-001.ANALYSIS-READY.V2"
+        },
+        "dataset_sha256": {"$ref": "#/$defs/sha256"},
+        "implementation_head": {
+          "const": "d722ee2bfa9f6f932b6746a6e998ce950eb9e91d"
+        }
+      }
+    },
+    "repairs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runner_startup", "task_v2_plugin_dispatch"],
+      "properties": {
+        "runner_startup": {"$ref": "#/$defs/repairBinding"},
+        "task_v2_plugin_dispatch": {"$ref": "#/$defs/repairBinding"}
+      }
+    },
+    "runtime_task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract",
+        "sha256",
+        "generated",
+        "frozen_analysis_identical",
+        "authorization_binding_only_runtime_injection",
+        "patient_level_payload",
+        "physical_paths_present"
+      ],
+      "properties": {
+        "contract": {
+          "const": "formal-temporal-fine-gray-task@2.0.0"
+        },
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "generated": {"const": true},
+        "frozen_analysis_identical": {"const": true},
+        "authorization_binding_only_runtime_injection": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false}
+      }
+    },
+    "preflight_checks": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 40,
+      "items": {"$ref": "#/$defs/preflightCheck"}
+    },
+    "aggregate_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_count",
+        "column_count",
+        "development_n",
+        "validation_n",
+        "development_event_n",
+        "validation_event_n",
+        "delirium_event_n",
+        "competing_event_n",
+        "observed_n",
+        "uta_only_n",
+        "other_unobserved_n",
+        "right_censored_at_last_known_n",
+        "outcome_unobserved_recoded_negative_n"
+      ],
+      "properties": {
+        "row_count": {"type": "integer", "minimum": 1},
+        "column_count": {"const": 34},
+        "development_n": {"type": "integer", "minimum": 1},
+        "validation_n": {"type": "integer", "minimum": 1},
+        "development_event_n": {"type": "integer", "minimum": 400},
+        "validation_event_n": {"type": "integer", "minimum": 200},
+        "delirium_event_n": {"type": "integer", "minimum": 1},
+        "competing_event_n": {"type": "integer", "minimum": 0},
+        "observed_n": {"type": "integer", "minimum": 0},
+        "uta_only_n": {"type": "integer", "minimum": 0},
+        "other_unobserved_n": {"type": "integer", "minimum": 0},
+        "right_censored_at_last_known_n": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outcome_unobserved_recoded_negative_n": {"const": 0}
+      }
+    },
+    "execution_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_patient_rows_read_locally",
+        "patient_data_rows_output",
+        "external_transfer",
+        "attempt_marker_written",
+        "formal_runner_called",
+        "model_called",
+        "imputation_called",
+        "primary_fit_called",
+        "internal_bootstrap_called",
+        "validation_bootstrap_called",
+        "dca_called",
+        "sensitivity_called"
+      ],
+      "properties": {
+        "v2_patient_rows_read_locally": {"const": true},
+        "patient_data_rows_output": {"const": 0},
+        "external_transfer": {"const": false},
+        "attempt_marker_written": {"const": false},
+        "formal_runner_called": {"const": false},
+        "model_called": {"const": false},
+        "imputation_called": {"const": false},
+        "primary_fit_called": {"const": false},
+        "internal_bootstrap_called": {"const": false},
+        "validation_bootstrap_called": {"const": false},
+        "dca_called": {"const": false},
+        "sensitivity_called": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "patient_level_payload",
+        "physical_paths_present",
+        "row_level_logs_present",
+        "external_transfer"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "row_level_logs_present": {"const": false},
+        "external_transfer": {"const": false}
+      }
+    },
+    "generated_at": {
+      "type": "string",
+      "pattern": "^2026-07-23T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+0800$"
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE"},
+    "next_required_artifact": {
+      "const": "FormalExecutionModelEntryReceipt"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "repairBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "receipt_id",
+        "receipt_sha256",
+        "status"
+      ],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "receipt_id": {"type": "string", "minLength": 1},
+        "receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "status": {"const": "ACCEPTED"}
+      }
+    },
+    "preflightCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check_id", "status"],
+      "properties": {
+        "check_id": {
+          "enum": [
+            "HEAD_EXACT",
+            "WORKTREE_CLEAN_BEFORE_PREFLIGHT",
+            "AUTHORIZATION_CHECKSUM",
+            "AUTHORIZATION_WINDOW",
+            "DISPATCH_ENVELOPE_CHECKSUM",
+            "RESERVATION_RECEIPT_CHECKSUM",
+            "RESERVED_LEDGER_CHECKSUM",
+            "RESERVED_LEDGER_STATE",
+            "TASK_CHECKSUM",
+            "SAP_CHECKSUM",
+            "STARTUP_REPAIR_RECEIPT_CHECKSUM",
+            "PLUGIN_REPAIR_RECEIPT_CHECKSUM",
+            "BOUNDED_PROJECT_STARTUP",
+            "PROJECT_ENVIRONMENT",
+            "DEPENDENCIES",
+            "NAMESPACE",
+            "PLUGIN_REGISTRATION",
+            "TASK_CONTRACT",
+            "RESULT_CONTRACTS",
+            "REGISTERED_TASK_V2_FORMAL_ROUTE",
+            "RUNTIME_TASK_CONTRACT",
+            "RUNTIME_TASK_FROZEN_ANALYSIS_IDENTITY",
+            "DATASET_RAW_SHA256_BEFORE_READ",
+            "DATASET_READABILITY",
+            "REQUIRED_COLUMNS",
+            "COLUMN_TYPES_AND_DOMAINS",
+            "TIME_WINDOW_SEMANTICS",
+            "EVENT_EXCLUSIVITY",
+            "OUTCOME_OBSERVATION_CENSORING",
+            "PATIENT_ISOLATION",
+            "ANCHOR_ERA_PARTITION",
+            "CATEGORY_TRANSPORT",
+            "FROZEN_TRANSFORMATIONS_FINITE",
+            "EVENT_READINESS_GATE",
+            "PREDICTOR_PROJECTION_24_OF_24",
+            "PARAMETER_DF_25",
+            "AMI_TYPE_EXCLUDED",
+            "DATASET_RAW_SHA256_AFTER_READ",
+            "ATTEMPT_MARKER_ABSENT",
+            "MODEL_ENTRY_NOT_ALLOWED_BY_RESERVATION"
+          ]
+        },
+        "status": {"const": "PASS"}
+      }
+    }
+  }
+}

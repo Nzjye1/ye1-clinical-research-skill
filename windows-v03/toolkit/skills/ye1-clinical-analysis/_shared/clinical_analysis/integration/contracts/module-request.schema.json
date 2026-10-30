@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private module request envelope; registered payload schema ALSO REQUIRED",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "api_version",
+    "method_id",
+    "operation",
+    "payload",
+    "bindings"
+  ],
+  "properties": {
+    "api_version": {
+      "const": "clinical-module-request@1.0"
+    },
+    "method_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.]*$",
+      "maxLength": 120
+    },
+    "operation": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "maxLength": 40
+    },
+    "payload": {
+      "type": "object"
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_sha256",
+        "plan_sha256",
+        "code_sha256",
+        "runtime_sha256",
+        "model_sha256"
+      ],
+      "properties": {
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "plan_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "code_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "model_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

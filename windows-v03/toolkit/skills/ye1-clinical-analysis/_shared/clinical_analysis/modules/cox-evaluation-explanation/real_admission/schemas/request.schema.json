@@ -1,0 +1,509 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private module request envelope; registered payload schema ALSO REQUIRED",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "api_version",
+    "method_id",
+    "operation",
+    "payload",
+    "bindings"
+  ],
+  "properties": {
+    "api_version": {
+      "const": "clinical-module-request@1.0"
+    },
+    "method_id": {
+      "enum": [
+        "evaluation.survival.cox.penalized.ipcw",
+        "interpretation.survival.cox.penalized.interventional"
+      ]
+    },
+    "operation": {
+      "enum": [
+        "evaluate",
+        "fit_explainer",
+        "explain"
+      ]
+    },
+    "payload": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "model_json": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1500000
+        },
+        "explainer_json": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1500000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model_method_id": {
+          "enum": [
+            "prediction.survival.cox.lasso",
+            "prediction.survival.cox.elasticnet"
+          ]
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "horizons": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "structure": {
+          "type": "object",
+          "properties": {
+            "grain": {
+              "const": "subject_wide"
+            },
+            "subject_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "group_key": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "time_origin": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0
+            },
+            "time_unit": {
+              "enum": [
+                "day",
+                "hour"
+              ]
+            },
+            "independent_subjects": {
+              "const": true
+            },
+            "weights": {
+              "const": "none"
+            },
+            "delayed_entry": {
+              "const": false
+            },
+            "recurrent_events": {
+              "const": false
+            },
+            "canonical_identity_namespace": {
+              "type": "string",
+              "minLength": 1
+            },
+            "feature_cutoff": {
+              "type": "number"
+            },
+            "analysis_as_of": {
+              "type": "number"
+            },
+            "label_mature_at": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "grain",
+            "subject_key",
+            "group_key",
+            "time_origin",
+            "time_unit",
+            "independent_subjects",
+            "weights",
+            "delayed_entry",
+            "recurrent_events",
+            "canonical_identity_namespace",
+            "feature_cutoff",
+            "analysis_as_of",
+            "label_mature_at"
+          ],
+          "additionalProperties": false
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dtype": {
+                "enum": [
+                  "id",
+                  "number",
+                  "category"
+                ]
+              },
+              "role": {
+                "enum": [
+                  "subject",
+                  "group",
+                  "feature",
+                  "duration",
+                  "event"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              },
+              "measured_at": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "available_at": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "dtype",
+              "role",
+              "unit",
+              "measured_at",
+              "available_at"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 4,
+          "maxItems": 17
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "group_id": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "string",
+                    "null"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 12
+              },
+              "duration": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "event": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "subject_id",
+              "group_id",
+              "values",
+              "duration",
+              "event"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 20000
+        },
+        "evaluation": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "estimator": {
+                  "const": "marginal_reverse_km_ipcw"
+                },
+                "censoring_source": {
+                  "const": "evaluation_cohort"
+                },
+                "censoring_assumption": {
+                  "const": "independent_of_event_time_and_model_features"
+                },
+                "tie_order": {
+                  "const": "events_before_censoring"
+                },
+                "min_censoring_survival": {
+                  "type": "number",
+                  "minimum": 0.05,
+                  "maximum": 0.05
+                },
+                "max_ipcw_weight": {
+                  "type": "number",
+                  "minimum": 20,
+                  "maximum": 20
+                },
+                "positivity_policy": {
+                  "const": "reject_no_clipping"
+                },
+                "roc_thresholds": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 51
+                },
+                "calibration": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "const": "ipcw_hajek_fixed_bins"
+                    },
+                    "probability_edges": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 11
+                    },
+                    "min_bin_n": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 100000
+                    }
+                  },
+                  "required": [
+                    "method",
+                    "probability_edges",
+                    "min_bin_n"
+                  ],
+                  "additionalProperties": false
+                },
+                "dca_thresholds": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 1,
+                  "maxItems": 51
+                },
+                "uncertainty": {
+                  "const": "not_implemented"
+                },
+                "prespecified": {
+                  "const": true
+                }
+              },
+              "required": [
+                "estimator",
+                "censoring_source",
+                "censoring_assumption",
+                "tie_order",
+                "min_censoring_survival",
+                "max_ipcw_weight",
+                "positivity_policy",
+                "roc_thresholds",
+                "calibration",
+                "dca_thresholds",
+                "uncertainty",
+                "prespecified"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "display_domains": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "feature": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "enum": [
+                  "number",
+                  "category"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minimum": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "maximum": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "levels": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0,
+                "maxItems": 60
+              },
+              "prespecified": {
+                "const": true
+              },
+              "source_note": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "feature",
+              "type",
+              "unit",
+              "minimum",
+              "maximum",
+              "levels",
+              "prespecified",
+              "source_note"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 12
+        }
+      },
+      "required": [
+        "model_json",
+        "explainer_json",
+        "model_method_id",
+        "cohort_id",
+        "horizons",
+        "structure",
+        "variables",
+        "rows",
+        "evaluation",
+        "display_domains"
+      ],
+      "additionalProperties": false
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_sha256",
+        "plan_sha256",
+        "code_sha256",
+        "runtime_sha256",
+        "model_sha256"
+      ],
+      "properties": {
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "plan_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "code_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "model_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

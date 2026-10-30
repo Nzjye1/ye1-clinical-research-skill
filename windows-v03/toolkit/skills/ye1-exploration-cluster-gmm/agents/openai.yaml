@@ -1,0 +1,4 @@
+interface:
+  display_name: "探索性 Gaussian mixture 与冻结赋类"
+  short_description: "探索性 Gaussian mixture 与冻结赋，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-exploration-cluster-gmm 处理这项分析，先自检并核对我提供的问题和变量字典。"

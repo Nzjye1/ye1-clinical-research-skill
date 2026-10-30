@@ -1,0 +1,4 @@
+interface:
+  display_name: "亚组效应与交互分析"
+  short_description: "亚组效应与交互分析，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-association-subgroup 处理这项分析，先自检并核对我提供的问题和变量字典。"

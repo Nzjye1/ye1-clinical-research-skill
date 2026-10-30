@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-s1-eligibility-preflight-receipt.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "candidate_id",
+    "contract_id",
+    "contract_sha256",
+    "runtime_schema_id",
+    "implementation_commit",
+    "dataset",
+    "aggregate_population",
+    "domain_validation",
+    "execution",
+    "privacy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "categorical-gcomp-s1-eligibility-preflight-receipt@1.0.0"
+    },
+    "receipt_id": {
+      "const": "PREFLIGHT.CAND-CV-V8-003.S1-ELIGIBILITY.V3"
+    },
+    "status": {"const": "PASS"},
+    "candidate_id": {"const": "CAND-CV-V8-003"},
+    "contract_id": {
+      "const": "CAPREQ.CAND-CV-V8-003.S1-ELIGIBILITY.V2"
+    },
+    "contract_sha256": {"$ref": "#/$defs/sha256"},
+    "runtime_schema_id": {
+      "const": "categorical-transfer-gcomp-task@1.1.0"
+    },
+    "implementation_commit": {"$ref": "#/$defs/git_commit"},
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataset_id",
+        "expected_sha256",
+        "recomputed_sha256",
+        "checksum_match",
+        "immutable_read_only"
+      ],
+      "properties": {
+        "dataset_id": {
+          "const": "DATASET.CAND-CV-V8-003.ANALYSIS-READY.V2"
+        },
+        "expected_sha256": {"$ref": "#/$defs/sha256"},
+        "recomputed_sha256": {"$ref": "#/$defs/sha256"},
+        "checksum_match": {"const": true},
+        "immutable_read_only": {"const": true}
+      }
+    },
+    "aggregate_population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_n",
+        "primary_analysis_n",
+        "s1_analysis_n",
+        "s1_missing_source_excluded_n",
+        "s2_analysis_n"
+      ],
+      "properties": {
+        "input_n": {"type": "integer", "minimum": 0},
+        "primary_analysis_n": {"type": "integer", "minimum": 0},
+        "s1_analysis_n": {"type": "integer", "minimum": 0},
+        "s1_missing_source_excluded_n": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "s2_analysis_n": {"type": "integer", "minimum": 0}
+      }
+    },
+    "domain_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frozen_levels",
+        "primary_observed_levels",
+        "s1_observed_nonmissing_levels",
+        "primary_source_missing_n",
+        "primary_source_unknown_nonmissing_n",
+        "s1_unknown_nonmissing_n",
+        "primary_domain_pass",
+        "s1_nonmissing_domain_pass"
+      ],
+      "properties": {
+        "frozen_levels": {"$ref": "#/$defs/source_levels"},
+        "primary_observed_levels": {"$ref": "#/$defs/source_levels"},
+        "s1_observed_nonmissing_levels": {"$ref": "#/$defs/source_levels"},
+        "primary_source_missing_n": {"const": 0},
+        "primary_source_unknown_nonmissing_n": {"const": 0},
+        "s1_unknown_nonmissing_n": {"const": 0},
+        "primary_domain_pass": {"const": true},
+        "s1_nonmissing_domain_pass": {"const": true}
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preflight_mode",
+        "model_entry_reached",
+        "statistical_model_called",
+        "coefficient_draws_performed",
+        "attempts_started",
+        "formal_authorization_created",
+        "formal_authorization_consumed"
+      ],
+      "properties": {
+        "preflight_mode": {"const": "READ_ONLY_AGGREGATE_ONLY"},
+        "model_entry_reached": {"const": false},
+        "statistical_model_called": {"const": false},
+        "coefficient_draws_performed": {"const": 0},
+        "attempts_started": {"const": 0},
+        "formal_authorization_created": {"const": false},
+        "formal_authorization_consumed": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "patient_level_payload",
+        "physical_paths_present",
+        "row_level_logs_present",
+        "raw_errors_present",
+        "external_transfer"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "row_level_logs_present": {"const": false},
+        "raw_errors_present": {"const": false},
+        "external_transfer": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "git_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "source_levels": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ED",
+          "WARD_INTERMEDIATE",
+          "OTHER_ICU",
+          "DIRECT_ADMISSION"
+        ]
+      },
+      "uniqueItems": true
+    }
+  }
+}

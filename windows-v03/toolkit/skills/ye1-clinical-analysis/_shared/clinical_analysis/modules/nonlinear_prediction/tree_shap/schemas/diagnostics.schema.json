@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "stage": {
+      "type": "string"
+    },
+    "prediction_provider_version": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "explanation_provider_version": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtime": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "numpy": {
+              "type": "string"
+            },
+            "scipy": {
+              "type": "string"
+            },
+            "statsmodels": {
+              "type": "string"
+            },
+            "sklearn": {
+              "type": "string"
+            },
+            "pandas": {
+              "type": "string"
+            },
+            "shap": {
+              "type": "string"
+            },
+            "slicer": {
+              "type": "string"
+            },
+            "tqdm": {
+              "type": "string"
+            },
+            "colorama": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "python",
+            "numpy",
+            "scipy",
+            "statsmodels",
+            "sklearn",
+            "pandas",
+            "shap",
+            "slicer",
+            "tqdm",
+            "colorama"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_refitted": {
+      "const": false
+    },
+    "preprocessing_refitted": {
+      "const": false
+    },
+    "calibration_refitted": {
+      "const": false
+    },
+    "counts": {
+      "type": "object",
+      "properties": {
+        "source_rows": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "explained_n": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "background_n": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "source_rows",
+        "explained_n",
+        "background_n"
+      ],
+      "additionalProperties": false
+    },
+    "numerical_checks": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "frozen_prediction_max_abs_error": {
+              "type": "number"
+            },
+            "base_additivity_max_abs_error": {
+              "type": "number"
+            },
+            "output_additivity_max_abs_error": {
+              "type": "number"
+            },
+            "probability_reconstruction_max_abs_error": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "frozen_prediction_max_abs_error",
+            "base_additivity_max_abs_error",
+            "output_additivity_max_abs_error",
+            "probability_reconstruction_max_abs_error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "bindings_checked": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "stage",
+    "prediction_provider_version",
+    "explanation_provider_version",
+    "runtime",
+    "model_refitted",
+    "preprocessing_refitted",
+    "calibration_refitted",
+    "counts",
+    "numerical_checks",
+    "bindings_checked"
+  ],
+  "additionalProperties": false
+}

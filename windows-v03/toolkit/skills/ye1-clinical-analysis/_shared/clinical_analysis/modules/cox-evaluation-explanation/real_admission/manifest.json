@@ -1,0 +1,25 @@
+{
+  "schema_version": "clinical-cox-module-admission-manifest@1.0",
+  "module_id": "cox_evaluation_explanation",
+  "entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "analyze"
+  },
+  "shared_sources_sha256": {
+    "config/resource-budget-profiles.json": "6688d9dda381512a3687a8367fa39432b0224e06b1f4e6906abced983378d809",
+    "python/clinical_methods/cox_penalized_v10_contracts.py": "60f1fb8baf5469a5db38f122a7538ba5b8dcfa41c6e0e268ab4907223a419fea",
+    "python/clinical_methods/resource_budget.py": "8fdc878ab11114e07ff0a86f41afd2ab755424c1fa0f3852cbb0ba25d7bac1bc",
+    "python/clinical_methods/survival.py": "c2742f940e44f440b2d064ae1cd51c300c8e35e1a54253620b074b2b4239684d",
+    "python/clinical_methods/survival_evaluation.py": "793df575d9d4935dda82b20a8a7daee738973ab43ac11b2378be12f58764bc44",
+    "src/clinanalysis/R/clinical_common.R": "45f033965b0f7bb7ac68be5218634b5971522d0810b14248708fcf6d949e8dcc",
+    "src/clinanalysis/R/clinical_cox_penalized_v10.R": "776b43386c531f35d8dbfb6e58194d5fc74a371d0287e1f561d917cdb01eb948",
+    "src/clinanalysis/R/clinical_interpretation_v09.R": "3aba9a62642439bc6546e085d4e78fbec91c53db0fb111e0e276c4e39bedfce1",
+    "src/clinanalysis/R/clinical_resource_budget.R": "3dde3dbbed5f9a36dbdc22f0bca46294aa1bcf345536bcaf385d6da43a7c95c4",
+    "src/clinanalysis/R/clinical_survival_v06.R": "5d19beb5750d8dcf91bfcb65e9ee038d2bf24128c35cecb7bacb204a4322449c",
+    "src/clinanalysis/R/interpretation_v09.R": "dc64253ecf46a944b79e2a9ebf40dffe916f3828e3d513b0e0bca030bba3349c"
+  },
+  "numerical_owner_files_sha256": {
+    "R/provider.R": "bc983e64af3b281d1ffaae3afd6eedc5c247424630b662c7caa27aabca6a66de"
+  },
+  "scope": "origin/purpose and frozen transport only; no numerical owner replacement"
+}

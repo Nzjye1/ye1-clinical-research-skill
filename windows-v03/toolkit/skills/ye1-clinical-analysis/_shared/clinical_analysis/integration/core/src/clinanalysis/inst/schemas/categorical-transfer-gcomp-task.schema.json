@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-transfer-gcomp-task.schema.json",
+  "title": "Categorical transfer-source logistic g-computation task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "analysis_id",
+    "execution_mode",
+    "source_module_id",
+    "target_module_id",
+    "authority",
+    "binding",
+    "data",
+    "analysis",
+    "outputs"
+  ],
+  "properties": {
+    "schema_version": {"const": "categorical-transfer-gcomp-task@1.0.0"},
+    "task_id": {"type": "string", "minLength": 1},
+    "analysis_id": {"type": "string", "minLength": 1},
+    "execution_mode": {"enum": ["SYNTHETIC_TEST", "FORMAL"]},
+    "source_module_id": {"const": "research-topic-module"},
+    "target_module_id": {"const": "clinical-analysis-module"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sap_frozen",
+        "task_issued",
+        "materialization_authorized",
+        "formal_execution_authorized"
+      ],
+      "properties": {
+        "sap_frozen": {"type": "boolean"},
+        "task_issued": {"type": "boolean"},
+        "materialization_authorized": {"type": "boolean"},
+        "formal_execution_authorized": {"type": "boolean"}
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "candidate_sha256",
+        "sap_id",
+        "sap_sha256",
+        "capability_contract_id",
+        "capability_contract_sha256",
+        "formal_authorization"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "candidate_sha256": {"$ref": "#/$defs/sha256"},
+        "sap_id": {"type": "string", "minLength": 1},
+        "sap_sha256": {"$ref": "#/$defs/sha256"},
+        "capability_contract_id": {"type": "string", "minLength": 1},
+        "capability_contract_sha256": {"$ref": "#/$defs/sha256"},
+        "formal_authorization": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reference",
+                "scope",
+                "candidate_id",
+                "sap_sha256",
+                "dataset_sha256"
+              ],
+              "properties": {
+                "reference": {"type": "string", "minLength": 1},
+                "scope": {"const": "FORMAL_ANALYSIS_EXECUTION"},
+                "candidate_id": {"type": "string", "minLength": 1},
+                "sap_sha256": {"$ref": "#/$defs/sha256"},
+                "dataset_sha256": {"$ref": "#/$defs/sha256"}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "sha256", "dataset_tag"],
+      "properties": {
+        "dataset_id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "dataset_tag": {"type": "string", "minLength": 1}
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "record_id",
+        "outcome",
+        "exposure",
+        "exposure_levels",
+        "reference",
+        "covariates",
+        "binary_covariates",
+        "sensitivity_source_field",
+        "first_event",
+        "first_event_levels",
+        "first_event_tie_priority",
+        "formula",
+        "family",
+        "link",
+        "estimator",
+        "variance_method",
+        "standardization",
+        "draw_distribution",
+        "draw_count",
+        "seed",
+        "interval_method",
+        "confidence_level",
+        "complete_case",
+        "sensitivity_ids",
+        "expected_output_ids"
+      ],
+      "properties": {
+        "method": {"const": "categorical_logistic_g_computation"},
+        "record_id": {"type": "string", "minLength": 1},
+        "outcome": {"type": "string", "minLength": 1},
+        "exposure": {"type": "string", "minLength": 1},
+        "exposure_levels": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "reference": {"type": "string", "minLength": 1},
+        "covariates": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "binary_covariates": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "sensitivity_source_field": {"type": "string", "minLength": 1},
+        "first_event": {"type": "string", "minLength": 1},
+        "first_event_levels": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "first_event_tie_priority": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "formula": {"type": "string", "minLength": 1},
+        "family": {"const": "binomial"},
+        "link": {"const": "logit"},
+        "estimator": {"const": "maximum_likelihood"},
+        "variance_method": {"const": "HC0"},
+        "standardization": {"const": "ALL_COMPLETE_CASE_ROWS_PAIRED"},
+        "draw_distribution": {
+          "const": "MULTIVARIATE_NORMAL_ROBUST_COEFFICIENTS"
+        },
+        "draw_count": {"const": 2000},
+        "seed": {"const": 80320260724},
+        "interval_method": {"const": "PERCENTILE_95"},
+        "confidence_level": {"const": 0.95},
+        "complete_case": {"const": true},
+        "sensitivity_ids": {
+          "const": [
+            "S1_RECENT_PRIOR_TRANSFER_1H",
+            "S2_EXCLUDE_OTHER_ICU"
+          ]
+        },
+        "expected_output_ids": {
+          "const": [
+            "OUT_COHORT",
+            "OUT_PRIMARY_UNADJUSTED",
+            "OUT_PRIMARY_ADJUSTED",
+            "OUT_DEEPENING",
+            "OUT_CREDIBILITY",
+            "OUT_DIAGNOSTICS"
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "const": {
+        "aggregate_only": true,
+        "patient_level_output": false,
+        "physical_paths_in_output": false,
+        "validate_complete_bundle_before_write": true
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

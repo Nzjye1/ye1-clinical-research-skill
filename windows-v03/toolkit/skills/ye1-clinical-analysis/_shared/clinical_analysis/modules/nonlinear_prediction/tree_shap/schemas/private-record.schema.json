@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "individual": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "row_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "prediction": {
+            "type": "number"
+          },
+          "base_score": {
+            "type": "number"
+          },
+          "explained_output": {
+            "type": "number"
+          },
+          "base_score_shap": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 1,
+            "maxItems": 80
+          },
+          "contributions": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 1,
+            "maxItems": 80
+          },
+          "variable_aggregates": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 1,
+            "maxItems": 30
+          },
+          "encoded_values": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 1,
+            "maxItems": 80
+          }
+        },
+        "required": [
+          "row_index",
+          "prediction",
+          "base_score",
+          "explained_output",
+          "base_score_shap",
+          "contributions",
+          "variable_aggregates",
+          "encoded_values"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 5000
+    },
+    "encoded_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 80
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 30
+    },
+    "base_score_expected_value": {
+      "type": "number"
+    },
+    "model_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "background_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "individual",
+    "encoded_features",
+    "variables",
+    "base_score_expected_value",
+    "model_sha256",
+    "background_sha256"
+  ],
+  "additionalProperties": false
+}

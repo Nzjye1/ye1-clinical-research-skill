@@ -1,0 +1,1387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "method_id": {
+      "enum": [
+        "latent.profile.gaussian",
+        "latent.trajectory.gaussian"
+      ]
+    },
+    "operation": {
+      "enum": [
+        "train",
+        "assign",
+        "predict"
+      ]
+    },
+    "test_only": {
+      "type": "boolean"
+    },
+    "scientific_review": {
+      "const": "pending"
+    },
+    "export_status": {
+      "const": "local_only"
+    },
+    "definition": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            },
+            "controls": {
+              "type": "object",
+              "properties": {
+                "max_iter": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "tol": {
+                  "type": "number",
+                  "minimum": 1e-08,
+                  "maximum": 1e-05
+                },
+                "stability_reps": {
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 30
+                },
+                "min_class_n": {
+                  "const": 5
+                },
+                "min_class_fraction": {
+                  "const": 0.05
+                }
+              },
+              "required": [
+                "max_iter",
+                "tol",
+                "stability_reps",
+                "min_class_n",
+                "min_class_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "indicators": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                      },
+                      "unit": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "unit"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "maxItems": 20
+                },
+                "covariance_model": {
+                  "enum": [
+                    "EEI",
+                    "VVI"
+                  ]
+                },
+                "missing": {
+                  "const": "complete_case"
+                }
+              },
+              "required": [
+                "indicators",
+                "covariance_model",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "split",
+            "controls",
+            "definition"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            },
+            "controls": {
+              "type": "object",
+              "properties": {
+                "max_iter": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "tol": {
+                  "type": "number",
+                  "minimum": 1e-08,
+                  "maximum": 1e-05
+                },
+                "stability_reps": {
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 30
+                },
+                "min_class_n": {
+                  "const": 5
+                },
+                "min_class_fraction": {
+                  "const": 0.05
+                }
+              },
+              "required": [
+                "max_iter",
+                "tol",
+                "stability_reps",
+                "min_class_n",
+                "min_class_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "family": {
+                  "enum": [
+                    "lcga",
+                    "growth_mixture"
+                  ]
+                },
+                "time": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string"
+                    },
+                    "origin": {
+                      "type": "number"
+                    },
+                    "scale": {
+                      "type": "number",
+                      "minimum": 1e-12,
+                      "maximum": 1000000000000.0
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit",
+                    "origin",
+                    "scale"
+                  ],
+                  "additionalProperties": false
+                },
+                "outcome": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit"
+                  ],
+                  "additionalProperties": false
+                },
+                "degree": {
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                "random": {
+                  "enum": [
+                    "none",
+                    "intercept",
+                    "intercept_slope"
+                  ]
+                },
+                "missing": {
+                  "const": "observed_likelihood_mar"
+                }
+              },
+              "required": [
+                "family",
+                "time",
+                "outcome",
+                "degree",
+                "random",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "split",
+            "controls",
+            "definition"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "model_family": {
+          "enum": [
+            "LPA",
+            "LCGA",
+            "growth_mixture"
+          ]
+        },
+        "selected_k": {
+          "type": "integer"
+        },
+        "selection": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "log_likelihood": {
+                "type": "number"
+              },
+              "n_parameters": {
+                "type": "integer"
+              },
+              "AIC": {
+                "type": "number"
+              },
+              "BIC": {
+                "type": "number"
+              },
+              "independent_units": {
+                "type": "integer"
+              },
+              "replicated_best_starts": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "k",
+              "status",
+              "reason_code"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "initializations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "type": "integer"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "log_likelihood": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "iterations": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "k",
+              "start",
+              "seed",
+              "status",
+              "reason_code",
+              "log_likelihood",
+              "iterations"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "class_counts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "partition": {
+                "enum": [
+                  "training",
+                  "holdout",
+                  "external"
+                ]
+              },
+              "class": {
+                "type": "integer"
+              },
+              "n": {
+                "type": "integer"
+              },
+              "denominator": {
+                "type": "integer"
+              },
+              "fraction": {
+                "type": "number"
+              },
+              "mean_max_posterior": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "partition",
+              "class",
+              "n",
+              "denominator",
+              "fraction",
+              "mean_max_posterior"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "fit_statistics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "partition": {
+                "enum": [
+                  "training",
+                  "holdout",
+                  "external"
+                ]
+              },
+              "log_likelihood": {
+                "type": "number"
+              },
+              "n_subjects": {
+                "type": "integer"
+              },
+              "normalized_entropy": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "scope": {
+                "const": "frozen_model_scoring_not_clinical_validation"
+              },
+              "likelihood_scale": {
+                "enum": [
+                  "training_standardized_indicators",
+                  "outcome_native_units_joint_subject_density"
+                ]
+              }
+            },
+            "required": [
+              "partition",
+              "log_likelihood",
+              "n_subjects",
+              "normalized_entropy",
+              "scope",
+              "likelihood_scale"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "stability": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "replicate": {
+                "type": "integer"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ari": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "n_engine_fits": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "replicate",
+              "seed",
+              "status",
+              "reason_code",
+              "ari",
+              "n_engine_fits"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "stability_summary": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "requested": {
+                  "type": "integer"
+                },
+                "valid": {
+                  "type": "integer"
+                },
+                "mean_ari": {
+                  "type": "number"
+                },
+                "p10_ari": {
+                  "type": "number"
+                },
+                "p90_ari": {
+                  "type": "number"
+                },
+                "class_selection_repeated": {
+                  "const": false
+                },
+                "scope": {
+                  "const": "training_subject_bootstrap_fixed_selected_k"
+                },
+                "uncertainty": {
+                  "const": "descriptive_quantiles_not_confidence_intervals"
+                }
+              },
+              "required": [
+                "requested",
+                "valid",
+                "mean_ari",
+                "p10_ari",
+                "p90_ari",
+                "class_selection_repeated",
+                "scope",
+                "uncertainty"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "integer"
+              },
+              "feature": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "standardized_mean": {
+                "type": "number"
+              },
+              "original_mean": {
+                "type": "number"
+              },
+              "original_sd": {
+                "type": "number"
+              },
+              "scope": {
+                "const": "model_implied_class_mean"
+              },
+              "ci": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "class",
+              "feature",
+              "unit",
+              "standardized_mean",
+              "original_mean",
+              "original_sd",
+              "scope",
+              "ci"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "trajectories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "integer"
+              },
+              "time": {
+                "type": "number"
+              },
+              "estimate": {
+                "type": "number"
+              },
+              "time_unit": {
+                "type": "string"
+              },
+              "outcome_unit": {
+                "type": "string"
+              },
+              "scope": {
+                "const": "class_specific_marginal_mean"
+              },
+              "ci": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "class",
+              "time",
+              "estimate",
+              "time_unit",
+              "outcome_unit",
+              "scope",
+              "ci"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "integer"
+              },
+              "term": {
+                "type": "string"
+              },
+              "estimate": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "string"
+              },
+              "ci": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "class",
+              "term",
+              "estimate",
+              "scale",
+              "ci"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "preprocessing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "feature": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "mean": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "number"
+              },
+              "fit_scope": {
+                "const": "training_only"
+              }
+            },
+            "required": [
+              "feature",
+              "unit",
+              "mean",
+              "scale",
+              "fit_scope"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "counts": {
+          "type": "object",
+          "properties": {
+            "input_rows": {
+              "type": "integer"
+            },
+            "input_subjects": {
+              "type": "integer"
+            },
+            "analysis_rows": {
+              "type": "integer"
+            },
+            "analysis_subjects": {
+              "type": "integer"
+            },
+            "excluded_missing_rows": {
+              "type": "integer"
+            },
+            "excluded_subjects": {
+              "type": "integer"
+            },
+            "training_subjects": {
+              "type": "integer"
+            },
+            "holdout_subjects": {
+              "type": "integer"
+            },
+            "external_subjects": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "input_rows",
+            "input_subjects",
+            "analysis_rows",
+            "analysis_subjects",
+            "excluded_missing_rows",
+            "excluded_subjects",
+            "training_subjects",
+            "holdout_subjects",
+            "external_subjects"
+          ],
+          "additionalProperties": false
+        },
+        "selection_scope": {
+          "const": "training_only_BIC_lower_is_better"
+        }
+      },
+      "required": [
+        "model_family",
+        "selected_k",
+        "selection",
+        "initializations",
+        "class_counts",
+        "fit_statistics",
+        "stability",
+        "stability_summary",
+        "profiles",
+        "trajectories",
+        "parameters",
+        "preprocessing",
+        "counts",
+        "selection_scope"
+      ],
+      "additionalProperties": false
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "data_origin": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
+    },
+    "task_purpose": {
+      "enum": [
+        "engineering_test",
+        "research_analysis"
+      ]
+    },
+    "model_source": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "data_origin": {
+              "enum": [
+                "real",
+                "synthetic"
+              ]
+            },
+            "task_purpose": {
+              "enum": [
+                "engineering_test",
+                "research_analysis"
+              ]
+            },
+            "test_only": {
+              "type": "boolean"
+            },
+            "scientific_review": {
+              "const": "pending"
+            }
+          },
+          "required": [
+            "data_origin",
+            "task_purpose",
+            "test_only",
+            "scientific_review"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "admitted_request_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "request_bindings": {
+      "type": "object",
+      "properties": {
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "plan_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "code_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "model_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "input_sha256",
+        "plan_sha256",
+        "code_sha256",
+        "runtime_sha256",
+        "model_sha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "method_id",
+    "operation",
+    "test_only",
+    "scientific_review",
+    "export_status",
+    "definition",
+    "analysis",
+    "warnings",
+    "data_origin",
+    "task_purpose",
+    "model_source",
+    "admitted_request_sha256",
+    "request_bindings"
+  ],
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "method_id": {
+          "const": "latent.profile.gaussian"
+        },
+        "operation": {
+          "enum": [
+            "train",
+            "assign"
+          ]
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            },
+            "controls": {
+              "type": "object",
+              "properties": {
+                "max_iter": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "tol": {
+                  "type": "number",
+                  "minimum": 1e-08,
+                  "maximum": 1e-05
+                },
+                "stability_reps": {
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 30
+                },
+                "min_class_n": {
+                  "const": 5
+                },
+                "min_class_fraction": {
+                  "const": 0.05
+                }
+              },
+              "required": [
+                "max_iter",
+                "tol",
+                "stability_reps",
+                "min_class_n",
+                "min_class_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "indicators": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                      },
+                      "unit": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "unit"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "maxItems": 20
+                },
+                "covariance_model": {
+                  "enum": [
+                    "EEI",
+                    "VVI"
+                  ]
+                },
+                "missing": {
+                  "const": "complete_case"
+                }
+              },
+              "required": [
+                "indicators",
+                "covariance_model",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "split",
+            "controls",
+            "definition"
+          ],
+          "additionalProperties": false
+        },
+        "analysis": {
+          "properties": {
+            "model_family": {
+              "const": "LPA"
+            },
+            "profiles": {
+              "minItems": 2
+            }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "method_id": {
+          "const": "latent.trajectory.gaussian"
+        },
+        "operation": {
+          "enum": [
+            "train",
+            "predict"
+          ]
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            },
+            "controls": {
+              "type": "object",
+              "properties": {
+                "max_iter": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "tol": {
+                  "type": "number",
+                  "minimum": 1e-08,
+                  "maximum": 1e-05
+                },
+                "stability_reps": {
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 30
+                },
+                "min_class_n": {
+                  "const": 5
+                },
+                "min_class_fraction": {
+                  "const": 0.05
+                }
+              },
+              "required": [
+                "max_iter",
+                "tol",
+                "stability_reps",
+                "min_class_n",
+                "min_class_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "family": {
+                  "enum": [
+                    "lcga",
+                    "growth_mixture"
+                  ]
+                },
+                "time": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string"
+                    },
+                    "origin": {
+                      "type": "number"
+                    },
+                    "scale": {
+                      "type": "number",
+                      "minimum": 1e-12,
+                      "maximum": 1000000000000.0
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit",
+                    "origin",
+                    "scale"
+                  ],
+                  "additionalProperties": false
+                },
+                "outcome": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit"
+                  ],
+                  "additionalProperties": false
+                },
+                "degree": {
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                "random": {
+                  "enum": [
+                    "none",
+                    "intercept",
+                    "intercept_slope"
+                  ]
+                },
+                "missing": {
+                  "const": "observed_likelihood_mar"
+                }
+              },
+              "required": [
+                "family",
+                "time",
+                "outcome",
+                "degree",
+                "random",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "split",
+            "controls",
+            "definition"
+          ],
+          "additionalProperties": false
+        },
+        "analysis": {
+          "properties": {
+            "model_family": {
+              "enum": [
+                "LCGA",
+                "growth_mixture"
+              ]
+            },
+            "trajectories": {
+              "minItems": 2
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "module_id": {
+      "const": "mediation_matching"
+    },
+    "stage": {
+      "enum": [
+        "context",
+        "request",
+        "payload",
+        "transport",
+        "analysis"
+      ]
+    },
+    "numerical_owner": {
+      "const": "unchanged mediation_matching/R/provider.R"
+    },
+    "causal_assumptions_verified": {
+      "const": false
+    }
+  },
+  "required": [
+    "module_id",
+    "stage",
+    "numerical_owner",
+    "causal_assumptions_verified"
+  ],
+  "additionalProperties": false
+}

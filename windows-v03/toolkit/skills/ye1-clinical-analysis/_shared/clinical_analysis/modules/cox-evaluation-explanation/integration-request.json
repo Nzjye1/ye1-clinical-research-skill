@@ -1,0 +1,42 @@
+{
+  "schema_version": "clinical-module-integration@1.0",
+  "module_id": "cox_evaluation_explanation",
+  "owner": "Cox module delegated owner; exclusive modules/cox-evaluation-explanation directory",
+  "language": "python",
+  "entrypoint": {"path": "module_api.py", "function": "analyze"},
+  "projection_entrypoint": {"path": "module_api.py", "function": "project"},
+  "provider_files": ["module_api.py", "schema_defs.py", "adapters.py", "R/worker.R", "R/provider.R", "R/projection.R", "contracts/explainer.schema.json"],
+  "dependencies": [
+    {"name": "R", "version": "4.6.1", "role": "runtime"},
+    {"name": "Python", "version": "3.12.15", "role": "runtime"},
+    {"name": "jsonlite", "version": "2.0.0", "role": "runtime"},
+    {"name": "digest", "version": "0.6.39", "role": "runtime"},
+    {"name": "glmnet", "version": "5.1", "role": "numerical_owner"},
+    {"name": "survival", "version": "3.8.6", "role": "numerical_owner"},
+    {"name": "Matrix", "version": "1.7.5", "role": "runtime"},
+    {"name": "integration/core cox_penalized_v10.R frozen inference", "version": "sha256:47bbff552812aa612838ab5aaa795b7923e3d0d7ed165a89219658bfacd058a5", "role": "numerical_owner"},
+    {"name": "integration/core penalized_v08.R preprocessing", "version": "sha256:079a547b0e570e7d3a88469a492819f8da17c204c5fe37a9bee7bb270162ec28", "role": "numerical_owner"},
+    {"name": "integration/core survival_evaluation.py", "version": "sha256:36d44c1f7d0a6d18869299e501159bc60c532b366ec8b965add96a2040ef2623", "role": "numerical_owner"},
+    {"name": "integration/core interpretation_v09.R generic grouping", "version": "sha256:0460be8b56fa85432343f5bf200aa9ab226c335d2481edf179df46c0516cd82c", "role": "numerical_owner"}
+  ],
+  "methods": [
+    {"method_id": "evaluation.survival.cox.penalized.ipcw", "method_version": "1.0.0-module", "operations": ["evaluate"],
+      "numerical_owner": "Unchanged cox_penalized_v10_analyze:infer then unchanged survival_evaluation.evaluate; explicit private encoded-data adapter",
+      "schemas": {"payload": "contracts/payload.schema.json", "diagnostics": "contracts/diagnostics.schema.json", "public_record": "contracts/public_record.schema.json", "private_record": "contracts/private_record.schema.json"}},
+    {"method_id": "interpretation.survival.cox.penalized.interventional", "method_version": "1.0.0-module", "operations": ["fit_explainer", "explain"],
+      "numerical_owner": "Unchanged v10 infer/preprocessing and interpretation_v09_group_scores; R/provider.R sole new affine/nomogram display owner",
+      "schemas": {"payload": "contracts/payload.schema.json", "diagnostics": "contracts/diagnostics.schema.json", "public_record": "contracts/public_record.schema.json", "private_record": "contracts/private_record.schema.json"}}
+  ],
+  "shared_change_requests": [
+    {"target": "module registry/dispatcher and public task/result projection", "reason": "Register two new method IDs with the four closed owned schemas. Existing v10 prediction contracts prohibit evaluation/explanation extras and must retain their historical behavior.",
+      "affected_methods": ["evaluation.survival.cox.penalized.ipcw", "interpretation.survival.cox.penalized.interventional", "prediction.survival.cox.lasso", "prediction.survival.cox.elasticnet"],
+      "required_regression": ["new methods reject absent schema and malformed payload", "v10 train/infer contract remains unchanged", "old ordinary Cox IPCW and linear interpretation rejection behavior unchanged"]},
+    {"target": "integration/module_task.py model_binding", "reason": "For cox_evaluation_explanation, strictly parse payload.model_json but hash its original UTF-8 bytes, not a canonicalized object and not caller hash claims. The module compares that common model_sha256 and verifies the actual wrapper/provider/runtime/semantics. Common input/plan/code/runtime hashes retain prepare semantics; module numerical hashes use separate field names.",
+      "affected_methods": ["evaluation.survival.cox.penalized.ipcw", "interpretation.survival.cox.penalized.interventional"],
+      "required_regression": ["raw model whitespace hash changes", "wrong common binding context rejected before analyze", "bad wrapper provider/runtime rejected by module", "sidecar cannot migrate to changed numerical owner implicitly"]},
+    {"target": "source/runtime lock and aggregate export", "reason": "Pin module sources, five schemas and reused core owners without copying numerical implementations. Dynamic common support files are included in module numerical provenance; preserve all patient-level rows and model/explainer JSON in private artifacts only.",
+      "affected_methods": ["evaluation.survival.cox.penalized.ipcw", "interpretation.survival.cox.penalized.interventional"],
+      "required_regression": ["full-NA categorical normalized columns retain declared type", "no coefficient/baseline/preprocessing refit", "public tables/figures have no subject/group identifiers", "nonfinite and unknown nested fields rejected"]}
+  ],
+  "evidence": ["evidence/latest.json", "evidence/visual-review.json", "README.md", "METHODS.md", "GAPS.md"]
+}

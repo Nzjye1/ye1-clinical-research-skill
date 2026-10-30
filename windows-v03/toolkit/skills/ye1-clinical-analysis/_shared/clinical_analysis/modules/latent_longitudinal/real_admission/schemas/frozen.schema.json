@@ -1,0 +1,1904 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "latent-longitudinal-admitted-frozen/1"
+        },
+        "method_id": {
+          "const": "exploration.cluster.kmeans"
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "name",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 20
+            },
+            "missing": {
+              "enum": [
+                "error",
+                "train_median"
+              ]
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "selection": {
+              "enum": [
+                "silhouette",
+                "bic"
+              ]
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 30
+            },
+            "max_iter": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3000
+            },
+            "tol": {
+              "type": "number",
+              "minimum": 1e-08,
+              "maximum": 0.001
+            },
+            "stability_reps": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 50
+            },
+            "min_class_n": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 10000
+            },
+            "min_class_fraction": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 0.2
+            },
+            "covariance": {
+              "enum": [
+                "none",
+                "diag",
+                "full"
+              ]
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "features",
+            "missing",
+            "candidate_k",
+            "selection",
+            "seed",
+            "starts",
+            "max_iter",
+            "tol",
+            "stability_reps",
+            "min_class_n",
+            "min_class_fraction",
+            "covariance",
+            "split"
+          ],
+          "additionalProperties": false
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime": {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "R": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "r_packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "files_sha256": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "required": [
+            "python",
+            "platform",
+            "packages",
+            "R",
+            "r_packages",
+            "files_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "data_origin": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "task_purpose": {
+          "enum": [
+            "engineering_test",
+            "research_analysis"
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        },
+        "scientific_review": {
+          "const": "pending"
+        },
+        "export_status": {
+          "const": "local_only"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "enum": [
+                "kmeans",
+                "gmm"
+              ]
+            },
+            "centers": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "covariance": {
+              "enum": [
+                "none",
+                "diag",
+                "full"
+              ]
+            },
+            "covariances": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "weights": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "algorithm",
+            "centers",
+            "covariance",
+            "covariances",
+            "weights"
+          ],
+          "additionalProperties": false
+        },
+        "transform": {
+          "type": "object",
+          "properties": {
+            "median": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "mean": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "scale": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "ddof": {
+              "const": 0
+            },
+            "fit_scope": {
+              "const": "training_only"
+            },
+            "missing": {
+              "enum": [
+                "error",
+                "train_median"
+              ]
+            }
+          },
+          "required": [
+            "median",
+            "mean",
+            "scale",
+            "ddof",
+            "fit_scope",
+            "missing"
+          ],
+          "additionalProperties": false
+        },
+        "subject_hash_salt": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "development_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "uniqueItems": true
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_id",
+        "definition",
+        "cohort_id",
+        "provider_hash",
+        "runtime",
+        "data_origin",
+        "task_purpose",
+        "test_only",
+        "scientific_review",
+        "export_status",
+        "model",
+        "transform",
+        "subject_hash_salt",
+        "development_id_digests",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "latent-longitudinal-admitted-frozen/1"
+        },
+        "method_id": {
+          "const": "exploration.cluster.gmm"
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "name",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 20
+            },
+            "missing": {
+              "enum": [
+                "error",
+                "train_median"
+              ]
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "selection": {
+              "enum": [
+                "silhouette",
+                "bic"
+              ]
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 30
+            },
+            "max_iter": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3000
+            },
+            "tol": {
+              "type": "number",
+              "minimum": 1e-08,
+              "maximum": 0.001
+            },
+            "stability_reps": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 50
+            },
+            "min_class_n": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 10000
+            },
+            "min_class_fraction": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 0.2
+            },
+            "covariance": {
+              "enum": [
+                "none",
+                "diag",
+                "full"
+              ]
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "features",
+            "missing",
+            "candidate_k",
+            "selection",
+            "seed",
+            "starts",
+            "max_iter",
+            "tol",
+            "stability_reps",
+            "min_class_n",
+            "min_class_fraction",
+            "covariance",
+            "split"
+          ],
+          "additionalProperties": false
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime": {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "R": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "r_packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "files_sha256": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "required": [
+            "python",
+            "platform",
+            "packages",
+            "R",
+            "r_packages",
+            "files_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "data_origin": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "task_purpose": {
+          "enum": [
+            "engineering_test",
+            "research_analysis"
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        },
+        "scientific_review": {
+          "const": "pending"
+        },
+        "export_status": {
+          "const": "local_only"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "enum": [
+                "kmeans",
+                "gmm"
+              ]
+            },
+            "centers": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "covariance": {
+              "enum": [
+                "none",
+                "diag",
+                "full"
+              ]
+            },
+            "covariances": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "weights": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "algorithm",
+            "centers",
+            "covariance",
+            "covariances",
+            "weights"
+          ],
+          "additionalProperties": false
+        },
+        "transform": {
+          "type": "object",
+          "properties": {
+            "median": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "mean": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "scale": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "ddof": {
+              "const": 0
+            },
+            "fit_scope": {
+              "const": "training_only"
+            },
+            "missing": {
+              "enum": [
+                "error",
+                "train_median"
+              ]
+            }
+          },
+          "required": [
+            "median",
+            "mean",
+            "scale",
+            "ddof",
+            "fit_scope",
+            "missing"
+          ],
+          "additionalProperties": false
+        },
+        "subject_hash_salt": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "development_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "uniqueItems": true
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_id",
+        "definition",
+        "cohort_id",
+        "provider_hash",
+        "runtime",
+        "data_origin",
+        "task_purpose",
+        "test_only",
+        "scientific_review",
+        "export_status",
+        "model",
+        "transform",
+        "subject_hash_salt",
+        "development_id_digests",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "latent-longitudinal-admitted-frozen/1"
+        },
+        "method_id": {
+          "const": "longitudinal.growth.gaussian"
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "time": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "origin": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name",
+                "unit",
+                "origin",
+                "scale"
+              ],
+              "additionalProperties": false
+            },
+            "outcome": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "name",
+                "unit"
+              ],
+              "additionalProperties": false
+            },
+            "covariates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "name",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 10
+            },
+            "degree": {
+              "enum": [
+                1,
+                2
+              ]
+            },
+            "random": {
+              "enum": [
+                "intercept",
+                "intercept_slope"
+              ]
+            },
+            "estimation": {
+              "const": "ML"
+            },
+            "correlation": {
+              "const": "independent"
+            },
+            "missing": {
+              "const": "complete_case_rows"
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "max_iter": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            }
+          },
+          "required": [
+            "subject_id",
+            "time",
+            "outcome",
+            "covariates",
+            "degree",
+            "random",
+            "estimation",
+            "correlation",
+            "missing",
+            "seed",
+            "max_iter"
+          ],
+          "additionalProperties": false
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime": {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "R": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "r_packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "files_sha256": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "required": [
+            "python",
+            "platform",
+            "packages",
+            "R",
+            "r_packages",
+            "files_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "data_origin": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "task_purpose": {
+          "enum": [
+            "engineering_test",
+            "research_analysis"
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        },
+        "scientific_review": {
+          "const": "pending"
+        },
+        "export_status": {
+          "const": "local_only"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "beta": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            "fixed_covariance": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "df": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "random_covariance": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "residual_variance": {
+              "type": "number"
+            },
+            "coefficients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "term": {
+                    "type": "string"
+                  },
+                  "estimate": {
+                    "type": "number"
+                  },
+                  "se": {
+                    "type": "number"
+                  },
+                  "df": {
+                    "type": "number"
+                  },
+                  "lower": {
+                    "type": "number"
+                  },
+                  "upper": {
+                    "type": "number"
+                  },
+                  "p_value": {
+                    "type": "number"
+                  },
+                  "ci_method": {
+                    "type": "string"
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "term",
+                  "estimate",
+                  "se",
+                  "df",
+                  "lower",
+                  "upper",
+                  "p_value",
+                  "ci_method",
+                  "scope"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "reference": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "time_range": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "beta",
+            "fixed_covariance",
+            "df",
+            "random_covariance",
+            "residual_variance",
+            "coefficients",
+            "reference",
+            "time_range"
+          ],
+          "additionalProperties": false
+        },
+        "transform": {
+          "type": "null"
+        },
+        "subject_hash_salt": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "development_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "uniqueItems": true
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_id",
+        "definition",
+        "cohort_id",
+        "provider_hash",
+        "runtime",
+        "data_origin",
+        "task_purpose",
+        "test_only",
+        "scientific_review",
+        "export_status",
+        "model",
+        "transform",
+        "subject_hash_salt",
+        "development_id_digests",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "latent-longitudinal-formal-admitted-frozen/1"
+        },
+        "method_id": {
+          "const": "latent.profile.gaussian"
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            },
+            "controls": {
+              "type": "object",
+              "properties": {
+                "max_iter": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "tol": {
+                  "type": "number",
+                  "minimum": 1e-08,
+                  "maximum": 1e-05
+                },
+                "stability_reps": {
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 30
+                },
+                "min_class_n": {
+                  "const": 5
+                },
+                "min_class_fraction": {
+                  "const": 0.05
+                }
+              },
+              "required": [
+                "max_iter",
+                "tol",
+                "stability_reps",
+                "min_class_n",
+                "min_class_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "indicators": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                      },
+                      "unit": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "unit"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "maxItems": 20
+                },
+                "covariance_model": {
+                  "enum": [
+                    "EEI",
+                    "VVI"
+                  ]
+                },
+                "missing": {
+                  "const": "complete_case"
+                }
+              },
+              "required": [
+                "indicators",
+                "covariance_model",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "split",
+            "controls",
+            "definition"
+          ],
+          "additionalProperties": false
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime": {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "R": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "files_sha256": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "required": [
+            "python",
+            "platform",
+            "packages",
+            "R",
+            "files_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "data_origin": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "task_purpose": {
+          "enum": [
+            "engineering_test",
+            "research_analysis"
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        },
+        "scientific_review": {
+          "const": "pending"
+        },
+        "export_status": {
+          "const": "local_only"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "centers": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "variances": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "weights": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "covariance_model": {
+              "enum": [
+                "EEI",
+                "VVI"
+              ]
+            },
+            "distribution": {
+              "const": "conditional_independent_Gaussian"
+            }
+          },
+          "required": [
+            "centers",
+            "variances",
+            "weights",
+            "covariance_model",
+            "distribution"
+          ],
+          "additionalProperties": false
+        },
+        "transform": {
+          "type": "object",
+          "properties": {
+            "mean": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "scale": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "fit_scope": {
+              "const": "training_only"
+            }
+          },
+          "required": [
+            "mean",
+            "scale",
+            "fit_scope"
+          ],
+          "additionalProperties": false
+        },
+        "subject_hash_salt": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "development_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "uniqueItems": true
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "design": {
+          "type": "object",
+          "properties": {
+            "time_range": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "time_range"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_id",
+        "definition",
+        "cohort_id",
+        "provider_hash",
+        "runtime",
+        "data_origin",
+        "task_purpose",
+        "test_only",
+        "scientific_review",
+        "export_status",
+        "model",
+        "transform",
+        "subject_hash_salt",
+        "development_id_digests",
+        "sha256",
+        "design"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "latent-longitudinal-formal-admitted-frozen/1"
+        },
+        "method_id": {
+          "const": "latent.trajectory.gaussian"
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            },
+            "controls": {
+              "type": "object",
+              "properties": {
+                "max_iter": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "tol": {
+                  "type": "number",
+                  "minimum": 1e-08,
+                  "maximum": 1e-05
+                },
+                "stability_reps": {
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 30
+                },
+                "min_class_n": {
+                  "const": 5
+                },
+                "min_class_fraction": {
+                  "const": 0.05
+                }
+              },
+              "required": [
+                "max_iter",
+                "tol",
+                "stability_reps",
+                "min_class_n",
+                "min_class_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "family": {
+                  "enum": [
+                    "lcga",
+                    "growth_mixture"
+                  ]
+                },
+                "time": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string"
+                    },
+                    "origin": {
+                      "type": "number"
+                    },
+                    "scale": {
+                      "type": "number",
+                      "minimum": 1e-12,
+                      "maximum": 1000000000000.0
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit",
+                    "origin",
+                    "scale"
+                  ],
+                  "additionalProperties": false
+                },
+                "outcome": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit"
+                  ],
+                  "additionalProperties": false
+                },
+                "degree": {
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                "random": {
+                  "enum": [
+                    "none",
+                    "intercept",
+                    "intercept_slope"
+                  ]
+                },
+                "missing": {
+                  "const": "observed_likelihood_mar"
+                }
+              },
+              "required": [
+                "family",
+                "time",
+                "outcome",
+                "degree",
+                "random",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "split",
+            "controls",
+            "definition"
+          ],
+          "additionalProperties": false
+        },
+        "cohort_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime": {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "packages": {
+              "type": "object",
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "R": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "files_sha256": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "required": [
+            "python",
+            "platform",
+            "packages",
+            "R",
+            "files_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "data_origin": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "task_purpose": {
+          "enum": [
+            "engineering_test",
+            "research_analysis"
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        },
+        "scientific_review": {
+          "const": "pending"
+        },
+        "export_status": {
+          "const": "local_only"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "beta": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "weights": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "random_covariance": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "residual_variance": {
+              "type": "number"
+            },
+            "degree": {
+              "enum": [
+                1,
+                2
+              ]
+            },
+            "random": {
+              "enum": [
+                "none",
+                "intercept",
+                "intercept_slope"
+              ]
+            }
+          },
+          "required": [
+            "beta",
+            "weights",
+            "random_covariance",
+            "residual_variance",
+            "degree",
+            "random"
+          ],
+          "additionalProperties": false
+        },
+        "transform": {
+          "type": "null"
+        },
+        "subject_hash_salt": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "development_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "uniqueItems": true
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "design": {
+          "type": "object",
+          "properties": {
+            "time_range": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "time_range"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_id",
+        "definition",
+        "cohort_id",
+        "provider_hash",
+        "runtime",
+        "data_origin",
+        "task_purpose",
+        "test_only",
+        "scientific_review",
+        "export_status",
+        "model",
+        "transform",
+        "subject_hash_salt",
+        "development_id_digests",
+        "sha256",
+        "design"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

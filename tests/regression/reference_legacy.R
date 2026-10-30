@@ -1,0 +1,9 @@
+# Direct stats primitives, independent of the production legacy worker.
+if(.Platform$OS.type=='windows')invisible(suppressWarnings(Sys.setlocale('LC_CTYPE','.UTF-8')))
+a<-commandArgs(TRUE);Encoding(a)<-'UTF-8';.libPaths(c(a[[3]],.Library),include.site=FALSE)
+d<-read.csv(a[[1]],check.names=FALSE,stringsAsFactors=FALSE,fileEncoding='UTF-8-BOM');stopifnot(identical(names(d),paste0('源_',c('id','group','x','paired','binary'))));names(d)<-c('id','group','x','paired','binary');d$group<-factor(d$group,levels=c('A','B'))
+record<-function(f,estimate=NULL)list(p=unname(f$p.value),estimate=estimate,ci95=if(is.null(f$conf.int))NULL else unname(f$conf.int))
+welch<-t.test(x~group,data=d,var.equal=FALSE);paired<-t.test(d$x,d$paired,paired=TRUE);wilcox<-wilcox.test(x~group,data=d,exact=FALSE,correct=TRUE);tab<-table(d$group,factor(d$binary,levels=c('0','1')));fisher<-fisher.test(tab);chi<-chisq.test(tab,correct=FALSE)
+tests<-list(welch_t=record(welch,unname(welch$estimate[1]-welch$estimate[2])),paired_t=record(paired,mean(d$x-d$paired)),wilcoxon_rank_sum=record(wilcox),fisher_2x2=record(fisher,unname(fisher$estimate)),chi_square=record(chi))
+n<-list(mean_precision=ceiling((qnorm(.975)*10/2)^2),proportion_precision=ceiling(qnorm(.975)^2*.3*.7/.05^2),two_mean=ceiling(power.t.test(delta=4,sd=10,sig.level=.05,power=.8,type='two.sample',alternative='two.sided',strict=TRUE)$n),two_proportion=ceiling(power.prop.test(p1=.3,p2=.45,sig.level=.05,power=.8,alternative='two.sided',strict=TRUE)$n))
+jsonlite::write_json(list(tests=tests,planning=lapply(n,function(x)list(analyzable_n=max(2,x),recruit_n=ceiling(max(2,x)/.9))),reference=list(R=as.character(getRversion()),stats=as.character(packageVersion('stats')),production_worker_sourced=FALSE,shared_stats_primitives=TRUE)),a[[2]],digits=17,pretty=TRUE,auto_unbox=TRUE,null='null',na='null')

@@ -1,0 +1,231 @@
+{
+  "title": "Closed admitted failure diagnostics; source counts never imply estimated metrics",
+  "anyOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage",
+        "counts",
+        "counts_status",
+        "metrics_status"
+      ],
+      "properties": {
+        "stage": {
+          "enum": [
+            "admission_or_contract",
+            "eligibility_or_compute"
+          ]
+        },
+        "counts": {
+          "type": "null"
+        },
+        "counts_status": {
+          "const": "not_evaluated"
+        },
+        "metrics_status": {
+          "const": "not_evaluated"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage",
+        "counts",
+        "counts_status",
+        "metrics_status"
+      ],
+      "properties": {
+        "stage": {
+          "enum": [
+            "admission_or_contract",
+            "eligibility_or_compute"
+          ]
+        },
+        "counts": {
+          "type": "object",
+          "properties": {
+            "total_n": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total_events": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total_nonevents": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "missing_outcome_n": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "missing_feature_excluded_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "analyzable_n": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "analyzable_events": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "analyzable_nonevents": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "training_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "training_events": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "training_nonevents": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "holdout_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "holdout_events": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "holdout_nonevents": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "model_fit_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "model_fit_events": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "model_fit_nonevents": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "calibration_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "calibration_events": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "calibration_nonevents": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "prediction_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "evaluation_n": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "source_rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "evaluation_events": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "evaluation_nonevents": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            }
+          },
+          "required": [
+            "source_rows",
+            "total_n",
+            "total_events",
+            "total_nonevents",
+            "missing_outcome_n",
+            "analyzable_n",
+            "prediction_n"
+          ],
+          "additionalProperties": false
+        },
+        "counts_status": {
+          "const": "computed"
+        },
+        "metrics_status": {
+          "enum": [
+            "not_evaluated",
+            "computed_not_accepted"
+          ]
+        }
+      }
+    }
+  ]
+}

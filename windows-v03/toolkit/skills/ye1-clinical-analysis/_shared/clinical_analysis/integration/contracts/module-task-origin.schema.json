@@ -1,0 +1,285 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "study_id",
+    "method_id",
+    "operation",
+    "payload",
+    "data_origin",
+    "plan_sha256",
+    "execution",
+    "task_purpose",
+    "project_root",
+    "authorization",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "clinical-module-task@1.1"
+    },
+    "study_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,119}$"
+    },
+    "method_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.]{0,119}$"
+    },
+    "operation": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,39}$"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "data_origin": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
+    },
+    "plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_dir",
+        "mode",
+        "privacy_profile",
+        "authorization_ref",
+        "export_policy"
+      ],
+      "properties": {
+        "output_dir": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "const": "local"
+        },
+        "privacy_profile": {
+          "const": "captured_local_process"
+        },
+        "authorization_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "export_policy": {
+          "const": "local_only"
+        },
+        "max_rows": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_decoded_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "resource_budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "max_design_columns": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "max_work_units": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000000
+            },
+            "max_candidate_pairs": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000000
+            },
+            "max_background_rows": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            }
+          }
+        }
+      }
+    },
+    "task_purpose": {
+      "enum": [
+        "engineering_test",
+        "research_analysis"
+      ]
+    },
+    "project_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorization": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice_sha256",
+            "plan_sha256",
+            "confirmation"
+          ],
+          "properties": {
+            "choice_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "external_files": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            },
+            "plan_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "scope_kind": {
+              "enum": [
+                "engineering_instruction",
+                "research_plan"
+              ]
+            },
+            "confirmation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source_kind",
+                "source_path",
+                "source_locator",
+                "quote"
+              ],
+              "properties": {
+                "source_kind": {
+                  "enum": [
+                    "direct_user",
+                    "delegated_user_instruction"
+                  ]
+                },
+                "source_path": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_locator": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+          },
+          "database": {
+            "type": "string",
+            "minLength": 1
+          },
+          "snapshot": {
+            "type": "string",
+            "minLength": 1
+          },
+          "period": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recipe_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recipe_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "source_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "verification_status": {
+            "const": "local_bytes_bound"
+          },
+          "source_kind": {
+            "enum": [
+              "user_clinical_file",
+              "public_clinical_extract",
+              "synthetic_fixture"
+            ]
+          }
+        },
+        "required": [
+          "source_id",
+          "database",
+          "snapshot",
+          "period",
+          "recipe_version",
+          "recipe_hash",
+          "source_fingerprint",
+          "evidence_refs",
+          "verification_status",
+          "source_kind"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 1
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-unadjusted-source-risks.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "rows"],
+  "properties": {
+    "schema_version": {
+      "const": "categorical-gcomp-unadjusted-source-risks@1.0.0"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "status",
+          "n",
+          "events",
+          "risk",
+          "risk_ci_low",
+          "risk_ci_high",
+          "confidence_level",
+          "interval_method"
+        ],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "status": {
+            "enum": ["ESTIMATED", "NOT_ESTIMABLE_EMPTY_SOURCE"]
+          },
+          "n": {"type": "integer", "minimum": 0},
+          "events": {"type": "integer", "minimum": 0},
+          "risk": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "risk_ci_low": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "risk_ci_high": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "confidence_level": {"const": 0.95},
+          "interval_method": {"const": "WILSON_SCORE"}
+        }
+      }
+    }
+  }
+}

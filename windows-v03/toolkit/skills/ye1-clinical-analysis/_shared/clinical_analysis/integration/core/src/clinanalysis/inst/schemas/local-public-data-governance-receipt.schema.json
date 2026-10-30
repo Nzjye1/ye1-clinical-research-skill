@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/local-public-data-governance-receipt.schema.json",
+  "title": "Local public research data governance implementation receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "receipt_id", "status", "module_id", "policy", "read_access", "immutability", "cross_module_boundary", "formal_execution", "validation", "cvcc_state", "privacy", "next_responsible_actor"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {"const": "RECEIPT.LOCAL-PUBLIC-RESEARCH-DATA-GOVERNANCE.V1"},
+    "status": {"const": "IMPLEMENTED_STANDING_READ_ONLY_NO_FORMAL_EXECUTION"},
+    "module_id": {"const": "clinical-statistics-analysis"},
+    "policy": {"const": "local-public-research-data-governance@1.0.0"},
+    "read_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "task_binding_required", "candidate_binding_required", "per_access_confirmation_required", "data_source_registration_required"],
+      "properties": {
+        "mode": {"const": "STANDING_READ_ONLY"},
+        "task_binding_required": {"const": false},
+        "candidate_binding_required": {"const": false},
+        "per_access_confirmation_required": {"const": false},
+        "data_source_registration_required": {"const": false}
+      }
+    },
+    "immutability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_mutation_allowed", "existing_derivative_mutation_allowed", "new_temporary_derivative_namespace", "overwrite_allowed"],
+      "properties": {
+        "source_mutation_allowed": {"const": false},
+        "existing_derivative_mutation_allowed": {"const": false},
+        "new_temporary_derivative_namespace": {"const": "work/**"},
+        "overwrite_allowed": {"const": false}
+      }
+    },
+    "cross_module_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aggregate_only", "patient_level_payload_allowed", "physical_paths_allowed", "external_patient_level_transfer_allowed"],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload_allowed": {"const": false},
+        "physical_paths_allowed": {"const": false},
+        "external_patient_level_transfer_allowed": {"const": false}
+      }
+    },
+    "formal_execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frozen_sap_required", "registered_dataset_required", "checksum_binding_required", "independent_one_shot_authorization_required", "executed_in_this_task"],
+      "properties": {
+        "frozen_sap_required": {"const": true},
+        "registered_dataset_required": {"const": true},
+        "checksum_binding_required": {"const": true},
+        "independent_one_shot_authorization_required": {"const": true},
+        "executed_in_this_task": {"const": false}
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["synthetic_interface_tests", "python_adapter_tests", "capability_consistency", "r_package_check"],
+      "properties": {
+        "synthetic_interface_tests": {"const": "PASS"},
+        "python_adapter_tests": {"const": "PASS"},
+        "capability_consistency": {"const": "PASS"},
+        "r_package_check": {"const": "PASS_WITH_EXISTING_NOTE"}
+      }
+    },
+    "cvcc_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["business_state_unchanged", "existing_blocker", "v2_dataset_created", "formal_model_executed", "analysis_result_created"],
+      "properties": {
+        "business_state_unchanged": {"const": true},
+        "existing_blocker": {"const": "BLOCKED_SODIUM_LATEST_TIE_RULE_UNFROZEN"},
+        "v2_dataset_created": {"const": false},
+        "formal_model_executed": {"const": false},
+        "analysis_result_created": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aggregate_only", "patient_level_payload", "physical_paths_present", "real_patient_data_read_for_validation"],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "real_patient_data_read_for_validation": {"const": false}
+      }
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE_GOVERNANCE_INGEST"}
+  }
+}

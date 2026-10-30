@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-adjusted-risks.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "rows"],
+  "properties": {
+    "schema_version": {"const": "categorical-gcomp-adjusted-risks@1.0.0"},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "reference",
+          "status",
+          "analysis_n",
+          "standardized_risk",
+          "risk_ci_low",
+          "risk_ci_high",
+          "risk_difference",
+          "risk_difference_ci_low",
+          "risk_difference_ci_high",
+          "variance_method",
+          "draw_count",
+          "seed"
+        ],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "reference": {"type": "string", "minLength": 1},
+          "status": {
+            "enum": ["ESTIMATED", "NOT_ESTIMABLE_EMPTY_SOURCE"]
+          },
+          "analysis_n": {"type": "integer", "minimum": 0},
+          "standardized_risk": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "risk_ci_low": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "risk_ci_high": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "risk_difference": {"type": ["number", "null"], "minimum": -1, "maximum": 1},
+          "risk_difference_ci_low": {
+            "type": ["number", "null"],
+            "minimum": -1,
+            "maximum": 1
+          },
+          "risk_difference_ci_high": {
+            "type": ["number", "null"],
+            "minimum": -1,
+            "maximum": 1
+          },
+          "variance_method": {"const": "HC0"},
+          "draw_count": {"const": 2000},
+          "seed": {"const": 80320260724}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-s1-eligibility-acceptance-receipt.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "candidate_id",
+    "source_definition_commit",
+    "contract_id",
+    "contract_sha256",
+    "runtime_schema",
+    "implementation_commit",
+    "synthetic_cases",
+    "statistical_locks",
+    "prior_failure",
+    "validation",
+    "authority",
+    "privacy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "categorical-gcomp-s1-eligibility-acceptance-receipt@1.0.0"
+    },
+    "receipt_id": {
+      "const": "ACCEPTANCE.CAND-CV-V8-003.S1-ELIGIBILITY.V2"
+    },
+    "status": {"const": "PASS"},
+    "candidate_id": {"const": "CAND-CV-V8-003"},
+    "source_definition_commit": {"$ref": "#/$defs/git_commit"},
+    "contract_id": {
+      "const": "CAPREQ.CAND-CV-V8-003.S1-ELIGIBILITY.V2"
+    },
+    "contract_sha256": {"$ref": "#/$defs/sha256"},
+    "runtime_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_id", "sha256", "legacy_schema_still_registered"],
+      "properties": {
+        "schema_id": {
+          "const": "categorical-transfer-gcomp-task@1.1.0"
+        },
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "legacy_schema_still_registered": {"const": true}
+      }
+    },
+    "implementation_commit": {"$ref": "#/$defs/git_commit"},
+    "synthetic_cases": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["case_id", "status"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "status": {"const": "PASS"}
+        }
+      }
+    },
+    "statistical_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "primary_model_unchanged",
+        "draw_count",
+        "seed",
+        "s2_unchanged",
+        "result_contracts_unchanged"
+      ],
+      "properties": {
+        "method": {"const": "categorical_logistic_g_computation"},
+        "primary_model_unchanged": {"const": true},
+        "draw_count": {"const": 2000},
+        "seed": {"const": 80320260724},
+        "s2_unchanged": {"const": true},
+        "result_contracts_unchanged": {"const": true}
+      }
+    },
+    "prior_failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "preserved",
+        "authorization_state",
+        "attempts_started",
+        "authorization_consumed"
+      ],
+      "properties": {
+        "commit": {"$ref": "#/$defs/git_commit"},
+        "preserved": {"const": true},
+        "authorization_state": {"const": "REVOKED"},
+        "attempts_started": {"const": 0},
+        "authorization_consumed": {"const": false}
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commands", "passed", "failed", "warnings", "skipped"],
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1
+        },
+        "passed": {"type": "integer", "minimum": 1},
+        "failed": {"const": 0},
+        "warnings": {"const": 0},
+        "skipped": {"type": "integer", "minimum": 0}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sap_frozen",
+        "task_issued",
+        "materialization_authorized",
+        "formal_execution_authorized",
+        "formal_authorization_created",
+        "formal_authorization_consumed",
+        "synthetic_model_fit_executed",
+        "real_data_model_run"
+      ],
+      "properties": {
+        "sap_frozen": {"const": false},
+        "task_issued": {"const": false},
+        "materialization_authorized": {"const": false},
+        "formal_execution_authorized": {"const": false},
+        "formal_authorization_created": {"const": false},
+        "formal_authorization_consumed": {"const": false},
+        "synthetic_model_fit_executed": {"const": true},
+        "real_data_model_run": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "synthetic_only",
+        "patient_level_payload",
+        "physical_paths_present",
+        "external_transfer"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "synthetic_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "external_transfer": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "git_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+  }
+}

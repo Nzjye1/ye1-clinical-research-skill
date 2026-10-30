@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "stage": {
+      "enum": [
+        "validation",
+        "analysis",
+        "execution",
+        "complete"
+      ]
+    },
+    "provider_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtime_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "n_engine_fits": {
+          "type": "integer"
+        },
+        "model_refitted": {
+          "type": "boolean"
+        },
+        "transform_refitted": {
+          "type": "boolean"
+        },
+        "selection": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "log_likelihood": {
+                "type": "number"
+              },
+              "n_parameters": {
+                "type": "integer"
+              },
+              "AIC": {
+                "type": "number"
+              },
+              "BIC": {
+                "type": "number"
+              },
+              "independent_units": {
+                "type": "integer"
+              },
+              "replicated_best_starts": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "k",
+              "status",
+              "reason_code"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "initializations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "type": "integer"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "log_likelihood": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "iterations": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "k",
+              "start",
+              "seed",
+              "status",
+              "reason_code",
+              "log_likelihood",
+              "iterations"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "stability": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "replicate": {
+                "type": "integer"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ari": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "n_engine_fits": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "replicate",
+              "seed",
+              "status",
+              "reason_code",
+              "ari",
+              "n_engine_fits"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "stage",
+    "details"
+  ],
+  "additionalProperties": false
+}

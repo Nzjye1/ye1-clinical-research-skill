@@ -1,0 +1,128 @@
+{
+  "schema_version": "latent-longitudinal-root-admission-manifest@1.0",
+  "entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "analyze",
+    "signature": "analyze(request, context)"
+  },
+  "projection_entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "project",
+    "signature": "project(response, output_dir, context, request=None)",
+    "binding": "pass the original request or context.bound_request; exact request digest and bindings are checked",
+    "output": "fresh directory beneath a project_root/private/ ancestor"
+  },
+  "shared_registration_changed": false,
+  "public_export_owner": "root V1 result/export layer",
+  "required_context": [
+    "require_request(method_id, operation, payload)",
+    "data_origin",
+    "task_purpose",
+    "scientific_review",
+    "test_only",
+    "project_root"
+  ],
+  "classification": "copied independently from the admitted root context; scientific_review remains pending",
+  "methods": {
+    "exploration.cluster.kmeans": {
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "owner": "clustering.py:sklearn.cluster.KMeans",
+      "boundary": "exploratory partitions; no formal latent-profile inference"
+    },
+    "exploration.cluster.gmm": {
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "owner": "clustering.py:sklearn.mixture.GaussianMixture",
+      "boundary": "exploratory Gaussian mixtures; not the formal LPA contract"
+    },
+    "longitudinal.growth.gaussian": {
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "owner": "growth_engine.R:nlme::lme ML",
+      "boundary": "ordinary mixed growth; no latent classes; frozen population mean is not a patient forecast"
+    },
+    "latent.profile.gaussian": {
+      "operations": [
+        "train",
+        "assign"
+      ],
+      "owner": "formal_models.R:mclust::me",
+      "boundary": "Gaussian LPA EEI/VVI with original starts, BIC, stability and posterior guards"
+    },
+    "latent.trajectory.gaussian": {
+      "operations": [
+        "train",
+        "predict"
+      ],
+      "owner": "formal_models.R:lcmm::hlme",
+      "boundary": "formal LCGA or shared-covariance growth mixture; frozen posterior requires observed outcomes"
+    }
+  },
+  "frozen_versions": [
+    "latent-longitudinal-admitted-frozen/1",
+    "latent-longitudinal-formal-admitted-frozen/1"
+  ],
+  "frozen_policy": "exact version, file/content SHA, method, definition, numerical source/runtime and origin/purpose classification; cohort differs and development-subject overlap is rejected; no migration or refit",
+  "legacy_defaults": "admission=None keeps legacy versions, test_only=True and original warnings; original source-drift guards still apply",
+  "authorized_transport_changes": {
+    "module.py": [
+      "freeze",
+      "load_frozen"
+    ],
+    "formal_provider.py": [
+      "freeze",
+      "load_frozen",
+      "analyze"
+    ],
+    "artifacts.py": [
+      "artifact",
+      "write_artifacts"
+    ],
+    "formal_artifacts.py": [
+      "write_artifacts"
+    ]
+  },
+  "adapter_sha256": "799fb28f737381e4a9b2246733d3ed399d7855e3d9299c868dd6822393bff544",
+  "schema_sha256": {
+    "schemas/cluster.payload.schema.json": "b5dc18c1c777f82a7f6d61d8e4bd87a960915e64b08f1bf471610e6c79900a43",
+    "schemas/formal.diagnostics.schema.json": "eb90fad9691303636f12b004668fbc37db67fb228ea45fc96d8f53239f55e5e6",
+    "schemas/formal.private_record.schema.json": "00c2fb0ca7d1a5ff755ad9351b20c68838c386343805ddacbc3455770858a069",
+    "schemas/formal.public_record.schema.json": "3f0bfe045dc5d8975cd744d57b770303f4c572626ea657cddf076d72cca4b723",
+    "schemas/frozen.schema.json": "c042f4afda4e4c3bdf2782f03585b53473c1575b2f3c5c0454f9b3876a5fcd07",
+    "schemas/growth.payload.schema.json": "572051502d2538c4025d5fb903b99871d002e7ab3da038953e11a2560392a519",
+    "schemas/legacy.diagnostics.schema.json": "8bc3fe6e8ed161ec24342881e1df10d0809451d9831243c5411bfd21ba1c1198",
+    "schemas/legacy.private_record.schema.json": "eea804eb1e5b85e4a6513dadfb2b0f23646d5267d7effd86e51432d77c3d1c36",
+    "schemas/legacy.public_record.schema.json": "d1d1551922477f6a57efb189dcf683ce0b2c4dc883c53acacc4e262b53c4a56e",
+    "schemas/profile.payload.schema.json": "977cfa74599333e74a6c8cc58c1b40ac5be77787e831de580183f540ffcf0862",
+    "schemas/request.schema.json": "aa5e4f5f293588a45ae3584778a0efd951d96f0b84e2c32a321df6281866644e",
+    "schemas/response.schema.json": "3788c7693f3e264480c9c32dd8054c565020e2f80fc64973464ec2b2f347e006",
+    "schemas/trajectory.payload.schema.json": "c87709cf3302d21648174e7c85f90f43666a498451165ed1fd476fa3685e126e"
+  },
+  "source_sha256": {
+    "module.py": "ab1f6e4e32a2425dc09ef9beb2579c4f3e7f542a1831ca6d2d76da00225b56a9",
+    "formal_provider.py": "942f714b70b527743232bf2327889a019f49bb9643138af58376dee1eeea8228",
+    "clustering.py": "2710b22aaa4b21f511c4d039823e21608d09ada79e887076148b2e62ca162d3d",
+    "growth.py": "2a7f1121ebd4e3ac3e19db6f3c50d38e3f75b0a28cf60c55d7dce7cae3d68f67",
+    "growth_engine.R": "d6e073d6e26ce4ec7ed38772bd0402cc6c4b818e51e704775aca257005440b94",
+    "formal_models.R": "1d57259fd313839dee463884e7b8d9ebafa3fc0a5e38f504799c24227d465876",
+    "formal_engine.R": "4670a49514aa997f1d4f6555e95d1231803e430046ed587530ced96e2dc45b4c",
+    "formal_runtime.py": "ac5efe99404a5dcc02c579b47db3b4efdab62ae6302a1a4d6e5801be5330bf81",
+    "artifacts.py": "358508ff1164f7a70f57862c5473cb2f9966f6d44eadfeb1abd9546b49cf3e94",
+    "formal_artifacts.py": "63d72f926eae24faa1ace94d85c5ef634802e6f24eb7c1cb46cb3180f569ee81"
+  },
+  "transport_diff_sha256": "4379c784795575a104e586dbfd44fa4698a57142f32f1ea1e68e846480f7b547",
+  "validation": {
+    "scope": "small invented-data root-context protocol doubles",
+    "actual_real_data_e2e": false,
+    "scientific_review": "pending",
+    "installation_performed": false,
+    "full_regression_run": false
+  }
+}

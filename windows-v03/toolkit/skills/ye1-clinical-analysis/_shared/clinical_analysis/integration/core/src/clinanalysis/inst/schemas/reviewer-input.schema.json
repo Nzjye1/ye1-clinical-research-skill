@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/reviewer-input.schema.json",
+  "title": "ClinAnalysis read-only reviewer input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "analysis_id", "mode", "patient_level_data_included", "result_checksum_md5", "allowed_files", "required_checks", "forbidden_actions"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "analysis_id": {"type": "string"},
+    "mode": {"const": "READ_ONLY"},
+    "patient_level_data_included": {"const": false},
+    "result_checksum_md5": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "allowed_files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "required_checks": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "forbidden_actions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}

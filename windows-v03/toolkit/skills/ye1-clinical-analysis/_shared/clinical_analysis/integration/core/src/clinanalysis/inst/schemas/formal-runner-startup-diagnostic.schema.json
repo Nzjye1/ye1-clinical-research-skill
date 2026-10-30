@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-runner-startup-diagnostic.schema.json",
+  "title": "ClinAnalysis FORMAL runner startup diagnostic",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "aggregate_only",
+    "patient_level_payload",
+    "physical_paths_in_diagnostic",
+    "failure_stage",
+    "error_code",
+    "safe_message",
+    "checks",
+    "execution_boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-runner-startup-diagnostic@1.0.0"
+    },
+    "status": {
+      "enum": ["PASS", "FAILED"]
+    },
+    "aggregate_only": {
+      "const": true
+    },
+    "patient_level_payload": {
+      "const": false
+    },
+    "physical_paths_in_diagnostic": {
+      "const": false
+    },
+    "failure_stage": {
+      "type": ["string", "null"],
+      "enum": ["RUNNER_INITIALIZATION", null]
+    },
+    "error_code": {
+      "type": ["string", "null"],
+      "enum": [
+        "PROJECT_ENVIRONMENT_NOT_ACTIVE",
+        "DEPENDENCY_MISSING",
+        "NAMESPACE_LOAD_FAILED",
+        "PLUGIN_LOOKUP_FAILED",
+        "TASK_CONTRACT_REGISTRY_MISSING",
+        "RESULT_CONTRACT_REGISTRY_MISSING",
+        "STARTUP_TIMEOUT",
+        "STARTUP_REQUEST_INVALID",
+        null
+      ]
+    },
+    "safe_message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_environment",
+        "dependencies",
+        "namespace",
+        "plugin",
+        "task_contract",
+        "result_contracts"
+      ],
+      "properties": {
+        "project_environment": {"$ref": "#/$defs/checkStatus"},
+        "dependencies": {"$ref": "#/$defs/checkStatus"},
+        "namespace": {"$ref": "#/$defs/checkStatus"},
+        "plugin": {"$ref": "#/$defs/checkStatus"},
+        "task_contract": {"$ref": "#/$defs/checkStatus"},
+        "result_contracts": {"$ref": "#/$defs/checkStatus"}
+      }
+    },
+    "execution_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_opened",
+        "patient_data_opened",
+        "formal_authorization_created_or_consumed",
+        "formal_runner_called",
+        "model_called",
+        "imputation_called",
+        "bootstrap_called"
+      ],
+      "properties": {
+        "v2_opened": {"const": false},
+        "patient_data_opened": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "formal_runner_called": {"const": false},
+        "model_called": {"const": false},
+        "imputation_called": {"const": false},
+        "bootstrap_called": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "checkStatus": {
+      "enum": ["PASS", "FAIL", "NOT_RUN"]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"status": {"const": "PASS"}}
+      },
+      "then": {
+        "properties": {
+          "failure_stage": {"const": null},
+          "error_code": {"const": null},
+          "safe_message": {
+            "const": "FORMAL runner startup checks passed."
+          },
+          "checks": {
+            "properties": {
+              "project_environment": {"const": "PASS"},
+              "dependencies": {"const": "PASS"},
+              "namespace": {"const": "PASS"},
+              "plugin": {"const": "PASS"},
+              "task_contract": {"const": "PASS"},
+              "result_contracts": {"const": "PASS"}
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "failure_stage": {"const": "RUNNER_INITIALIZATION"},
+          "error_code": {"type": "string"}
+        }
+      }
+    }
+  ]
+}

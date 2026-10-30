@@ -1,0 +1,1236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "method_id": {
+      "type": "string"
+    },
+    "operation": {
+      "enum": [
+        "train",
+        "assign",
+        "predict"
+      ]
+    },
+    "test_only": {
+      "type": "boolean"
+    },
+    "scientific_review": {
+      "const": "pending"
+    },
+    "export_status": {
+      "const": "local_only"
+    },
+    "definition": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "name",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 20
+            },
+            "missing": {
+              "enum": [
+                "error",
+                "train_median"
+              ]
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "selection": {
+              "enum": [
+                "silhouette",
+                "bic"
+              ]
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 30
+            },
+            "max_iter": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3000
+            },
+            "tol": {
+              "type": "number",
+              "minimum": 1e-08,
+              "maximum": 0.001
+            },
+            "stability_reps": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 50
+            },
+            "min_class_n": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 10000
+            },
+            "min_class_fraction": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 0.2
+            },
+            "covariance": {
+              "enum": [
+                "none",
+                "diag",
+                "full"
+              ]
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "train": {
+                  "type": "string"
+                },
+                "holdout": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "train",
+                "holdout"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "features",
+            "missing",
+            "candidate_k",
+            "selection",
+            "seed",
+            "starts",
+            "max_iter",
+            "tol",
+            "stability_reps",
+            "min_class_n",
+            "min_class_fraction",
+            "covariance",
+            "split"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "time": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "origin": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name",
+                "unit",
+                "origin",
+                "scale"
+              ],
+              "additionalProperties": false
+            },
+            "outcome": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "name",
+                "unit"
+              ],
+              "additionalProperties": false
+            },
+            "covariates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "name",
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 10
+            },
+            "degree": {
+              "enum": [
+                1,
+                2
+              ]
+            },
+            "random": {
+              "enum": [
+                "intercept",
+                "intercept_slope"
+              ]
+            },
+            "estimation": {
+              "const": "ML"
+            },
+            "correlation": {
+              "const": "independent"
+            },
+            "missing": {
+              "const": "complete_case_rows"
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "max_iter": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "time",
+            "outcome",
+            "covariates",
+            "degree",
+            "random",
+            "estimation",
+            "correlation",
+            "missing",
+            "seed",
+            "max_iter"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "indicators": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                      },
+                      "unit": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "unit"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "maxItems": 20
+                },
+                "covariance_model": {
+                  "enum": [
+                    "EEI",
+                    "VVI"
+                  ]
+                },
+                "missing": {
+                  "const": "complete_case"
+                }
+              },
+              "required": [
+                "indicators",
+                "covariance_model",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "definition"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+            },
+            "cohort_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "candidate_k": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "starts": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 200
+            },
+            "definition": {
+              "type": "object",
+              "properties": {
+                "family": {
+                  "enum": [
+                    "lcga",
+                    "growth_mixture"
+                  ]
+                },
+                "time": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit"
+                  ],
+                  "additionalProperties": false
+                },
+                "outcome": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "unit"
+                  ],
+                  "additionalProperties": false
+                },
+                "degree": {
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                "random": {
+                  "enum": [
+                    "none",
+                    "intercept",
+                    "intercept_slope"
+                  ]
+                },
+                "missing": {
+                  "const": "observed_likelihood_mar"
+                }
+              },
+              "required": [
+                "family",
+                "time",
+                "outcome",
+                "degree",
+                "random",
+                "missing"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "subject_id",
+            "cohort_id",
+            "candidate_k",
+            "seed",
+            "starts",
+            "definition"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "selected_k": {
+          "type": "integer"
+        },
+        "selection": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "objective": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "bic": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "silhouette": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "n_parameters": {
+                "type": "integer"
+              },
+              "best_replicated_starts": {
+                "type": "integer"
+              },
+              "selected_seed": {
+                "type": "integer"
+              },
+              "fit_scope": {
+                "const": "training_only"
+              }
+            },
+            "required": [
+              "k",
+              "status",
+              "reason_code",
+              "objective",
+              "bic",
+              "silhouette",
+              "fit_scope"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "initializations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "k": {
+                "type": "integer"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "seed": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "objective": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "iterations": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "k",
+              "start",
+              "seed",
+              "status",
+              "reason_code",
+              "objective",
+              "iterations"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "class_counts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "partition": {
+                "enum": [
+                  "training",
+                  "holdout",
+                  "external"
+                ]
+              },
+              "class": {
+                "type": "integer"
+              },
+              "n": {
+                "type": "integer"
+              },
+              "denominator": {
+                "type": "integer"
+              },
+              "fraction": {
+                "type": "number"
+              },
+              "mean_max_posterior": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "partition",
+              "class",
+              "n",
+              "denominator",
+              "fraction",
+              "mean_max_posterior"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "normalized_entropy": {
+          "type": "object",
+          "properties": {
+            "training": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "holdout": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "external": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "stability": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "replicate": {
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "accepted",
+                  "rejected"
+                ]
+              },
+              "reason_code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ari": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "minimum_aligned_jaccard": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "n_engine_fits": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "replicate",
+              "status",
+              "reason_code",
+              "ari",
+              "minimum_aligned_jaccard",
+              "n_engine_fits"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "stability_summary": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "requested": {
+                  "type": "integer"
+                },
+                "valid": {
+                  "type": "integer"
+                },
+                "mean_ari": {
+                  "type": "number"
+                },
+                "p10_ari": {
+                  "type": "number"
+                },
+                "p90_ari": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "uncertainty": {
+                  "type": "string"
+                },
+                "class_selection_repeated": {
+                  "const": false
+                }
+              },
+              "required": [
+                "requested",
+                "valid",
+                "mean_ari",
+                "p10_ari",
+                "p90_ari",
+                "scope",
+                "uncertainty",
+                "class_selection_repeated"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "integer"
+              },
+              "feature": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "standardized_center": {
+                "type": "number"
+              },
+              "original_center": {
+                "type": "number"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "ci": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "class",
+              "feature",
+              "unit",
+              "standardized_center",
+              "original_center",
+              "scope",
+              "ci"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "preprocessing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "feature": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "median": {
+                "type": "number"
+              },
+              "mean": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "number"
+              },
+              "fit_scope": {
+                "const": "training_only"
+              }
+            },
+            "required": [
+              "feature",
+              "unit",
+              "median",
+              "mean",
+              "scale",
+              "fit_scope"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "counts": {
+          "type": "object",
+          "properties": {
+            "input_rows": {
+              "type": "integer"
+            },
+            "training_rows": {
+              "type": "integer"
+            },
+            "holdout_rows": {
+              "type": "integer"
+            },
+            "assigned_rows": {
+              "type": "integer"
+            },
+            "training_missing_cells": {
+              "type": "integer"
+            },
+            "analysis_rows": {
+              "type": "integer"
+            },
+            "input_subjects": {
+              "type": "integer"
+            },
+            "analysis_subjects": {
+              "type": "integer"
+            },
+            "excluded_missing_rows": {
+              "type": "integer"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "coefficients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "type": "string"
+              },
+              "estimate": {
+                "type": "number"
+              },
+              "se": {
+                "type": "number"
+              },
+              "df": {
+                "type": "number"
+              },
+              "lower": {
+                "type": "number"
+              },
+              "upper": {
+                "type": "number"
+              },
+              "p_value": {
+                "type": "number"
+              },
+              "ci_method": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "term",
+              "estimate",
+              "se",
+              "df",
+              "lower",
+              "upper",
+              "p_value",
+              "ci_method",
+              "scope"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "trajectories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "estimate": {
+                "type": "number"
+              },
+              "se": {
+                "type": "number"
+              },
+              "lower": {
+                "type": "number"
+              },
+              "upper": {
+                "type": "number"
+              },
+              "ci_method": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "time",
+              "estimate",
+              "se",
+              "lower",
+              "upper",
+              "ci_method",
+              "scope"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "fit_statistics": {
+          "type": "object",
+          "properties": {
+            "log_likelihood": {
+              "type": "number"
+            },
+            "AIC": {
+              "type": "number"
+            },
+            "BIC": {
+              "type": "number"
+            },
+            "estimation": {
+              "const": "ML"
+            },
+            "residual_variance": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "log_likelihood",
+            "AIC",
+            "BIC",
+            "estimation",
+            "residual_variance"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "counts"
+      ],
+      "additionalProperties": false
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "data_origin": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
+    },
+    "task_purpose": {
+      "enum": [
+        "engineering_test",
+        "research_analysis"
+      ]
+    },
+    "model_source": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "data_origin": {
+              "enum": [
+                "real",
+                "synthetic"
+              ]
+            },
+            "task_purpose": {
+              "enum": [
+                "engineering_test",
+                "research_analysis"
+              ]
+            },
+            "test_only": {
+              "type": "boolean"
+            },
+            "scientific_review": {
+              "const": "pending"
+            }
+          },
+          "required": [
+            "data_origin",
+            "task_purpose",
+            "test_only",
+            "scientific_review"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "admitted_request_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "request_bindings": {
+      "type": "object",
+      "properties": {
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "plan_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "code_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "model_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "input_sha256",
+        "plan_sha256",
+        "code_sha256",
+        "runtime_sha256",
+        "model_sha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "method_id",
+    "operation",
+    "test_only",
+    "scientific_review",
+    "export_status",
+    "definition",
+    "analysis",
+    "warnings",
+    "data_origin",
+    "task_purpose",
+    "model_source",
+    "admitted_request_sha256",
+    "request_bindings"
+  ],
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "method_id": {
+          "enum": [
+            "exploration.cluster.kmeans",
+            "exploration.cluster.gmm"
+          ]
+        },
+        "operation": {
+          "enum": [
+            "train",
+            "assign"
+          ]
+        },
+        "analysis": {
+          "required": [
+            "selected_k",
+            "selection",
+            "initializations",
+            "class_counts",
+            "normalized_entropy",
+            "stability",
+            "stability_summary",
+            "profiles",
+            "preprocessing",
+            "counts"
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "method_id": {
+          "const": "longitudinal.growth.gaussian"
+        },
+        "operation": {
+          "enum": [
+            "train",
+            "predict"
+          ]
+        },
+        "analysis": {
+          "required": [
+            "coefficients",
+            "trajectories",
+            "counts"
+          ]
+        }
+      }
+    }
+  ]
+}

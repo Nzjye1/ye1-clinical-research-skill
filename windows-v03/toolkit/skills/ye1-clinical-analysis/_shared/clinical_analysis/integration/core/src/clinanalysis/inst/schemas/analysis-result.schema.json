@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/analysis-result.schema.json",
+  "title": "ClinAnalysis Result Bundle",
+  "type": "object",
+  "required": ["schema_version", "analysis_id", "method", "status", "counts", "tables", "estimates", "diagnostics", "warnings", "artifacts", "provenance"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "analysis_id": {"type": "string"},
+    "method": {"type": "string"},
+    "status": {"enum": ["COMPLETE", "BLOCKED", "FAILED", "RUNNING"]},
+    "counts": {"type": "object"},
+    "tables": {"type": "object"},
+    "estimates": {"type": "object"},
+    "diagnostics": {"type": "object"},
+    "diagnostic_index": {"type": "array"},
+    "sensitivities": {"type": "object"},
+    "warnings": {"type": "array"},
+    "artifacts": {"type": "object"},
+    "provenance": {"type": "object"}
+  }
+}

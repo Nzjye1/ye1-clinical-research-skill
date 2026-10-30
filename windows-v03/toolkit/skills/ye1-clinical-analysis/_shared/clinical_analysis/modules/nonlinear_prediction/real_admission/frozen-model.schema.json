@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "method_id", "provider_version", "runtime", "target_policy", "canonical_semantics", "origin_context", "transport_version", "test_only", "scientific_review", "export_status", "bundle", "sha256"],
+  "properties": {
+    "schema_version": {"const": "clinical-frozen-nonlinear-admitted@1.0"},
+    "method_id": {"enum": ["prediction.binary.random_forest", "prediction.binary.hist_gradient_boosting"]},
+    "provider_version": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "runtime": {"type": "object"},
+    "target_policy": {"type": "null"},
+    "canonical_semantics": {"type": "object"},
+    "origin_context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["data_origin", "task_purpose", "scientific_review", "test_only"],
+      "properties": {
+        "data_origin": {"enum": ["real", "synthetic"]},
+        "task_purpose": {"enum": ["engineering_test", "research_analysis"]},
+        "scientific_review": {"const": "pending"},
+        "test_only": {"type": "boolean"}
+      }
+    },
+    "transport_version": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "test_only": {"type": "boolean"},
+    "scientific_review": {"const": "pending"},
+    "export_status": {"const": "local_only"},
+    "bundle": {"type": "object"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

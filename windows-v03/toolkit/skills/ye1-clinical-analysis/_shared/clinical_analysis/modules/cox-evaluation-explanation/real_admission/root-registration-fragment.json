@@ -1,0 +1,58 @@
+{
+  "schema_version": "clinical-root-registration-fragment@1.0",
+  "module_id": "cox_evaluation_explanation",
+  "directory": "cox-evaluation-explanation",
+  "entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "analyze"
+  },
+  "methods": {
+    "evaluation.survival.cox.penalized.ipcw": {
+      "operations": [
+        "evaluate"
+      ],
+      "schemas": {
+        "request": "real_admission/schemas/request.schema.json",
+        "payload": "real_admission/schemas/payload.schema.json",
+        "public_record": "real_admission/schemas/public_record.schema.json",
+        "private_record": "real_admission/schemas/private_record.schema.json",
+        "diagnostics": "real_admission/schemas/diagnostics.schema.json",
+        "response": "real_admission/schemas/response.schema.json"
+      }
+    },
+    "interpretation.survival.cox.penalized.interventional": {
+      "operations": [
+        "fit_explainer",
+        "explain"
+      ],
+      "schemas": {
+        "request": "real_admission/schemas/request.schema.json",
+        "payload": "real_admission/schemas/payload.schema.json",
+        "public_record": "real_admission/schemas/public_record.schema.json",
+        "private_record": "real_admission/schemas/private_record.schema.json",
+        "diagnostics": "real_admission/schemas/diagnostics.schema.json",
+        "response": "real_admission/schemas/response.schema.json"
+      }
+    }
+  },
+  "provider_files_sha256": {
+    "module_api.py": "7caebb11ed7e727c8f1620125c9eec25473ccb57220c6ef57527d6c9faeecab9",
+    "schema_defs.py": "912f4df1a29f08a543a59259c0a4521e6a959fb5ba11241733b25d641fe21fde",
+    "adapters.py": "001df9f2fdb782c0e84b6255836de334d909c30e455706a97f2afb4f47bc19b9",
+    "R/worker.R": "51fe4289aade7e136e85df914233b2833208c7508b9568d0f7457c180c850a05",
+    "R/provider.R": "e9f1c0980c39df295e625f204afe9d0fe5f5e913bccbdd672f7ddab5a88a3d24",
+    "R/projection.R": "b85cb1f6089f1d81348d9d6d812e00f8a243ee7edcdac1fee0074afa31e40c8b"
+  },
+  "admission_files_sha256": {
+    "real_admission/adapter.py": "cda032be4c0750c31222b27036ceb46515a704602832095ca637eade67e97ea7",
+    "real_admission/manifest.json": "f04526e5da62a5f1380ec85b2ad9d380693637e6193b8034b1b1cd965693627b",
+    "real_admission/schemas/diagnostics.schema.json": "1aae5d49b4c006f9edea3a5dc498d3a31efebfaf82cde7244d1b35ed98428305",
+    "real_admission/schemas/explainer.schema.json": "d2806de2694fc1b05f912fc9489408701031f12e9010a69e77e0219544089431",
+    "real_admission/schemas/payload.schema.json": "e9fb11848516f5be0cfb9609c174bae95199abf2fe454f539567efe59d9d6607",
+    "real_admission/schemas/private_record.schema.json": "95973677a1878499ba5e74f5a8da05885573b4e7e000c716a1234df0b1eba3fe",
+    "real_admission/schemas/public_record.schema.json": "4609a9788068e88cc2153eec8fdfc3e4178df50a8863c1d8469cbb5449f57ef2",
+    "real_admission/schemas/request.schema.json": "e39480b908858a88e68e1ba4c0122885b50168c1218eaf76dbcbcd8e14f20a1e",
+    "real_admission/schemas/response.schema.json": "36526b2d8dc26e26763ed4324979dfbbe7f8b86d0e5bda7a3b54981db6befaed"
+  },
+  "actual_real_data_e2e": false
+}

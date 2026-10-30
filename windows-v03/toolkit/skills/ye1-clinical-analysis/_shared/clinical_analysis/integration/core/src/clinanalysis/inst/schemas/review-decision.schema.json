@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/review-decision.schema.json",
+  "title": "ClinAnalysis checksum-bound review decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "analysis_id", "result_checksum_md5", "overall_conclusion", "approvals"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "analysis_id": {"type": "string"},
+    "result_checksum_md5": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "overall_conclusion": {"enum": ["PENDING", "APPROVED", "REJECTED", "CHANGES_REQUIRED"]},
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "status"],
+        "properties": {
+          "role": {"enum": ["human_statistician", "independent_review_agent"]},
+          "status": {"enum": ["PENDING", "APPROVED", "REJECTED", "CHANGES_REQUIRED"]},
+          "reviewer": {"type": ["string", "null"]},
+          "reviewed_at_utc": {"type": ["string", "null"]},
+          "conclusion": {"type": ["string", "null"]},
+          "required_actions": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/module-capabilities.schema.json",
+  "title": "Analysis module data-access governance capabilities",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "module_id", "workflow", "data_access", "cross_module_boundary", "scientific_integrity_v2", "formal_execution"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "contract_id": {"const": "mainline-research-v2-analysis-governance@2.0.0"},
+    "module_id": {"const": "clinical-statistics-analysis"},
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active", "legacy_v1"],
+      "properties": {
+        "active": {"const": "MAINLINE-RESEARCH-V2"},
+        "legacy_v1": {"const": "READ_ONLY_COMPATIBLE"}
+      }
+    },
+    "data_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["local_public_research_data", "source_immutability", "temporary_derivatives"],
+      "properties": {
+        "local_public_research_data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "task_binding_required", "candidate_binding_required", "per_access_confirmation_required", "data_source_registration_required", "allowed_content"],
+          "properties": {
+            "mode": {"const": "STANDING_READ_ONLY"},
+            "task_binding_required": {"const": false},
+            "candidate_binding_required": {"const": false},
+            "per_access_confirmation_required": {"const": false},
+            "data_source_registration_required": {"const": false},
+            "allowed_content": {
+              "type": "array",
+              "prefixItems": [
+                {"const": "raw_tables"},
+                {"const": "patient_level_rows"},
+                {"const": "dictionaries_and_metadata"},
+                {"const": "whole_tables"},
+                {"const": "existing_derivatives"}
+              ],
+              "items": false,
+              "minItems": 5,
+              "maxItems": 5
+            }
+          }
+        },
+        "source_immutability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mutations_allowed", "forbidden_actions"],
+          "properties": {
+            "mutations_allowed": {"const": false},
+            "forbidden_actions": {
+              "type": "array",
+              "prefixItems": [
+                {"const": "WRITE"},
+                {"const": "OVERWRITE"},
+                {"const": "DELETE"},
+                {"const": "RENAME"}
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4
+            }
+          }
+        },
+        "temporary_derivatives": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["creation_allowed", "required_namespace", "git_ignored_required", "overwrite_existing_allowed"],
+          "properties": {
+            "creation_allowed": {"const": true},
+            "required_namespace": {"const": "work/**"},
+            "git_ignored_required": {"const": true},
+            "overwrite_existing_allowed": {"const": false}
+          }
+        }
+      }
+    },
+    "cross_module_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aggregate_only", "patient_level_payload_allowed", "physical_paths_allowed", "external_patient_level_transfer_allowed"],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload_allowed": {"const": false},
+        "physical_paths_allowed": {"const": false},
+        "external_patient_level_transfer_allowed": {"const": false}
+      }
+    },
+    "scientific_integrity_v2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cohort_derivation_arithmetic_required",
+        "support_overlap_positivity_required",
+        "extrapolation_assessment_required",
+        "sensitivity_information_required",
+        "semantic_display_review_required",
+        "source_distribution_as_cohort_flow_allowed"
+      ],
+      "properties": {
+        "cohort_derivation_arithmetic_required": {"const": true},
+        "support_overlap_positivity_required": {"const": true},
+        "extrapolation_assessment_required": {"const": true},
+        "sensitivity_information_required": {"const": true},
+        "semantic_display_review_required": {"const": true},
+        "source_distribution_as_cohort_flow_allowed": {"const": false}
+      }
+    },
+    "formal_execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frozen_sap_required", "registered_dataset_required", "checksum_binding_required", "independent_one_shot_authorization_required", "standing_read_permission_is_execution_authorization", "bounded_startup_preflight_required", "project_dependency_environment_required", "startup_timeout_seconds_maximum", "startup_preflight_is_execution_authorization"],
+      "properties": {
+        "frozen_sap_required": {"const": true},
+        "registered_dataset_required": {"const": false},
+        "checksum_binding_required": {"const": true},
+        "independent_one_shot_authorization_required": {"const": false},
+        "standing_read_permission_is_execution_authorization": {"const": false},
+        "bounded_startup_preflight_required": {"const": true},
+        "project_dependency_environment_required": {"const": true},
+        "startup_timeout_seconds_maximum": {"const": 60},
+        "startup_preflight_is_execution_authorization": {"const": false}
+      }
+    }
+  }
+}

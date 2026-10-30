@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/categorical-gcomp-cohort-flow.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "candidate_id",
+    "dataset_id",
+    "dataset_sha256",
+    "input_n",
+    "eligible_n",
+    "classified_n",
+    "source_counts",
+    "unclassified_n",
+    "conflicting_latest_source_n",
+    "model_complete_case_n",
+    "missingness_by_field"
+  ],
+  "properties": {
+    "schema_version": {"const": "categorical-gcomp-cohort-flow@1.0.0"},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "dataset_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "input_n": {"type": "integer", "minimum": 0},
+    "eligible_n": {"type": "integer", "minimum": 0},
+    "classified_n": {"type": "integer", "minimum": 0},
+    "source_counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "unclassified_n": {"type": "integer", "minimum": 0},
+    "conflicting_latest_source_n": {"type": "integer", "minimum": 0},
+    "model_complete_case_n": {"type": "integer", "minimum": 0},
+    "missingness_by_field": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    }
+  }
+}

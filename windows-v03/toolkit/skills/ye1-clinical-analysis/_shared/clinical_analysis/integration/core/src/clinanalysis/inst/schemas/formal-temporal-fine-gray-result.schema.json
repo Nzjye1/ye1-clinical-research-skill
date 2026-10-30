@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-temporal-fine-gray-result.schema.json",
+  "title": "ClinAnalysis FORMAL Temporal Fine-Gray Aggregate Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "analysis_id", "candidate_id", "execution_mode", "status", "aggregate_only", "patient_level_payload", "physical_paths_in_result", "checksum_scope", "binding", "counts", "model", "imputation", "internal_validation", "temporal_validation", "performance", "calibration_gate", "decision_curve", "clinical_utility_claim_allowed", "sensitivities", "expected_output_ids", "prohibited_actions_observed", "structured_result_sha256"],
+  "properties": {
+    "schema_version": {"const": "formal-temporal-fine-gray-result@1.1.0"},
+    "analysis_id": {"$ref": "#/$defs/logicalId"},
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "execution_mode": {"enum": ["FORMAL", "SYNTHETIC_TEST"]},
+    "status": {"enum": ["COMPLETE", "SYNTHETIC_CAPABILITY_VERIFIED"]},
+    "aggregate_only": {"const": true},
+    "patient_level_payload": {"const": false},
+    "physical_paths_in_result": {"const": false},
+    "checksum_scope": {"const": "CANONICAL_STRUCTURED_RESULT_EXCLUDING_STRUCTURED_RESULT_SHA256_FIELD"},
+    "binding": {"$ref": "#/$defs/binding"},
+    "counts": {"$ref": "#/$defs/counts"},
+    "model": {"$ref": "#/$defs/model"},
+    "imputation": {"$ref": "#/$defs/imputation"},
+    "internal_validation": {"$ref": "#/$defs/internalValidation"},
+    "temporal_validation": {"$ref": "#/$defs/temporalValidation"},
+    "performance": {"$ref": "#/$defs/performance"},
+    "calibration_gate": {"$ref": "#/$defs/calibrationGate"},
+    "decision_curve": {"$ref": "#/$defs/decisionCurve"},
+    "clinical_utility_claim_allowed": {"type": "boolean"},
+    "sensitivities": {"$ref": "#/$defs/sensitivities"},
+    "expected_output_ids": {"$ref": "#/$defs/outputIds"},
+    "prohibited_actions_observed": {"type": "array", "items": false, "maxItems": 0},
+    "structured_result_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "calibration_gate": {"properties": {"conditions": {"const": {"oe_ratio": true, "calibration_slope": true, "ici": true, "decile_absolute_error": true}}, "all_passed": {"const": true}, "dca_status": {"const": "GENERATED"}, "clinical_utility_claim_allowed": {"const": true}}},
+        "decision_curve": {"properties": {"status": {"const": "GENERATED"}, "rows": {"minItems": 5, "maxItems": 5}}},
+        "clinical_utility_claim_allowed": {"const": true}
+      }
+    },
+    {
+      "properties": {
+        "calibration_gate": {"properties": {"conditions": {"not": {"const": {"oe_ratio": true, "calibration_slope": true, "ici": true, "decile_absolute_error": true}}}, "all_passed": {"const": false}, "dca_status": {"const": "NOT_GENERATED_GATE_FAILED"}, "clinical_utility_claim_allowed": {"const": false}}},
+        "decision_curve": {"properties": {"status": {"const": "NOT_GENERATED_GATE_FAILED"}, "rows": {"maxItems": 0}}},
+        "clinical_utility_claim_allowed": {"const": false}
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "logicalId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"},
+    "nonnegativeInteger": {"type": "integer", "minimum": 0},
+    "number": {"type": "number"},
+    "probability": {"type": "number", "minimum": 0, "maximum": 1},
+    "binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sap_id", "sap_sha256", "dataset_id", "dataset_sha256"],
+      "properties": {
+        "sap_id": {"$ref": "#/$defs/logicalId"}, "sap_sha256": {"$ref": "#/$defs/sha256"},
+        "dataset_id": {"$ref": "#/$defs/logicalId"}, "dataset_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "observation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["total_n", "technically_observed_n", "uta_only_n", "other_unobserved_n", "outcome_unobserved_n", "right_censored_at_last_known_n", "outcome_unobserved_recoded_negative_n", "reconciled"],
+      "properties": {
+        "total_n": {"$ref": "#/$defs/nonnegativeInteger"}, "technically_observed_n": {"$ref": "#/$defs/nonnegativeInteger"},
+        "uta_only_n": {"$ref": "#/$defs/nonnegativeInteger"}, "other_unobserved_n": {"$ref": "#/$defs/nonnegativeInteger"},
+        "outcome_unobserved_n": {"$ref": "#/$defs/nonnegativeInteger"}, "right_censored_at_last_known_n": {"$ref": "#/$defs/nonnegativeInteger"},
+        "outcome_unobserved_recoded_negative_n": {"const": 0}, "reconciled": {"const": true}
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["input_n", "development_n", "validation_n", "development_events", "validation_events", "development_competing_events", "validation_competing_events", "observation"],
+      "properties": {
+        "input_n": {"$ref": "#/$defs/nonnegativeInteger"}, "development_n": {"$ref": "#/$defs/nonnegativeInteger"}, "validation_n": {"$ref": "#/$defs/nonnegativeInteger"},
+        "development_events": {"$ref": "#/$defs/nonnegativeInteger"}, "validation_events": {"$ref": "#/$defs/nonnegativeInteger"},
+        "development_competing_events": {"$ref": "#/$defs/nonnegativeInteger"}, "validation_competing_events": {"$ref": "#/$defs/nonnegativeInteger"},
+        "observation": {"$ref": "#/$defs/observation"}
+      }
+    },
+    "coefficient": {
+      "type": "object", "additionalProperties": false,
+      "required": ["term", "estimate", "standard_error"],
+      "properties": {"term": {"type": "string", "minLength": 1}, "estimate": {"$ref": "#/$defs/number"}, "standard_error": {"type": "number", "minimum": 0}}
+    },
+    "coefficientAgeLinear": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "age_linear"}}}]},
+    "coefficientAgeRcs": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "age_rcs"}}}]},
+    "coefficientFemale": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "female"}}}]},
+    "coefficientAmiStemi": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "ami_type_STEMI"}}}]},
+    "coefficientAmiOther": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "ami_type_OTHER_UNSPECIFIED"}}}]},
+    "coefficientAdmission": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "admission_context"}}}]},
+    "coefficientDementia": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "dementia_history"}}}]},
+    "coefficientAlcohol": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "alcohol_use_history"}}}]},
+    "coefficientArrest": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "early_cardiac_arrest"}}}]},
+    "coefficientHeartRate": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "heart_rate_max_0_12h"}}}]},
+    "coefficientSbp": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "systolic_bp_min_0_12h"}}}]},
+    "coefficientRespiratory": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "respiratory_rate_max_0_12h"}}}]},
+    "coefficientTemperature": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "temperature_max_0_12h"}}}]},
+    "coefficientSpo2": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "spo2_min_0_12h"}}}]},
+    "coefficientGcs": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "gcs_min_0_12h"}}}]},
+    "coefficientRass": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "rass_min_0_12h"}}}]},
+    "coefficientLactate": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "lactate_max_0_12h"}}}]},
+    "coefficientPh": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "ph_min_0_12h"}}}]},
+    "coefficientGlucose": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "glucose_max_0_12h"}}}]},
+    "coefficientSodium": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "sodium_latest_0_12h"}}}]},
+    "coefficientCreatinine": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "creatinine_max_0_12h"}}}]},
+    "coefficientBun": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "bun_max_0_12h"}}}]},
+    "coefficientWbc": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "wbc_max_0_12h"}}}]},
+    "coefficientVentilation": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "mechanical_ventilation_0_12h"}}}]},
+    "coefficientVasoactive": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "vasoactive_support_0_12h"}}}]},
+    "coefficientSedative": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "sedative_exposure_0_12h"}}}]},
+    "coefficientOpioid": {"allOf": [{"$ref": "#/$defs/coefficient"}, {"properties": {"term": {"const": "opioid_exposure_0_12h"}}}]},
+    "model": {
+      "type": "object", "additionalProperties": false,
+      "required": ["primary_model_id", "baseline_model_id", "parameter_df", "transformation_map_sha256", "pooled_coefficients", "baseline_pooled_coefficients", "uniform_shrinkage_factor", "uniform_shrinkage_capped_at_one", "baseline_hazard_reestimated_from", "pooled_development_baseline_subdistribution_hazard", "validation_refit", "validation_recalibration", "logistic_substitution"],
+      "properties": {
+        "primary_model_id": {"const": "MODEL.CVCC-PRED-ISO-001.FG-CLINICAL-27DF.V1"},
+        "baseline_model_id": {"const": "MODEL.CVCC-PRED-ISO-001.FG-AGE-SEX-BASELINE.V1"},
+        "parameter_df": {"const": 27}, "transformation_map_sha256": {"$ref": "#/$defs/sha256"},
+        "pooled_coefficients": {"type": "array", "prefixItems": [
+          {"$ref": "#/$defs/coefficientAgeLinear"}, {"$ref": "#/$defs/coefficientAgeRcs"}, {"$ref": "#/$defs/coefficientFemale"},
+          {"$ref": "#/$defs/coefficientAmiStemi"}, {"$ref": "#/$defs/coefficientAmiOther"}, {"$ref": "#/$defs/coefficientAdmission"},
+          {"$ref": "#/$defs/coefficientDementia"}, {"$ref": "#/$defs/coefficientAlcohol"}, {"$ref": "#/$defs/coefficientArrest"},
+          {"$ref": "#/$defs/coefficientHeartRate"}, {"$ref": "#/$defs/coefficientSbp"}, {"$ref": "#/$defs/coefficientRespiratory"},
+          {"$ref": "#/$defs/coefficientTemperature"}, {"$ref": "#/$defs/coefficientSpo2"}, {"$ref": "#/$defs/coefficientGcs"},
+          {"$ref": "#/$defs/coefficientRass"}, {"$ref": "#/$defs/coefficientLactate"}, {"$ref": "#/$defs/coefficientPh"},
+          {"$ref": "#/$defs/coefficientGlucose"}, {"$ref": "#/$defs/coefficientSodium"}, {"$ref": "#/$defs/coefficientCreatinine"},
+          {"$ref": "#/$defs/coefficientBun"}, {"$ref": "#/$defs/coefficientWbc"}, {"$ref": "#/$defs/coefficientVentilation"},
+          {"$ref": "#/$defs/coefficientVasoactive"}, {"$ref": "#/$defs/coefficientSedative"}, {"$ref": "#/$defs/coefficientOpioid"}
+        ], "items": false, "minItems": 27, "maxItems": 27},
+        "baseline_pooled_coefficients": {"type": "array", "prefixItems": [{"$ref": "#/$defs/coefficientAgeLinear"}, {"$ref": "#/$defs/coefficientAgeRcs"}, {"$ref": "#/$defs/coefficientFemale"}], "items": false, "minItems": 3, "maxItems": 3},
+        "uniform_shrinkage_factor": {"$ref": "#/$defs/probability"}, "uniform_shrinkage_capped_at_one": {"const": true},
+        "baseline_hazard_reestimated_from": {"const": "DEVELOPMENT_ONLY"},
+        "pooled_development_baseline_subdistribution_hazard": {"type": "number", "minimum": 0},
+        "validation_refit": {"const": false}, "validation_recalibration": {"const": false}, "logistic_substitution": {"const": false}
+      }
+    },
+    "imputation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine", "m", "iterations", "seed", "development_fit_only", "validation_outcomes_used", "validation_outcome_access_count", "completed_datasets", "convergence_status", "continuous_method", "binary_method", "categorical_method"],
+      "properties": {
+        "engine": {"const": "DETERMINISTIC_DEVELOPMENT_DONOR_CHAINED_EQUATIONS"}, "m": {"const": 40}, "iterations": {"const": 20}, "seed": {"const": 20260722},
+        "development_fit_only": {"const": true}, "validation_outcomes_used": {"const": false}, "validation_outcome_access_count": {"const": 0},
+        "completed_datasets": {"const": 40}, "convergence_status": {"const": "COMPLETE"},
+        "continuous_method": {"const": "PREDICTIVE_MEAN_MATCHING"}, "binary_method": {"const": "LOGISTIC_REGRESSION"}, "categorical_method": {"const": "MULTINOMIAL_LOGISTIC_REGRESSION"}
+      }
+    },
+    "metrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["TIME_DEPENDENT_AUC_AT_84H", "IPCW_BRIER_AT_84H", "SCALED_BRIER_VS_NULL", "OE_RATIO_AT_84H", "CALIBRATION_IN_THE_LARGE_CLOGLOG", "CALIBRATION_SLOPE", "ICI", "DECILE_ABSOLUTE_ERROR"],
+      "properties": {
+        "TIME_DEPENDENT_AUC_AT_84H": {"$ref": "#/$defs/number"}, "IPCW_BRIER_AT_84H": {"$ref": "#/$defs/number"},
+        "SCALED_BRIER_VS_NULL": {"$ref": "#/$defs/number"}, "OE_RATIO_AT_84H": {"$ref": "#/$defs/number"},
+        "CALIBRATION_IN_THE_LARGE_CLOGLOG": {"$ref": "#/$defs/number"}, "CALIBRATION_SLOPE": {"$ref": "#/$defs/number"},
+        "ICI": {"$ref": "#/$defs/number"}, "DECILE_ABSOLUTE_ERROR": {"$ref": "#/$defs/number"}
+      }
+    },
+    "internalValidation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scope", "method", "replicates_requested", "replicates_completed", "seed", "failures", "optimism", "bootstrap_corrected_metrics", "uniform_shrinkage_factor", "baseline_hazard_reestimated_from", "verification_profile"],
+      "properties": {
+        "scope": {"const": "DEVELOPMENT_FULL_PIPELINE"}, "method": {"const": "PATIENT_LEVEL_BOOTSTRAP_FULL_PIPELINE"},
+        "replicates_requested": {"const": 1000}, "replicates_completed": {"const": 1000}, "seed": {"const": 20260722},
+        "failures": {"type": "array", "maxItems": 0, "items": {"type": "string"}},
+        "optimism": {"$ref": "#/$defs/metrics"}, "bootstrap_corrected_metrics": {"$ref": "#/$defs/metrics"},
+        "uniform_shrinkage_factor": {"$ref": "#/$defs/probability"}, "baseline_hazard_reestimated_from": {"const": "DEVELOPMENT_ONLY"},
+        "verification_profile": {"enum": ["FULL_40_IMPUTATION_TRANSFORMATION_FIT_PIPELINE", "SYNTHETIC_ORCHESTRATION_PLUS_SEPARATE_FULL_PIPELINE_SMOKE"]}
+      }
+    },
+    "interval": {
+      "type": "object", "additionalProperties": false, "required": ["metric", "ci_low", "ci_high"],
+      "properties": {"metric": {"enum": ["TIME_DEPENDENT_AUC_AT_84H", "IPCW_BRIER_AT_84H", "SCALED_BRIER_VS_NULL", "OE_RATIO_AT_84H", "CALIBRATION_IN_THE_LARGE_CLOGLOG", "CALIBRATION_SLOPE", "ICI", "DECILE_ABSOLUTE_ERROR"]}, "ci_low": {"$ref": "#/$defs/number"}, "ci_high": {"$ref": "#/$defs/number"}}
+    },
+    "calibrationBandPoint": {
+      "type": "object", "additionalProperties": false, "required": ["predicted", "ci_low", "ci_high"],
+      "properties": {"predicted": {"$ref": "#/$defs/probability"}, "ci_low": {"$ref": "#/$defs/number"}, "ci_high": {"$ref": "#/$defs/number"}}
+    },
+    "temporalValidation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scope", "method", "replicates_requested", "replicates_completed", "seed", "failures", "interval", "intervals", "flexible_calibration_band", "refit", "recalibrate", "verification_profile"],
+      "properties": {
+        "scope": {"const": "VALIDATION_ONLY_FIXED_MODEL"}, "method": {"const": "VALIDATION_ONLY_FIXED_MODEL_PATIENT_BOOTSTRAP"},
+        "replicates_requested": {"const": 2000}, "replicates_completed": {"const": 2000}, "seed": {"const": 20260723},
+        "failures": {"type": "array", "maxItems": 0, "items": {"type": "string"}}, "interval": {"const": "PERCENTILE_95_CI"},
+        "intervals": {"type": "array", "prefixItems": [
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "TIME_DEPENDENT_AUC_AT_84H"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "IPCW_BRIER_AT_84H"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "SCALED_BRIER_VS_NULL"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "OE_RATIO_AT_84H"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "CALIBRATION_IN_THE_LARGE_CLOGLOG"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "CALIBRATION_SLOPE"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "ICI"}}}]},
+          {"allOf": [{"$ref": "#/$defs/interval"}, {"properties": {"metric": {"const": "DECILE_ABSOLUTE_ERROR"}}}]}
+        ], "items": false, "minItems": 8, "maxItems": 8},
+        "flexible_calibration_band": {"type": "array", "minItems": 50, "maxItems": 50, "items": {"$ref": "#/$defs/calibrationBandPoint"}},
+        "refit": {"const": false}, "recalibrate": {"const": false}, "verification_profile": {"const": "FIXED_MODEL_NO_REFIT_NO_RECALIBRATION"}
+      }
+    },
+    "calibrationPoint": {
+      "type": "object", "additionalProperties": false, "required": ["predicted", "calibrated"],
+      "properties": {"predicted": {"$ref": "#/$defs/probability"}, "calibrated": {"$ref": "#/$defs/probability"}}
+    },
+    "decilePoint": {
+      "type": "object", "additionalProperties": false, "required": ["predicted", "observed", "absolute_error"],
+      "properties": {"predicted": {"$ref": "#/$defs/probability"}, "observed": {"$ref": "#/$defs/probability"}, "absolute_error": {"$ref": "#/$defs/probability"}}
+    },
+    "performance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["development", "validation", "flexible_calibration_curve", "flexible_calibration_band", "decile_calibration"],
+      "properties": {
+        "development": {"$ref": "#/$defs/metrics"}, "validation": {"$ref": "#/$defs/metrics"},
+        "flexible_calibration_curve": {"type": "array", "minItems": 50, "maxItems": 50, "items": {"$ref": "#/$defs/calibrationPoint"}},
+        "flexible_calibration_band": {"type": "array", "minItems": 50, "maxItems": 50, "items": {"$ref": "#/$defs/calibrationBandPoint"}},
+        "decile_calibration": {"type": "array", "minItems": 10, "maxItems": 10, "items": {"$ref": "#/$defs/decilePoint"}}
+      }
+    },
+    "gateConditions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["oe_ratio", "calibration_slope", "ici", "decile_absolute_error"],
+      "properties": {"oe_ratio": {"type": "boolean"}, "calibration_slope": {"type": "boolean"}, "ici": {"type": "boolean"}, "decile_absolute_error": {"type": "boolean"}}
+    },
+    "calibrationGate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["conditions", "all_passed", "dca_status", "clinical_utility_claim_allowed"],
+      "properties": {"conditions": {"$ref": "#/$defs/gateConditions"}, "all_passed": {"type": "boolean"}, "dca_status": {"enum": ["GENERATED", "NOT_GENERATED_GATE_FAILED"]}, "clinical_utility_claim_allowed": {"type": "boolean"}}
+    },
+    "dcaRow": {
+      "type": "object", "additionalProperties": false, "required": ["threshold", "net_benefit"],
+      "properties": {"threshold": {"enum": [0.05, 0.1, 0.15, 0.2, 0.25]}, "net_benefit": {"$ref": "#/$defs/number"}}
+    },
+    "decisionCurve": {
+      "type": "object", "additionalProperties": false, "required": ["status", "rows"],
+      "properties": {"status": {"enum": ["GENERATED", "NOT_GENERATED_GATE_FAILED"]}, "rows": {"type": "array", "prefixItems": [
+        {"allOf": [{"$ref": "#/$defs/dcaRow"}, {"properties": {"threshold": {"const": 0.05}}}]},
+        {"allOf": [{"$ref": "#/$defs/dcaRow"}, {"properties": {"threshold": {"const": 0.1}}}]},
+        {"allOf": [{"$ref": "#/$defs/dcaRow"}, {"properties": {"threshold": {"const": 0.15}}}]},
+        {"allOf": [{"$ref": "#/$defs/dcaRow"}, {"properties": {"threshold": {"const": 0.2}}}]},
+        {"allOf": [{"$ref": "#/$defs/dcaRow"}, {"properties": {"threshold": {"const": 0.25}}}]}
+      ], "items": false, "maxItems": 5}}
+    },
+    "completeObservationSensitivity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sensitivity_id", "status", "label", "formula_checksum", "may_replace_primary", "model_formula_unchanged", "imputations", "pooled_coefficient_count", "outcome_unobserved_excluded_n", "outcome_unobserved_recoded_negative_n"],
+      "properties": {
+        "sensitivity_id": {"const": "SENS.CVCC-PRED-ISO-001.COMPLETE-OBSERVATION.V1"}, "status": {"const": "COMPLETE"}, "label": {"const": "EXPLORATORY"},
+        "formula_checksum": {"$ref": "#/$defs/sha256"}, "may_replace_primary": {"const": false}, "model_formula_unchanged": {"const": true},
+        "imputations": {"const": 40}, "pooled_coefficient_count": {"const": 27}, "outcome_unobserved_excluded_n": {"$ref": "#/$defs/nonnegativeInteger"}, "outcome_unobserved_recoded_negative_n": {"const": 0}
+      }
+    },
+    "assessmentIpcwSensitivity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sensitivity_id", "status", "label", "formula_checksum", "may_replace_primary", "model_formula_unchanged", "weighting", "truncation_quantiles", "truncation_cutpoints", "development_weight_min", "development_weight_max", "validation_weight_min", "validation_weight_max", "validation_outcomes_used_for_weight_learning", "validation_metrics"],
+      "properties": {
+        "sensitivity_id": {"const": "SENS.CVCC-PRED-ISO-001.ASSESSMENT-IPCW.V1"}, "status": {"const": "COMPLETE"}, "label": {"const": "EXPLORATORY"},
+        "formula_checksum": {"$ref": "#/$defs/sha256"}, "may_replace_primary": {"const": false}, "model_formula_unchanged": {"const": true},
+        "weighting": {"const": "DEVELOPMENT_FITTED_STABILIZED_ASSESSMENT_PROCESS_IPCW"},
+        "truncation_quantiles": {"type": "array", "prefixItems": [{"const": 0.01}, {"const": 0.99}], "items": false, "minItems": 2, "maxItems": 2},
+        "truncation_cutpoints": {"type": "array", "items": {"$ref": "#/$defs/number"}, "minItems": 2, "maxItems": 2},
+        "development_weight_min": {"type": "number", "minimum": 0}, "development_weight_max": {"type": "number", "minimum": 0},
+        "validation_weight_min": {"type": "number", "minimum": 0}, "validation_weight_max": {"type": "number", "minimum": 0},
+        "validation_outcomes_used_for_weight_learning": {"const": false}, "validation_metrics": {"$ref": "#/$defs/metrics"}
+      }
+    },
+    "sensitivities": {
+      "type": "array", "prefixItems": [{"$ref": "#/$defs/completeObservationSensitivity"}, {"$ref": "#/$defs/assessmentIpcwSensitivity"}], "items": false, "minItems": 2, "maxItems": 2
+    },
+    "outputIds": {
+      "type": "array", "prefixItems": [
+        {"const": "TABLE.CVCC-PRED-ISO-001.MAIN.1"}, {"const": "TABLE.CVCC-PRED-ISO-001.MAIN.2"}, {"const": "TABLE.CVCC-PRED-ISO-001.MAIN.3"},
+        {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.1"}, {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.2"}, {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.3"}, {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.4"}, {"const": "FIGURE.CVCC-PRED-ISO-001.MAIN.5"},
+        {"const": "RESULT.CVCC-PRED-ISO-001.STRUCTURED.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.DEFINITIONS.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.VARIABLES.V1"},
+        {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.MISSINGNESS.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.MODEL-SPEC.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.OBSERVATION.V1"},
+        {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.LINEAGE.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.SENSITIVITY.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.CALIBRATION-GATE.V1"}, {"const": "SUPPLEMENT.CVCC-PRED-ISO-001.REPRODUCIBILITY.V1"}
+      ], "items": false, "minItems": 18, "maxItems": 18
+    }
+  }
+}

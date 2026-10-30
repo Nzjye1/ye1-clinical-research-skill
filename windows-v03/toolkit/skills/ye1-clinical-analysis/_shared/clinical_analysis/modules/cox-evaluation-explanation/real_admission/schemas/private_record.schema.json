@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "model_json": {
+          "type": "string",
+          "minLength": 1
+        },
+        "explainer_json": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "predictions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "horizon": {
+                "type": "number"
+              },
+              "linear_predictor": {
+                "type": "number"
+              },
+              "centered_linear_predictor": {
+                "type": "number"
+              },
+              "survival_probability": {
+                "type": "number"
+              },
+              "event_risk": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "subject_id",
+              "horizon",
+              "linear_predictor",
+              "centered_linear_predictor",
+              "survival_probability",
+              "event_risk"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 160000
+        },
+        "encoded": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 60
+              }
+            },
+            "required": [
+              "subject_id",
+              "values"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 20000
+        },
+        "contributions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "feature": {
+                "type": "string",
+                "minLength": 1
+              },
+              "phi": {
+                "type": "number"
+              },
+              "base_value": {
+                "type": "number"
+              },
+              "score": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "subject_id",
+              "feature",
+              "phi",
+              "base_value",
+              "score"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 240000
+        },
+        "nomogram_rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "feature": {
+                "type": "string",
+                "minLength": 1
+              },
+              "score_contribution": {
+                "type": "number"
+              },
+              "points": {
+                "type": "number"
+              },
+              "total_points": {
+                "type": "number"
+              },
+              "reconstructed_score": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "subject_id",
+              "feature",
+              "score_contribution",
+              "points",
+              "total_points",
+              "reconstructed_score"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 240000
+        },
+        "evaluation": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "censoring_grid": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "n_risk": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "n_events": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "n_censored": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "censor_risk": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "g_before": {
+                        "type": "number"
+                      },
+                      "g_after": {
+                        "type": "number"
+                      },
+                      "km_before": {
+                        "type": "number"
+                      },
+                      "km_after": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "time",
+                      "n_risk",
+                      "n_events",
+                      "n_censored",
+                      "censor_risk",
+                      "g_before",
+                      "g_after",
+                      "km_before",
+                      "km_after"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 20000
+                },
+                "individual_ipcw": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "subject_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "horizon": {
+                        "type": "number"
+                      },
+                      "observed_time": {
+                        "type": "number"
+                      },
+                      "event": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "classification": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "event_risk": {
+                        "type": "number"
+                      },
+                      "g_denominator": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "case_weight": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "control_weight": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "weight": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "horizon_status": {
+                        "enum": [
+                          "completed",
+                          "partial",
+                          "unavailable"
+                        ]
+                      },
+                      "horizon_reason_codes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 0,
+                        "maxItems": 10000
+                      }
+                    },
+                    "required": [
+                      "subject_id",
+                      "horizon",
+                      "observed_time",
+                      "event",
+                      "classification",
+                      "event_risk",
+                      "g_denominator",
+                      "case_weight",
+                      "control_weight",
+                      "weight",
+                      "horizon_status",
+                      "horizon_reason_codes"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 160000
+                }
+              },
+              "required": [
+                "censoring_grid",
+                "individual_ipcw"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "model_json",
+        "explainer_json",
+        "predictions",
+        "encoded",
+        "contributions",
+        "nomogram_rows",
+        "evaluation"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "null"
+    }
+  ]
+}

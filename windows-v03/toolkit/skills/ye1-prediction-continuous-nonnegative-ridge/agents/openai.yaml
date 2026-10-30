@@ -1,0 +1,4 @@
+interface:
+  display_name: "非负连续结局 Ridge 冻结预测"
+  short_description: "非负连续结局 Ridge 冻结预测，复用共享工具，核对研究设计与实际产物"
+  default_prompt: "请用 $ye1-prediction-continuous-nonnegative-ridge 处理这项分析，先自检并核对我提供的问题和变量字典。"

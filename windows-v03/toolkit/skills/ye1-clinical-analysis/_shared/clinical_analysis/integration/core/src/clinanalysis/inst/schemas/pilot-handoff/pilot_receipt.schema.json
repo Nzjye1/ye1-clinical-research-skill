@@ -1,0 +1,190 @@
+{
+  "$defs": {
+    "AggregateCheckResult": {
+      "additionalProperties": false,
+      "description": "Aggregate conclusion only; no counts, rows, paths, or patient records.",
+      "properties": {
+        "aggregate_evidence_ref": {
+          "maxLength": 128,
+          "minLength": 3,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+          "title": "Aggregate Evidence Ref",
+          "type": "string"
+        },
+        "check": {
+          "$ref": "#/$defs/PilotCheck"
+        },
+        "note": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INCONCLUSIVE",
+            "NOT_RUN"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "check",
+        "status",
+        "aggregate_evidence_ref",
+        "note"
+      ],
+      "title": "AggregateCheckResult",
+      "type": "object"
+    },
+    "PilotCheck": {
+      "enum": [
+        "COHORT_COUNT",
+        "EVENT_COUNT",
+        "KEY_MISSINGNESS",
+        "EXPOSURE_ACTUAL_VARIATION",
+        "OUTCOME_WINDOW_COVERAGE",
+        "MODEL_TECHNICAL_RUNNABILITY"
+      ],
+      "title": "PilotCheck",
+      "type": "string"
+    },
+    "PilotRecommendation": {
+      "enum": [
+        "PASS_TO_SAP_DESIGN",
+        "RETURN_TO_TOPIC_DESIGN",
+        "STOP_RECOMMENDED",
+        "NO_RECOMMENDATION"
+      ],
+      "title": "PilotRecommendation",
+      "type": "string"
+    },
+    "PilotStatus": {
+      "enum": [
+        "COMPLETE",
+        "BLOCKED",
+        "FAILED"
+      ],
+      "title": "PilotStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Analysis-owned completion receipt for a single, authorized pilot request.",
+  "properties": {
+    "aggregate_only": {
+      "const": true,
+      "default": true,
+      "title": "Aggregate Only",
+      "type": "boolean"
+    },
+    "check_results": {
+      "items": {
+        "$ref": "#/$defs/AggregateCheckResult"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "title": "Check Results",
+      "type": "array"
+    },
+    "execution_mode": {
+      "const": "PILOT",
+      "default": "PILOT",
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "execution_provenance_ref": {
+      "maxLength": 128,
+      "minLength": 3,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+      "title": "Execution Provenance Ref",
+      "type": "string"
+    },
+    "formal_outputs_generated": {
+      "const": false,
+      "default": false,
+      "title": "Formal Outputs Generated",
+      "type": "boolean"
+    },
+    "patient_level_payload": {
+      "const": false,
+      "default": false,
+      "title": "Patient Level Payload",
+      "type": "boolean"
+    },
+    "receipt_checksum": {
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "title": "Receipt Checksum",
+      "type": "string"
+    },
+    "receipt_id": {
+      "maxLength": 128,
+      "minLength": 3,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+      "title": "Receipt Id",
+      "type": "string"
+    },
+    "recommendation": {
+      "$ref": "#/$defs/PilotRecommendation"
+    },
+    "request_id": {
+      "maxLength": 128,
+      "minLength": 3,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "result_driven_design_changes_made": {
+      "const": false,
+      "default": false,
+      "title": "Result Driven Design Changes Made",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_module_id": {
+      "const": "clinical-analysis-module",
+      "default": "clinical-analysis-module",
+      "title": "Source Module Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PilotStatus"
+    },
+    "target_module_id": {
+      "const": "research-topic-module",
+      "default": "research-topic-module",
+      "title": "Target Module Id",
+      "type": "string"
+    },
+    "unresolved_condition_refs": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 3,
+        "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{2,127}$",
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Unresolved Condition Refs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "receipt_id",
+    "request_id",
+    "status",
+    "check_results",
+    "recommendation",
+    "execution_provenance_ref",
+    "receipt_checksum"
+  ],
+  "title": "PilotReceipt",
+  "type": "object"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "ye1-clinical-package-policy@1.0",
+  "version_source": "windows-v03/toolkit/skills/ye1-clinical-analysis/runtime-spec.json",
+  "client_exclude": [
+    "guides/**",
+    "RELEASE-NOTES-DRAFT.md",
+    "skills/ye1-clinical-analysis/tests/**",
+    "skills/ye1-clinical-analysis/references/PUBLIC-FIXTURE-VALIDATION.md",
+    "skills/ye1-clinical-analysis/references/TEST-SUMMARY.json",
+    "skills/ye1-clinical-analysis/references/TEST-SUMMARY.md",
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/integration/core/tools/**",
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/integration/core/CANDIDATE-SHA256SUMS.txt",
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/modules/*/write_interface_schemas.py",
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/build_schemas.py",
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/modules/nonlinear_prediction/tree_shap/smoke.py"
+  ],
+  "client_keep_required": [
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/integration/core/tools/run_core.R",
+    "skills/ye1-clinical-analysis/_shared/clinical_analysis/modules/nonlinear_prediction/tests/render.R"
+  ],
+  "source_release_files": [
+    "release/BUILD.md",
+    "release/PACKAGE-CONTENTS.md",
+    "release/PACKAGING-POLICY.json",
+    "release/build_candidate.py",
+    "release/verify_dependencies.py"
+  ],
+  "source_exclude": [
+    "windows-v03/toolkit/guides/**",
+    "windows-v03/toolkit/RELEASE-NOTES-DRAFT.md",
+    "windows-v03/toolkit/skills/ye1-clinical-analysis/references/PUBLIC-FIXTURE-VALIDATION.md",
+    "windows-v03/toolkit/skills/ye1-clinical-analysis/references/TEST-SUMMARY.json",
+    "windows-v03/toolkit/skills/ye1-clinical-analysis/references/TEST-SUMMARY.md",
+    "**/*PROVENANCE.json",
+    "**/*.provenance.json"
+  ],
+  "forbidden_parts": [".git", ".runtime", ".clinical-local", "install-logs", "__pycache__", ".pytest_cache", ".agents"],
+  "forbidden_suffixes": [".pyc", ".pyo", ".log", ".csv", ".sqlite", ".db", ".rds", ".rdata", ".pem", ".key"],
+  "source_tests_are_maintainer_only": true,
+  "runtime_render_historical_tests_path_is_not_a_test_suite": true,
+  "foundation_programs_bundled": false,
+  "installed_runtime_bundled": false,
+  "python_wheels_in_client": false,
+  "R_binary_and_matching_source_archives_in_client": true
+}

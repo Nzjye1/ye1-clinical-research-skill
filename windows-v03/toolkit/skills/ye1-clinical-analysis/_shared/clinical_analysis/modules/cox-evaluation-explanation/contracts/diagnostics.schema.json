@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "module_id": {
+      "const": "cox_evaluation_explanation"
+    },
+    "stage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_model_refitted": {
+      "const": false
+    },
+    "preprocessing_fitted": {
+      "const": false
+    },
+    "background_rows_used": {
+      "const": false
+    },
+    "outcomes_used": {
+      "type": "boolean"
+    },
+    "runtime_verified": {
+      "type": "boolean"
+    },
+    "common_bindings": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "input_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "plan_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "code_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "runtime_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "model_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "input_sha256",
+            "plan_sha256",
+            "code_sha256",
+            "runtime_sha256",
+            "model_sha256"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rows_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "payload_plan_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "numerical_code_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runtime_binding_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "record_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "numerical_owners": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "module_id",
+    "stage",
+    "risk_model_refitted",
+    "preprocessing_fitted",
+    "background_rows_used",
+    "outcomes_used",
+    "runtime_verified",
+    "common_bindings",
+    "rows_sha256",
+    "payload_plan_sha256",
+    "numerical_code_sha256",
+    "runtime_binding_sha256",
+    "record_sha256",
+    "numerical_owners"
+  ],
+  "additionalProperties": false
+}

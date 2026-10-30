@@ -1,0 +1,208 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "study_id",
+    "method_id",
+    "operation",
+    "data_origin",
+    "purpose",
+    "authorization_ref",
+    "source",
+    "adapter",
+    "selection",
+    "structure",
+    "variables",
+    "execution",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "clinical-real-engineering-task@1.0"
+    },
+    "study_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "method_id": {
+      "const": "baseline.summary"
+    },
+    "operation": {
+      "const": "describe"
+    },
+    "data_origin": {
+      "const": "real_local_normalized"
+    },
+    "purpose": {
+      "const": "local_engineering_e2e"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "format",
+        "patient_key",
+        "record_key"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "format": {
+          "const": "csv_gzip"
+        },
+        "patient_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "adapter": {
+      "enum": [
+        "direct",
+        "named_alias"
+      ]
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_patients",
+        "seed",
+        "encounter"
+      ],
+      "properties": {
+        "max_patients": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "encounter": {
+          "const": "utf8_min_record_key_not_first_operation"
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_grain",
+        "analysis_grain",
+        "joins",
+        "weights",
+        "missingness",
+        "time_policy"
+      ],
+      "properties": {
+        "source_grain": {
+          "const": "encounter_wide"
+        },
+        "analysis_grain": {
+          "const": "one_selected_encounter_per_patient"
+        },
+        "joins": {
+          "const": "none"
+        },
+        "weights": {
+          "const": "none"
+        },
+        "missingness": {
+          "const": "observed_per_variable_no_imputation"
+        },
+        "time_policy": {
+          "const": "recorded_snapshot_no_prediction_claim"
+        }
+      }
+    },
+    "variables": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "source_field",
+          "unit",
+          "role",
+          "timing",
+          "summary"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "age",
+              "bmi",
+              "preop_cr"
+            ]
+          },
+          "source_field": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit": {
+            "enum": [
+              "year",
+              "kg/m^2",
+              "mg/dL"
+            ]
+          },
+          "role": {
+            "const": "descriptive_measure"
+          },
+          "timing": {
+            "const": "recorded_snapshot_clock_unverified"
+          },
+          "summary": {
+            "const": "median_iqr"
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "output_dir",
+        "export_policy"
+      ],
+      "properties": {
+        "mode": {
+          "const": "real_engineering"
+        },
+        "output_dir": {
+          "type": "string",
+          "minLength": 1
+        },
+        "export_policy": {
+          "const": "local_only"
+        }
+      }
+    },
+    "plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

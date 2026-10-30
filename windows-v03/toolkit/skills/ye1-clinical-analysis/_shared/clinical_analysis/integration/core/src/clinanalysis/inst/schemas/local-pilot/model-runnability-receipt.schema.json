@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/model-runnability-receipt.schema.json",
+  "title": "Local aggregate MODEL_TECHNICAL_RUNNABILITY receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "receipt_id", "candidate_id", "check", "execution_mode",
+    "attempt_number", "authorization_ref", "registered_dataset", "aggregate_only",
+    "patient_level_payload", "formal_analysis_performed", "formal_outputs_generated",
+    "result_driven_design_changes_made", "model_limits", "status", "technical_conclusion",
+    "aggregate_diagnostics", "limitations", "candidate_lifecycle_decision", "next_responsibility"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {"type": "string", "minLength": 3},
+    "candidate_id": {"type": "string", "minLength": 3},
+    "check": {"const": "MODEL_TECHNICAL_RUNNABILITY"},
+    "execution_mode": {"const": "PILOT"},
+    "attempt_number": {"const": 1},
+    "authorization_ref": {"type": "string", "minLength": 3},
+    "registered_dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "sha256"],
+      "properties": {
+        "dataset_id": {"type": "string", "minLength": 3},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "aggregate_only": {"const": true},
+    "patient_level_payload": {"const": false},
+    "formal_analysis_performed": {"const": false},
+    "formal_outputs_generated": {"const": false},
+    "result_driven_design_changes_made": {"const": false},
+    "model_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary_models_run", "adjusted_models_run", "sensitivity_analyses_run"],
+      "properties": {
+        "primary_models_run": {"const": 1},
+        "adjusted_models_run": {"const": 0},
+        "sensitivity_analyses_run": {"const": 0}
+      }
+    },
+    "status": {"enum": ["COMPLETE", "BLOCKED"]},
+    "technical_conclusion": {"enum": ["PASS", "BLOCKED"]},
+    "aggregate_diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["counts", "model", "validation_metrics"],
+      "properties": {
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "input_n", "development_n", "development_analysis_n", "development_events",
+            "development_competing_events", "validation_n", "validation_analysis_n",
+            "validation_events", "validation_competing_events", "outcome_observed_n",
+            "outcome_unobserved_n", "excluded"
+          ],
+          "properties": {
+            "input_n": {"type": "integer", "minimum": 0},
+            "development_n": {"type": "integer", "minimum": 0},
+            "development_analysis_n": {"type": "integer", "minimum": 0},
+            "development_events": {"type": "integer", "minimum": 0},
+            "development_competing_events": {"type": "integer", "minimum": 0},
+            "validation_n": {"type": "integer", "minimum": 0},
+            "validation_analysis_n": {"type": "integer", "minimum": 0},
+            "validation_events": {"type": "integer", "minimum": 0},
+            "validation_competing_events": {"type": "integer", "minimum": 0},
+            "outcome_observed_n": {"type": "integer", "minimum": 0},
+            "outcome_unobserved_n": {"type": "integer", "minimum": 0},
+            "excluded": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "development_outcome_unobserved", "validation_outcome_unobserved",
+                "development_predictor_missing", "validation_predictor_missing"
+              ],
+              "properties": {
+                "development_outcome_unobserved": {"type": "integer", "minimum": 0},
+                "validation_outcome_unobserved": {"type": "integer", "minimum": 0},
+                "development_predictor_missing": {"type": "integer", "minimum": 0},
+                "validation_predictor_missing": {"type": "integer", "minimum": 0}
+              }
+            }
+          }
+        },
+        "model": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "engine", "horizon_hours_after_landmark", "predictors", "converged",
+            "finite_coefficients", "finite_variance", "absolute_risk_computable",
+            "finite_absolute_risks", "validation_risk_min", "validation_risk_max"
+          ],
+          "properties": {
+            "engine": {"const": "Fine-Gray subdistribution hazards"},
+            "horizon_hours_after_landmark": {"type": "number", "exclusiveMinimum": 0},
+            "predictors": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+            "converged": {"type": "boolean"},
+            "finite_coefficients": {"type": "boolean"},
+            "finite_variance": {"type": "boolean"},
+            "absolute_risk_computable": {"type": "boolean"},
+            "finite_absolute_risks": {"type": "boolean"},
+            "validation_risk_min": {"type": "number", "minimum": 0, "maximum": 1},
+            "validation_risk_max": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "validation_metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["auc", "brier", "calibration_intercept", "calibration_slope", "observed_risk", "mean_predicted_risk", "oe_ratio"],
+          "properties": {
+            "auc": {"type": "number"},
+            "brier": {"type": "number"},
+            "calibration_intercept": {"type": "number"},
+            "calibration_slope": {"type": "number"},
+            "observed_risk": {"type": "number"},
+            "mean_predicted_risk": {"type": "number"},
+            "oe_ratio": {"type": "number"}
+          }
+        }
+      }
+    },
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+    "candidate_lifecycle_decision": {"const": "NOT_MADE"},
+    "next_responsibility": {"type": "string", "minLength": 1}
+  }
+}

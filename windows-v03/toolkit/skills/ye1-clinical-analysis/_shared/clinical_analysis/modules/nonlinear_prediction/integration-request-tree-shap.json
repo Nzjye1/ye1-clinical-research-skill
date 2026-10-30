@@ -1,0 +1,169 @@
+{
+  "schema_version": "clinical-module-integration@1.0",
+  "module_id": "nonlinear_prediction",
+  "owner": "MODULE_NONLINEAR_PREDICTION",
+  "language": "python",
+  "entrypoint": {
+    "path": "tree_shap/interface.py",
+    "function": "analyze"
+  },
+  "projection_entrypoint": {
+    "path": "tree_shap/projection.py",
+    "function": "project"
+  },
+  "provider_files": [
+    "tree_shap/__init__.py",
+    "tree_shap/runtime.py",
+    "tree_shap/background.py",
+    "tree_shap/explain.py",
+    "tree_shap/interface.py",
+    "tree_shap/projection.py",
+    "tree_shap/run.py"
+  ],
+  "dependencies": [
+    {
+      "name": "python",
+      "version": "3.12.15",
+      "role": "runtime"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4",
+      "role": "runtime"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "role": "runtime"
+    },
+    {
+      "name": "statsmodels",
+      "version": "0.14.6",
+      "role": "runtime"
+    },
+    {
+      "name": "sklearn",
+      "version": "1.9.1",
+      "role": "runtime"
+    },
+    {
+      "name": "pandas",
+      "version": "2.3.3",
+      "role": "runtime"
+    },
+    {
+      "name": "shap",
+      "version": "0.54.1",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "slicer",
+      "version": "0.0.8",
+      "role": "runtime"
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.1",
+      "role": "runtime"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6",
+      "role": "runtime"
+    }
+  ],
+  "methods": [
+    {
+      "method_id": "explanation.binary.random_forest.tree_shap",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "explain"
+      ],
+      "numerical_owner": "shap.TreeExplainer@0.54.1; interventional; exact threshold-bin-equivalent frozen trees; affine calibrated-log-odds attribution",
+      "schemas": {
+        "payload": "tree_shap/schemas/payload.schema.json",
+        "diagnostics": "tree_shap/schemas/diagnostics.schema.json",
+        "public_record": "tree_shap/schemas/public-record.schema.json",
+        "private_record": "tree_shap/schemas/private-record.schema.json"
+      }
+    },
+    {
+      "method_id": "explanation.binary.hist_gradient_boosting.tree_shap",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "explain"
+      ],
+      "numerical_owner": "shap.TreeExplainer@0.54.1; interventional; exact threshold-bin-equivalent frozen trees; affine calibrated-log-odds attribution",
+      "schemas": {
+        "payload": "tree_shap/schemas/payload.schema.json",
+        "diagnostics": "tree_shap/schemas/diagnostics.schema.json",
+        "public_record": "tree_shap/schemas/public-record.schema.json",
+        "private_record": "tree_shap/schemas/private-record.schema.json"
+      }
+    }
+  ],
+  "shared_change_requests": [
+    {
+      "target": "shared method registry / schema registration / Python package dispatch",
+      "reason": "Add these two explain-only methods as an additive extension. This is a supplementary request; preserve the existing prediction manifest and owner. Import tree_shap.interface as a package with module root on sys.path. Verify trusted expected request bindings before calling.",
+      "affected_methods": [
+        "explanation.binary.random_forest.tree_shap",
+        "explanation.binary.hist_gradient_boosting.tree_shap"
+      ],
+      "required_regression": [
+        "unregistered or missing-schema method refusal",
+        "unknown-field refusal",
+        "model and runtime binding refusal",
+        "public aggregate versus private individual projection"
+      ]
+    },
+    {
+      "target": "existing nonlinear train completion hook and local private artifact registry",
+      "reason": "After a successful original training call, use tree_shap.background.capture_training_background with the actual request/response and trusted_run_hashes from the saved run. Store its independent background JSON under private/. No predictor schema/model modification or refit is needed. Old model JSON alone is insufficient.",
+      "affected_methods": [
+        "prediction.binary.random_forest",
+        "prediction.binary.hist_gradient_boosting"
+      ],
+      "required_regression": [
+        "original training artifacts and expected hashes match",
+        "model_fit-only background; calibration/holdout/external excluded",
+        "background hash and model binding preserved at explain",
+        "training source/partition IDs never in public records"
+      ]
+    },
+    {
+      "target": "shared explanation-scale/result projection and capability display",
+      "reason": "Preserve RF probability / HGB log-odds base scales and sigmoid-calibrated log-odds output. Do not label these calibrated probability contributions or grouped Shapley. Legacy prediction explain remains PDP/permutation and must not be relabeled SHAP; route the new methods explicitly. Public figures are aggregate; individual figures stay local private.",
+      "affected_methods": [
+        "explanation.binary.random_forest.tree_shap",
+        "explanation.binary.hist_gradient_boosting.tree_shap"
+      ],
+      "required_regression": [
+        "four model/calibration combinations with exhaustive reference",
+        "affine calibration and probability reconstruction",
+        "categorical column aggregation label",
+        "readable public/private figures"
+      ]
+    },
+    {
+      "target": "P1 source hash update for nonlinear facade only",
+      "reason": "Authorized NP-P1-FAILED-EVALUATION-FLOW fix changes interface.py only among handed production files. See evidence/denominator-fix/receipt.json and interface.diff. Provider version changes; rebuild synthetic fixtures with the new provider, never silently reseal older frozen models.",
+      "affected_methods": [
+        "prediction.binary.random_forest",
+        "prediction.binary.hist_gradient_boosting"
+      ],
+      "required_regression": [
+        "zero event/all event/all missing outcome refusal counts",
+        "six existing nonlinear facade regressions"
+      ]
+    }
+  ],
+  "evidence": [
+    "tree_shap\\evidence\\validation-20261024T041537237795Z\\receipt.json",
+    "evidence\\denominator-fix\\regression-20261024T041630763338Z\\receipt.json",
+    "evidence/denominator-fix/receipt.json",
+    "tree_shap/install-report.json",
+    "tree_shap\\evidence\\validation-20261024T041537237795Z\\native-compatibility.json",
+    "tree_shap\\evidence\\validation-20261024T041537237795Z\\official-precision-failure.json"
+  ]
+}

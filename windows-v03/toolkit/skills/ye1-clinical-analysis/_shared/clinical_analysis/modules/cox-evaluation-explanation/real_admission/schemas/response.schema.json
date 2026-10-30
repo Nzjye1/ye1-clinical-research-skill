@@ -1,0 +1,2140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private module response envelope; registered record/diagnostic schemas ALSO REQUIRED",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "api_version",
+    "ok",
+    "reason_code",
+    "diagnostics",
+    "public_record",
+    "private_record"
+  ],
+  "properties": {
+    "api_version": {
+      "const": "clinical-module-response@1.0"
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "reason_code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$",
+          "maxLength": 160
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "diagnostics": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "module_id": {
+          "const": "cox_evaluation_explanation"
+        },
+        "stage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_model_refitted": {
+          "const": false
+        },
+        "preprocessing_fitted": {
+          "const": false
+        },
+        "background_rows_used": {
+          "const": false
+        },
+        "outcomes_used": {
+          "type": "boolean"
+        },
+        "runtime_verified": {
+          "type": "boolean"
+        },
+        "common_bindings": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "input_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "plan_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "code_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "runtime_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "model_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "input_sha256",
+                "plan_sha256",
+                "code_sha256",
+                "runtime_sha256",
+                "model_sha256"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rows_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload_plan_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numerical_code_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runtime_binding_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "record_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numerical_owners": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "maxItems": 10
+        }
+      },
+      "required": [
+        "module_id",
+        "stage",
+        "risk_model_refitted",
+        "preprocessing_fitted",
+        "background_rows_used",
+        "outcomes_used",
+        "runtime_verified",
+        "common_bindings",
+        "rows_sha256",
+        "payload_plan_sha256",
+        "numerical_code_sha256",
+        "runtime_binding_sha256",
+        "record_sha256",
+        "numerical_owners"
+      ],
+      "additionalProperties": false
+    },
+    "public_record": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "cox-evaluation-explanation-public@1.1"
+        },
+        "method_id": {
+          "enum": [
+            "evaluation.survival.cox.penalized.ipcw",
+            "interpretation.survival.cox.penalized.interventional"
+          ]
+        },
+        "operation": {
+          "enum": [
+            "evaluate",
+            "fit_explainer",
+            "explain"
+          ]
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "model_method_id": {
+          "enum": [
+            "prediction.survival.cox.lasso",
+            "prediction.survival.cox.elasticnet"
+          ]
+        },
+        "model_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "explainer_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "n_application": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "training_summary": {
+          "type": "object",
+          "properties": {
+            "n": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "events": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "censored": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "horizon_max": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "n",
+            "events",
+            "censored",
+            "horizon_max"
+          ],
+          "additionalProperties": false
+        },
+        "semantics": {
+          "type": "object",
+          "properties": {
+            "time_unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "time_zero_definition": {
+              "type": "string",
+              "minLength": 1
+            },
+            "event_definition": {
+              "type": "string",
+              "minLength": 1
+            },
+            "censoring_definition": {
+              "type": "string",
+              "minLength": 1
+            },
+            "event_code": {
+              "type": "number"
+            },
+            "censor_code": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "time_unit",
+            "time_zero_definition",
+            "event_definition",
+            "censoring_definition",
+            "event_code",
+            "censor_code"
+          ],
+          "additionalProperties": false
+        },
+        "evaluation": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "method_id": {
+                  "const": "evaluation.survival.cox.ipcw"
+                },
+                "operation": {
+                  "const": "evaluate"
+                },
+                "model_sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "frozen_model_provider_version": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "population": {
+                  "type": "object",
+                  "properties": {
+                    "n_input": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "n_evaluable": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "n_dropped_missing": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "n_events": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "n_censored": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "n_horizons": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "n_input",
+                    "n_evaluable",
+                    "n_dropped_missing",
+                    "n_events",
+                    "n_censored",
+                    "n_horizons"
+                  ],
+                  "additionalProperties": false
+                },
+                "options": {
+                  "type": "object",
+                  "properties": {
+                    "estimator": {
+                      "const": "marginal_reverse_km_ipcw"
+                    },
+                    "censoring_source": {
+                      "const": "evaluation_cohort"
+                    },
+                    "censoring_assumption": {
+                      "const": "independent_of_event_time_and_model_features"
+                    },
+                    "tie_order": {
+                      "const": "events_before_censoring"
+                    },
+                    "min_censoring_survival": {
+                      "type": "number",
+                      "minimum": 0.05,
+                      "maximum": 0.05
+                    },
+                    "max_ipcw_weight": {
+                      "type": "number",
+                      "minimum": 20,
+                      "maximum": 20
+                    },
+                    "positivity_policy": {
+                      "const": "reject_no_clipping"
+                    },
+                    "roc_thresholds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 51
+                    },
+                    "calibration": {
+                      "type": "object",
+                      "properties": {
+                        "method": {
+                          "const": "ipcw_hajek_fixed_bins"
+                        },
+                        "probability_edges": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 2,
+                          "maxItems": 11
+                        },
+                        "min_bin_n": {
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 500
+                        }
+                      },
+                      "required": [
+                        "method",
+                        "probability_edges",
+                        "min_bin_n"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "dca_thresholds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 1,
+                      "maxItems": 51
+                    },
+                    "uncertainty": {
+                      "const": "not_implemented"
+                    },
+                    "prespecified": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "estimator",
+                    "censoring_source",
+                    "censoring_assumption",
+                    "tie_order",
+                    "min_censoring_survival",
+                    "max_ipcw_weight",
+                    "positivity_policy",
+                    "roc_thresholds",
+                    "calibration",
+                    "dca_thresholds",
+                    "uncertainty",
+                    "prespecified"
+                  ],
+                  "additionalProperties": false
+                },
+                "censoring_metadata": {
+                  "type": "object",
+                  "properties": {
+                    "estimator": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "source": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "assumption": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "assumption_verified": {
+                      "const": false
+                    },
+                    "tie_order": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "time_unit": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "full_grid_location": {
+                      "const": "private"
+                    },
+                    "weight_clipping": {
+                      "const": false
+                    },
+                    "uncertainty": {
+                      "const": "not_implemented"
+                    }
+                  },
+                  "required": [
+                    "estimator",
+                    "source",
+                    "assumption",
+                    "assumption_verified",
+                    "tie_order",
+                    "time_unit",
+                    "full_grid_location",
+                    "weight_clipping",
+                    "uncertainty"
+                  ],
+                  "additionalProperties": false
+                },
+                "status": {
+                  "enum": [
+                    "completed",
+                    "partial",
+                    "unavailable"
+                  ]
+                },
+                "reason_codes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 0,
+                  "maxItems": 10000
+                },
+                "horizon_results": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "horizon": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "enum": [
+                          "completed",
+                          "partial",
+                          "unavailable"
+                        ]
+                      },
+                      "reason_codes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 0,
+                        "maxItems": 10000
+                      },
+                      "counts": {
+                        "type": "object",
+                        "properties": {
+                          "n": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_cases": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_controls": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_censored_by_horizon": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_at_risk_before_horizon": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_events_at_horizon": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_censored_at_horizon": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_case_control_score_ties": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "n",
+                          "n_cases",
+                          "n_controls",
+                          "n_censored_by_horizon",
+                          "n_at_risk_before_horizon",
+                          "n_events_at_horizon",
+                          "n_censored_at_horizon",
+                          "n_case_control_score_ties"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "weights": {
+                        "type": "object",
+                        "properties": {
+                          "g_at_horizon": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "min_g_for_cases": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sum_case_weights": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sum_control_weights": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sum_weights": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "max_weight": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "ess": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "case_ess": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "control_ess": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "g_at_horizon",
+                          "min_g_for_cases",
+                          "sum_case_weights",
+                          "sum_control_weights",
+                          "sum_weights",
+                          "max_weight",
+                          "ess",
+                          "case_ess",
+                          "control_ess"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "diagnostics": {
+                        "type": "object",
+                        "properties": {
+                          "weight_mass_minus_n": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "km_event_probability": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "weighted_case_probability": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "km_identity_difference": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "weight_mass_identity_ok": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "km_identity_ok": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "weight_mass_minus_n",
+                          "km_event_probability",
+                          "weighted_case_probability",
+                          "km_identity_difference",
+                          "weight_mass_identity_ok",
+                          "km_identity_ok"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "metrics": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "metric": {
+                              "enum": [
+                                "auc",
+                                "brier"
+                              ]
+                            },
+                            "status": {
+                              "enum": [
+                                "completed",
+                                "partial",
+                                "unavailable"
+                              ]
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "numerator": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "denominator": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "numerator_definition": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "denominator_definition": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "reason": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "uncertainty": {
+                              "const": "not_implemented"
+                            }
+                          },
+                          "required": [
+                            "metric",
+                            "status",
+                            "value",
+                            "numerator",
+                            "denominator",
+                            "numerator_definition",
+                            "denominator_definition",
+                            "reason",
+                            "uncertainty"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 2,
+                        "maxItems": 2
+                      },
+                      "roc": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "threshold": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "boundary": {
+                              "enum": [
+                                "above_all",
+                                "fixed_grid"
+                              ]
+                            },
+                            "status": {
+                              "enum": [
+                                "completed",
+                                "partial",
+                                "unavailable"
+                              ]
+                            },
+                            "reason": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "n_treated": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "tp_weight": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fp_weight": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "sensitivity": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "false_positive_rate": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "specificity": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "threshold",
+                            "boundary",
+                            "status",
+                            "reason",
+                            "n_treated",
+                            "tp_weight",
+                            "fp_weight",
+                            "sensitivity",
+                            "false_positive_rate",
+                            "specificity"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 3,
+                        "maxItems": 52
+                      },
+                      "calibration": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "bin_index": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n_cases": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n_controls": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n_censored_by_horizon": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "lower": {
+                              "type": "number"
+                            },
+                            "upper": {
+                              "type": "number"
+                            },
+                            "predicted_risk_sum": {
+                              "type": "number"
+                            },
+                            "mean_predicted_risk": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "sum_case_weights": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "sum_control_weights": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "sum_weights": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "ess": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "observed_risk": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "right_inclusive": {
+                              "type": "boolean"
+                            },
+                            "status": {
+                              "enum": [
+                                "completed",
+                                "partial",
+                                "unavailable"
+                              ]
+                            },
+                            "reason": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "uncertainty": {
+                              "const": "not_implemented"
+                            }
+                          },
+                          "required": [
+                            "bin_index",
+                            "n",
+                            "n_cases",
+                            "n_controls",
+                            "n_censored_by_horizon",
+                            "lower",
+                            "upper",
+                            "predicted_risk_sum",
+                            "mean_predicted_risk",
+                            "sum_case_weights",
+                            "sum_control_weights",
+                            "sum_weights",
+                            "ess",
+                            "observed_risk",
+                            "right_inclusive",
+                            "status",
+                            "reason",
+                            "uncertainty"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "maxItems": 10
+                      },
+                      "dca": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "n_treated": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n_treated_cases": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n_treated_controls": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "n_treated_censored_by_horizon": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "population_denominator": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "threshold": {
+                              "type": "number"
+                            },
+                            "threshold_odds": {
+                              "type": "number"
+                            },
+                            "tp_weight": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "fp_weight": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "treated_weight_sum": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "treated_ess": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "numerator_model": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "numerator_all": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "net_benefit_model": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "net_benefit_all": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "net_benefit_none": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "status": {
+                              "enum": [
+                                "completed",
+                                "partial",
+                                "unavailable"
+                              ]
+                            },
+                            "reason": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "uncertainty": {
+                              "const": "not_implemented"
+                            }
+                          },
+                          "required": [
+                            "n_treated",
+                            "n_treated_cases",
+                            "n_treated_controls",
+                            "n_treated_censored_by_horizon",
+                            "population_denominator",
+                            "threshold",
+                            "threshold_odds",
+                            "tp_weight",
+                            "fp_weight",
+                            "treated_weight_sum",
+                            "treated_ess",
+                            "numerator_model",
+                            "numerator_all",
+                            "net_benefit_model",
+                            "net_benefit_all",
+                            "net_benefit_none",
+                            "status",
+                            "reason",
+                            "uncertainty"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "maxItems": 51
+                      }
+                    },
+                    "required": [
+                      "horizon",
+                      "status",
+                      "reason_codes",
+                      "counts",
+                      "weights",
+                      "diagnostics",
+                      "metrics",
+                      "roc",
+                      "calibration",
+                      "dca"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 8
+                }
+              },
+              "required": [
+                "method_id",
+                "operation",
+                "model_sha256",
+                "frozen_model_provider_version",
+                "population",
+                "options",
+                "censoring_metadata",
+                "status",
+                "reason_codes",
+                "horizon_results"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "explanation": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "definition": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "const": "exact_affine_grouped_interventional_shap"
+                    },
+                    "background": {
+                      "const": "frozen_training_centering_first_moments"
+                    },
+                    "encoded_expectation": {
+                      "const": "analytic_zero_after_training_centering"
+                    },
+                    "coalition_unit": {
+                      "const": "original_feature"
+                    },
+                    "missing_policy": {
+                      "const": "frozen_training_median_mode"
+                    },
+                    "score_scale": {
+                      "const": "centered_log_relative_hazard"
+                    },
+                    "score_unit": {
+                      "const": "1"
+                    },
+                    "conditional": {
+                      "const": false
+                    },
+                    "probability_scale": {
+                      "const": false
+                    },
+                    "causal": {
+                      "const": false
+                    }
+                  },
+                  "required": [
+                    "method",
+                    "background",
+                    "encoded_expectation",
+                    "coalition_unit",
+                    "missing_policy",
+                    "score_scale",
+                    "score_unit",
+                    "conditional",
+                    "probability_scale",
+                    "causal"
+                  ],
+                  "additionalProperties": false
+                },
+                "base_value": {
+                  "type": "number"
+                },
+                "global_importance": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "feature": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "type": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "n": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "sum_abs_shap": {
+                        "type": "number"
+                      },
+                      "mean_abs_shap": {
+                        "type": "number"
+                      },
+                      "mean_shap": {
+                        "type": "number"
+                      },
+                      "min_shap": {
+                        "type": "number"
+                      },
+                      "max_shap": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "feature",
+                      "type",
+                      "n",
+                      "sum_abs_shap",
+                      "mean_abs_shap",
+                      "mean_shap",
+                      "min_shap",
+                      "max_shap"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 0,
+                  "maxItems": 12
+                },
+                "nomogram": {
+                  "type": "object",
+                  "properties": {
+                    "domain_policy": {
+                      "const": "prespecified_display_domains"
+                    },
+                    "training_feature_range_support": {
+                      "const": "unknown"
+                    },
+                    "constant_on_display_domain": {
+                      "type": "boolean"
+                    },
+                    "score_at_zero": {
+                      "type": "number"
+                    },
+                    "score_per_point": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "points_denominator": {
+                      "type": "number"
+                    },
+                    "max_total_points": {
+                      "type": "number"
+                    },
+                    "domains": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "feature": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "enum": [
+                              "number",
+                              "category"
+                            ]
+                          },
+                          "unit": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minimum": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "maximum": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "levels": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "minItems": 0,
+                            "maxItems": 60
+                          },
+                          "prespecified": {
+                            "const": true
+                          },
+                          "source_note": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "impute_value": {
+                            "type": [
+                              "number",
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "n_encoded_columns": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "score_min": {
+                            "type": "number"
+                          },
+                          "score_max": {
+                            "type": "number"
+                          },
+                          "score_range": {
+                            "type": "number",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "feature",
+                          "type",
+                          "unit",
+                          "minimum",
+                          "maximum",
+                          "levels",
+                          "prespecified",
+                          "source_note",
+                          "impute_value",
+                          "n_encoded_columns",
+                          "score_min",
+                          "score_max",
+                          "score_range"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 12
+                    },
+                    "axes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "feature": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "unit": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "input_kind": {
+                            "enum": [
+                              "value",
+                              "missing"
+                            ]
+                          },
+                          "value": {
+                            "type": [
+                              "number",
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "resolved_value": {
+                            "type": [
+                              "number",
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "score_contribution": {
+                            "type": "number"
+                          },
+                          "points": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "feature",
+                          "type",
+                          "unit",
+                          "input_kind",
+                          "value",
+                          "resolved_value",
+                          "score_contribution",
+                          "points"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 800
+                    },
+                    "total_axis": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "total_points": {
+                            "type": "number"
+                          },
+                          "score": {
+                            "type": "number"
+                          },
+                          "horizon": {
+                            "type": "number"
+                          },
+                          "survival_probability": {
+                            "type": "number"
+                          },
+                          "event_risk": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "total_points",
+                          "score",
+                          "horizon",
+                          "survival_probability",
+                          "event_risk"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 40
+                    }
+                  },
+                  "required": [
+                    "domain_policy",
+                    "training_feature_range_support",
+                    "constant_on_display_domain",
+                    "score_at_zero",
+                    "score_per_point",
+                    "points_denominator",
+                    "max_total_points",
+                    "domains",
+                    "axes",
+                    "total_axis"
+                  ],
+                  "additionalProperties": false
+                },
+                "checks": {
+                  "type": "object",
+                  "properties": {
+                    "atol": {
+                      "type": "number"
+                    },
+                    "rtol": {
+                      "type": "number"
+                    },
+                    "max_additivity_error": {
+                      "type": "number"
+                    },
+                    "max_score_backcheck_error": {
+                      "type": "number"
+                    },
+                    "max_risk_backcheck_error": {
+                      "type": "number"
+                    },
+                    "n_application_checked": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "passed": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "atol",
+                    "rtol",
+                    "max_additivity_error",
+                    "max_score_backcheck_error",
+                    "max_risk_backcheck_error",
+                    "n_application_checked",
+                    "passed"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "definition",
+                "base_value",
+                "global_importance",
+                "nomogram",
+                "checks"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        },
+        "scientific_review": {
+          "const": "pending"
+        },
+        "export_status": {
+          "const": "local_only"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "maxItems": 10000
+        },
+        "data_origin": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "task_purpose": {
+          "enum": [
+            "engineering_test",
+            "research_analysis"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_id",
+        "operation",
+        "status",
+        "model_method_id",
+        "model_sha256",
+        "explainer_sha256",
+        "n_application",
+        "training_summary",
+        "semantics",
+        "evaluation",
+        "explanation",
+        "test_only",
+        "scientific_review",
+        "export_status",
+        "limitations",
+        "data_origin",
+        "task_purpose"
+      ],
+      "additionalProperties": false
+    },
+    "private_record": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "model_json": {
+              "type": "string",
+              "minLength": 1
+            },
+            "explainer_json": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "predictions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "subject_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "horizon": {
+                    "type": "number"
+                  },
+                  "linear_predictor": {
+                    "type": "number"
+                  },
+                  "centered_linear_predictor": {
+                    "type": "number"
+                  },
+                  "survival_probability": {
+                    "type": "number"
+                  },
+                  "event_risk": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "subject_id",
+                  "horizon",
+                  "linear_predictor",
+                  "centered_linear_predictor",
+                  "survival_probability",
+                  "event_risk"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 160000
+            },
+            "encoded": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "subject_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "values": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 60
+                  }
+                },
+                "required": [
+                  "subject_id",
+                  "values"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 20000
+            },
+            "contributions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "subject_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "feature": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "phi": {
+                    "type": "number"
+                  },
+                  "base_value": {
+                    "type": "number"
+                  },
+                  "score": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "subject_id",
+                  "feature",
+                  "phi",
+                  "base_value",
+                  "score"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 240000
+            },
+            "nomogram_rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "subject_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "feature": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "score_contribution": {
+                    "type": "number"
+                  },
+                  "points": {
+                    "type": "number"
+                  },
+                  "total_points": {
+                    "type": "number"
+                  },
+                  "reconstructed_score": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "subject_id",
+                  "feature",
+                  "score_contribution",
+                  "points",
+                  "total_points",
+                  "reconstructed_score"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 240000
+            },
+            "evaluation": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "censoring_grid": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "number"
+                          },
+                          "n_risk": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_events": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "n_censored": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "censor_risk": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "g_before": {
+                            "type": "number"
+                          },
+                          "g_after": {
+                            "type": "number"
+                          },
+                          "km_before": {
+                            "type": "number"
+                          },
+                          "km_after": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "n_risk",
+                          "n_events",
+                          "n_censored",
+                          "censor_risk",
+                          "g_before",
+                          "g_after",
+                          "km_before",
+                          "km_after"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 20000
+                    },
+                    "individual_ipcw": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "subject_id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "horizon": {
+                            "type": "number"
+                          },
+                          "observed_time": {
+                            "type": "number"
+                          },
+                          "event": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "classification": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "event_risk": {
+                            "type": "number"
+                          },
+                          "g_denominator": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "case_weight": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "control_weight": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "weight": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "horizon_status": {
+                            "enum": [
+                              "completed",
+                              "partial",
+                              "unavailable"
+                            ]
+                          },
+                          "horizon_reason_codes": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "minItems": 0,
+                            "maxItems": 10000
+                          }
+                        },
+                        "required": [
+                          "subject_id",
+                          "horizon",
+                          "observed_time",
+                          "event",
+                          "classification",
+                          "event_risk",
+                          "g_denominator",
+                          "case_weight",
+                          "control_weight",
+                          "weight",
+                          "horizon_status",
+                          "horizon_reason_codes"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 160000
+                    }
+                  },
+                  "required": [
+                    "censoring_grid",
+                    "individual_ipcw"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "model_json",
+            "explainer_json",
+            "predictions",
+            "encoded",
+            "contributions",
+            "nomogram_rows",
+            "evaluation"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ok": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason_code": {
+            "type": "null"
+          },
+          "public_record": {
+            "type": "object"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "reason_code": {
+            "type": "string"
+          },
+          "public_record": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "frozen_model_json": {
+      "type": "string"
+    },
+    "individual": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "row_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "prediction": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "partition": {
+            "enum": [
+              "model_fit",
+              "calibration",
+              "holdout",
+              "evaluate",
+              "infer"
+            ]
+          }
+        },
+        "required": [
+          "row_index",
+          "prediction",
+          "partition"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "frozen_model_json",
+    "individual"
+  ],
+  "additionalProperties": false
+}

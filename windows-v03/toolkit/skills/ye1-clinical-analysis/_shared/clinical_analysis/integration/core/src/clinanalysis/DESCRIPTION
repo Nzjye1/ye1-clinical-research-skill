@@ -1,0 +1,38 @@
+Package: clinanalysis
+Type: Package
+Title: Contract-Driven Clinical Statistical Analysis
+Version: 0.0.1.9002
+Authors@R: person("Local", "Researcher", role = c("aut", "cre"), email = "local@example.invalid")
+Description: A local, contract-driven engine for reproducible clinical
+    statistical analysis, diagnostics, tables, figures, and machine-readable
+    result bundles. It has standing read-only access to locally stored public
+    research data, while formal execution remains frozen-task, registered-data,
+    checksum, and one-shot-authorization gated. Candidate-bound materialization
+    is supported; this is not a general phenotype platform.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.4.0)
+Imports:
+    brglm2,
+    digest,
+    geepack,
+    ggplot2,
+    jsonlite,
+    lme4,
+    MASS,
+    mice,
+    nnet,
+    parallel,
+    patchwork,
+    ragg,
+    scales,
+    sandwich,
+    splines,
+    survival,
+    yaml
+Suggests:
+    arrow,
+    quarto,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

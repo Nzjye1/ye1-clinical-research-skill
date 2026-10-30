@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/formal-task-v2-plugin-dispatch-acceptance-receipt.schema.json",
+  "title": "CVCC FORMAL task V2 plugin dispatch repair acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "candidate_id",
+    "trigger",
+    "contracts",
+    "implementation",
+    "synthetic_acceptance",
+    "verification",
+    "execution_boundaries",
+    "privacy",
+    "residual_risks",
+    "completed_at",
+    "next_responsible_actor"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {
+      "const": "RECEIPT.CVCC-PRED-ISO-001.FORMAL-TASK-V2-PLUGIN-DISPATCH-REPAIR.V1"
+    },
+    "status": {
+      "const": "FORMAL_TASK_V2_PLUGIN_DISPATCH_REPAIRED_SYNTHETICALLY_ACCEPTED_NOT_EXECUTION_AUTHORIZED"
+    },
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_commit",
+        "v4_receipt_id",
+        "v4_receipt_sha256",
+        "v4_terminal_status",
+        "v4_retried"
+      ],
+      "properties": {
+        "control_commit": {"const": "5ee8a8a"},
+        "v4_receipt_id": {
+          "const": "RECEIPT.CVCC-PRED-ISO-001.FORMAL-EXECUTION.V4"
+        },
+        "v4_receipt_sha256": {
+          "const": "06a9568bc6b8466a432c2e4a86bcfab4cfb5f17b699d4532e387ffef09ecb937"
+        },
+        "v4_terminal_status": {
+          "const": "FAILED_PRE_MODEL_NO_RETRY_V4_AUTHORIZATION_CONSUMED"
+        },
+        "v4_retried": {"const": false}
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "legacy_task",
+        "task_v2",
+        "result_v2",
+        "manifest",
+        "startup_request",
+        "startup_diagnostic",
+        "contract_versions_changed"
+      ],
+      "properties": {
+        "legacy_task": {
+          "const": "formal-temporal-fine-gray-task@1.0.0"
+        },
+        "task_v2": {
+          "const": "formal-temporal-fine-gray-task@2.0.0"
+        },
+        "result_v2": {
+          "const": "formal-temporal-fine-gray-result@2.0.0"
+        },
+        "manifest": {
+          "const": "formal-temporal-fine-gray-output-manifest@1.1.0"
+        },
+        "startup_request": {
+          "const": "formal-runner-startup-request@1.0.0"
+        },
+        "startup_diagnostic": {
+          "const": "formal-runner-startup-diagnostic@1.0.0"
+        },
+        "contract_versions_changed": {"const": false}
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_entry",
+        "registered_plugin",
+        "task_v1_route",
+        "task_v2_route",
+        "pilot_route",
+        "unknown_route",
+        "startup_real_dispatch_mapping_required"
+      ],
+      "properties": {
+        "public_entry": {"const": "run_analysis_task"},
+        "registered_plugin": {
+          "const": "temporal_fine_gray_prediction"
+        },
+        "task_v1_route": {"const": "OBSERVED_FORMAL"},
+        "task_v2_route": {"const": "OBSERVED_FORMAL_V4"},
+        "pilot_route": {"const": "LEGACY_PILOT_ONLY"},
+        "unknown_route": {"const": "FAIL_CLOSED"},
+        "startup_real_dispatch_mapping_required": {"const": true}
+      }
+    },
+    "synthetic_acceptance": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {"$ref": "#/$defs/acceptanceCase"}
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "r_dispatch_and_startup_expectations",
+        "r_full_tests",
+        "python_full_tests",
+        "capability_consistency",
+        "bounded_startup_smoke",
+        "r_cmd_check"
+      ],
+      "properties": {
+        "r_dispatch_and_startup_expectations": {
+          "const": "108 passed"
+        },
+        "r_full_tests": {
+          "const": "712 passed, 0 failed, 2 private-fixture skips"
+        },
+        "python_full_tests": {
+          "const": "84 passed, 0 failed, 0 skipped"
+        },
+        "capability_consistency": {"const": "PASS"},
+        "bounded_startup_smoke": {"const": "PASS"},
+        "r_cmd_check": {
+          "const": "0 errors, 0 warnings, 1 existing non-portable-path NOTE"
+        }
+      }
+    },
+    "execution_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_read",
+        "other_patient_data_read",
+        "formal_authorization_created_or_consumed",
+        "v4_retried",
+        "formal_runner_called",
+        "fine_gray_called",
+        "imputation_called",
+        "bootstrap_called",
+        "dca_called",
+        "sensitivity_called"
+      ],
+      "properties": {
+        "v2_read": {"const": false},
+        "other_patient_data_read": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "v4_retried": {"const": false},
+        "formal_runner_called": {"const": false},
+        "fine_gray_called": {"const": false},
+        "imputation_called": {"const": false},
+        "bootstrap_called": {"const": false},
+        "dca_called": {"const": false},
+        "sensitivity_called": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "patient_level_payload",
+        "physical_paths_present",
+        "raw_errors_present"
+      ],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false},
+        "raw_errors_present": {"const": false}
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "Synthetic dispatch acceptance does not establish successful FORMAL statistical execution."
+        },
+        {
+          "const": "Existing project dependencies remain required and are never installed by the runner."
+        },
+        {
+          "const": "Any future FORMAL attempt requires a new independent human one-shot authorization."
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "completed_at": {
+      "const": "2026-07-23T18:34:35+0800"
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE"}
+  },
+  "$defs": {
+    "acceptanceCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "status"],
+      "properties": {
+        "case_id": {
+          "enum": [
+            "PUBLIC_TASK_V2_FORMAL_TO_V4_ONCE",
+            "TASK_V1_FORMAL_PRESERVED",
+            "ORDINARY_PILOT_PRESERVED",
+            "UNKNOWN_VERSION_REJECTED",
+            "MISSING_AUTH_REJECTED",
+            "AUTH_SCOPE_DRIFT_REJECTED",
+            "CHECKSUM_DRIFT_REJECTED",
+            "FORMAL_PILOT_CONFUSION_REJECTED",
+            "PHYSICAL_PATH_REJECTED",
+            "PATIENT_PAYLOAD_REJECTED",
+            "STARTUP_REAL_DISPATCH_MAPPING_PASS",
+            "STARTUP_WRONG_DISPATCH_FAIL_CLOSED"
+          ]
+        },
+        "status": {"const": "PASS"}
+      }
+    }
+  }
+}

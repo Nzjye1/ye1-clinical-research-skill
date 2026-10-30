@@ -1,0 +1,157 @@
+{
+  "schema_version": "clinical-module-integration@1.0",
+  "module_id": "mediation_matching",
+  "owner": "mediation_matching delegated module owner; exclusive module directory",
+  "language": "R",
+  "entrypoint": {
+    "path": "R/module_api.R",
+    "function": "analyze"
+  },
+  "projection_entrypoint": {
+    "path": "R/module_api.R",
+    "function": "project"
+  },
+  "provider_files": [
+    "R/provider.R",
+    "R/module_api.R",
+    "R/adapter.R"
+  ],
+  "dependencies": [
+    {
+      "name": "R",
+      "version": "4.6.1",
+      "role": "runtime"
+    },
+    {
+      "name": "stats",
+      "version": "4.6.1",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "survival",
+      "version": "3.8.6",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "jsonlite",
+      "version": "2.0.0",
+      "role": "runtime"
+    },
+    {
+      "name": "digest",
+      "version": "0.6.39",
+      "role": "runtime"
+    },
+    {
+      "name": "frozen clinanalysis psm_v07.R",
+      "version": "sha256:ad78577603355f69d7f6717294e739ae95bf88d629bcd83d30fe7423c1187c31",
+      "role": "numerical_owner"
+    },
+    {
+      "name": "Python",
+      "version": "3.12.15",
+      "role": "validation_reference"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4",
+      "role": "validation_reference"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "role": "validation_reference"
+    },
+    {
+      "name": "statsmodels",
+      "version": "0.14.6",
+      "role": "validation_reference"
+    }
+  ],
+  "methods": [
+    {
+      "method_id": "mediation.linear.binary_exposure",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "analyze"
+      ],
+      "numerical_owner": "R/provider.R::mm_med_analyze; stats::lm.fit is the only regression provider",
+      "schemas": {
+        "payload": "contracts/payload.schema.json",
+        "diagnostics": "contracts/diagnostics.schema.json",
+        "public_record": "contracts/public_record.schema.json",
+        "private_record": "contracts/private_record.schema.json"
+      }
+    },
+    {
+      "method_id": "causal.psm.att.binary",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "analyze"
+      ],
+      "numerical_owner": "Frozen psm_v07.R for matching; R/provider.R::mm_binary_effects for paired inference; stats::binom.test for exact interval/test",
+      "schemas": {
+        "payload": "contracts/payload.schema.json",
+        "diagnostics": "contracts/diagnostics.schema.json",
+        "public_record": "contracts/public_record.schema.json",
+        "private_record": "contracts/private_record.schema.json"
+      }
+    },
+    {
+      "method_id": "causal.psm.matched.survival",
+      "method_version": "1.0.0-module",
+      "operations": [
+        "analyze"
+      ],
+      "numerical_owner": "Frozen psm_v07.R for matching; R/provider.R::mm_cox_effect delegates only to survival::coxph",
+      "schemas": {
+        "payload": "contracts/payload.schema.json",
+        "diagnostics": "contracts/diagnostics.schema.json",
+        "public_record": "contracts/public_record.schema.json",
+        "private_record": "contracts/private_record.schema.json"
+      }
+    }
+  ],
+  "shared_change_requests": [
+    {
+      "target": "common registry/dispatcher and normalized input/output schema",
+      "reason": "Register these three schema-bound methods and thin analyze/project adapters; final result IDs and source/version binding remain common-entrypoint-owned.",
+      "affected_methods": [
+        "mediation.linear.binary_exposure",
+        "causal.psm.att.binary",
+        "causal.psm.matched.survival"
+      ],
+      "required_regression": [
+        "new methods reject unknown fields/missing schemas and wrong operation",
+        "partial valid results retain metric-specific missingness",
+        "public export excludes serialized private_record",
+        "typed variable/time/identity/weight normalization"
+      ]
+    },
+    {
+      "target": "runtime and source lock",
+      "reason": "Bind the frozen matching owner without copying or modifying it; preserve existing continuous PSM branch and installed R package pins. Minimum new dependency installation: none.",
+      "affected_methods": [
+        "causal.psm.att.continuous",
+        "causal.psm.att.binary",
+        "causal.psm.matched.survival"
+      ],
+      "required_regression": [
+        "frozen continuous PSM numerical suite",
+        "old schema/acceptance/rejection behavior unchanged",
+        "Cox right-censoring, risk-set and cluster-variance checks"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/latest.json",
+    "evidence/acceptance_20261024T034546/receipt.json",
+    "evidence/acceptance_20261024T034546/r-unit.json",
+    "evidence/acceptance_20261024T034546/api-unit.json",
+    "evidence/visual-review.json",
+    "evidence/module-completion.json",
+    "SCOPE.md",
+    "METHODS.md",
+    "integration-request.md"
+  ]
+}

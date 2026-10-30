@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/cvcc-v7-primary-fit-repair-acceptance-receipt.schema.json",
+  "title": "CVCC V7 primary-fit repair acceptance receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "receipt_id", "status", "candidate_id",
+    "authority", "diagnosis", "repair", "frozen_semantics",
+    "verification", "execution_boundary", "next_responsible_actor",
+    "next_required_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cvcc-v7-primary-fit-repair-acceptance-receipt@1.0.0"
+    },
+    "receipt_id": {
+      "const": "RECEIPT.CVCC-PRED-ISO-001.V7-PRIMARY-FIT-REPAIR.V1"
+    },
+    "status": {
+      "const": "V7_PRIMARY_FIT_ROOT_CAUSE_CONFIRMED_SYNTHETICALLY_REPAIRED_NOT_EXECUTION_AUTHORIZED"
+    },
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "diagnosis": {"$ref": "#/$defs/diagnosis"},
+    "repair": {"$ref": "#/$defs/repair"},
+    "frozen_semantics": {"$ref": "#/$defs/frozenSemantics"},
+    "verification": {"$ref": "#/$defs/verification"},
+    "execution_boundary": {"$ref": "#/$defs/executionBoundary"},
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE"},
+    "next_required_action": {
+      "const": "REGISTER_REPAIR_AND_DECIDE_SEPARATE_FUTURE_ONE_SHOT_FORMAL_ATTEMPT"
+    }
+  },
+  "$defs": {
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "analysis_head_before", "control_failure_ingest_commit",
+        "v7_terminal_receipt_id", "v7_terminal_receipt_sha256",
+        "v7_failure_diagnostic_sha256", "dataset_id", "dataset_sha256"
+      ],
+      "properties": {
+        "analysis_head_before": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "control_failure_ingest_commit": {"const": "29e9069"},
+        "v7_terminal_receipt_id": {"const": "RECEIPT.CVCC-PRED-ISO-001.FORMAL-EXECUTION.V7"},
+        "v7_terminal_receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "v7_failure_diagnostic_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "dataset_id": {"const": "DATASET.CVCC-PRED-ISO-001.ANALYSIS-READY.V2"},
+        "dataset_sha256": {"const": "d9d79eb2f9521b6e1c909c533f09ffe6a94514ebfc1600a4d948b5849a676801"}
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_read_scope", "dataset_sha256_verified_before",
+        "dataset_sha256_verified_after", "development_n",
+        "development_event_n", "development_competing_event_n",
+        "development_censor_n", "primary_design_columns",
+        "primary_design_nonfinite_n", "structural_constant_column_n",
+        "structural_constant_columns", "baseline_design_columns",
+        "baseline_structural_constant_column_n",
+        "minimum_failing_operation", "synthetic_reproduction"
+      ],
+      "properties": {
+        "v2_read_scope": {"const": "BOUNDED_AGGREGATE_NON_MODEL_PREFIT_ONLY"},
+        "dataset_sha256_verified_before": {"const": true},
+        "dataset_sha256_verified_after": {"const": true},
+        "development_n": {"const": 3655},
+        "development_event_n": {"const": 408},
+        "development_competing_event_n": {"const": 2588},
+        "development_censor_n": {"const": 659},
+        "primary_design_columns": {"const": 25},
+        "primary_design_nonfinite_n": {"const": 0},
+        "structural_constant_column_n": {"const": 2},
+        "structural_constant_columns": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "dementia_history"},
+            {"const": "alcohol_use_history"}
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "baseline_design_columns": {"const": 3},
+        "baseline_structural_constant_column_n": {"const": 0},
+        "minimum_failing_operation": {"const": "PRIMARY_WEIGHTED_COX_FINITE_COEFFICIENT_CHECK_AFTER_STRUCTURAL_CONSTANT_NA"},
+        "synthetic_reproduction": {"const": true}
+      }
+    },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy", "predictors_retained", "parameter_slots_retained",
+        "structural_constant_coefficient",
+        "structural_constant_covariance_rows_and_columns",
+        "nonstructural_singularity_policy", "diagnostic_contract",
+        "safe_operation_code_n", "sap_change_required",
+        "task_change_required", "dataset_change_required"
+      ],
+      "properties": {
+        "policy": {"const": "RETAIN_FROZEN_STRUCTURAL_CONSTANT_COLUMNS_AND_CONSTRAIN_ZERO_CONTRIBUTION"},
+        "predictors_retained": {"const": 24},
+        "parameter_slots_retained": {"const": 25},
+        "structural_constant_coefficient": {"const": 0},
+        "structural_constant_covariance_rows_and_columns": {"const": 0},
+        "nonstructural_singularity_policy": {"const": "FAIL_CLOSED"},
+        "diagnostic_contract": {"const": "formal-temporal-fine-gray-failure-diagnostic@1.3.0"},
+        "safe_operation_code_n": {"const": 6},
+        "sap_change_required": {"const": false},
+        "task_change_required": {"const": false},
+        "dataset_change_required": {"const": false}
+      }
+    },
+    "frozenSemantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "estimand_changed", "landmark_or_horizon_changed",
+        "model_type_changed", "predictor_deleted",
+        "logistic_substitution", "imputation_m",
+        "imputation_iterations", "internal_bootstrap_replicates",
+        "validation_bootstrap_replicates", "seeds_changed",
+        "validation_refit", "validation_recalibration"
+      ],
+      "properties": {
+        "estimand_changed": {"const": false},
+        "landmark_or_horizon_changed": {"const": false},
+        "model_type_changed": {"const": false},
+        "predictor_deleted": {"const": false},
+        "logistic_substitution": {"const": false},
+        "imputation_m": {"const": 40},
+        "imputation_iterations": {"const": 20},
+        "internal_bootstrap_replicates": {"const": 1000},
+        "validation_bootstrap_replicates": {"const": 2000},
+        "seeds_changed": {"const": false},
+        "validation_refit": {"const": false},
+        "validation_recalibration": {"const": false}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "targeted_expectations_passed", "r_tests",
+        "r_expectations_passed", "r_failed", "r_warnings",
+        "r_skipped", "python_tests_passed",
+        "capability_consistency", "bounded_startup_checks_passed",
+        "r_cmd_check_errors", "r_cmd_check_warnings",
+        "r_cmd_check_existing_notes"
+      ],
+      "properties": {
+        "targeted_expectations_passed": {"type": "integer", "minimum": 1},
+        "r_tests": {"type": "integer", "minimum": 1},
+        "r_expectations_passed": {"type": "integer", "minimum": 1},
+        "r_failed": {"const": 0},
+        "r_warnings": {"const": 0},
+        "r_skipped": {"const": 0},
+        "python_tests_passed": {"const": 84},
+        "capability_consistency": {"const": "PASS"},
+        "bounded_startup_checks_passed": {"const": 6},
+        "r_cmd_check_errors": {"const": 0},
+        "r_cmd_check_warnings": {"const": 0},
+        "r_cmd_check_existing_notes": {"const": 1}
+      }
+    },
+    "executionBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v7_retried", "authorization_created_or_consumed",
+        "attempt_marker_written", "production_formal_entry_called",
+        "v2_model_fit_called", "v2_imputation_called",
+        "synthetic_fine_gray_fit_called", "real_bootstrap_called",
+        "dca_called", "sensitivity_called", "patient_data_rows_output",
+        "external_transfer", "aggregate_only", "patient_level_payload",
+        "physical_paths_present"
+      ],
+      "properties": {
+        "v7_retried": {"const": false},
+        "authorization_created_or_consumed": {"const": false},
+        "attempt_marker_written": {"const": false},
+        "production_formal_entry_called": {"const": false},
+        "v2_model_fit_called": {"const": false},
+        "v2_imputation_called": {"const": false},
+        "synthetic_fine_gray_fit_called": {"const": true},
+        "real_bootstrap_called": {"const": false},
+        "dca_called": {"const": false},
+        "sensitivity_called": {"const": false},
+        "patient_data_rows_output": {"const": 0},
+        "external_transfer": {"const": false},
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false}
+      }
+    }
+  }
+}

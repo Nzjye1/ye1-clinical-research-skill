@@ -1,0 +1,367 @@
+schema_version: "2.0.0"
+document:
+  title: "临床统计分析功能清单"
+  scope: "MAINLINE-RESEARCH-V2：可常态只读访问本地公开研究数据；用户确认分析后直接执行冻结的 01_research_plan、统计 QC、表图和独立结果审核，并生成唯一的 02_analysis_result，不要求患者级数据打包或额外执行门禁。V1 仅只读兼容。"
+  generated_file: "ANALYSIS_CAPABILITIES.md"
+  update_command: "Rscript scripts/update-capabilities.R"
+  check_command: "Rscript scripts/update-capabilities.R --check"
+
+common_outputs:
+  - "统一结构化 result.json"
+  - "Table 1、绝对 SMD 与统一 effect_estimates.csv（任务启用时）"
+  - "模型诊断、敏感性分析状态和 diagnostic index"
+  - "由同一结果对象生成的 CSV、HTML 技术报告和发表级图形"
+  - "统计 QC、独立审核、文件校验值和统一 02_analysis_result manifest"
+
+global_constraints:
+  - "本地公开研究数据读取为常态只读权限，不要求任务、候选、逐次确认或预先登记；该权限不构成模型执行授权。"
+  - "正式统计量只由确定性 R 代码产生。"
+  - "插件只执行任务契约明确指定且已经注册的方法。"
+  - "不按显著性选择模型、变量、亚组、阈值或敏感性分析。"
+  - "统计失败显式返回 BLOCKED 或 FAILED，不静默换模。"
+  - "患者级数据只在本地使用，不写入 outputs/、Git、跨模块载荷或回执，也不发送给外部服务。"
+  - "所有本地公开研究源数据和既有派生物始终只读；新临时患者级派生物只能写入 work/**，不得覆盖既有文件。"
+  - "冻结研究方案和来源版本/checksum用于复现；不要求另行复制或打包患者级数据。"
+  - "用户 ANALYSIS_CONFIRMED 后，物化如有必要只是同一分析任务的内部派生步骤，不形成额外用户门禁或跨模块数据包。"
+
+integration_contracts:
+  - id: "local_public_research_data_read_access"
+    status: "AVAILABLE_STANDING_READ_ONLY"
+    accepts: "any locally stored public research dataset; no task, candidate, per-access confirmation, or prior registration required"
+    produces: "in-process inspection only, or new temporary derivative confined to Git-ignored work/**"
+    scope: "常态只读访问本地公开研究数据，包括原始表、患者级行、字典/元数据、全表和既有派生物。"
+    constraints:
+      - "源数据和既有派生物禁止 WRITE、OVERWRITE、DELETE 或 RENAME。"
+      - "新临时患者级派生物只能创建在本模块 work/**，不得覆盖既有文件。"
+      - "患者级数据和物理路径不得进入 Git、跨模块任务载荷、回执或外部传输。"
+      - "常态读取权限不得被解释为 PILOT 或 FORMAL 模型执行授权。"
+  - id: "candidate_bound_analysis_ready_materialization"
+    status: "LEGACY_NOT_A_MAINLINE_PACKAGE_OR_GATE"
+    accepts: "frozen candidate task + registered source binding; local source reading uses standing read-only permission"
+    produces: "仅在确有必要时产生 Git-ignored work/** 内部临时派生物；跨模块只输出聚合结果"
+    scope: "不是 MAINLINE-RESEARCH-V2 的数据包或人工门禁；默认直接只读使用研究方案指定的来源。"
+    constraints:
+      - "冻结 task/SAP 必须给出全部字段的精确语义、值集、聚合和时间窗；分析模块不得猜测别名、诊断码、药物或设备映射。"
+      - "源数据与既有 snapshot 只读；新患者级派生物必须使用新 dataset_id 和 SHA-256、本地 Git-ignored 保存。"
+      - "共享登记请求、schema/profile、完整性和任务回执仅含聚合信息，不得包含物理路径、患者标识或行级负载。"
+      - "内部派生完整性在分析任务内验证，不向用户新增物化或 FORMAL 子门禁。"
+      - "定义、值集或 source lineage 不足时在患者级文件写出前 fail-closed，不得创建可注册 dataset 或伪造 checksum。"
+      - "同一冻结时间点出现不同有效值时必须存在冻结 tie rule；不得以最大值、最小值、文件顺序或源行 ID 静默裁决。"
+      - "CVCC V3 sodium amendment 固定先取 0–12h 最大 valid charttime，再取不晚于 landmark 的最大 non-null storetime；残余不同值置缺失并标记 SODIUM_SEMANTIC_CONFLICT，无合格 storetime 置缺失并标记 SODIUM_NO_LANDMARK_AVAILABLE_RESULT；禁止按 value、outcome、priority、specimen、labevent_id、文件或行顺序选择。"
+      - "CVCC V2 物化合同允许且仅允许 UTA_ONLY/OTHER_UNOBSERVED 的 outcome-observation time 为 0；OBSERVED 必须位于 (0,84]。"
+      - "冻结映射要求的全缺失 predictor 可通过字段物化合同，但必须以 DEVELOPMENT_PREDICTOR_ALL_MISSING 阻断模型 readiness；不得删变量或使用未授权 fallback。"
+  - id: "formal_temporal_fine_gray_execution"
+    status: "LEGACY_INTERFACE_NOT_ACTIVE_FOR_NEW_V2_PROJECTS"
+    accepts: "legacy formal-temporal-fine-gray-task@1.0.0 and CVCC task V4 formal-temporal-fine-gray-task@2.0.0"
+    produces: "success: legacy formal-temporal-fine-gray-result@1.1.0 or CVCC task V4 formal-temporal-fine-gray-result@2.0.0 + formal-temporal-fine-gray-output-manifest@1.1.0; failure: formal-temporal-fine-gray-failure-diagnostic@1.3.0 (immutable 1.0.0/1.1.0/1.2.0 evidence remains validation-compatible)"
+    scope: "保留 CVCC-PRED-ISO-001 历史时间外 Fine-Gray 合同与证据兼容；不是新 MAINLINE-RESEARCH-V2 项目的执行入口。"
+    constraints:
+      - "execution_mode=FORMAL 必须同时绑定 frozen SAP ID/checksum、注册数据 ID/checksum 和独立人工 FORMAL execution authorization reference。"
+      - "数据物化和 FORMAL 执行分别需要明确授权；物化回执或 SYNTHETIC_TEST 均不得被解释为 FORMAL execution authorization。"
+      - "合同拒绝物理路径、患者级负载、未知字段、方法替换、语义/checksum 漂移、额外模型和敏感性扩张。"
+      - "legacy V1 仅允许冻结 27-df 主模型；task V4 仅允许 SAP V3 冻结的 24 predictors/25 df 主模型，ami_type 可保留为 V2 数据额外列但不得进入插补、设计矩阵、拟合、验证、敏感性或结果 metadata；两者均仅允许年龄-性别 Fine-Gray 基线。"
+      - "所有输出聚合、path-free，并绑定同一 structured-result SHA-256。"
+      - "结果与 bundle manifest 在写出前必须通过已注册的 legacy 1.1.0 或 task V4 2.0.0 运行时合同；所有嵌套对象/数组 item 均 fail-closed，输出和敏感性 ID 固定。"
+      - "失败诊断仅允许版本化阶段码、错误码、安全消息和聚合 bootstrap 计数；不得包含原始异常、路径、患者/记录标识、行级值或调用栈。"
+      - "chained-equation 插补的内部 follow-up 辅助特征使用对零右删失安全的 log1p；该内部辅助变换不改变冻结 predictor transformation、estimand、时间窗、m 或 development-only 学习/validation transport 边界。"
+      - "development 中零方差的插补辅助列确定性移除，因为其不携带学习信息；其他秩亏、非有限系数或预测仍 fail-closed。"
+      - "插补目标在 development 已观测部分仅有一个水平时，不拟合不可识别回归；将该唯一 development 观测常量确定性运输至 development/validation 缺失位置，且不访问 validation 结局。"
+      - "插补残余非有限 follow-up、特征矩阵、按变量类型区分的 fit/prediction 或完成态错误分别以 failure-diagnostic@1.2.0 的 allowlisted 安全码 fail-closed；不得恢复为通用原始异常或静默替换非有限系数。"
+      - "冻结 Fine-Gray 设计中的结构常量预测列继续保留在 24 predictors/25 parameter slots 中，并确定性约束 coefficient=0、协方差行列=0；只有这些零信息列允许该约束，任何非结构性奇异、展开、weighted Cox、方差或预测失败均以 failure-diagnostic@1.3.0 安全子步骤码 fail-closed。"
+      - "公共 run_analysis_task 与注册 temporal_fine_gray_prediction 入口对 task@1.0.0 和 task@2.0.0 均只分派到 observed FORMAL 实现；普通 0.1.0 PILOT 保持独立，未知版本或 FORMAL/PILOT 混淆 fail-closed。"
+      - "任何患者数据读取或 attempt marker 之前，必须通过有界 FORMAL runner startup preflight；项目依赖环境、namespace、插件、task@2.0.0 和 result/manifest/failure 合同注册缺一即 fail-closed。"
+      - "startup preflight 使用项目既有 renv 环境且不安装依赖；Python 编排强制 timeout，禁止未激活项目库的 --vanilla 启动和无界 renv lock 等待。"
+  - id: "formal_runner_startup_preflight"
+    status: "LEGACY_PREFLIGHT_NOT_ACTIVE_FOR_NEW_V2_PROJECTS"
+    accepts: "formal-runner-startup-request@1.0.0; exact synthetic-only startup probe with no paths or patient payload"
+    produces: "formal-runner-startup-diagnostic@1.0.0"
+    scope: "在任何患者数据读取、attempt marker 或 FORMAL runner 调用之前，有界验证项目 renv、分析 namespace、注册插件、task@2.0.0 及 result/manifest/failure contracts。"
+    constraints:
+      - "启动命令不得使用未激活项目库的 --vanilla 或 --no-init-file；项目 renv sandbox 锁等待由外层 60 秒内 timeout fail-closed。"
+      - "plugin 检查必须以严格合成 task@2.0.0 和注入的无模型 runner sentinel 调用真实注册入口，且只能命中 FORMAL sentinel 一次、PILOT 零次；只检查插件函数存在不足以通过。"
+      - "失败只返回 allowlisted stage、error code、safe message 和 PASS/FAIL/NOT_RUN 检查状态；不得转发 stderr、conditionMessage、路径、患者标识、行值或调用栈。"
+      - "startup PASS 不是 FORMAL 执行授权，不创建或消费 authorization，不读取 V2/MIMIC，不调用 Fine-Gray、插补、bootstrap、DCA 或 sensitivity。"
+  - id: "topic_module_pilot_handoff"
+    status: "LEGACY_NOT_IN_MAINLINE_RESEARCH_V2"
+    accepts: "pilot_request@1"
+    produces: "pilot_receipt@1"
+    scope: "仅接受经人工授权、冻结设计和注册数据源逻辑 ID 的最小验证请求。"
+    constraints:
+      - "仅接受 execution_mode=PILOT；不接受 FORMAL。"
+      - "registered_dataset 必须为 dataset_tag=SYNTHETIC_TEST。"
+      - "合同不携带数据路径或患者级负载；本模块不会据此自动访问数据。"
+      - "PILOT 回执仅返回 pilot_receipt@1 且 aggregate_only=true。"
+      - "PILOT 不生成正式表图，也不得造成结果驱动的设计修改。"
+      - "真实执行需要后续独立的本地适配器、冻结计划和人工确认。"
+  - id: "local_model_runnability_pilot"
+    status: "LEGACY_NOT_IN_MAINLINE_RESEARCH_V2"
+    accepts: "task-local injected dataset resolution and candidate-bound pilot execution authorization"
+    produces: "model_runnability_receipt@1"
+    scope: "仅执行单次、候选绑定、只读、本地 MODEL_TECHNICAL_RUNNABILITY PILOT。"
+    constraints:
+      - "共享合同和回执不得携带物理数据路径或患者级负载。"
+      - "读取本地公开研究数据不需要逐次授权；执行该 MODEL_TECHNICAL_RUNNABILITY PILOT 仍需明确的模型执行授权，且不从 pilot_request@1 推断。"
+      - "最多一个预设透明 Fine-Gray 基线模型；不运行调整模型、敏感性分析、模型选择或超参数搜索。"
+      - "结局未观察者不得重编码为无事件；仅返回聚合技术诊断。"
+      - "不生成正式推断、论文结论或候选继续/停止裁决。"
+
+not_supported:
+  - "非标准 Excel 清洗、未冻结或通用目的的 MIMIC 表型构建，以及自行发明诊断/药物/设备值集"
+  - "自动变量选择、模型选择或阈值优化"
+  - "propensity matching"
+  - "exact Firth logistic"
+  - "recurrent-event model 或 joint model"
+  - "latent class trajectory 或 phenotype clustering"
+  - "高维 ML、SHAP 或自动模型开发"
+  - "causal forest、mediation 或 dynamic treatment strategy"
+
+capabilities:
+  - id: "modified_poisson"
+    name: "Modified Poisson 风险回归"
+    category: "回归与风险估计"
+    status: "AVAILABLE"
+    source: "R/plugin_modified_poisson.R"
+    required_task_fields: ["outcome", "exposure"]
+    variants:
+      - "Modified Poisson"
+      - "异方差稳健方差"
+      - "按患者或其他预设 cluster_id 聚类的稳健方差"
+    outputs:
+      - "风险比及置信区间"
+      - "预设暴露值的边际标准化风险"
+      - "剂量—风险图"
+    diagnostics:
+      - "收敛状态、方差方法和分析样本量"
+    sensitivities:
+      - "由任务契约预设的替代暴露变换或协变量方案"
+    constraints:
+      - "不得根据结果自动改变暴露变换或调整集。"
+
+  - id: "cause_specific_cox"
+    name: "原因别 Cox 与竞争风险"
+    category: "生存与竞争风险"
+    status: "AVAILABLE"
+    source: "R/plugin_cause_specific_cox.R"
+    required_task_fields: ["time", "event", "competing_event", "exposure"]
+    variants:
+      - "原因别 Cox"
+      - "Aalen–Johansen 累积发生率"
+      - "完整病例或 mice 多重插补与 Rubin 合并"
+    outputs:
+      - "主要事件和竞争事件的原因别风险比"
+      - "竞争风险累积发生率"
+      - "竞争风险图"
+    diagnostics:
+      - "比例风险诊断"
+      - "多重插补诊断"
+      - "预设 spline 规格"
+      - "多状态分析适用性门控"
+    sensitivities:
+      - "完整病例与预设多重插补方案"
+    constraints:
+      - "事件编码、时间零点和 estimand 必须由冻结 SAP 确定。"
+
+  - id: "generic_regression"
+    name: "通用回归"
+    category: "回归与风险估计"
+    status: "AVAILABLE"
+    source: "R/plugin_generic_regression.R"
+    required_task_fields: ["outcome", "outcome_type", "model_family", "exposure"]
+    variants:
+      - "linear"
+      - "logistic"
+      - "Poisson"
+      - "negative binomial"
+      - "ordinal logistic"
+      - "显式请求的 bias-reduced logistic"
+    outputs:
+      - "crude 与 adjusted estimates"
+      - "边际预测"
+      - "二水平二分类暴露的边际标准化风险差与风险比"
+      - "效应量图"
+    diagnostics:
+      - "收敛状态、方差方法和缺失数据处理记录"
+    sensitivities:
+      - "完整病例或预设 mice 多重插补与 Rubin 合并"
+      - "预设 interaction、multiplicity 和 spline"
+    constraints:
+      - "Logistic separation 不触发静默换模；bias-reduced estimator 必须在任务中明确指定。"
+
+  - id: "categorical_logistic_g_computation"
+    name: "分类暴露 Logistic G-computation 绝对风险"
+    category: "回归与风险估计"
+    status: "AVAILABLE_AFTER_ANALYSIS_CONFIRMED"
+    source: "R/plugin_categorical_logistic_gcomp.R"
+    required_task_fields: ["MAINLINE-RESEARCH-V2 01_research_plan manifest", "ANALYSIS_CONFIRMED", "analysis.record_id", "analysis.outcome", "analysis.exposure", "analysis.exposure_levels", "analysis.reference", "analysis.covariates", "analysis.sensitivity_source_field", "analysis.first_event", "analysis.first_event_tie_priority", "analysis.sensitivity_ids", "analysis.expected_output_ids"]
+    variants:
+      - "来源特异观察风险与 Wilson 95% 区间"
+      - "HC0 Logistic 与全完整病例行边际标准化绝对风险"
+      - "固定 2000 次成对多元正态系数抽样风险差"
+      - "恰好两个预注册的完整 refit 敏感性分析"
+      - "来源别首次事件构成与 Wilson 95% 区间"
+    outputs:
+      - "cohort、unadjusted、adjusted、first-event、credibility 和 diagnostics 六个版本化聚合合同"
+      - "写出前完整验证的 categorical-gcomp-result-bundle@1.0.0"
+      - "空来源显式 NOT_ESTIMABLE_EMPTY_SOURCE；失败仅返回 allowlisted、path-free、identifier-free diagnostic"
+    diagnostics:
+      - "完整病例样本量、模型参数数、收敛、有限性、HC0 covariance 合法性"
+      - "观察与空来源水平、requested/effective R seed、paired contrast 证明"
+      - "1.1.0 按分析特异人群核对 primary、S1、S2 样本量；S1 缺失只在 primary eligible rows 中排除并计数"
+      - "未知值集、缺失参考、非收敛、非有限估计/预测、非法 covariance 与合同漂移 fail-closed"
+    sensitivities:
+      - "S1_RECENT_PRIOR_TRANSFER_1H：在 primary eligible rows 中排除 transfer_source_1h 缺失后，以同一人群做配对标准化完整 refit；不插补、不映射缺失类别"
+      - "S2_EXCLUDE_OTHER_ICU：仅从 primary complete-case rows 排除 OTHER_ICU 后完整 refit，不要求 transfer_source_1h；原始空来源时 NON_INFORMATIVE_EMPTY_SOURCE"
+    constraints:
+      - "任务合同、任务 Schema、六个输出 Schema、bundle Schema 和 failure Schema 均为严格 additionalProperties=false 或运行时等价检查。"
+      - "来源水平、参考组、公式、HC0、抽样次数、seed、区间、敏感性和输出 ID 均由任务冻结；不得用 odds ratio 或其他方法替代绝对风险。"
+      - "categorical-transfer-gcomp-task@1.0.0 继续注册；1.1.0 要求主 exposure 非缺失且属于冻结域，允许 S1 exposure 缺失但非缺失未知值在任何模型入口前 fail-closed。"
+      - "SYNTHETIC_TEST 不读取真实数据；正式运行必须绑定冻结 01_research_plan 和本研究的 ANALYSIS_CONFIRMED，不再创建物化/FORMAL 子授权。"
+      - "统计结果和失败诊断仅含聚合、逻辑 ID 与 checksum，不含患者标识、原始行、物理路径、traceback 或自由异常文本。"
+
+  - id: "survival_analysis"
+    name: "通用生存分析"
+    category: "生存与竞争风险"
+    status: "AVAILABLE"
+    source: "R/plugin_survival_analysis.R"
+    required_task_fields: ["time", "event", "exposure", "survival_engine"]
+    variants:
+      - "Kaplan–Meier 与 number-at-risk"
+      - "standard Cox（支持 strata、cluster 和 spline）"
+      - "Fine–Gray"
+      - "RMST bootstrap contrasts"
+    outputs:
+      - "生存曲线或累积发生率"
+      - "风险比或 RMST 差异"
+      - "risk table 和效应量表"
+    diagnostics:
+      - "Cox 比例风险诊断"
+      - "模型公式、收敛状态和 bootstrap 记录"
+    sensitivities:
+      - "由任务预设的 engine、tau、strata、cluster 或 spline 方案"
+    constraints:
+      - "Fine–Gray 要求互斥事件；RMST 要求正数 tau 且恰好两个暴露组。"
+
+  - id: "longitudinal_model"
+    name: "纵向重复测量模型"
+    category: "纵向分析"
+    status: "AVAILABLE"
+    source: "R/plugin_longitudinal.R"
+    required_task_fields: ["outcome", "outcome_type", "subject_id", "repeated_time", "exposure", "longitudinal_engine"]
+    variants:
+      - "GEE"
+      - "LMM"
+      - "GLMM"
+      - "预设 time-by-group interaction"
+    outputs:
+      - "模型系数与置信区间"
+      - "模型估计轨迹及图形"
+    diagnostics:
+      - "相关结构、方差方法、收敛与 singular fit 状态"
+    sensitivities:
+      - "由任务预设的 correlation 和 random slope 方案"
+    constraints:
+      - "分析单位、重复时间和相关结构不得由结果反推。"
+
+  - id: "causal_comparison"
+    name: "倾向评分加权与 AIPW"
+    category: "因果比较"
+    status: "AVAILABLE"
+    source: "R/plugin_causal_comparison.R"
+    required_task_fields: ["outcome", "outcome_type", "exposure", "estimand", "propensity_covariates"]
+    variants:
+      - "ATE、ATT、ATO propensity weighting"
+      - "显式请求的 ATE-AIPW"
+      - "预设权重截断"
+    outputs:
+      - "加权或 AIPW 效应估计"
+      - "协变量平衡表与 Love plot"
+    diagnostics:
+      - "positivity、权重分布、ESS 和加权前后 SMD"
+    sensitivities:
+      - "由任务预设的 estimand、stabilization 和 truncation quantiles"
+    constraints:
+      - "AIPW 当前只支持 ATE；ATT/ATO 使用显式 weighting。"
+
+  - id: "prediction_validation"
+    name: "预测模型验证"
+    category: "预测验证"
+    status: "AVAILABLE"
+    source: "R/plugin_prediction_validation.R"
+    required_task_fields: ["outcome", "prediction", "validation_type", "prediction_origin"]
+    variants:
+      - "binary validation"
+      - "survival validation"
+      - "预设 subgroup performance"
+    outputs:
+      - "AUC 或 C-index"
+      - "calibration 与 Brier score"
+      - "适用时的 decision curve 和 subgroup performance"
+    diagnostics:
+      - "验证来源、样本量、事件数和 readiness"
+    sensitivities:
+      - "由任务预设的 horizon、calibration bins、thresholds 和 subgroup"
+    constraints:
+      - "只接受 external、internal_holdout 或 out_of_fold predictions；不接受 apparent development performance。"
+
+  - id: "temporal_logistic_prediction"
+    name: "时间外 Logistic 预测验证"
+    category: "预测验证"
+    status: "AVAILABLE"
+    source: "R/plugin_temporal_logistic_prediction.R"
+    required_task_fields: ["outcome", "split", "development_value", "validation_value", "baseline_predictors", "covariates", "variance_estimator", "bootstrap_replicates", "bootstrap_scope", "bootstrap_interval", "calibration_intercept_method"]
+    variants:
+      - "固定 development/validation 时间切分"
+      - "baseline 与 minimal adjusted Logistic 模型"
+      - "validation-only fixed-model percentile bootstrap"
+    outputs:
+      - "AUC、calibration intercept/slope 和 Brier score"
+      - "ROC 图、性能表和 aggregate influence summary"
+    diagnostics:
+      - "开发/验证样本与事件门控"
+      - "Cook distance、leverage 和预设 QC 变量汇总"
+      - "仅从 development cohort 学习的中位数插补值"
+    sensitivities:
+      - "最多两个预设、重新拟合的结局或 eligibility sensitivity"
+      - "预设 timing component 分析"
+    constraints:
+      - "方差、bootstrap 范围和校准方法均由契约冻结；当前不启用 decision curve。"
+
+  - id: "temporal_fine_gray_prediction"
+    name: "时间外 Fine-Gray 预测开发与验证"
+    category: "预测验证"
+    status: "AVAILABLE_FORMAL_EXECUTION_GATED"
+    source: "R/plugin_temporal_fine_gray_prediction.R"
+    required_task_fields: ["binding.candidate_id", "binding.sap_id", "binding.sap_sha256", "binding.formal_authorization (FORMAL only)", "data.dataset_id", "data.sha256", "analysis.execution_mode", "analysis.time", "analysis.event", "analysis.competing_event", "analysis.outcome_observed", "analysis.last_observation_time", "analysis.observation_state", "analysis.split", "analysis.landmark_hours", "analysis.horizon_hours", "analysis.model_plan", "analysis.imputation", "analysis.internal_validation", "analysis.temporal_validation", "analysis.calibration_gate", "analysis.sensitivity_ids", "analysis.expected_output_ids"]
+    variants:
+      - "保留原有单模型 MODEL_TECHNICAL_RUNNABILITY PILOT"
+      - "兼容 legacy 27-df 规格；当前 task V4 冻结为 24 predictors/25 df 临床 Fine-Gray 主模型与唯一年龄-性别基线"
+      - "40 次 development-fitted chained-equation imputation 与 pooled fixed-horizon prediction"
+      - "1000 次 development full-pipeline bootstrap、统一 shrinkage 与 development-only baseline-hazard 重估"
+      - "held-out anchor-era 固定模型验证与 2000 次 validation-only patient bootstrap"
+    outputs:
+      - "84h competing-risk time-dependent AUC、IPCW/Scaled Brier、O/E、calibration-in-the-large、slope、flexible curve、ICI 与 decile error"
+      - "四条件 calibration gate；通过时才生成 competing-risk DCA"
+      - "三个主表、四个无条件主图、一个条件 DCA 图和 allowlisted supplements"
+      - "单一 checksum-bound、aggregate-only、path-free structured result"
+      - "失败时仅返回 formal-temporal-fine-gray-failure-diagnostic@1.3.0（既有 1.0.0/1.1.0/1.2.0 终态证据继续可验证），不生成可接受 result、manifest 或 bundle"
+    diagnostics:
+      - "互斥事件、patient-isolated split、last-known-observation censoring 与 UTA/其他未观察计数对账"
+      - "development-only imputation 学习、验证结局零访问、pooled coefficients/predictions 和收敛诊断"
+      - "零 follow-up 使用 log1p 构造内部插补辅助特征；单水平 development 插补目标使用确定性常量运输；残余 follow-up/feature/fit/prediction/completion 问题返回 1.2.0 allowlisted 安全子阶段码"
+      - "冻结结构常量 Fine-Gray 列确定性约束为零贡献且保留全部参数槽；非结构性奇异、Fine-Gray 展开、weighted Cox、方差和预测问题返回 1.3.0 allowlisted 安全子阶段码"
+      - "bootstrap requested/completed/failures/seeds、optimism、shrinkage 和固定模型 CI"
+      - "validation refit=false、recalibration=false 与 clinical-utility claim gate"
+      - "DATA_SEMANTICS、IMPUTATION、PRIMARY_FIT、INTERNAL_BOOTSTRAP、VALIDATION_BOOTSTRAP、SENSITIVITY、RESULT_VALIDATION 阶段检查点与 allowlisted 安全错误码"
+      - "正式模型前必需列、类型、值域、缺失性、类别运输、变换有限性、分区/隔离和事件门槛检查"
+    sensitivities:
+      - "SENS.CVCC-PRED-ISO-001.COMPLETE-OBSERVATION.V1（exploratory）"
+      - "SENS.CVCC-PRED-ISO-001.ASSESSMENT-IPCW.V1（development-fitted stabilized weights，冻结 1/99 百分位截断，exploratory）"
+    constraints:
+      - "FORMAL 仅支持 legacy formal-temporal-fine-gray-task@1.0.0 或 CVCC task V4 formal-temporal-fine-gray-task@2.0.0，且同时存在对应 frozen SAP checksum 与独立人工 FORMAL execution authorization。"
+      - "公共入口和注册插件必须把两个 FORMAL task 版本分派到 observed FORMAL runner；0.1.0 PILOT、未知版本与 FORMAL/PILOT 混淆不得进入该 runner。"
+      - "官方 JSON/YAML loader 对 Schema 等价的 numeric integer/double 与一层 array list/vector 表示做类型稳健、值和顺序严格的运行时比较；未知字段、嵌套数组、语义或 checksum 漂移继续 fail-closed。"
+      - "能力实现状态不构成当前 FORMAL execution authorization；SYNTHETIC_TEST 不得携带或推断正式授权。"
+      - "禁止自动变量选择、额外模型、交互、调参、变换变化、验证集重拟合/再校准和 logistic 替代。"
+      - "outcome-unobserved 必须在 last-known observation time 右删失，UTA/其他未观察不得编码为 84h 无事件。"
+      - "仅两个冻结 exploratory sensitivity；不得替换、重写或 rescue 主结果。"
+      - "bootstrap 失败只保留 requested/completed/failed 计数与首个 allowlisted 错误码；未经清洗的 conditionMessage 不得落盘。"

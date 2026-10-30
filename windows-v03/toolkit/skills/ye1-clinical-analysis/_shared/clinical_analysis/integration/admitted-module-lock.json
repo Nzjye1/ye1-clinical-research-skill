@@ -1,0 +1,323 @@
+{
+  "schema_version": "clinical-admitted-module-lock@1.0",
+  "integration_files_sha256": {
+    "admitted_modules.py": "65579d17ce0eab32481f64dcb596e0f36d882107ec43accdedce2be99d75abcd",
+    "captured_study.py": "66ad024a32bdfc344631af5ec0f42e5ee933efd3cfeb5480a8a3e331eff62119",
+    "contracts/module-request.schema.json": "ca69508cdef7992324ce6b98e2e8aaad7f84ebc64efcb60a4295e6d2cc51c7b4",
+    "contracts/module-response.schema.json": "36526b2d8dc26e26763ed4324979dfbbe7f8b86d0e5bda7a3b54981db6befaed",
+    "contracts/module-task-origin.schema.json": "d49485cf3bf5d4b927958cc0eb226bbd8baba2f7b88adeb4fedc8b8558d7eceb",
+    "core/config/resource-budget-profiles.json": "6688d9dda381512a3687a8367fa39432b0224e06b1f4e6906abced983378d809",
+    "core/python/clinical_methods/association_plan_admission.py": "32bf9f11f03c643052b6f40319d96f50207731724470b2e7c175f197556cbd85",
+    "core/python/clinical_methods/contracts.py": "c0ab7a000742432dc4a76b89c43e265a035fdbb9569d7ba73703030839030a77",
+    "core/python/clinical_methods/psm_v07_admission.py": "57a713afd304fbe06df0c819733d1f2b698452aa79a5a671864e67b3cd0b7853",
+    "core/python/clinical_methods/resource_budget.py": "8fdc878ab11114e07ff0a86f41afd2ab755424c1fa0f3852cbb0ba25d7bac1bc",
+    "core/python/clinical_methods/study_input.py": "5a470355d630349d8dcf4b61fe17407e90f5cc7a63ad35fdfd901fb87c4c018c",
+    "core/src/clinanalysis/R/clinical_resource_budget.R": "3dde3dbbed5f9a36dbdc22f0bca46294aa1bcf345536bcaf385d6da43a7c95c4",
+    "module_task.py": "e6659b58827a01fecde30938c95902d12888167c862eb2809406bd5e20fef554",
+    "module_worker.py": "2c32cd5aa86c08c2314e5db3700625421dcaaee1de4e5c07d7b687a45cab80e8",
+    "origin_context.py": "8a52384a3b72e513d161456b2ba03dfdcdfd47e96cb8fd95038525b918a94c3f",
+    "training_background_admission.py": "39e75083d852d758904e27f48e009c86307b7e58cf418fd8f067962fe9570dec",
+    "runtime_registry.py": "d505f9d93cead921818fbccd99a9ac24676c3733a4c4674cb007b8fbb627b0a6"
+  },
+  "modules": {
+    "nonlinear_prediction": {
+      "module_id": "nonlinear_prediction",
+      "manifest_path": "real_admission/manifest.json",
+      "manifest_sha256": "23083275eaad3529a6816feb1c2724c880774048276261f3629dc20d238b8300",
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze"
+      },
+      "files_sha256": {
+        "real_admission/adapter.py": "27559a2e1af833decaec8c071c84ea4b4910eb6cef2d97a92d60d9cabfd824eb",
+        "real_admission/frozen-model.schema.json": "3b9e51091cf698e451a298ab92dae1f3aebb2f21c8e6ba69705109434829bf41",
+        "real_admission/manifest.json": "23083275eaad3529a6816feb1c2724c880774048276261f3629dc20d238b8300",
+        "real_admission/failure-diagnostics.schema.json": "34ce8e6a3cffe2f7801365057f818d89e752cbd0536a7c1a16fd9aca1ddb76a9"
+      },
+      "legacy_registration_sha256": "3eaf3b9499e1405f115a712c8396df20d5847e7dc1aeb8540d8749e87172dc7e",
+      "methods": {
+        "prediction.binary.hist_gradient_boosting": {
+          "operations": [
+            "train",
+            "evaluate",
+            "infer",
+            "explain"
+          ],
+          "schemas": {}
+        },
+        "prediction.binary.random_forest": {
+          "operations": [
+            "train",
+            "evaluate",
+            "infer",
+            "explain"
+          ],
+          "schemas": {}
+        }
+      }
+    },
+    "latent_longitudinal": {
+      "module_id": "latent_longitudinal",
+      "manifest_path": "real_admission/manifest.json",
+      "manifest_sha256": "68e89ccdb772879f6ef54af232ad0c3a3f78102bee7acd6986f5929c26a3a2d0",
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze"
+      },
+      "files_sha256": {
+        "real_admission/__init__.py": "42a68723a556dace639cb47b7d13e8b4e264c11d54b310c9d3d3519a009cc1e3",
+        "real_admission/adapter.py": "799fb28f737381e4a9b2246733d3ed399d7855e3d9299c868dd6822393bff544",
+        "real_admission/schemas/cluster.payload.schema.json": "b5dc18c1c777f82a7f6d61d8e4bd87a960915e64b08f1bf471610e6c79900a43",
+        "real_admission/schemas/formal.diagnostics.schema.json": "eb90fad9691303636f12b004668fbc37db67fb228ea45fc96d8f53239f55e5e6",
+        "real_admission/schemas/formal.private_record.schema.json": "00c2fb0ca7d1a5ff755ad9351b20c68838c386343805ddacbc3455770858a069",
+        "real_admission/schemas/formal.public_record.schema.json": "3f0bfe045dc5d8975cd744d57b770303f4c572626ea657cddf076d72cca4b723",
+        "real_admission/schemas/frozen.schema.json": "c042f4afda4e4c3bdf2782f03585b53473c1575b2f3c5c0454f9b3876a5fcd07",
+        "real_admission/schemas/growth.payload.schema.json": "572051502d2538c4025d5fb903b99871d002e7ab3da038953e11a2560392a519",
+        "real_admission/schemas/legacy.diagnostics.schema.json": "8bc3fe6e8ed161ec24342881e1df10d0809451d9831243c5411bfd21ba1c1198",
+        "real_admission/schemas/legacy.private_record.schema.json": "eea804eb1e5b85e4a6513dadfb2b0f23646d5267d7effd86e51432d77c3d1c36",
+        "real_admission/schemas/legacy.public_record.schema.json": "d1d1551922477f6a57efb189dcf683ce0b2c4dc883c53acacc4e262b53c4a56e",
+        "real_admission/schemas/profile.payload.schema.json": "977cfa74599333e74a6c8cc58c1b40ac5be77787e831de580183f540ffcf0862",
+        "real_admission/schemas/request.schema.json": "aa5e4f5f293588a45ae3584778a0efd951d96f0b84e2c32a321df6281866644e",
+        "real_admission/schemas/response.schema.json": "3788c7693f3e264480c9c32dd8054c565020e2f80fc64973464ec2b2f347e006",
+        "real_admission/schemas/trajectory.payload.schema.json": "c87709cf3302d21648174e7c85f90f43666a498451165ed1fd476fa3685e126e",
+        "module.py": "ab1f6e4e32a2425dc09ef9beb2579c4f3e7f542a1831ca6d2d76da00225b56a9",
+        "formal_provider.py": "942f714b70b527743232bf2327889a019f49bb9643138af58376dee1eeea8228",
+        "artifacts.py": "358508ff1164f7a70f57862c5473cb2f9966f6d44eadfeb1abd9546b49cf3e94",
+        "formal_artifacts.py": "63d72f926eae24faa1ace94d85c5ef634802e6f24eb7c1cb46cb3180f569ee81",
+        "real_admission/root-registration-fragment.json": "d68f0e4af4054859d29cc50a7070ba447f491fa3fb131c9f7a4d559e861a9fc4",
+        "real_admission/manifest.json": "68e89ccdb772879f6ef54af232ad0c3a3f78102bee7acd6986f5929c26a3a2d0"
+      },
+      "legacy_registration_sha256": "3d984601041b822504e7edad4539e801e715f3c4a2224228b2a65da1f76c11f8",
+      "methods": {
+        "exploration.cluster.kmeans": {
+          "operations": [
+            "train",
+            "assign"
+          ],
+          "schemas": {
+            "payload": "real_admission/schemas/cluster.payload.schema.json",
+            "public_record": "real_admission/schemas/legacy.public_record.schema.json",
+            "private_record": "real_admission/schemas/legacy.private_record.schema.json",
+            "diagnostics": "real_admission/schemas/legacy.diagnostics.schema.json"
+          }
+        },
+        "exploration.cluster.gmm": {
+          "operations": [
+            "train",
+            "assign"
+          ],
+          "schemas": {
+            "payload": "real_admission/schemas/cluster.payload.schema.json",
+            "public_record": "real_admission/schemas/legacy.public_record.schema.json",
+            "private_record": "real_admission/schemas/legacy.private_record.schema.json",
+            "diagnostics": "real_admission/schemas/legacy.diagnostics.schema.json"
+          }
+        },
+        "longitudinal.growth.gaussian": {
+          "operations": [
+            "train",
+            "predict"
+          ],
+          "schemas": {
+            "payload": "real_admission/schemas/growth.payload.schema.json",
+            "public_record": "real_admission/schemas/legacy.public_record.schema.json",
+            "private_record": "real_admission/schemas/legacy.private_record.schema.json",
+            "diagnostics": "real_admission/schemas/legacy.diagnostics.schema.json"
+          }
+        },
+        "latent.profile.gaussian": {
+          "operations": [
+            "train",
+            "assign"
+          ],
+          "schemas": {
+            "payload": "real_admission/schemas/profile.payload.schema.json",
+            "public_record": "real_admission/schemas/formal.public_record.schema.json",
+            "private_record": "real_admission/schemas/formal.private_record.schema.json",
+            "diagnostics": "real_admission/schemas/formal.diagnostics.schema.json"
+          }
+        },
+        "latent.trajectory.gaussian": {
+          "operations": [
+            "train",
+            "predict"
+          ],
+          "schemas": {
+            "payload": "real_admission/schemas/trajectory.payload.schema.json",
+            "public_record": "real_admission/schemas/formal.public_record.schema.json",
+            "private_record": "real_admission/schemas/formal.private_record.schema.json",
+            "diagnostics": "real_admission/schemas/formal.diagnostics.schema.json"
+          }
+        }
+      }
+    },
+    "mediation_matching": {
+      "module_id": "mediation_matching",
+      "manifest_path": "real_admission/manifest.json",
+      "manifest_sha256": "e30540ea066da1c862a138a9dc99e1bca976d76678057c12fadd72c4ba05d90f",
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze"
+      },
+      "files_sha256": {
+        "real_admission/__init__.py": "b07f9e00b019b4ff39834df058426fb4b62c48c70a2b71b8d27b0d9dae2a6a9d",
+        "real_admission/adapter.py": "db040969b692ac4815f13d5ef4caaeb7ec091b1b30285610c54a58e50d95eaff",
+        "real_admission/schema.py": "184ef127ab1e3b7b0ec5e9557f23d2f757bf5f2fffd23231558c2ad8fd834521",
+        "real_admission/worker.R": "7b771a915aa6b679ef1187e34e15a6c3ab8c206124a0c565de7df6ffefda0096",
+        "real_admission/project_worker.R": "d021400bafd1c5e57640d81f1f7a63ef8632efef33a46d62eb2154e3001225aa",
+        "real_admission/manifest.json": "e30540ea066da1c862a138a9dc99e1bca976d76678057c12fadd72c4ba05d90f",
+        "real_admission/contracts/diagnostics.schema.json": "43097696f645a15529697e4fa1030e5a2330e3f22c96694b15c249f345d015a8",
+        "real_admission/contracts/payload.schema.json": "e8dd9d427524d7ad662e85461a93130a7f52512c3eeaf8ee6c0c6de68fd883d9",
+        "real_admission/contracts/private_record.schema.json": "cceced1e9d76d55e7d3317b6f15a5f9dbed7e62e822dbc69f0bdf6a0df4f3102",
+        "real_admission/contracts/public_record.schema.json": "c2c1064007732430c7a527f9098de253fbd8809af73e1f6cf141822791fab29c",
+        "real_admission/contracts/request.schema.json": "91f193185830530fd9b76395c25474b712d58bab571aaf148c6569141368757d",
+        "real_admission/contracts/response.schema.json": "ed2f467eb98ce4907711c748b0dd346a27626815b4e1fd4d2b4c8dd5f54071c9",
+        "R/adapter.R": "1c7a7cf712533a14b8b27abb441df4b2704cbc0e749e41cc5f8b9a9e5a7bff70",
+        "real_admission/root-registration-fragment.json": "ff02ab5fbaf632c2b945d160682689a578e9d577f5dee2f88458cde5907eb307"
+      },
+      "legacy_registration_sha256": "64b0bca86d7f6c9505f6e2ec49902c5b4e635cf4c7b22aa46e54694b57cd5499",
+      "methods": {
+        "mediation.linear.binary_exposure": {
+          "operations": [
+            "analyze"
+          ],
+          "schemas": {
+            "request": "real_admission/contracts/request.schema.json",
+            "payload": "real_admission/contracts/payload.schema.json",
+            "public_record": "real_admission/contracts/public_record.schema.json",
+            "private_record": "real_admission/contracts/private_record.schema.json",
+            "diagnostics": "real_admission/contracts/diagnostics.schema.json",
+            "response": "real_admission/contracts/response.schema.json"
+          }
+        },
+        "causal.psm.att.binary": {
+          "operations": [
+            "analyze"
+          ],
+          "schemas": {
+            "request": "real_admission/contracts/request.schema.json",
+            "payload": "real_admission/contracts/payload.schema.json",
+            "public_record": "real_admission/contracts/public_record.schema.json",
+            "private_record": "real_admission/contracts/private_record.schema.json",
+            "diagnostics": "real_admission/contracts/diagnostics.schema.json",
+            "response": "real_admission/contracts/response.schema.json"
+          }
+        },
+        "causal.psm.matched.survival": {
+          "operations": [
+            "analyze"
+          ],
+          "schemas": {
+            "request": "real_admission/contracts/request.schema.json",
+            "payload": "real_admission/contracts/payload.schema.json",
+            "public_record": "real_admission/contracts/public_record.schema.json",
+            "private_record": "real_admission/contracts/private_record.schema.json",
+            "diagnostics": "real_admission/contracts/diagnostics.schema.json",
+            "response": "real_admission/contracts/response.schema.json"
+          }
+        }
+      }
+    },
+    "tree_shap": {
+      "module_id": "nonlinear_prediction",
+      "manifest_path": "real_admission/manifest.json",
+      "manifest_sha256": "23083275eaad3529a6816feb1c2724c880774048276261f3629dc20d238b8300",
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze"
+      },
+      "files_sha256": {
+        "real_admission/adapter.py": "27559a2e1af833decaec8c071c84ea4b4910eb6cef2d97a92d60d9cabfd824eb",
+        "real_admission/manifest.json": "23083275eaad3529a6816feb1c2724c880774048276261f3629dc20d238b8300",
+        "real_admission/frozen-model.schema.json": "3b9e51091cf698e451a298ab92dae1f3aebb2f21c8e6ba69705109434829bf41",
+        "real_admission/failure-diagnostics.schema.json": "34ce8e6a3cffe2f7801365057f818d89e752cbd0536a7c1a16fd9aca1ddb76a9",
+        "tree_shap/schemas/payload.schema.json": "ee288de9d275c69349239048ac429d68b3a6560a28146c4649d9d931a56eb56c",
+        "tree_shap/schemas/public-record.schema.json": "0601736299e0797c243f90cd2a69e00eec3f49a5fb634958640dbc3e0be4944d",
+        "tree_shap/schemas/private-record.schema.json": "c6fcea4476fc85da322c169355581228649b49aa2fba360d71b40757f7d9ebc2",
+        "tree_shap/schemas/diagnostics.schema.json": "8c0433368be68a52612b9ed66e9a787096771cd01d21dad2fc974543d1b0002b"
+      },
+      "legacy_registration_sha256": "9c6104714fff2ce8eca3d70bf683c02ee1f7229c931d7095cb8417360b6cbd89",
+      "methods": {
+        "explanation.binary.random_forest.tree_shap": {
+          "operations": [
+            "explain"
+          ],
+          "schemas": {
+            "payload": "tree_shap/schemas/payload.schema.json",
+            "diagnostics": "tree_shap/schemas/diagnostics.schema.json",
+            "public_record": "tree_shap/schemas/public-record.schema.json",
+            "private_record": "tree_shap/schemas/private-record.schema.json"
+          }
+        },
+        "explanation.binary.hist_gradient_boosting.tree_shap": {
+          "operations": [
+            "explain"
+          ],
+          "schemas": {
+            "payload": "tree_shap/schemas/payload.schema.json",
+            "diagnostics": "tree_shap/schemas/diagnostics.schema.json",
+            "public_record": "tree_shap/schemas/public-record.schema.json",
+            "private_record": "tree_shap/schemas/private-record.schema.json"
+          }
+        }
+      }
+    },
+    "cox_evaluation_explanation": {
+      "module_id": "cox_evaluation_explanation",
+      "manifest_path": "real_admission/manifest.json",
+      "manifest_sha256": "48f7fa65b0535f618e48e3f9bffef789dc4607386330b03276650600d09ae90a",
+      "entrypoint": {
+        "path": "real_admission/adapter.py",
+        "function": "analyze"
+      },
+      "files_sha256": {
+        "module_api.py": "f77e580cbe452db5125e277bbf7b39f3ed235742c0a23b80b52116a5bd8ed673",
+        "schema_defs.py": "e150a4d862b27e4c67733288726fe3fa5ffe3ad66ff5345603baa979be5dd8f2",
+        "adapters.py": "001df9f2fdb782c0e84b6255836de334d909c30e455706a97f2afb4f47bc19b9",
+        "R/worker.R": "3835a69f106385bbf007a3fcbcc0e09a2828103d522c791e7b01504e5f5c110d",
+        "R/provider.R": "bc983e64af3b281d1ffaae3afd6eedc5c247424630b662c7caa27aabca6a66de",
+        "R/projection.R": "b85cb1f6089f1d81348d9d6d812e00f8a243ee7edcdac1fee0074afa31e40c8b",
+        "real_admission/adapter.py": "638c79a2ecf115afbfc81cb3881eb3dc283a90215746fb6b3822e3c9cfbd7730",
+        "real_admission/manifest.json": "48f7fa65b0535f618e48e3f9bffef789dc4607386330b03276650600d09ae90a",
+        "real_admission/schemas/diagnostics.schema.json": "1aae5d49b4c006f9edea3a5dc498d3a31efebfaf82cde7244d1b35ed98428305",
+        "real_admission/schemas/explainer.schema.json": "d2806de2694fc1b05f912fc9489408701031f12e9010a69e77e0219544089431",
+        "real_admission/schemas/payload.schema.json": "15b74badb7007acd87137fb028f492d79887818473fcceb43b94ebe0f5109611",
+        "real_admission/schemas/private_record.schema.json": "7d1cb16755b6f0a56866fe759bce5c35f937a2735e0289b4d73d84c8294f6735",
+        "real_admission/schemas/public_record.schema.json": "4609a9788068e88cc2153eec8fdfc3e4178df50a8863c1d8469cbb5449f57ef2",
+        "real_admission/schemas/request.schema.json": "0fc9cb4a7a2a5ab2af7f2ffc6e3d396377b3738adc0fc13981b338f41dcba891",
+        "real_admission/schemas/response.schema.json": "ebeeb66ee3d86d9ff0714492f6b93e26f3314c843798bddfe5a41e71f7427e20",
+        "real_admission/root-registration-fragment.json": "fe0ba4c41f87cea2dbde54ec41a2062aee4f7efdff41a2bb60096d3a6ea4a708"
+      },
+      "legacy_registration_sha256": "7c97b3b5b689982f7cb6e490259da0581a92a9684d923e3e294e4accf910f698",
+      "methods": {
+        "evaluation.survival.cox.penalized.ipcw": {
+          "operations": [
+            "evaluate"
+          ],
+          "schemas": {
+            "request": "real_admission/schemas/request.schema.json",
+            "payload": "real_admission/schemas/payload.schema.json",
+            "public_record": "real_admission/schemas/public_record.schema.json",
+            "private_record": "real_admission/schemas/private_record.schema.json",
+            "diagnostics": "real_admission/schemas/diagnostics.schema.json",
+            "response": "real_admission/schemas/response.schema.json"
+          }
+        },
+        "interpretation.survival.cox.penalized.interventional": {
+          "operations": [
+            "fit_explainer",
+            "explain"
+          ],
+          "schemas": {
+            "request": "real_admission/schemas/request.schema.json",
+            "payload": "real_admission/schemas/payload.schema.json",
+            "public_record": "real_admission/schemas/public_record.schema.json",
+            "private_record": "real_admission/schemas/private_record.schema.json",
+            "diagnostics": "real_admission/schemas/diagnostics.schema.json",
+            "response": "real_admission/schemas/response.schema.json"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "frozen-cox-affine-explainer@1.0"
+    },
+    "model_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "numerical_code_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtime_binding_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "model_method_id": {
+      "enum": [
+        "prediction.survival.cox.lasso",
+        "prediction.survival.cox.elasticnet"
+      ]
+    },
+    "horizons": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "display_domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "feature": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "number",
+              "category"
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minimum": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "maximum": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 60
+          },
+          "prespecified": {
+            "const": true
+          },
+          "source_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "feature",
+          "type",
+          "unit",
+          "minimum",
+          "maximum",
+          "levels",
+          "prespecified",
+          "source_note"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 12
+    },
+    "definition": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "const": "exact_affine_grouped_interventional_shap"
+        },
+        "background": {
+          "const": "frozen_training_centering_first_moments"
+        },
+        "encoded_expectation": {
+          "const": "analytic_zero_after_training_centering"
+        },
+        "coalition_unit": {
+          "const": "original_feature"
+        },
+        "missing_policy": {
+          "const": "frozen_training_median_mode"
+        },
+        "score_scale": {
+          "const": "centered_log_relative_hazard"
+        },
+        "score_unit": {
+          "const": "1"
+        },
+        "conditional": {
+          "const": false
+        },
+        "probability_scale": {
+          "const": false
+        },
+        "causal": {
+          "const": false
+        }
+      },
+      "required": [
+        "method",
+        "background",
+        "encoded_expectation",
+        "coalition_unit",
+        "missing_policy",
+        "score_scale",
+        "score_unit",
+        "conditional",
+        "probability_scale",
+        "causal"
+      ],
+      "additionalProperties": false
+    },
+    "background": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "const": "frozen_training_centering_summary"
+        },
+        "n_training": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "encoded_means": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "type": "string",
+                "minLength": 1
+              },
+              "mean": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0
+              }
+            },
+            "required": [
+              "term",
+              "mean"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 60
+        }
+      },
+      "required": [
+        "scope",
+        "n_training",
+        "encoded_means"
+      ],
+      "additionalProperties": false
+    },
+    "derived": {
+      "type": "object",
+      "properties": {
+        "base_value": {
+          "type": "number"
+        },
+        "nomogram": {
+          "type": "object",
+          "properties": {
+            "domain_policy": {
+              "const": "prespecified_display_domains"
+            },
+            "training_feature_range_support": {
+              "const": "unknown"
+            },
+            "constant_on_display_domain": {
+              "type": "boolean"
+            },
+            "score_at_zero": {
+              "type": "number"
+            },
+            "score_per_point": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "points_denominator": {
+              "type": "number"
+            },
+            "max_total_points": {
+              "type": "number"
+            },
+            "domains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "feature": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "type": {
+                    "enum": [
+                      "number",
+                      "category"
+                    ]
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minimum": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "maximum": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "levels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 0,
+                    "maxItems": 60
+                  },
+                  "prespecified": {
+                    "const": true
+                  },
+                  "source_note": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "impute_value": {
+                    "type": [
+                      "number",
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "n_encoded_columns": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "score_min": {
+                    "type": "number"
+                  },
+                  "score_max": {
+                    "type": "number"
+                  },
+                  "score_range": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "feature",
+                  "type",
+                  "unit",
+                  "minimum",
+                  "maximum",
+                  "levels",
+                  "prespecified",
+                  "source_note",
+                  "impute_value",
+                  "n_encoded_columns",
+                  "score_min",
+                  "score_max",
+                  "score_range"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 12
+            },
+            "axes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "feature": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "input_kind": {
+                    "enum": [
+                      "value",
+                      "missing"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "number",
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "resolved_value": {
+                    "type": [
+                      "number",
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "score_contribution": {
+                    "type": "number"
+                  },
+                  "points": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "feature",
+                  "type",
+                  "unit",
+                  "input_kind",
+                  "value",
+                  "resolved_value",
+                  "score_contribution",
+                  "points"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 800
+            },
+            "total_axis": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "total_points": {
+                    "type": "number"
+                  },
+                  "score": {
+                    "type": "number"
+                  },
+                  "horizon": {
+                    "type": "number"
+                  },
+                  "survival_probability": {
+                    "type": "number"
+                  },
+                  "event_risk": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "total_points",
+                  "score",
+                  "horizon",
+                  "survival_probability",
+                  "event_risk"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 40
+            }
+          },
+          "required": [
+            "domain_policy",
+            "training_feature_range_support",
+            "constant_on_display_domain",
+            "score_at_zero",
+            "score_per_point",
+            "points_denominator",
+            "max_total_points",
+            "domains",
+            "axes",
+            "total_axis"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "base_value",
+        "nomogram"
+      ],
+      "additionalProperties": false
+    },
+    "provenance_version": {
+      "const": "clinical-frozen-provenance@1.0"
+    },
+    "data_origin": {
+      "enum": [
+        "real",
+        "synthetic"
+      ]
+    },
+    "task_purpose": {
+      "enum": [
+        "engineering_test",
+        "research_analysis"
+      ]
+    },
+    "test_only": {
+      "type": "boolean"
+    },
+    "scientific_review": {
+      "const": "pending"
+    },
+    "export_status": {
+      "const": "local_only"
+    }
+  },
+  "required": [
+    "schema_version",
+    "model_sha256",
+    "numerical_code_sha256",
+    "runtime_binding_sha256",
+    "model_method_id",
+    "horizons",
+    "display_domains",
+    "definition",
+    "background",
+    "derived",
+    "provenance_version",
+    "data_origin",
+    "task_purpose",
+    "test_only",
+    "scientific_review",
+    "export_status"
+  ],
+  "additionalProperties": false
+}

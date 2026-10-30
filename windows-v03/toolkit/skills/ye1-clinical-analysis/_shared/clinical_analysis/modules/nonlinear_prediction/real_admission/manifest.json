@@ -1,0 +1,76 @@
+{
+  "module_id": "nonlinear_prediction.real_admission",
+  "entrypoint": {
+    "path": "real_admission/adapter.py",
+    "function": "analyze",
+    "arguments": [
+      "request",
+      "context"
+    ]
+  },
+  "request_version": "clinical-module-request@1.0",
+  "root_envelope_owner": "root V1.1 admission/route; origin_context is not accepted from payload",
+  "context_fields": [
+    "require_request",
+    "data_origin",
+    "task_purpose",
+    "scientific_review",
+    "test_only",
+    "project_root"
+  ],
+  "tree_shap_context_hook": "require_training_background(artifact), throws unless bound to trusted stored original training artifacts",
+  "post_train_hook": "capture_training_background(training_request, training_response, context, trusted_run_hashes=..., size=100, seed=1729)",
+  "methods": {
+    "prediction.binary.random_forest": [
+      "train",
+      "evaluate",
+      "infer",
+      "explain"
+    ],
+    "prediction.binary.hist_gradient_boosting": [
+      "train",
+      "evaluate",
+      "infer",
+      "explain"
+    ],
+    "explanation.binary.random_forest.tree_shap": [
+      "explain"
+    ],
+    "explanation.binary.hist_gradient_boosting.tree_shap": [
+      "explain"
+    ]
+  },
+  "payload_schemas": [
+    "../schemas/payload.schema.json",
+    "../tree_shap/schemas/payload.schema.json"
+  ],
+  "new_frozen_model_schema": "frozen-model.schema.json",
+  "failure_diagnostics_schema": "failure-diagnostics.schema.json",
+  "owner_unchanged": [
+    "provider.py",
+    "adapter.py",
+    "interface.py",
+    "contracts.py",
+    "schemas/*"
+  ],
+  "numerical_owners": [
+    "provider.train",
+    "provider.predict",
+    "clinical_methods.prediction._metrics",
+    "tree_shap.explain.explain"
+  ],
+  "status": "LOCAL_ADAPTER_PROTOCOL_TESTS_PASSED_ROOT_V1_1_INTEGRATION_PENDING",
+  "protocol_receipt": "protocol-test-receipt.json",
+  "targeted_failure_counts_receipt": "failure-counts-receipt.json",
+  "verification_scope_note": "17-test baseline preceded the targeted count fix; only the two requested eligibility regressions were rerun after it",
+  "actual_real_data_e2e": false,
+  "clinical_approval": false,
+  "outward_export": "root privacy authorize/export; private rows/models/background never become public_record",
+  "resource_guard_transition": {
+    "scope": "Only budget configuration/preflight changed in TreeSHAP/background; exact old/new mathematical outputs verified; no sampling policy change",
+    "rows_profile": "tree_explanation",
+    "background_default": 200,
+    "background_ceiling": 2000,
+    "actual_real_data_e2e": false
+  }
+}

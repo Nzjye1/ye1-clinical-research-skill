@@ -1,0 +1,98 @@
+{
+  "contract_version": "v06-provider-contract-1",
+  "method_id": "evaluation.survival.cox.ipcw",
+  "request_keys": ["operation", "rows", "spec", "prediction", "feature_semantics", "model_json", "evaluation"],
+  "request_operation": "evaluate",
+  "prediction_operation": "infer",
+  "prediction_keys": ["operation", "training_subjects", "holdout_subjects", "horizons", "canonical_identity_namespace", "feature_missing_policy"],
+  "response_keys": ["ok", "record", "model_bundle", "individual_predictions", "private_evaluation", "runtime", "provider_version", "request_sha256", "frozen_model_provider_version"],
+  "private_evaluation_keys": ["censoring_grid", "individual_ipcw"],
+  "private_censoring_grid_row_keys": ["time", "n_risk", "n_events", "n_censored", "censor_risk", "g_before", "g_after", "km_before", "km_after"],
+  "private_individual_ipcw_row_keys": ["subject_id", "horizon", "observed_time", "event", "classification", "event_risk", "g_denominator", "case_weight", "control_weight", "weight", "horizon_status", "horizon_reason_codes"],
+  "private_artifact_names": ["frozen_cox_model.json", "individual_predictions.csv", "censoring_grid.json", "individual_ipcw.json"],
+  "field_rules": {
+    "public_record": "Only record may be projected to public output; all other payload fields and private artifacts remain local/private.",
+    "ids": "R adds result_id values; the numerical record contains no run_id, subject_id, identity namespace, model contents, observed-time grid, or individual risk thresholds.",
+    "status": "completed, partial, or unavailable. A horizon is unavailable on positivity/weight failure; otherwise partial if AUC or any calibration bin is unavailable. Record status summarizes horizons; reasons are stable codes.",
+    "metric_status": "completed or unavailable; unavailable estimates have null value and a reason. Valid numerator/denominator remain reported when independently defined.",
+    "uncertainty": "Always not_implemented; no confidence intervals, calibration fit, or p-values.",
+    "roc": "above_all endpoint first with threshold null, then fixed_grid thresholds in descending order. Positive means p >= threshold. Entire ROC unavailable if no cases or controls.",
+    "calibration": "Fixed [lower,upper) bins, final right-inclusive. Mean predicted risk includes every bin subject. observed_risk=sum_case_weights/sum_weights; small, empty, or zero-weight bins have null observed_risk.",
+    "dca": "Positive means p >= threshold; both weighted net-benefit numerators divide by population_denominator=n. Treat-none is null if the whole horizon is unavailable, otherwise zero.",
+    "weights": "Raw IPCW sums, never normalized or clipped. Finite below-positivity-guard weights may be reported for diagnosis while metrics remain null. Zero weight sum gives null ESS.",
+    "case_control_score_ties": "Actual number of case/control pairs having exactly equal frozen risk; no score rounding.",
+    "identity_checks": "weight_mass_minus_n=sum_weights-n; km_identity_difference=weighted_case_probability-km_event_probability. Check with atol=rtol=1e-10, never renormalize. A failed numerical identity rejects the response.",
+    "n_at_risk_before_horizon": "count(U >= horizon); includes events and censors exactly at horizon.",
+    "counts_partition": "n_cases+n_controls+n_censored_by_horizon=n, with cases delta=1 and U<=t, controls U>t, early censor delta=0 and U<=t."
+  },
+  "options_example": {
+    "estimator": "marginal_reverse_km_ipcw",
+    "censoring_source": "evaluation_cohort",
+    "censoring_assumption": "independent_of_event_time_and_model_features",
+    "tie_order": "events_before_censoring",
+    "min_censoring_survival": 0.05,
+    "max_ipcw_weight": 20,
+    "positivity_policy": "reject_no_clipping",
+    "roc_thresholds": [0, 0.5, 1],
+    "calibration": {"method": "ipcw_hajek_fixed_bins", "probability_edges": [0, 0.5, 1], "min_bin_n": 2},
+    "dca_thresholds": [0.5],
+    "uncertainty": "not_implemented",
+    "prespecified": true
+  },
+  "record_example": {
+    "method_id": "evaluation.survival.cox.ipcw",
+    "operation": "evaluate",
+    "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "frozen_model_provider_version": "0000000000000000000000000000000000000000000000000000000000000000",
+    "population": {"n_input": 4, "n_evaluable": 4, "n_dropped_missing": 0, "n_events": 4, "n_censored": 0, "n_horizons": 1},
+    "options": {
+      "estimator": "marginal_reverse_km_ipcw",
+      "censoring_source": "evaluation_cohort",
+      "censoring_assumption": "independent_of_event_time_and_model_features",
+      "tie_order": "events_before_censoring",
+      "min_censoring_survival": 0.05,
+      "max_ipcw_weight": 20,
+      "positivity_policy": "reject_no_clipping",
+      "roc_thresholds": [0, 0.5, 1],
+      "calibration": {"method": "ipcw_hajek_fixed_bins", "probability_edges": [0, 0.5, 1], "min_bin_n": 2},
+      "dca_thresholds": [0.5],
+      "uncertainty": "not_implemented",
+      "prespecified": true
+    },
+    "censoring_metadata": {
+      "estimator": "marginal_reverse_km_ipcw", "source": "evaluation_cohort",
+      "assumption": "independent_of_event_time_and_model_features", "assumption_verified": false,
+      "tie_order": "events_before_censoring", "time_unit": "day", "full_grid_location": "private",
+      "weight_clipping": false, "uncertainty": "not_implemented"
+    },
+    "status": "completed",
+    "reason_codes": [],
+    "horizon_results": [{
+      "horizon": 3.0, "status": "completed", "reason_codes": [],
+      "counts": {"n": 4, "n_cases": 2, "n_controls": 2, "n_censored_by_horizon": 0, "n_at_risk_before_horizon": 2, "n_events_at_horizon": 0, "n_censored_at_horizon": 0, "n_case_control_score_ties": 0},
+      "weights": {"g_at_horizon": 1.0, "min_g_for_cases": 1.0, "sum_case_weights": 2.0, "sum_control_weights": 2.0, "sum_weights": 4.0, "max_weight": 1.0, "ess": 4.0, "case_ess": 2.0, "control_ess": 2.0},
+      "diagnostics": {"weight_mass_minus_n": 0.0, "km_event_probability": 0.5, "weighted_case_probability": 0.5, "km_identity_difference": 0.0, "weight_mass_identity_ok": true, "km_identity_ok": true},
+      "metrics": [
+        {"metric": "auc", "status": "completed", "value": 1.0, "numerator": 4.0, "denominator": 4.0, "numerator_definition": "sum_case_control_weighted_concordance_with_half_exact_ties", "denominator_definition": "sum_case_weights_times_sum_control_weights", "reason": null, "uncertainty": "not_implemented"},
+        {"metric": "brier", "status": "completed", "value": 0.025, "numerator": 0.1, "denominator": 4, "numerator_definition": "sum_case_weight_times_one_minus_risk_squared_plus_control_weight_times_risk_squared", "denominator_definition": "all_evaluation_subjects_including_early_censoring", "reason": null, "uncertainty": "not_implemented"}
+      ],
+      "roc": [
+        {"threshold": null, "boundary": "above_all", "status": "completed", "reason": null, "n_treated": 0, "tp_weight": 0.0, "fp_weight": 0.0, "sensitivity": 0.0, "false_positive_rate": 0.0, "specificity": 1.0},
+        {"threshold": 1.0, "boundary": "fixed_grid", "status": "completed", "reason": null, "n_treated": 0, "tp_weight": 0.0, "fp_weight": 0.0, "sensitivity": 0.0, "false_positive_rate": 0.0, "specificity": 1.0},
+        {"threshold": 0.5, "boundary": "fixed_grid", "status": "completed", "reason": null, "n_treated": 2, "tp_weight": 2.0, "fp_weight": 0.0, "sensitivity": 1.0, "false_positive_rate": 0.0, "specificity": 1.0},
+        {"threshold": 0.0, "boundary": "fixed_grid", "status": "completed", "reason": null, "n_treated": 4, "tp_weight": 2.0, "fp_weight": 2.0, "sensitivity": 1.0, "false_positive_rate": 1.0, "specificity": 0.0}
+      ],
+      "calibration": [
+        {"bin_index": 1, "lower": 0.0, "upper": 0.5, "right_inclusive": false, "n": 2, "n_cases": 0, "n_controls": 2, "n_censored_by_horizon": 0, "predicted_risk_sum": 0.3, "mean_predicted_risk": 0.15, "sum_case_weights": 0.0, "sum_control_weights": 2.0, "sum_weights": 2.0, "ess": 2.0, "observed_risk": 0.0, "status": "completed", "reason": null, "uncertainty": "not_implemented"},
+        {"bin_index": 2, "lower": 0.5, "upper": 1.0, "right_inclusive": true, "n": 2, "n_cases": 2, "n_controls": 0, "n_censored_by_horizon": 0, "predicted_risk_sum": 1.7, "mean_predicted_risk": 0.85, "sum_case_weights": 2.0, "sum_control_weights": 0.0, "sum_weights": 2.0, "ess": 2.0, "observed_risk": 1.0, "status": "completed", "reason": null, "uncertainty": "not_implemented"}
+      ],
+      "dca": [{"threshold": 0.5, "status": "completed", "reason": null, "n_treated": 2, "n_treated_cases": 2, "n_treated_controls": 0, "n_treated_censored_by_horizon": 0, "tp_weight": 2.0, "fp_weight": 0.0, "treated_weight_sum": 2.0, "treated_ess": 2.0, "threshold_odds": 1.0, "population_denominator": 4, "numerator_model": 2.0, "numerator_all": 0.0, "net_benefit_model": 0.5, "net_benefit_all": 0.0, "net_benefit_none": 0.0, "uncertainty": "not_implemented"}]
+    }]
+  },
+  "reason_codes": {
+    "horizon_positivity": ["CENSORING_SURVIVAL_NONPOSITIVE_AT_HORIZON", "CENSORING_SURVIVAL_BELOW_MIN_AT_HORIZON", "CASE_CENSORING_SURVIVAL_NONPOSITIVE", "CASE_CENSORING_SURVIVAL_BELOW_MIN", "IPCW_WEIGHT_ABOVE_MAX"],
+    "auc_roc": ["NO_CASES_AT_HORIZON", "NO_CONTROLS_AT_HORIZON", "NO_CASES_OR_CONTROLS_AT_HORIZON"],
+    "calibration": ["CALIBRATION_BIN_EMPTY", "CALIBRATION_BIN_BELOW_MIN_N", "CALIBRATION_BIN_ZERO_WEIGHT"],
+    "fatal_numerics": ["IPCW_WEIGHT_NONFINITE", "IPCW_MASS_IDENTITY_FAILED", "IPCW_KM_IDENTITY_FAILED", "EVALUATION_PREDICTIONS_INVALID"]
+  }
+}

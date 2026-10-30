@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "clinical-tree-shap-background@1.0"
+    },
+    "prediction_method_id": {
+      "enum": [
+        "prediction.binary.random_forest",
+        "prediction.binary.hist_gradient_boosting"
+      ]
+    },
+    "model_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "prediction_provider_version": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "const": "actual_successful_training_request_and_response"
+        },
+        "cohort_id": {
+          "type": "string"
+        },
+        "identity_namespace": {
+          "type": "string"
+        },
+        "canonical_rows_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "training_request_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "training_response_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "training_bindings": {
+          "type": "object",
+          "properties": {
+            "input_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "plan_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "code_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "runtime_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "model_sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "input_sha256",
+            "plan_sha256",
+            "code_sha256",
+            "runtime_sha256",
+            "model_sha256"
+          ],
+          "additionalProperties": false
+        },
+        "source_n": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outcome_missing_n": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "origin",
+        "cohort_id",
+        "identity_namespace",
+        "canonical_rows_sha256",
+        "training_request_sha256",
+        "training_response_sha256",
+        "training_bindings",
+        "source_n",
+        "outcome_missing_n"
+      ],
+      "additionalProperties": false
+    },
+    "partition": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "const": "model_fit"
+        },
+        "model_fit_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "minItems": 1,
+          "maxItems": 100000
+        },
+        "calibration_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "minItems": 0,
+          "maxItems": 100000
+        },
+        "holdout_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "minItems": 1,
+          "maxItems": 100000
+        },
+        "excluded_outcome_id_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "minItems": 0,
+          "maxItems": 100000
+        }
+      },
+      "required": [
+        "role",
+        "model_fit_id_digests",
+        "calibration_id_digests",
+        "holdout_id_digests",
+        "excluded_outcome_id_digests"
+      ],
+      "additionalProperties": false
+    },
+    "sampling": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "const": "uniform_without_replacement"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 2000
+        },
+        "row_indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 10,
+          "maxItems": 2000
+        }
+      },
+      "required": [
+        "method",
+        "seed",
+        "n",
+        "row_indices"
+      ],
+      "additionalProperties": false
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ]
+        }
+      },
+      "minItems": 10,
+      "maxItems": 2000
+    },
+    "classification": {
+      "const": "LOCAL_PRIVATE_TRAINING_BACKGROUND"
+    },
+    "authenticity": {
+      "const": "hashes_and_partition_checks_are_integrity_only; common_owner_verifies_trusted_original_run"
+    }
+  },
+  "required": [
+    "schema_version",
+    "prediction_method_id",
+    "model_sha256",
+    "prediction_provider_version",
+    "sha256",
+    "source",
+    "partition",
+    "sampling",
+    "rows",
+    "classification",
+    "authenticity"
+  ],
+  "additionalProperties": false
+}

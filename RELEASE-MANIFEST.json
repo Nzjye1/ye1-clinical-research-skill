@@ -1,0 +1,25 @@
+{
+  "schema_version": "ye1-public-release@1.0",
+  "release_tag": "v0.3.0",
+  "product": "Ye1 临床分析 Skill",
+  "platform": "Windows x64 + Codex",
+  "source_baseline_commit": "4a3afa9bdf80035e0e4ef5b688f15bc54eb77516",
+  "package_internal_version": "0.3.0-windows-local-integrated2",
+  "version_mapping": "Public v0.3.0 distributes the original integrated2 archives without renaming or rebuilding; the public source snapshot adds reviewed documentation.",
+  "assets": [
+    {
+      "name": "ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip",
+      "bytes": 40303377,
+      "sha256": "a0870cf5e6085c6033b707b4b34f7de44641a0fda05c8ebdf52081dfca4df159",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip"
+    },
+    {
+      "name": "ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip",
+      "bytes": 40700459,
+      "sha256": "6d2f5dd0c83164f76c41932587b2a95d8adfc793753c41f2236b6c0f097e61a6",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip"
+    }
+  ],
+  "sha256_list_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/SHA256SUMS.txt",
+  "license": "MIT for Ye1-owned code; bundled third-party components retain original licenses"
+}

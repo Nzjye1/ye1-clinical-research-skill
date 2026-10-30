@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/clinanalysis/cvcc-v4-rebind-acceptance-receipt.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "receipt_id", "status", "candidate_id", "bindings",
+    "dataset", "model_projection", "checks", "execution_boundaries",
+    "privacy", "next_responsible_actor"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {"const": "RECEIPT.CVCC-PRED-ISO-001.TASK-V4-CAPABILITY-AND-V2-REBIND.V1"},
+    "status": {"const": "TASK_V4_CAPABILITY_IMPLEMENTED_V2_REBIND_ACCEPTED_FORMAL_EXECUTION_WITHHELD"},
+    "candidate_id": {"const": "CVCC-PRED-ISO-001"},
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sap_id", "sap_sha256", "task_id", "task_sha256", "preflight_sha256", "projection_contract_sha256", "handoff_sha256", "topic_receipt_sha256"],
+      "properties": {
+        "sap_id": {"const": "SAP.CVCC-PRED-ISO-001.FROZEN.V3"},
+        "sap_sha256": {"const": "2f291c79486422d474eeaa97c2b6a8fd94dfd140b4050f463b71b21003f0f515"},
+        "task_id": {"const": "TASK.CVCC-PRED-ISO-001.FORMAL-FG.V4"},
+        "task_sha256": {"const": "d2c40ea609d4c450caa9089806cf8a768b043f17bb60678b6c780f997d398f9f"},
+        "preflight_sha256": {"const": "2c970a8ef0c43a621a6f85b8738c13d8dc6447add59b0bd9aece789176869cd4"},
+        "projection_contract_sha256": {"const": "7f0f9f297304a4c31be1ac5bd8772bb85492bfd26acfe283c6db5e1ca28b6cfb"},
+        "handoff_sha256": {"const": "1cf91e840d4aec2dbd13d001b54431a684191408a31414726b83ce9eec9c8d5d"},
+        "topic_receipt_sha256": {"const": "7a7627dd3890d52463fc7d1294e810eed406558008b028de627e08d1bbb69343"}
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "sha256_before", "sha256_after", "row_count", "column_count", "rewritten", "copied"],
+      "properties": {
+        "dataset_id": {"const": "DATASET.CVCC-PRED-ISO-001.ANALYSIS-READY.V2"},
+        "sha256_before": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "sha256_after": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "row_count": {"const": 5735},
+        "column_count": {"const": 34},
+        "rewritten": {"const": false},
+        "copied": {"const": false}
+      }
+    },
+    "model_projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary_model_id", "primary_predictor_count", "parameter_df", "available_predictors", "excluded_dataset_columns", "ami_type_in_model_matrix", "named_column_projection_only", "projection_persisted"],
+      "properties": {
+        "primary_model_id": {"const": "MODEL.CVCC-PRED-ISO-001.FG-CLINICAL-25DF.V2"},
+        "primary_predictor_count": {"const": 24},
+        "parameter_df": {"const": 25},
+        "available_predictors": {"const": 24},
+        "excluded_dataset_columns": {
+          "type": "array",
+          "prefixItems": [{"const": "ami_type"}],
+          "items": false,
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "ami_type_in_model_matrix": {"const": false},
+        "named_column_projection_only": {"const": true},
+        "projection_persisted": {"const": false}
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["requirement_id", "status"],
+        "properties": {
+          "requirement_id": {"type": "string", "minLength": 1},
+          "status": {"const": "PASS"}
+        }
+      }
+    },
+    "execution_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_called", "imputation_called", "bootstrap_called", "formal_result_generated", "formal_authorization_created_or_consumed", "formal_model_execution_authorized"],
+      "properties": {
+        "model_called": {"const": false},
+        "imputation_called": {"const": false},
+        "bootstrap_called": {"const": false},
+        "formal_result_generated": {"const": false},
+        "formal_authorization_created_or_consumed": {"const": false},
+        "formal_model_execution_authorized": {"const": false}
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aggregate_only", "patient_level_payload", "physical_paths_present"],
+      "properties": {
+        "aggregate_only": {"const": true},
+        "patient_level_payload": {"const": false},
+        "physical_paths_present": {"const": false}
+      }
+    },
+    "next_responsible_actor": {"const": "ARTICLE_CONTROL_PLANE_REQUEST_NEW_ONE_SHOT_FORMAL_AUTHORIZATION_AFTER_USER_CONFIRMATION"}
+  }
+}
