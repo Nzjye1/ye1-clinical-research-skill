@@ -50,6 +50,7 @@ jobs:
         run: |
           set +e
           ROOT="$RUNNER_TEMP/clinical-results/modules"
+          if [[ -d "$ROOT" ]]; then find "$ROOT" -type f \( -name engine.log -o -name growth-engine.log -o -name transport.log \) -print -exec tail -n 180 {} \; ; fi
           if [[ -d "$ROOT" ]]; then find "$ROOT" -path '*/private/entry-logs/*.log' -type f -print -exec tail -n 180 {} \;; fi
           if [[ -d "$ROOT" ]]; then find "$ROOT" -path '*/runs/private/*.console.log' -type f -print -exec tail -n 180 {} \;; fi
           ROOT="$RUNNER_TEMP/中文 临床研究/.agents/skills/ye1-clinical-analysis/install-logs"

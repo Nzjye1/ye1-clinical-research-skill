@@ -9,4 +9,4 @@ mkdir -p "$PROJECT" "$AREA"
 bash "$TOOLKIT/setup-offline.sh" "$PROJECT" --all
 MAIN="$PROJECT/.agents/skills/ye1-clinical-analysis"
 PY="$MAIN/.runtime/python/bin/python3"
-"$PY" -I -B -X utf8 tests/regression/test_module_forward.py --package "$MAIN" --area "$AREA/modules"
+"$PY" -I -B -X utf8 tests/regression/test_module_forward.py --package "$MAIN" --area "$AREA/modules" --methods longitudinal.growth.gaussian latent.profile.gaussian mediation.linear.binary_exposure
