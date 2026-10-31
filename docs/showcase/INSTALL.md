@@ -2,15 +2,17 @@
 
 ## 安装到你的 Agent
 
-当前适用于 **Windows x64 + Codex**。在 Codex 中打开你的研究项目，把下面整段发给 Agent：
+适用于 **Windows x64 或 Apple 芯片 Mac + Codex**。在 Codex 中打开你的研究项目，把下面整段发给 Agent：
 
 ```text
-请从 GitHub 仓库 Nzjye1/ye1-clinical-research-skill 下载最新正式 Windows 客户包，把 Ye1 临床分析 Skill 安装到我当前打开的研究项目。
+请先识别我的系统，从 GitHub 仓库 Nzjye1/ye1-clinical-research-skill 获取适用的 Ye1 临床分析 Skill 客户包，安装到我当前打开的研究项目。
 请先阅读包内安装说明，检查并准备所需依赖，完成安装和基础自检。
 完成后告诉我安装的版本、是否成功，以及如何开始使用。
 ```
 
 [返回产品主页](../../README.md)
+
+Apple 芯片 Mac 的联网和离线安装方式见 [Mac 安装说明](../../macos/INSTALL.md)。以下为 Windows 安装细节。
 
 ## 环境与手工安装细节
 

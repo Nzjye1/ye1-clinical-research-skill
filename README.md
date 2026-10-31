@@ -2,15 +2,17 @@
 
 ## 安装到你的 Agent
 
-当前适用于 **Windows x64 + Codex**。在 Codex 中打开你的研究项目，把下面整段发给 Agent：
+适用于 **Windows x64 或 Apple 芯片 Mac + Codex**。在 Codex 中打开你的研究项目，把下面整段发给 Agent：
 
 ```text
-请从 GitHub 仓库 Nzjye1/ye1-clinical-research-skill 下载最新正式 Windows 客户包，把 Ye1 临床分析 Skill 安装到我当前打开的研究项目。
+请先识别我的系统，从 GitHub 仓库 Nzjye1/ye1-clinical-research-skill 获取适用的 Ye1 临床分析 Skill 客户包，安装到我当前打开的研究项目。
 请先阅读包内安装说明，检查并准备所需依赖，完成安装和基础自检。
 完成后告诉我安装的版本、是否成功，以及如何开始使用。
 ```
 
 [下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md)
+
+[Apple 芯片 Mac 联网安装包](downloads/ye1-clinical-0.3.0-macos-arm64-online-a8f351c.zip) · [Mac 安装说明](macos/INSTALL.md)
 
 <p align="center">
   <img src="assets/showcase/clinical-cover.png" alt="Ye1 临床分析 · 本地 CSV 到统计表图与结果说明" width="960">
@@ -18,7 +20,7 @@
 
 **提供本地 CSV 和研究问题，让 Agent 帮你完成统计分析、结果表图与说明。免费使用，自有代码采用 MIT 许可。**
 
-面向医生与临床科研团队，在 Windows x64 + Codex 中使用。已有数据，需要基线描述、关联分析、生存分析、预测建模、匹配或纵向分析时，可以从统一入口选择方法，也可以独立调用单项 Skill。
+面向医生与临床科研团队，在 Windows x64 或 Apple 芯片 Mac 的 Codex 中使用。已有数据，需要基线描述、关联分析、生存分析、预测建模、匹配或纵向分析时，可以从统一入口选择方法，也可以独立调用单项 Skill。
 
 [具体功能](#具体能做什么) · [输入材料](#需要提供什么) · [分析成果](#实际分析产物) · [安装说明](docs/showcase/INSTALL.md) · [联系反馈](#联系与反馈)
 
