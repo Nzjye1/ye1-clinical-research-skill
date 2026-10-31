@@ -23,12 +23,20 @@ jobs:
           test "$(uname -m)" = arm64 && test "$RUNNER_ARCH" = ARM64
           PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14
           RS=/Library/Frameworks/R.framework/Resources/bin/Rscript
-          if [[ -e "$PY" || -e "$RS" ]]; then
-            printf 'FRESH_FRAMEWORK_PATHS_NOT_ABSENT python=%s R=%s\n' "$(test -e "$PY" && echo present || echo absent)" "$(test -e "$RS" && echo present || echo absent)" >&2
-            exit 2
-          fi
-          echo 'PASS pinned Python and R framework executables absent before entry'
           sudo -n true
+          # The disposable hosted runner may include this exact framework.
+          # Preserve it outside the discovery path, rather than treating it as
+          # a customer installation; restore it in the always step below.
+          if [[ -e "$PY" ]]; then
+            ORIGINAL=/Library/Frameworks/Python.framework/Versions/3.14
+            SAVED="$RUNNER_TEMP/runner-original-python-3.14"
+            [[ -d "$ORIGINAL" && ! -L "$ORIGINAL" && ! -e "$SAVED" ]]
+            sudo /bin/mv "$ORIGINAL" "$SAVED"
+            test -x "$SAVED/bin/python3.14"
+            echo 'PASS runner preinstalled Python preserved outside framework discovery path'
+          fi
+          if [[ -e "$PY" || -e "$RS" ]]; then echo 'FRESH_FRAMEWORK_PATHS_NOT_ABSENT' >&2; exit 2; fi
+          echo 'PASS pinned Python and R framework executables absent before entry'
           mkdir -p "$RUNNER_TEMP/customer-package" "$RUNNER_TEMP/clinical project" "$RUNNER_TEMP/first-results"
           curl --fail --location --silent --show-error --output "$RUNNER_TEMP/customer.zip" 'https://raw.githubusercontent.com/Nzjye1/ye1-clinical-research-skill/de302a1b4d4be56c511126c4688ad7bb7b0e6b78/downloads/ye1-clinical-0.3.0-macos-arm64-online-a8f351c.zip'
           echo 'bcb6bee04c03eff2f5c19d86b8d9f11638f00bb120beb2ac32792669653369c6  '"$RUNNER_TEMP/customer.zip" | shasum -a 256 -c -
@@ -78,3 +86,20 @@ jobs:
           set +e
           ROOT="$RUNNER_TEMP/clinical project/.agents/skills/ye1-clinical-analysis/install-logs"
           if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -print -exec tail -n 35 {} \;; fi
+      - name: Restore preserved hosted-runner Python
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          ORIGINAL=/Library/Frameworks/Python.framework/Versions/3.14
+          SAVED="$RUNNER_TEMP/runner-original-python-3.14"
+          NEW="$RUNNER_TEMP/customer-installed-python-3.14"
+          if [[ -d "$SAVED" && ! -L "$SAVED" ]]; then
+            if [[ -e "$ORIGINAL" ]]; then
+              [[ -d "$ORIGINAL" && ! -L "$ORIGINAL" && ! -e "$NEW" ]]
+              sudo /bin/mv "$ORIGINAL" "$NEW"
+            fi
+            sudo /bin/mv "$SAVED" "$ORIGINAL"
+            test -x "$ORIGINAL/bin/python3.14"
+            echo 'PASS original hosted-runner Python restored'
+          fi
