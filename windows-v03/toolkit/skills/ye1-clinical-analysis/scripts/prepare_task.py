@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse,copy,datetime,importlib.util,json,os,subprocess,sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from runtime_toolkit import ROOT,BACKEND,CORE,env,check,save,sha
+from runtime_platform import runtime_python
 import ingestion as i
 import toolkit
 
@@ -83,7 +84,7 @@ if __name__=="__main__":
     for stream in (sys.stdout,sys.stderr):
         if hasattr(stream,"reconfigure"):stream.reconfigure(encoding="utf-8")
     try:
-        selected=ROOT/".runtime/python/Scripts/python.exe"
+        selected=runtime_python(ROOT)
         if selected.is_file() and Path(sys.executable).resolve()!=selected.resolve():raise SystemExit(subprocess.run([str(selected),"-I","-B","-X","utf8",str(Path(__file__).resolve()),*sys.argv[1:]],env=env()).returncode)
         main()
     except (OSError,ValueError,KeyError,TypeError,ImportError,EOFError,KeyboardInterrupt,subprocess.TimeoutExpired) as error:

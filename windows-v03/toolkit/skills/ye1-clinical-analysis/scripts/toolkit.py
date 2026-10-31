@@ -140,7 +140,8 @@ if __name__=="__main__":
     for stream in [sys.stdout,sys.stderr]:
         if hasattr(stream,"reconfigure"):stream.reconfigure(encoding="utf-8")
     try:
-        selected=ROOT/".runtime/python/Scripts/python.exe"
+        from runtime_platform import runtime_python
+        selected=runtime_python(ROOT)
         if selected.is_file() and Path(sys.executable).resolve()!=selected.resolve() and any(x in sys.argv for x in ["run","validate","doctor","plan","public-fixture"]):
             from runtime_windows import env
             raise SystemExit(subprocess.run([str(selected),"-I","-B","-X","utf8",str(Path(__file__).resolve()),*sys.argv[1:]],env=env()).returncode)

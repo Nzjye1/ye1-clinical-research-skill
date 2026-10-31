@@ -1,0 +1,28 @@
+name: Clinical macOS arm64 glmnet source build probe
+on:
+  push:
+    branches: [feature/macos-arm64-clinical-20261031]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  glmnet-build-probe:
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Install independently downloaded official Apple Silicon R
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64 && test "$RUNNER_ARCH" = ARM64
+          curl --fail --location --proto '=https' --tlsv1.2 https://cran.r-project.org/bin/macosx/sonoma-arm64/base/R-4.6.1-arm64.pkg -o "$RUNNER_TEMP/R-4.6.1-arm64.pkg"
+          echo '67f6eea4ced4ce48f0a0d4fa3a1cac43d1859a05a88993ee3dff7c52e7edbc4b  '"$RUNNER_TEMP/R-4.6.1-arm64.pkg" | shasum -a 256 -c -
+          pkgutil --check-signature "$RUNNER_TEMP/R-4.6.1-arm64.pkg"
+          sudo installer -pkg "$RUNNER_TEMP/R-4.6.1-arm64.pkg" -target /
+      - name: Download locked clinical build inputs and compile glmnet
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 -B macos/ci_glmnet.py
+          /Library/Frameworks/R.framework/Resources/bin/Rscript --vanilla macos/ci_glmnet.R "$RUNNER_TEMP/clinical-glmnet-cache" "$RUNNER_TEMP/clinical-glmnet-library" "$GITHUB_WORKSPACE/windows-v03/toolkit/skills/ye1-clinical-analysis/third-party/r/glmnet_5.1.tar.gz"

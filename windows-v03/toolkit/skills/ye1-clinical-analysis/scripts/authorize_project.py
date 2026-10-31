@@ -8,6 +8,7 @@ from pathlib import Path
 import argparse,datetime,hashlib,importlib.util,json,os,subprocess,sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from runtime_windows import ROOT,BACKEND,CORE,check,need,load,sha,save,env
+from runtime_platform import runtime_python
 
 def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path);value=importlib.util.module_from_spec(spec);spec.loader.exec_module(value);return value
@@ -87,7 +88,7 @@ if __name__=="__main__":
     for stream in [sys.stdout,sys.stderr]:
         if hasattr(stream,"reconfigure"):stream.reconfigure(encoding="utf-8")
     try:
-        selected=ROOT/".runtime/python/Scripts/python.exe"
+        selected=runtime_python(ROOT)
         if selected.is_file() and Path(sys.executable).resolve()!=selected.resolve():
             raise SystemExit(subprocess.run([str(selected),"-I","-B","-X","utf8",str(Path(__file__).resolve()),*sys.argv[1:]],env=env()).returncode)
         main()

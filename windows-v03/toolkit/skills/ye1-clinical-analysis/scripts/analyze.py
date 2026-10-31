@@ -9,6 +9,7 @@ CORE = BACKEND / "integration/core"
 METHODS = {"baseline.table1", "association.logistic", "survival.kaplan_meier", "survival.cox.association"}
 VERSION = "0.2.0-windows-candidate1"
 sys.path.insert(0,str(ROOT/"scripts"))
+from runtime_platform import runtime_python
 
 class Blocked(ValueError):
     def __init__(self, code): self.code = code; super().__init__(code)
@@ -277,7 +278,7 @@ if __name__=="__main__":
     for stream in (sys.stdout,sys.stderr):
         if hasattr(stream,"reconfigure"):stream.reconfigure(encoding="utf-8")
     try:
-        selected=ROOT/".runtime/python/Scripts/python.exe"
+        selected=runtime_python(ROOT)
         if selected.is_file() and Path(sys.executable).resolve()!=selected.resolve():
             from runtime_windows import env
             raise SystemExit(subprocess.run([str(selected),"-I","-B","-X","utf8",str(Path(__file__).resolve()),*sys.argv[1:]],env=env()).returncode)

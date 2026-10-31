@@ -1,0 +1,169 @@
+{
+  "schema": "clinical-macos-arm64-r-lock@1.0",
+  "r": "4.6.1",
+  "platform": "sonoma-arm64",
+  "binary_packages": [
+    {
+      "name": "jsonlite",
+      "version": "2.0.0",
+      "filename": "jsonlite_2.0.0.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/jsonlite_2.0.0.tgz",
+      "sha256": "8cb47b1ac56c7f2ae33a9a60a3e8842bf261136d8d9f7aa03070209b123192db",
+      "bytes": 1112267,
+      "license": "MIT + file LICENSE",
+      "status": "PASS"
+    },
+    {
+      "name": "digest",
+      "version": "0.6.39",
+      "filename": "digest_0.6.39.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/digest_0.6.39.tgz",
+      "sha256": "3a2a694c9d1ab8abf7829af29c851b5c82238e2f032b7d6c34a7c85a00c6a698",
+      "bytes": 390066,
+      "license": "GPL (>= 2)",
+      "status": "PASS"
+    },
+    {
+      "name": "Rcpp",
+      "version": "1.1.2",
+      "filename": "Rcpp_1.1.2.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/Rcpp_1.1.2.tgz",
+      "sha256": "e135ad06daffae1f7f93da59b9789dd87b6b3c4a94ef61ccfe9b258593206aa3",
+      "bytes": 3562996,
+      "license": "GPL (>= 2)",
+      "status": "PASS"
+    },
+    {
+      "name": "foreach",
+      "version": "1.5.2",
+      "filename": "foreach_1.5.2.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/foreach_1.5.2.tgz",
+      "sha256": "e6517ed1a74fca771fceb7828b34b568ebc33edfb94b5e3ef04ae9cc4e54ebf5",
+      "bytes": 141407,
+      "license": "Apache License (== 2.0)",
+      "status": "PASS"
+    },
+    {
+      "name": "iterators",
+      "version": "1.0.14",
+      "filename": "iterators_1.0.14.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/iterators_1.0.14.tgz",
+      "sha256": "ea66be971223b69f0eacae5db1347b1217cc6e2ff060e20da2a300d41edb31b4",
+      "bytes": 346250,
+      "license": "Apache License (== 2.0)",
+      "status": "PASS"
+    },
+    {
+      "name": "shape",
+      "version": "1.4.6.1",
+      "filename": "shape_1.4.6.1.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/shape_1.4.6.1.tgz",
+      "sha256": "b4bba8399c179aa7346d3d720c60f40eab5477551b756c6bb88397f974442660",
+      "bytes": 753988,
+      "license": "GPL (>= 3)",
+      "status": "PASS"
+    },
+    {
+      "name": "doParallel",
+      "version": "1.0.17",
+      "filename": "doParallel_1.0.17.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/doParallel_1.0.17.tgz",
+      "sha256": "54875388bfda9decbd488b516013bcb9ec6b627acd3661c107bfe0465685c4ea",
+      "bytes": 188078,
+      "license": "GPL-2",
+      "status": "PASS"
+    },
+    {
+      "name": "lcmm",
+      "version": "2.2.2",
+      "filename": "lcmm_2.2.2.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/lcmm_2.2.2.tgz",
+      "sha256": "4ae62d20a6ea6f963a470a465f5d5c04375b5014947eb5038dfae5e1500ca6ae",
+      "bytes": 2842138,
+      "license": "GPL (>= 2.0)",
+      "status": "PASS"
+    },
+    {
+      "name": "marqLevAlg",
+      "version": "2.0.8",
+      "filename": "marqLevAlg_2.0.8.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/marqLevAlg_2.0.8.tgz",
+      "sha256": "c496563f413b3abae085fc4ffc2c6ee261bb6ac366b9685c7285e88a7326e4b7",
+      "bytes": 248227,
+      "license": "GPL (>= 2.0)",
+      "status": "PASS"
+    },
+    {
+      "name": "mclust",
+      "version": "6.1.3",
+      "filename": "mclust_6.1.3.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/mclust_6.1.3.tgz",
+      "sha256": "235d25c9c50f8995625ee282562ae70ffccbd098c90c029a75fd13c09afbaf8d",
+      "bytes": 4353208,
+      "license": "GPL (>= 2)",
+      "status": "PASS"
+    },
+    {
+      "name": "spacefillr",
+      "version": "0.4.0",
+      "filename": "spacefillr_0.4.0.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/spacefillr_0.4.0.tgz",
+      "sha256": "a75da562dd09130169528e1551c4321ee2e60524578cc84fba2a0a69708ad791",
+      "bytes": 6422232,
+      "license": "MIT + file LICENSE",
+      "status": "PASS"
+    },
+    {
+      "name": "mvtnorm",
+      "version": "1.4.2",
+      "filename": "mvtnorm_1.4-2.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/mvtnorm_1.4-2.tgz",
+      "sha256": "3b756221c8458289ee8b3385185995de84094924ed9b8e6ba2e9e3109b21be85",
+      "bytes": 1165005,
+      "license": "GPL-2",
+      "status": "PASS"
+    },
+    {
+      "name": "numDeriv",
+      "version": "2016.8.1.1",
+      "filename": "numDeriv_2016.8-1.1.tgz",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/numDeriv_2016.8-1.1.tgz",
+      "sha256": "cbbb50a0f0474265c6cbb55672a625be8b1382ad5507b0137c0db74e4491523e",
+      "bytes": 114928,
+      "license": "GPL-2",
+      "status": "PASS"
+    }
+  ],
+  "build_dependencies": [
+    {
+      "id": "mac-r-RcppEigen",
+      "kind": "r-mac-binary",
+      "name": "RcppEigen",
+      "version": "0.3.4.0.2",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/RcppEigen_0.3.4.0.2.tgz",
+      "filename": "RcppEigen_0.3.4.0.2.tgz",
+      "license": "GPL (>= 2) | file LICENSE",
+      "profiles": [
+        "standard",
+        "docling"
+      ],
+      "index_version_observed": "0.3.4.0.2",
+      "sha256": "d2b9d4c83d82b23301e1a98e31fb2994db343d707fb72059dd6460ae826c14f5",
+      "bytes": 5028213,
+      "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:42:58 UTC; unix"
+    }
+  ],
+  "source_build_required": [
+    {
+      "name": "glmnet",
+      "version": "5.1",
+      "source": {
+        "filename": "glmnet_5.1.tar.gz",
+        "url": "https://cran.r-project.org/src/contrib/glmnet_5.1.tar.gz",
+        "sha256": "a6c23c906806f89a451de30b202e5bf088577f4da260d0b7f8887a7df3f22778",
+        "bytes": 2849253
+      },
+      "status": "MAC_BINARY_BUILD_PENDING"
+    }
+  ]
+}

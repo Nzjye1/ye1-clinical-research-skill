@@ -2,6 +2,7 @@
 from pathlib import Path
 import copy,datetime,hashlib,importlib.util,json,os,platform,subprocess,sys,zipfile
 import method_groups
+from runtime_platform import runtime_python
 ROOT=Path(__file__).resolve().parents[1];BACKEND=ROOT/"_shared/clinical_analysis";INTEGRATION=BACKEND/"integration";CORE=INTEGRATION/"core"
 class RuntimeBlocked(ValueError):
     def __init__(self,code,groups=None):self.code=code;self.groups=groups or [];super().__init__(code)
@@ -53,7 +54,7 @@ def run_json(command,stdin=None):
 def py_probe(names,directory=None):
     value={"packages":names}
     if directory:value["directory"]=str(directory)
-    return run_json([ROOT/".runtime/python/Scripts/python.exe","-I","-B","-c",PY_FILES],json.dumps(value))
+    return run_json([runtime_python(ROOT),"-I","-B","-c",PY_FILES],json.dumps(value))
 def package_files(path):
     return {str(p.resolve()):sha(p) for p in Path(path).rglob("*") if p.is_file() and "__pycache__" not in p.parts and p.suffix not in {".pyc",".pyo"}}
 def planned_R_file(spec,name,relative,rhome):
@@ -83,7 +84,7 @@ def registry_config(vendor):
         result[name]={"path":str(path),"sha256":sha(path),"template_sha256":sha(INTEGRATION/name)}
     return result
 def configure(installed,rscript):
-    spec=load(ROOT/"runtime-spec.json");installed=method_groups.closure(installed);runtime=ROOT/".runtime";python=runtime/"python/Scripts/python.exe";rlib=runtime/"r-library"
+    spec=load(ROOT/"runtime-spec.json");installed=method_groups.closure(installed);runtime=ROOT/".runtime";python=runtime_python(ROOT);rlib=runtime/"r-library"
     all_python={x["name"]:x for x in spec["python_packages"]};all_R={x["name"]:x for x in spec["r_packages"]}
     wanted_R=set(all_R)|{name for group in spec["groups"].values() for name in group["foundation_R"]}
     r=run_json([rscript,"--vanilla","-",rlib,",".join(sorted(wanted_R))],R_META)
