@@ -26,3 +26,18 @@ jobs:
           set -euo pipefail
           /usr/bin/python3 -B macos/ci_glmnet.py
           /Library/Frameworks/R.framework/Resources/bin/Rscript --vanilla macos/ci_glmnet.R "$RUNNER_TEMP/clinical-glmnet-cache" "$RUNNER_TEMP/clinical-glmnet-library" "$GITHUB_WORKSPACE/windows-v03/toolkit/skills/ye1-clinical-analysis/third-party/r/glmnet_5.1.tar.gz"
+      - name: Preserve the small verified arm64 binary for offline assembly
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          tar -czf glmnet_5.1.tgz -C clinical-glmnet-library glmnet
+          shasum -a 256 glmnet_5.1.tgz > glmnet_5.1.sha256
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: clinical-glmnet-arm64
+          path: |
+            ${{ runner.temp }}/glmnet_5.1.tgz
+            ${{ runner.temp }}/glmnet_5.1.sha256
+          retention-days: 1
+          if-no-files-found: error

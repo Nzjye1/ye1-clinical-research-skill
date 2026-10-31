@@ -1,6 +1,6 @@
 """Method-scoped installation evidence and stable native-runtime declarations."""
 from pathlib import Path
-import copy,datetime,hashlib,importlib.util,json,os,platform,subprocess,sys,zipfile
+import copy,datetime,hashlib,importlib.util,json,os,platform,subprocess,sys,tarfile,zipfile
 import method_groups
 from runtime_platform import runtime_python
 ROOT=Path(__file__).resolve().parents[1];BACKEND=ROOT/"_shared/clinical_analysis";INTEGRATION=BACKEND/"integration";CORE=INTEGRATION/"core"
@@ -58,11 +58,19 @@ def py_probe(names,directory=None):
 def package_files(path):
     return {str(p.resolve()):sha(p) for p in Path(path).rglob("*") if p.is_file() and "__pycache__" not in p.parts and p.suffix not in {".pyc",".pyo"}}
 def planned_R_file(spec,name,relative,rhome):
+    if platform.system()=="Darwin" and relative.startswith("libs/x64/") and relative.endswith(".dll"):
+        relative="libs/"+relative[len("libs/x64/"):-len(".dll")]+".so"
     package=next((x for x in spec["r_packages"] if x["name"]==name),None)
     if package:
         archive=ROOT/"third-party/r"/package["binary"]["filename"]
-        with zipfile.ZipFile(archive) as z:
-            raw=z.read(name+"/"+relative)
+        if platform.system()=="Darwin":
+            with tarfile.open(archive,"r:gz") as z:
+                member=z.getmember(name+"/"+relative)
+                need(member.isfile(),"R_BINARY_MEMBER_INVALID")
+                raw=z.extractfile(member).read()
+        else:
+            with zipfile.ZipFile(archive) as z:
+                raw=z.read(name+"/"+relative)
         return str((ROOT/".runtime/r-library"/name/relative).resolve()),hashlib.sha256(raw).hexdigest()
     path=Path(rhome)/"library"/name/relative
     if path.is_file():return str(path.resolve()),sha(path)
@@ -111,7 +119,8 @@ def configure(installed,rscript):
     for path in [Path(base["base_executable"]),Path(base["base_prefix"])/"python314.dll",Path(base["base_prefix"])/"python3.dll",python,runtime/"python/pyvenv.cfg",Path(rscript),rhome/"bin/x64/Rscript.exe"]:
         if path.is_file():foundation[str(path.resolve())]=sha(path)
     requirements=load(BACKEND/"runtime-requirements.json")
-    for relative in requirements["r_engine_files_sha256"]:
+    engine_files=("bin/exec/R","lib/libR.dylib") if platform.system()=="Darwin" else requirements["r_engine_files_sha256"]
+    for relative in engine_files:
         path=rhome/relative;need(path.is_file(),"R_ENGINE_COMPONENT_MISSING");foundation[str(path.resolve())]=sha(path)
     loader=importlib.util.spec_from_file_location("original_transport_code_bindings",BACKEND/"configure_runtime.py");module=importlib.util.module_from_spec(loader);loader.loader.exec_module(module)
     lock=copy.deepcopy(requirements["lock_constants"])
