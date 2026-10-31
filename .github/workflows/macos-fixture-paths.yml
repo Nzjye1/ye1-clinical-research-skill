@@ -1,7 +1,5 @@
 name: Clinical macOS public-fixture path diagnostic
 on:
-  push:
-    branches: [feature/macos-arm64-clinical-20261031]
   workflow_dispatch:
 permissions:
   contents: read

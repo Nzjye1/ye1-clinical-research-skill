@@ -110,6 +110,8 @@ def main():
 在已创建的研究项目使用 `bash setup-online.sh <项目路径>`。离线交付解压后使用 `bash setup-offline.sh <项目路径>`；离线缓存包含固定 Python wheel、基础程序和许可证。可追加 `--method <方法ID>` 或 `--all`。安装器不覆盖同名 Skill；依赖中断后保留 `.runtime` 与 install-logs，从已安装主 Skill 的 `scripts/install_macos.py` 按原组或方法加 `--install` 恢复。已有结果使用新输出目录。
 
 使用 `$ye1-clinical-analysis` 或单项 Skill，提供本地 CSV 路径、研究问题与变量定义，先自检方法。真实研究的首次本地准备按产品确认规则由用户在控制台核对。
+
+固定公开 PBC 案例使用安装时 `.runtime/toolkit-profile.json` 中已解析并绑定的 `rscript` 真实路径。案例输入、输出和 Rscript 路径仍按原规则检查链接及文件身份。
 ''', encoding='utf-8', newline='\n')
     skill = target / MAIN / 'SKILL.md'
     text = skill.read_text(encoding='utf-8')

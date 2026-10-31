@@ -24,7 +24,12 @@ grep -q 'EXISTING_NAMED_SKILL_PRESERVED_USE_NEW_PROJECT_OR_REVIEW_UPDATE' "$AREA
 
 # Public survival PBC: only the registered time/status projection is generated.
 "$RS" --vanilla "$MAIN/examples/make_public_pbc.R" "$AREA/pbc-time-status.csv" /Library/Frameworks/R.framework/Resources/library
-"$PY" -I -B -X utf8 "$MAIN/scripts/toolkit.py" public-fixture --fixture survival-pbc-3.8-6-composite-km-v1 --source "$AREA/pbc-time-status.csv" --output "$AREA/public-pbc" --rscript "$RS"
+# The Apple framework's Resources alias is a symlink. Use the canonical
+# Rscript already bound and hash-checked by the installed runtime profile;
+# the public-fixture adapter continues to reject links in all three inputs.
+BOUND_RS=$("$PY" -I -B -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["rscript"])' "$MAIN/.runtime/toolkit-profile.json")
+"$PY" -I -B -X utf8 macos/diagnose_fixture_paths.py --source "$AREA/pbc-time-status.csv" --output "$AREA/public-pbc" --rscript "$BOUND_RS"
+"$PY" -I -B -X utf8 "$MAIN/scripts/toolkit.py" public-fixture --fixture survival-pbc-3.8-6-composite-km-v1 --source "$AREA/pbc-time-status.csv" --output "$AREA/public-pbc" --rscript "$BOUND_RS"
 
 # Actual synthetic RF/HGB figure export, then the existing full method suites.
 "$PY" -I -B -X utf8 tests/regression/test_module_forward.py --package "$MAIN" --area "$AREA/trees" --methods prediction.binary.random_forest prediction.binary.hist_gradient_boosting
