@@ -1,5 +1,8 @@
 name: Clinical macOS arm64 customer first installation
 on:
+  push:
+    branches: [feature/macos-arm64-clinical-20261031]
+    paths: [.github/workflows/macos-first-install.yml]
   workflow_dispatch:
 permissions:
   contents: read
