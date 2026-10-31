@@ -76,8 +76,8 @@ if(requireNamespace('jsonlite',quietly=TRUE)) cat(jsonlite::toJSON(out,auto_unbo
     for package in ["nlme", "jsonlite"]:
         path = result.get("r_package_paths", {}).get(package)
         if path:
-        native = "libs/"+package+".so" if platform.system()=="Darwin" else "libs/x64/"+package+".dll"
-        for suffix in ["DESCRIPTION", "R/"+package+".rdb", "R/"+package+".rdx", native]:
+            native = "libs/"+package+".so" if platform.system()=="Darwin" else "libs/x64/"+package+".dll"
+            for suffix in ["DESCRIPTION", "R/"+package+".rdb", "R/"+package+".rdx", native]:
                 p = Path(path)/suffix
                 if p.is_file():
                     bound_files["R/"+package+"/"+suffix] = sha_file(p)

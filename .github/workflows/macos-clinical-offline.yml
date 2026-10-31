@@ -33,8 +33,13 @@ jobs:
         run: |
           set -euo pipefail
           /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/build_toolkit.py --output "$RUNNER_TEMP/clinical-toolkit" --r-cache "$RUNNER_TEMP/clinical-cache/r"
+          /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/check_python_syntax.py "$RUNNER_TEMP/clinical-toolkit"
+          /Library/Frameworks/R.framework/Resources/bin/Rscript --vanilla macos/check_r_syntax.R "$RUNNER_TEMP/clinical-toolkit"
           /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/verify_toolkit.py "$RUNNER_TEMP/clinical-toolkit"
           /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/runtime_manifest.py --toolkit "$RUNNER_TEMP/clinical-toolkit" --cache "$RUNNER_TEMP/clinical-cache" --output "$RUNNER_TEMP/RUNTIME-MANIFEST.json"
+          mkdir -p "$RUNNER_TEMP/clinical-manifest-proof"
+          cp "$RUNNER_TEMP/clinical-toolkit/toolkit-manifest.json" "$RUNNER_TEMP/clinical-manifest-proof/"
+          cp "$RUNNER_TEMP/RUNTIME-MANIFEST.json" "$RUNNER_TEMP/clinical-manifest-proof/"
       - name: Install offline and run actual analysis with network denied
         shell: bash
         run: |
@@ -47,6 +52,13 @@ jobs:
           set +e
           ROOT="$RUNNER_TEMP/中文 临床研究/.agents/skills/ye1-clinical-analysis/install-logs"
           if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -print -exec tail -n 60 {} \;; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: clinical-macos-manifest-proof
+          path: ${{ runner.temp }}/clinical-manifest-proof/
+          retention-days: 1
+          if-no-files-found: ignore
       - name: Record checked toolkit manifest and aggregate-only figures
         shell: bash
         run: |

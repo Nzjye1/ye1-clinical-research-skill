@@ -4,6 +4,16 @@ TOOLKIT="$1"; CACHE="$2"; PROJECT="$3"; AREA="$4"
 export LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
 export YE1_CLINICAL_OFFLINE_CACHE="$CACHE"
 mkdir -p "$PROJECT" "$AREA"
+# Verify the per-process sandbox actually denies network before installing or
+# analyzing. TEST-NET-1 is reserved; no customer data is sent.
+/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -c 'import errno,socket
+try:
+    s=socket.socket();s.settimeout(2);s.connect(("192.0.2.1",443))
+except OSError as e:
+    assert e.errno in (errno.EPERM,errno.EACCES), ("unexpected network denial",e.errno)
+    print("PASS network denied by process sandbox")
+else:
+    raise SystemExit("network was not denied")'
 bash "$TOOLKIT/setup-offline.sh" "$PROJECT" --all
 MAIN="$PROJECT/.agents/skills/ye1-clinical-analysis"
 PY="$MAIN/.runtime/python/bin/python3"

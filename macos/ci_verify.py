@@ -1,6 +1,6 @@
 """Validate actual PBC and synthetic ML artifacts, emit only aggregate proof."""
 from pathlib import Path
-import hashlib, json, shutil, sys
+import hashlib, json, os, shutil, sys
 
 area, main = map(Path, sys.argv[1:3])
 pbc = json.loads((area / 'public-pbc/acceptance.json').read_text(encoding='utf-8'))
@@ -19,6 +19,8 @@ for result in trees:
     for plot in directory.glob('*.png'):
         shutil.copy2(plot, public / (result['method'] + '-' + plot.name))
 record = {'status': 'PASS', 'platform': 'macOS arm64', 'network': 'per-process sandbox denies network',
+          'source_commit': os.environ['GITHUB_SHA'],
+          'ci_url': os.environ['GITHUB_SERVER_URL'] + '/' + os.environ['GITHUB_REPOSITORY'] + '/actions/runs/' + os.environ['GITHUB_RUN_ID'],
           'public_pbc': {'status': pbc['status'], 'fixture': pbc['fixture_id'],
                          'numerical_comparison': pbc['numerical_comparison'], 'png_dimensions': pbc['png_dimensions']},
           'synthetic_ml': [{'method': x['method'], 'figures': x['figures']} for x in trees],

@@ -93,13 +93,17 @@ def main():
         shutil.copy2(ROOT / 'macos' / name, target / name)
     (target / 'README.md').write_text('''# Ye1 临床分析 — Apple 芯片 Mac
 
-将本地 CSV 和研究问题交给 Agent，生成统计表、图和结果说明。先阅读 [安装说明](START-HERE.md)。
+## 安装到你的 Agent
+
+> 请先识别我的系统并阅读这个工具箱的安装说明；如果适用，就把 Ye1 临床分析 Skill 安装到当前研究项目，准备依赖并完成自检，告诉我结果和开始方式。
+
+适用于 Apple 芯片 macOS 14 或更新版本。将本地 CSV 和研究问题交给 Agent，生成统计表、图和结果说明。见[安装说明](START-HERE.md)。
 ''', encoding='utf-8', newline='\n')
     (target / 'START-HERE.md').write_text('''# 安装到你的 Agent
 
 适用于 Apple 芯片 macOS 14 或更新版本。将工具箱解压到独立目录，在 Codex 中打开研究项目并告诉 Agent：
 
-> 请阅读这个 Ye1 临床分析工具箱的安装说明，检查依赖，安装到当前研究项目并完成基础自检。完成后告诉我安装版本、结果和开始方式。
+> 请先识别我的系统并阅读这个工具箱的安装说明；如果适用，就把 Ye1 临床分析 Skill 安装到当前研究项目，准备依赖并完成自检，告诉我结果和开始方式。
 
 联网时运行 `bash setup-online.sh <已有研究目录>`；完整离线包从 `toolkit` 目录运行 `bash setup-offline.sh <已有研究目录>`。按需在命令末尾添加 `--method <方法ID>` 或 `--all`。首次预检和恢复等细节见主 Skill 的 `INSTALL.md`。
 ''', encoding='utf-8', newline='\n')
@@ -128,8 +132,12 @@ def main():
     manifest['version'] = source_spec['product_version']
     manifest['foundation'] = 'Official Python 3.14.5 and R 4.6.1 Apple arm64 frameworks'
     manifest['delivery_status'] = 'macOS arm64 candidate; final acceptance tracked outside package'
+    # WindowsPath sorting folds case while macOS PosixPath does not. Sort the
+    # portable relative strings so the Windows-built and CI-built manifests
+    # are byte-identical, including their JSON key order.
+    paths = [p for p in (target / 'skills').rglob('*') if p.is_file()]
     manifest['files'] = {p.relative_to(target).as_posix(): digest(p)
-                         for p in sorted((target / 'skills').rglob('*')) if p.is_file()}
+                         for p in sorted(paths, key=lambda item:item.relative_to(target).as_posix())}
     write_json(manifest_path, manifest)
 
     backend = MAIN / '_shared/clinical_analysis'

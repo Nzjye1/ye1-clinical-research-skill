@@ -36,6 +36,8 @@ jobs:
           set -euo pipefail
           P=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14
           "$P" -I -B -X utf8 macos/build_toolkit.py --output "$RUNNER_TEMP/clinical-toolkit" --r-cache "$RUNNER_TEMP/clinical-cache/r"
+          "$P" -I -B -X utf8 macos/check_python_syntax.py "$RUNNER_TEMP/clinical-toolkit"
+          /Library/Frameworks/R.framework/Resources/bin/Rscript --vanilla macos/check_r_syntax.R "$RUNNER_TEMP/clinical-toolkit"
           "$P" -I -B -X utf8 macos/verify_toolkit.py "$RUNNER_TEMP/clinical-toolkit"
       - name: Reproduce the two synthetic tree exports offline
         shell: bash
