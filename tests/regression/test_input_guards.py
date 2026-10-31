@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,copy,csv,gzip,hashlib,io,json,subprocess,sys,concurrent.futures
 REPO=Path(__file__).resolve().parents[2];p=argparse.ArgumentParser();p.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));p.add_argument('--area',required=True);p.add_argument('--core-area',default=str(REPO/'.pilot-local/v03/core-forward-4'));p.add_argument('--rf-area',default=str(REPO/'.pilot-local/v03/module-forward-1'));p.add_argument('--hgb-area',default=str(REPO/'.pilot-local/v03/module-forward-2'));a=p.parse_args();MAIN=Path(a.package).resolve();AREA=Path(a.area).resolve();AREA.mkdir(parents=True,exist_ok=False);sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as rt
-CP=next(x.parent for x in Path(a.core_area).glob('*/runs'));MP=next(x.parent for x in Path(a.rf_area).glob('*/runs'));PY=MAIN/'.runtime/python/Scripts/python.exe'
+CP=next(x.parent for x in Path(a.core_area).glob('*/runs'));MP=next(x.parent for x in Path(a.rf_area).glob('*/runs'));PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe')
 def load(p):return json.loads(Path(p).read_text(encoding='utf-8'))
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def save(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

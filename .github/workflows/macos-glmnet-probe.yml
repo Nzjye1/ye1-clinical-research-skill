@@ -1,7 +1,5 @@
 name: Clinical macOS arm64 glmnet source build probe
 on:
-  push:
-    branches: [feature/macos-arm64-clinical-20261031]
   workflow_dispatch:
 permissions:
   contents: read

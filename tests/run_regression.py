@@ -13,12 +13,13 @@ def main():
     a=p.parse_args()
     package=Path(a.package).resolve();area=Path(a.area).resolve()
     area.mkdir(parents=True,exist_ok=False)
-    python=package/'.runtime/python/Scripts/python.exe'
+    python=package/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe')
     scripts=Path(__file__).resolve().parent/'regression'
     results=[]
     env=os.environ.copy()
     for key in list(env):
         if key=='LANG' or key.startswith('LC_'):env.pop(key)
+    if sys.platform=='darwin':env.update(LANG='en_US.UTF-8',LC_CTYPE='en_US.UTF-8')
     env['PYTHONDONTWRITEBYTECODE']='1'
     def save():
         (area/'receipt.json').write_text(json.dumps({'results':results,'source_data':'synthetic engineering fixtures only',

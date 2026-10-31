@@ -592,7 +592,7 @@
     "skills/ye1-clinical-analysis/scripts/download_wheels.py": "ae2335fa1401293ab74fd266fdf6f5b45e8218dbf7b2da7c94e45eade80acdbe",
     "skills/ye1-clinical-analysis/scripts/frozen_display.py": "feafd4f422df5b17a130508ecf614ae36af58ca45a1b24878cf1210457c47e91",
     "skills/ye1-clinical-analysis/scripts/ingestion.py": "aea391713bbc49962b4dc903066edc28b66781312205d911ca977ade71f25700",
-    "skills/ye1-clinical-analysis/scripts/install_r.R": "671585c0b88bbc1a5ec621a4ad869536a0cd8e40514e44cc9dd699710096b461",
+    "skills/ye1-clinical-analysis/scripts/install_r.R": "8d55a428280a129d1c1d2c706de5214d64f8f9c4824d4edead4690d3dac71e4a",
     "skills/ye1-clinical-analysis/scripts/install_windows.py": "b502e8cc784c49ac184a698b072d520887f65ca09e65972ad7fd3df1d615b7b2",
     "skills/ye1-clinical-analysis/scripts/km_display.py": "808f79b61746f1274242c332c677242fd6a194078fd66171c916fc78c86e80b8",
     "skills/ye1-clinical-analysis/scripts/legacy_analysis.py": "42522c8768ff032be535a327352237b0365f9388f6c51ef3801b328f1c2e7055",
@@ -604,7 +604,7 @@
     "skills/ye1-clinical-analysis/scripts/prepare_task.py": "81eb32af96be2eeebd5a72df56d4c5c87fc769831a45df10fc4ffdbf31d7b926",
     "skills/ye1-clinical-analysis/scripts/presentation.py": "7e3fa4ec6070a13a5494c725ff9725df7a39cd00a50dfc0927a523a86f35089f",
     "skills/ye1-clinical-analysis/scripts/public_fixture.py": "e0e3ca4b92fc912c4e6554cde488dbe003575bea171b75434f973c0d8bdaf9c5",
-    "skills/ye1-clinical-analysis/scripts/runtime_toolkit.py": "1feab387db1d71a992a446418ab56d8d73295ca1fb82f5d45a63e31a5658af40",
+    "skills/ye1-clinical-analysis/scripts/runtime_toolkit.py": "87752560032791d1726ea718db3f2b894b77b10230bcff19f7f1c2aa9471edab",
     "skills/ye1-clinical-analysis/scripts/runtime_windows.py": "e139272b7488014c1fe20b8d416d91d413b4a1b8d41fcd4d5cf5d184596b397b",
     "skills/ye1-clinical-analysis/scripts/toolkit.py": "e29399edfd3dc6cea1a01efb75304b603a35b1badbd05f4435fba6d23a6145c5",
     "skills/ye1-clinical-analysis/scripts/verify_public_pbc.R": "dd91002b4d099de77ec14e4d2cd159b8321b916fab653ba29e5c81f31e3e3493",
@@ -709,7 +709,8 @@
     "skills/ye1-survival-cox-association/agents/openai.yaml": "fa6e2bd5e54405ba1cac9ec82b475140bfdfb214cea516cfdcdfbc230213c977",
     "skills/ye1-survival-kaplan-meier/SKILL.md": "243f0562e3ab8b3a3d45cfa6fcbec9082bc044f32bce94ab186e22387f808717",
     "skills/ye1-survival-kaplan-meier/agents/openai.yaml": "9c39e017b786a3554018170eeaacf14df3c82ceabb69b85659c8a047f4efab9b",
-    "skills/ye1-clinical-analysis/scripts/runtime_platform.py": "a4db8d77374263d98732bd27f36183e1e90116cb33116aa3986bd157ffefd768"
+    "skills/ye1-clinical-analysis/scripts/runtime_platform.py": "a4db8d77374263d98732bd27f36183e1e90116cb33116aa3986bd157ffefd768",
+    "skills/ye1-clinical-analysis/scripts/install_macos.py": "83bee7f5b3149e5e71ea59ab7734df6f1349c0c254aaca0660d2e95bf3767061"
   },
   "foundation": "Python3.14.5x64 and R4.6.1x64 are external prerequisites; no physical cold-PC claim",
   "patient_data_bundled": false,

@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,copy,csv,json,math,random,subprocess,sys
 REPO=Path(__file__).resolve().parents[2];parser=argparse.ArgumentParser();parser.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));parser.add_argument('--area',required=True);args=parser.parse_args();MAIN=Path(args.package).resolve();AREA=Path(args.area).resolve();AREA.mkdir(parents=True,exist_ok=False);PROJECT=AREA/'中文 基础检验';PROJECT.mkdir();(PROJECT/'runs').mkdir();sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as rt;import legacy_analysis as legacy
-PY=MAIN/'.runtime/python/Scripts/python.exe';rng=random.Random(2026103070);rows=[]
+PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe');rng=random.Random(2026103070);rows=[]
 for n in range(160):
  group='A' if n%2==0 else 'B';x=.3*(group=='B')+rng.gauss(0,1);paired=.6*x+rng.gauss(0,.9);binary='1' if rng.random()<(.4 if group=='A' else .55) else '0';rows.append({'id':'basic-new-'+str(n),'group':group,'x':x,'paired':paired,'binary':binary})
 file=PROJECT/'中文 原表.csv';names=['id','group','x','paired','binary']

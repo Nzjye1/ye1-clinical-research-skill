@@ -4,7 +4,7 @@ import argparse,copy,csv,hashlib,json,math,random,subprocess,sys
 REPO=Path(__file__).resolve().parents[2];p=argparse.ArgumentParser();p.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));p.add_argument('--area',required=True);p.add_argument('--core-area',default=str(REPO/'.pilot-local/v03/core-forward-4'));p.add_argument('--rf-area',default=str(REPO/'.pilot-local/v03/module-forward-1'));p.add_argument('--hgb-area',default=str(REPO/'.pilot-local/v03/module-forward-2'));a=p.parse_args();MAIN=Path(a.package).resolve();AREA=Path(a.area).resolve();AREA.mkdir(parents=True,exist_ok=False)
 sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as runtime
 CORE=MAIN/'_shared/clinical_analysis/integration/core';sys.path.insert(0,str(CORE/'python'));from clinical_methods import contracts as c
-PY=MAIN/'.runtime/python/Scripts/python.exe'
+PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe')
 def load(p):return json.loads(Path(p).read_text(encoding='utf-8'))
 def save(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()

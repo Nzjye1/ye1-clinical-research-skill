@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,copy,hashlib,json,subprocess,sys
 REPO=Path(__file__).resolve().parents[2];p=argparse.ArgumentParser();p.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));p.add_argument('--core-area',default=str(REPO/'.pilot-local/v03/core-forward-4'));p.add_argument('--area',required=True);a=p.parse_args();MAIN=Path(a.package).resolve();AREA=Path(a.area).resolve();AREA.mkdir(parents=True,exist_ok=False);CP=next(x.parent for x in Path(a.core_area).glob('*/runs'));CORE=MAIN/'_shared/clinical_analysis/integration/core';sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as rt
-PY=MAIN/'.runtime/python/Scripts/python.exe';ns={'copy':copy};source=REPO/'tests/regression/fixture-sources/core/association_plan.py';exec(compile(source.read_text(encoding='utf-8'),str(source),'exec'),ns)
+PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe');ns={'copy':copy};source=REPO/'tests/regression/fixture-sources/core/association_plan.py';exec(compile(source.read_text(encoding='utf-8'),str(source),'exec'),ns)
 def load(p):return json.loads(Path(p).read_text(encoding='utf-8'))
 def save(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()

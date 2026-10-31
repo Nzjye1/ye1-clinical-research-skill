@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse,copy,csv,hashlib,json,math,random,subprocess,sys
 import numpy as np
 REPO=Path(__file__).resolve().parents[2];p=argparse.ArgumentParser();p.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));p.add_argument('--area',required=True);p.add_argument('--core-area',default=str(REPO/'.pilot-local/v03/core-forward-4'));p.add_argument('--rf-area',default=str(REPO/'.pilot-local/v03/module-forward-1'));p.add_argument('--hgb-area',default=str(REPO/'.pilot-local/v03/module-forward-2'));p.add_argument('--only',nargs='*');a=p.parse_args();MAIN=Path(a.package).resolve();AREA=Path(a.area).resolve();AREA.mkdir(parents=True,exist_ok=False);sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as rt
-PY=MAIN/'.runtime/python/Scripts/python.exe';CP=next(x.parent for x in Path(a.core_area).glob('*/runs'));RP=next(x.parent for x in Path(a.rf_area).glob('*/runs'));HP=next(x.parent for x in Path(a.hgb_area).glob('*/runs'));RESULTS=[];MODELS={}
+PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe');CP=next(x.parent for x in Path(a.core_area).glob('*/runs'));RP=next(x.parent for x in Path(a.rf_area).glob('*/runs'));HP=next(x.parent for x in Path(a.hgb_area).glob('*/runs'));RESULTS=[];MODELS={}
 def load(p):return json.loads(Path(p).read_text(encoding='utf-8'))
 def save(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()

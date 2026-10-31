@@ -5,7 +5,7 @@ REPO=Path(__file__).resolve().parents[2]
 p=argparse.ArgumentParser();p.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));p.add_argument('--area',required=True);p.add_argument('--methods',nargs='*');args=p.parse_args();MAIN=Path(args.package).resolve();AREA=Path(args.area).resolve();AREA.mkdir(parents=True,exist_ok=False);PROJECT=AREA/'中文 客户合成研究';PROJECT.mkdir();CORE=MAIN/'_shared/clinical_analysis/integration/core'
 sys.path.insert(0,str(CORE/'python'));from clinical_methods import contracts as c
 sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as runtime
-PY=MAIN/'.runtime/python/Scripts/python.exe';rng=random.Random(2026103017);N=480
+PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe');rng=random.Random(2026103017);N=480
 HEADER=['id','x','z','group','y','binary','category','site','time','label_ready','patient_id','partition','fold','age','severity','sex','outcome','duration','event','status']
 records=[]
 for n in range(N):

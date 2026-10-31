@@ -4,7 +4,7 @@ import argparse,ast,copy,csv,hashlib,json,math,random,subprocess,sys,concurrent.
 import numpy as np
 REPO=Path(__file__).resolve().parents[2];p=argparse.ArgumentParser();p.add_argument('--package',default=str(REPO/'windows-v03/toolkit/skills/ye1-clinical-analysis'));p.add_argument('--area',required=True);p.add_argument('--methods',nargs='*');a=p.parse_args();MAIN=Path(a.package).resolve();AREA=Path(a.area).resolve();AREA.mkdir(parents=True,exist_ok=False);PROJECT=AREA/'中文 模块研究';PROJECT.mkdir();OWNER=MAIN/'_shared/clinical_analysis/modules';ORIGINAL=REPO/'tests/regression/fixture-sources'
 sys.path.insert(0,str(MAIN/'scripts'));import runtime_toolkit as runtime
-PY=MAIN/'.runtime/python/Scripts/python.exe'
+PY=MAIN/('.runtime/python/bin/python3' if sys.platform=='darwin' else '.runtime/python/Scripts/python.exe')
 def save(p,v):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def digest(v):return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
 def metadata_functions(relative,names,namespace):

@@ -163,7 +163,15 @@
         "sha256": "a6c23c906806f89a451de30b202e5bf088577f4da260d0b7f8887a7df3f22778",
         "bytes": 2849253
       },
-      "status": "MAC_BINARY_BUILD_PENDING"
+      "status": "MAC_BINARY_BUILT_AND_SYNTHETICALLY_TESTED",
+      "binary": {
+        "filename": "glmnet_5.1.tgz",
+        "bytes": 2475382,
+        "sha256": "81ff095b92ce3e7b586ea1671796b27cf517c79fb56f26b0c1e18086de8d74bb",
+        "provenance": "GitHub Actions macOS arm64",
+        "ci_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/actions/runs/41171098481",
+        "ci_commit": "b2ad54387ad64c4bd896b071ea5071e52245dc10"
+      }
     }
   ]
 }

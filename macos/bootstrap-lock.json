@@ -1,0 +1,35 @@
+{
+  "schema": "clinical-macos-arm64-bootstrap@1.0",
+  "artifacts": [
+    {
+      "id": "mac-python",
+      "name": "CPython-macOS",
+      "version": "3.14.5",
+      "url": "https://www.python.org/ftp/python/3.14.5/python-3.14.5-macos11.pkg",
+      "filename": "python-3.14.5-macos11.pkg",
+      "sha256": "b28a8dc33c456dd06c97024697d63ca916cfb494594c06fa3e4ef4d41fa82335",
+      "bytes": 76271654,
+      "license": "PSF-2.0 and incorporated notices"
+    },
+    {
+      "id": "mac-r",
+      "name": "R-macOS-arm64",
+      "version": "4.6.1",
+      "url": "https://cran.r-project.org/bin/macosx/sonoma-arm64/base/R-4.6.1-arm64.pkg",
+      "filename": "R-4.6.1-arm64.pkg",
+      "sha256": "67f6eea4ced4ce48f0a0d4fa3a1cac43d1859a05a88993ee3dff7c52e7edbc4b",
+      "bytes": 105066342,
+      "license": "GPL-2 or GPL-3 and incorporated notices"
+    },
+    {
+      "id": "mac-py-certifi",
+      "name": "certifi",
+      "version": "2026.10.23",
+      "url": "https://files.pythonhosted.org/packages/32/d1/a3652fe2c19134d0d15922177821d863cbd7e842d53a21bbe7e8e3a1b5ac/certifi-2026.10.23-py3-none-any.whl",
+      "filename": "certifi-2026.10.23-py3-none-any.whl",
+      "sha256": "e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1",
+      "bytes": 135082,
+      "license": "MPL-2.0"
+    }
+  ]
+}

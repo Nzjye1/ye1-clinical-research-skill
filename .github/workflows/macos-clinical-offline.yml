@@ -1,0 +1,61 @@
+name: Clinical macOS arm64 offline install and analysis
+on:
+  push:
+    branches: [feature/macos-arm64-clinical-20261031]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-clinical:
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Prefetch fixed official packages and check Apple Silicon
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64 && test "$RUNNER_ARCH" = ARM64
+          /usr/bin/python3 -B macos/prefetch.py --root "$RUNNER_TEMP/clinical-cache"
+      - name: Independently install locked Python and R from local packages with network denied
+        shell: bash
+        run: |
+          set -euo pipefail
+          CACHE="$RUNNER_TEMP/clinical-cache/bootstrap"
+          PY="$CACHE/b28a8dc33c456dd06c97024697d63ca916cfb494594c06fa3e4ef4d41fa82335_python-3.14.5-macos11.pkg"
+          R="$CACHE/67f6eea4ced4ce48f0a0d4fa3a1cac43d1859a05a88993ee3dff7c52e7edbc4b_R-4.6.1-arm64.pkg"
+          pkgutil --check-signature "$PY" | grep 'Python Software Foundation'
+          pkgutil --check-signature "$R" | grep 'Developer ID Installer: Simon Urbanek (VZLD955F6P)'
+          PROFILE='(version 1)(allow default)(deny network*)'
+          sudo /usr/bin/sandbox-exec -p "$PROFILE" /usr/sbin/installer -pkg "$PY" -target /
+          sudo /usr/bin/sandbox-exec -p "$PROFILE" /usr/sbin/installer -pkg "$R" -target /
+          /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -c 'import platform;assert platform.machine()=="arm64" and platform.python_version()=="3.14.5"'
+      - name: Assemble Mac toolkit from locked inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/build_toolkit.py --output "$RUNNER_TEMP/clinical-toolkit" --r-cache "$RUNNER_TEMP/clinical-cache/r"
+          /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/verify_toolkit.py "$RUNNER_TEMP/clinical-toolkit"
+      - name: Install offline and run actual analysis with network denied
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/sandbox-exec -p '(version 1)(allow default)(deny network*)' /bin/bash macos/ci_offline.sh "$RUNNER_TEMP/clinical-toolkit" "$RUNNER_TEMP/clinical-cache" "$RUNNER_TEMP/中文 临床研究" "$RUNNER_TEMP/clinical-results"
+      - name: Capture diagnostic installation logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          set +e
+          ROOT="$RUNNER_TEMP/中文 临床研究/.agents/skills/ye1-clinical-analysis/install-logs"
+          if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -maxdepth 2 -print -exec tail -n 60 {} \;; fi
+      - name: Record checked toolkit manifest and aggregate-only figures
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$RUNNER_TEMP/clinical-toolkit/toolkit-manifest.json" "$RUNNER_TEMP/clinical-results/public-proof/toolkit-manifest.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: clinical-macos-aggregate-proof
+          path: ${{ runner.temp }}/clinical-results/public-proof/
+          retention-days: 1
+          if-no-files-found: error

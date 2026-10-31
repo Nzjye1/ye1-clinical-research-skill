@@ -17,6 +17,7 @@ def env():
     result=os.environ.copy()
     for key in ["PYTHONPATH","PYTHONHOME","R_LIBS","R_LIBS_USER","R_LIBS_SITE","R_PROFILE","R_PROFILE_USER","R_ENVIRON","R_ENVIRON_USER","LANG","LC_ALL","LC_COLLATE","LC_CTYPE","LC_MONETARY","LC_TIME"]:result.pop(key,None)
     result.update(PYTHONDONTWRITEBYTECODE="1",PYTHONIOENCODING="utf-8",MPLBACKEND="Agg",MPLCONFIGDIR=str(ROOT/".runtime/cache/matplotlib"),OMP_NUM_THREADS="1",OPENBLAS_NUM_THREADS="1",MKL_NUM_THREADS="1")
+    if platform.system()=="Darwin":result.update(LANG="en_US.UTF-8",LC_CTYPE="en_US.UTF-8")
     return result
 PY_FILES=r'''
 from pathlib import Path
@@ -39,7 +40,7 @@ R_META=r'''
 if(.Platform$OS.type=='windows')invisible(suppressWarnings(Sys.setlocale('LC_CTYPE','.UTF-8')))
 a<-commandArgs(trailingOnly=TRUE);Encoding(a)<-'UTF-8';.libPaths(c(a[[1]],.Library),include.site=FALSE)
 names<-strsplit(a[[2]],',',fixed=TRUE)[[1]]
-out<-list(R=as.character(getRversion()),r_home=normalizePath(R.home(),winslash='/',mustWork=TRUE),versions=list(),paths=list())
+out<-list(R=as.character(getRversion()),r_arch=R.version$arch,r_home=normalizePath(R.home(),winslash='/',mustWork=TRUE),versions=list(),paths=list())
 for(p in names){found<-find.package(p,quiet=TRUE);if(length(found)){out$versions[[p]]<-as.character(utils::packageVersion(p));out$paths[[p]]<-normalizePath(found,winslash='/',mustWork=TRUE)}}
 cat(jsonlite::toJSON(out,auto_unbox=TRUE))
 '''
@@ -74,6 +75,7 @@ def planned_R_file(spec,name,relative,rhome):
         return str((ROOT/".runtime/r-library"/name/relative).resolve()),hashlib.sha256(raw).hexdigest()
     path=Path(rhome)/"library"/name/relative
     if path.is_file():return str(path.resolve()),sha(path)
+    if platform.system()=="Darwin":raise RuntimeBlocked("FOUNDATION_R_DECLARATION_UNAVAILABLE")
     requirements=load(BACKEND/"runtime-requirements.json")
     for group in requirements["core_dependency_groups"].values():
         if name in group and relative in group[name]:return str(path.resolve()),group[name][relative]
@@ -96,7 +98,9 @@ def configure(installed,rscript):
     all_python={x["name"]:x for x in spec["python_packages"]};all_R={x["name"]:x for x in spec["r_packages"]}
     wanted_R=set(all_R)|{name for group in spec["groups"].values() for name in group["foundation_R"]}
     r=run_json([rscript,"--vanilla","-",rlib,",".join(sorted(wanted_R))],R_META)
-    need(r["R"]==spec["R"],"R_VERSION_UNSUPPORTED");rhome=Path(r["r_home"]);groups={}
+    need(r["R"]==spec["R"],"R_VERSION_UNSUPPORTED")
+    if platform.system()=="Darwin":need(r.get("r_arch") in {"arm64","aarch64"},"R_ARM64_REQUIRED")
+    rhome=Path(r["r_home"]);groups={}
     base=None
     for name in installed:
         definition=spec["groups"][name];py=py_probe(definition["python"]);base=base or py
@@ -174,4 +178,5 @@ def check(method="baseline.table1"):
     r_names=sorted({p for g in required for p in spec["groups"][g]["R"]}|{p for g in required for p in spec["groups"][g]["foundation_R"]})
     probe=R_META.replace("cat(jsonlite::toJSON(out,auto_unbox=TRUE))","for(p in names)stopifnot(suppressPackageStartupMessages(requireNamespace(p,quietly=TRUE)));cat(jsonlite::toJSON(out,auto_unbox=TRUE))")
     run_json([profile["rscript"],"--vanilla","-",ROOT/".runtime/r-library",",".join(r_names)],probe)
-    return {"status":"WINDOWS_TOOLKIT_RUNTIME_READY","method_id":method,"python":spec["python"],"R":spec["R"],"required_groups":required,"installed_groups":profile["installed_groups"],"network_isolation":"not_provided"}
+    status="MACOS_ARM64_TOOLKIT_RUNTIME_READY" if platform.system()=="Darwin" else "WINDOWS_TOOLKIT_RUNTIME_READY"
+    return {"status":status,"method_id":method,"python":spec["python"],"R":spec["R"],"required_groups":required,"installed_groups":profile["installed_groups"],"network_isolation":"not_provided"}
