@@ -1,0 +1,53 @@
+name: Clinical macOS arm64 synthetic tree diagnostic
+on:
+  push:
+    branches: [feature/macos-arm64-clinical-20261031]
+    paths: [.github/workflows/macos-tree-diagnostic.yml, macos/ci_trees.sh]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tree-diagnostic:
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Prefetch official locked inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64 && test "$RUNNER_ARCH" = ARM64
+          /usr/bin/python3 -B macos/prefetch.py --root "$RUNNER_TEMP/clinical-cache"
+      - name: Install Python and R from locked local packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          CACHE="$RUNNER_TEMP/clinical-cache/bootstrap"
+          PY="$CACHE/b28a8dc33c456dd06c97024697d63ca916cfb494594c06fa3e4ef4d41fa82335_python-3.14.5-macos11.pkg"
+          R="$CACHE/67f6eea4ced4ce48f0a0d4fa3a1cac43d1859a05a88993ee3dff7c52e7edbc4b_R-4.6.1-arm64.pkg"
+          pkgutil --check-signature "$PY" | grep 'Python Software Foundation'
+          pkgutil --check-signature "$R" | grep 'Developer ID Installer: Simon Urbanek (VZLD955F6P)'
+          PROFILE='(version 1)(allow default)(deny network*)'
+          sudo /usr/bin/sandbox-exec -p "$PROFILE" /usr/sbin/installer -pkg "$PY" -target /
+          sudo /usr/bin/sandbox-exec -p "$PROFILE" /usr/sbin/installer -pkg "$R" -target /
+      - name: Assemble and verify toolkit
+        shell: bash
+        run: |
+          set -euo pipefail
+          P=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14
+          "$P" -I -B -X utf8 macos/build_toolkit.py --output "$RUNNER_TEMP/clinical-toolkit" --r-cache "$RUNNER_TEMP/clinical-cache/r"
+          "$P" -I -B -X utf8 macos/verify_toolkit.py "$RUNNER_TEMP/clinical-toolkit"
+      - name: Reproduce the two synthetic tree exports offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/sandbox-exec -p '(version 1)(allow default)(deny network*)' /bin/bash macos/ci_trees.sh "$RUNNER_TEMP/clinical-toolkit" "$RUNNER_TEMP/clinical-cache" "$RUNNER_TEMP/中文 临床研究" "$RUNNER_TEMP/clinical-results"
+      - name: Capture synthetic entry and installation logs
+        if: failure()
+        shell: bash
+        run: |
+          set +e
+          ROOT="$RUNNER_TEMP/clinical-results/trees"
+          if [[ -d "$ROOT" ]]; then find "$ROOT" -path '*/private/entry-logs/*.log' -type f -print -exec tail -n 180 {} \;; fi
+          ROOT="$RUNNER_TEMP/中文 临床研究/.agents/skills/ye1-clinical-analysis/install-logs"
+          if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -print -exec tail -n 60 {} \;; fi
