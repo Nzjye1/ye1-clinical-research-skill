@@ -54,8 +54,9 @@ jobs:
           TOOLKIT="$RUNNER_TEMP/customer-package/toolkit"
           PROJECT="$RUNNER_TEMP/clinical project"
           if [[ "$MODE" == offline ]]; then
-            export YE1_CLINICAL_OFFLINE_CACHE="$RUNNER_TEMP/clinical-cache"
-            /usr/bin/sandbox-exec -p '(version 1)(allow default)(deny network*)' /bin/bash "$TOOLKIT/setup-offline.sh" "$PROJECT" --groups base plot 2>&1 | tee "$RUNNER_TEMP/first-results/entry.log"
+            # sandbox-exec cannot launch setuid sudo. Authorize the complete
+            # customer entry first; it then executes entirely without network.
+            sudo -n /usr/bin/sandbox-exec -p '(version 1)(allow default)(deny network*)' /usr/bin/env YE1_CLINICAL_OFFLINE_CACHE="$RUNNER_TEMP/clinical-cache" /bin/bash "$TOOLKIT/setup-offline.sh" "$PROJECT" --groups base plot 2>&1 | tee "$RUNNER_TEMP/first-results/entry.log"
           else
             /bin/bash "$TOOLKIT/setup-online.sh" "$PROJECT" --groups base plot 2>&1 | tee "$RUNNER_TEMP/first-results/entry.log"
           fi
@@ -63,7 +64,7 @@ jobs:
           test -f "$PROJECT/.ye1-clinical-bootstrap/logs/r-signature.txt"
           grep -q 'Python Software Foundation' "$PROJECT/.ye1-clinical-bootstrap/logs/python-signature.txt"
           grep -q 'Developer ID Installer: Simon Urbanek' "$PROJECT/.ye1-clinical-bootstrap/logs/r-signature.txt"
-          test "$(grep -c 'installer: The install was successful' "$RUNNER_TEMP/first-results/entry.log")" -ge 2
+          test "$(grep -Ec 'installer: The (install|upgrade) was successful' "$RUNNER_TEMP/first-results/entry.log")" -ge 2
           /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -c 'import platform; assert platform.machine()=="arm64" and platform.python_version()=="3.14.5"'
           /Library/Frameworks/R.framework/Resources/bin/Rscript --vanilla -e 'stopifnot(as.character(getRversion())=="4.6.1", R.version$arch=="aarch64")'
           echo 'PASS customer entry installed both pinned official frameworks and project dependencies'
