@@ -12,7 +12,7 @@
 
 [下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md)
 
-[Apple 芯片 Mac 联网安装包](downloads/ye1-clinical-0.3.0-macos-arm64-online-a8f351c.zip) · [Mac 安装说明](macos/INSTALL.md)
+[Apple 芯片 Mac 联网安装包](https://raw.githubusercontent.com/Nzjye1/ye1-clinical-research-skill/main/downloads/ye1-clinical-0.3.0-macos-arm64-online-a8f351c.zip) · [Mac 安装说明](macos/INSTALL.md)
 
 <p align="center">
   <img src="assets/showcase/clinical-cover.png" alt="Ye1 临床分析 · 本地 CSV 到统计表图与结果说明" width="960">
