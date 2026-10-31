@@ -2,6 +2,7 @@
 args <- commandArgs(trailingOnly=TRUE)
 if(length(args)!=1L) stop("ONE_OUTPUT_REQUIRED")
 script <- sub("^--file=", "", grep("^--file=",commandArgs(),value=TRUE)[[1L]])
+if (.Platform$OS.type != "windows" && !file.exists(script)) script <- gsub("~+~", " ", script, fixed=TRUE)
 root <- normalizePath(file.path(dirname(script),".."),winslash="/",mustWork=TRUE)
 out <- normalizePath(args[[1L]],winslash="/",mustWork=FALSE)
 if(!startsWith(tolower(out),paste0(tolower(root),"/evidence/"))||file.exists(out)) stop("NEW_LOCAL_EVIDENCE_PATH_REQUIRED")
