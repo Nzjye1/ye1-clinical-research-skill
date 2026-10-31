@@ -47,7 +47,7 @@ jobs:
         run: |
           set +e
           ROOT="$RUNNER_TEMP/中文 临床研究/.agents/skills/ye1-clinical-analysis/install-logs"
-          if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -maxdepth 2 -print -exec tail -n 60 {} \;; fi
+          if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -print -exec tail -n 60 {} \;; fi
       - name: Record checked toolkit manifest and aggregate-only figures
         shell: bash
         run: |
