@@ -1,7 +1,5 @@
 name: Clinical macOS arm64 offline install and analysis
 on:
-  push:
-    branches: [feature/macos-arm64-clinical-20261031]
   workflow_dispatch:
 permissions:
   contents: read
@@ -36,6 +34,7 @@ jobs:
           set -euo pipefail
           /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/build_toolkit.py --output "$RUNNER_TEMP/clinical-toolkit" --r-cache "$RUNNER_TEMP/clinical-cache/r"
           /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/verify_toolkit.py "$RUNNER_TEMP/clinical-toolkit"
+          /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B -X utf8 macos/runtime_manifest.py --toolkit "$RUNNER_TEMP/clinical-toolkit" --cache "$RUNNER_TEMP/clinical-cache" --output "$RUNNER_TEMP/RUNTIME-MANIFEST.json"
       - name: Install offline and run actual analysis with network denied
         shell: bash
         run: |
@@ -53,6 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           cp "$RUNNER_TEMP/clinical-toolkit/toolkit-manifest.json" "$RUNNER_TEMP/clinical-results/public-proof/toolkit-manifest.json"
+          cp "$RUNNER_TEMP/RUNTIME-MANIFEST.json" "$RUNNER_TEMP/clinical-results/public-proof/RUNTIME-MANIFEST.json"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: clinical-macos-aggregate-proof

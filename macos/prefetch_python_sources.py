@@ -11,9 +11,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--directory', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
+    parser.add_argument('--bootstrap-certifi-only', action='store_true')
     args = parser.parse_args()
     args.directory.mkdir(parents=True, exist_ok=False)
     lock = json.loads((ROOT / 'macos/python-arm64-lock.json').read_text(encoding='utf-8'))
+    if args.bootstrap_certifi_only:
+        bootstrap = json.loads((ROOT / 'macos/bootstrap-lock.json').read_text(encoding='utf-8'))['artifacts']
+        lock['artifacts'] = [next(item for item in bootstrap if item['name'].lower() == 'certifi')]
 
     def fetch(item):
         metadata_url = f"https://pypi.org/pypi/{item['name']}/{item['version']}/json"
