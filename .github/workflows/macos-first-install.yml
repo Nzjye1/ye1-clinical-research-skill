@@ -1,0 +1,77 @@
+name: Clinical macOS arm64 customer first installation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  first-install:
+    runs-on: macos-15
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [online, offline]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Check fresh-runner prerequisites and retrieve customer ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64 && test "$RUNNER_ARCH" = ARM64
+          PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14
+          RS=/Library/Frameworks/R.framework/Resources/bin/Rscript
+          if [[ -e "$PY" || -e "$RS" ]]; then
+            printf 'FRESH_FRAMEWORK_PATHS_NOT_ABSENT python=%s R=%s\n' "$(test -e "$PY" && echo present || echo absent)" "$(test -e "$RS" && echo present || echo absent)" >&2
+            exit 2
+          fi
+          echo 'PASS pinned Python and R framework executables absent before entry'
+          sudo -n true
+          mkdir -p "$RUNNER_TEMP/customer-package" "$RUNNER_TEMP/clinical project" "$RUNNER_TEMP/first-results"
+          curl --fail --location --silent --show-error --output "$RUNNER_TEMP/customer.zip" 'https://raw.githubusercontent.com/Nzjye1/ye1-clinical-research-skill/de302a1b4d4be56c511126c4688ad7bb7b0e6b78/downloads/ye1-clinical-0.3.0-macos-arm64-online-a8f351c.zip'
+          echo 'bcb6bee04c03eff2f5c19d86b8d9f11638f00bb120beb2ac32792669653369c6  '"$RUNNER_TEMP/customer.zip" | shasum -a 256 -c -
+          /usr/bin/unzip -q "$RUNNER_TEMP/customer.zip" -d "$RUNNER_TEMP/customer-package"
+      - name: Prepare verified offline resources
+        if: matrix.mode == 'offline'
+        shell: bash
+        run: /usr/bin/python3 -B macos/prefetch.py --root "$RUNNER_TEMP/clinical-cache"
+      - name: Customer entry installs foundations and dependencies
+        shell: bash
+        env:
+          MODE: ${{ matrix.mode }}
+        run: |
+          set -euo pipefail
+          TOOLKIT="$RUNNER_TEMP/customer-package/toolkit"
+          PROJECT="$RUNNER_TEMP/clinical project"
+          if [[ "$MODE" == offline ]]; then
+            export YE1_CLINICAL_OFFLINE_CACHE="$RUNNER_TEMP/clinical-cache"
+            /usr/bin/sandbox-exec -p '(version 1)(allow default)(deny network*)' /bin/bash "$TOOLKIT/setup-offline.sh" "$PROJECT" --groups base plot 2>&1 | tee "$RUNNER_TEMP/first-results/entry.log"
+          else
+            /bin/bash "$TOOLKIT/setup-online.sh" "$PROJECT" --groups base plot 2>&1 | tee "$RUNNER_TEMP/first-results/entry.log"
+          fi
+          test -f "$PROJECT/.ye1-clinical-bootstrap/logs/python-signature.txt"
+          test -f "$PROJECT/.ye1-clinical-bootstrap/logs/r-signature.txt"
+          grep -q 'Python Software Foundation' "$PROJECT/.ye1-clinical-bootstrap/logs/python-signature.txt"
+          grep -q 'Developer ID Installer: Simon Urbanek' "$PROJECT/.ye1-clinical-bootstrap/logs/r-signature.txt"
+          test "$(grep -c 'installer: The install was successful' "$RUNNER_TEMP/first-results/entry.log")" -ge 2
+          /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -c 'import platform; assert platform.machine()=="arm64" and platform.python_version()=="3.14.5"'
+          /Library/Frameworks/R.framework/Resources/bin/Rscript --vanilla -e 'stopifnot(as.character(getRversion())=="4.6.1", R.version$arch=="aarch64")'
+          echo 'PASS customer entry installed both pinned official frameworks and project dependencies'
+      - name: Verify real public PBC result and chart
+        shell: bash
+        run: |
+          set -euo pipefail
+          MAIN="$RUNNER_TEMP/clinical project/.agents/skills/ye1-clinical-analysis"
+          PY="$MAIN/.runtime/python/bin/python3"
+          RS=/Library/Frameworks/R.framework/Resources/bin/Rscript
+          "$PY" -I -B -X utf8 "$MAIN/scripts/toolkit.py" doctor --method baseline.table1
+          "$RS" --vanilla "$MAIN/examples/make_public_pbc.R" "$RUNNER_TEMP/first-results/pbc.csv" /Library/Frameworks/R.framework/Resources/library
+          BOUND_RS=$("$PY" -I -B -c 'import json,sys;print(json.load(open(sys.argv[1],encoding="utf-8"))["rscript"])' "$MAIN/.runtime/toolkit-profile.json")
+          "$PY" -I -B -X utf8 "$MAIN/scripts/toolkit.py" public-fixture --fixture survival-pbc-3.8-6-composite-km-v1 --source "$RUNNER_TEMP/first-results/pbc.csv" --output "$RUNNER_TEMP/first-results/public-pbc" --rscript "$BOUND_RS"
+          "$PY" -I -B -c 'import json,sys;d=json.load(open(sys.argv[1]));assert d["status"]=="PUBLIC_FIXTURE_ACCEPTANCE_PASSED" and d["png_dimensions"]==[1300,820];print("PASS public PBC first death or transplant and chart")' "$RUNNER_TEMP/first-results/public-pbc/acceptance.json"
+      - name: Capture installer diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          set +e
+          ROOT="$RUNNER_TEMP/clinical project/.agents/skills/ye1-clinical-analysis/install-logs"
+          if [[ -d "$ROOT" ]]; then find "$ROOT" -type f -print -exec tail -n 35 {} \;; fi
