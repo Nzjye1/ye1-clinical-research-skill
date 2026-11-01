@@ -1,6 +1,6 @@
 """Compile an explicit local draft without interactive prompts."""
 from pathlib import Path
-import argparse,copy,datetime,importlib.util,json,os,subprocess,sys
+import argparse,copy,datetime,importlib.util,json,os,secrets,subprocess,sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from runtime_toolkit import ROOT,BACKEND,CORE,env,check,save,sha
 from runtime_platform import runtime_python
@@ -20,7 +20,7 @@ def prepare(path,practice=False):
     task["project_root"]=str(project);task["execution"]["output_dir"]=str(out)
     for view in task.get("views",[]):
         if isinstance(view.get("local_ref"),str):view["local_ref"]=str(i.confined(view["local_ref"],project))
-    stamp=datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    stamp=datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")+"-"+secrets.token_hex(8)
     if practice:
         i.need(origin=="synthetic","PRACTICE_CANNOT_AUTHORIZE_REAL_DATA");record=project/"practice-confirmations"/(stamp+".json");save(record,{"status":"PRACTICE_ONLY_NO_REAL_AUTHORIZATION","draft_sha256":sha(path),"source_files_read":False,"project_choice_created":False});return {"status":"PRACTICE_ONLY_NO_REAL_AUTHORIZATION","record":str(record)}
     sys.path.insert(0,str(CORE/"python"));from clinical_methods import resource_budget

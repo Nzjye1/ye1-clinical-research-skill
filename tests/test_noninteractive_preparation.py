@@ -1,6 +1,7 @@
 """Non-interactive preparation of generated fixture data under real-data routing."""
 from pathlib import Path
 import copy, json, subprocess, sys, tempfile, unittest
+from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / 'windows-v03/toolkit/skills/ye1-clinical-analysis'
 CORE = MAIN / '_shared/clinical_analysis/integration/core'
@@ -43,5 +44,13 @@ class Preparation(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'INPUT_OUTSIDE_PROJECT'):prepare_task.prepare(self.write(bad))
         bad=copy.deepcopy(self.draft);bad['task']['execution']['output_dir']=str(self.project.parent/'outside-output')
         with self.assertRaisesRegex(ValueError,'INPUT_OUTSIDE_PROJECT'):prepare_task.prepare(self.write(bad))
+    def test_distinct_preparations_with_same_clock(self):
+        timestamp = prepare_task.datetime.datetime(2026, 1, 1)
+        with mock.patch.object(prepare_task.datetime, 'datetime') as clock:
+            clock.now.return_value = timestamp
+            first = prepare_task.prepare(self.write(self.draft))
+            second = prepare_task.prepare(self.write(self.draft))
+        self.assertNotEqual(first['task'], second['task'])
+        self.assertNotEqual(first['receipt'], second['receipt'])
 
 if __name__=='__main__':unittest.main()
