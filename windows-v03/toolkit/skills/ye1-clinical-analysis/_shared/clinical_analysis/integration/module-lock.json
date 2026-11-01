@@ -322,7 +322,7 @@
     "contracts/module-response.schema.json": "36526b2d8dc26e26763ed4324979dfbbe7f8b86d0e5bda7a3b54981db6befaed",
     "contracts/module-task-origin.schema.json": "c72110ccaffcff1a9f9e34344b4da20c80339ecb4ea833de1e7efd8acf1e9945",
     "contracts/real-engineering-result.schema.json": "14528451a6ec4086daa1b9b3cae7f86ee13554101f3f8ba924aa3871447eddb0",
-    "contracts/real-engineering-task.schema.json": "d5e72c178a6229b1a1214fa4fc6f9927445cbe8c7125e833f066d205fd9094de",
+    "contracts/real-engineering-task.schema.json": "61ff19339647ad39a6f7b6aafa30ff2b0548271ac4055b0e840fe93f9ef9fab0",
     "data_disclosure.py": "dc8a93adbf4293cc8bb66176c0059c10f44b1392321489d28bd0f2f425b8114e",
     "module_contract.py": "b355520a33c2d8612e3cbd64e17028a7875d6866dc61af86fd0756017fd97348",
     "module_task.py": "e6659b58827a01fecde30938c95902d12888167c862eb2809406bd5e20fef554",

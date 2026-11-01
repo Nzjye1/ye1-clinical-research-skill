@@ -3,7 +3,7 @@
     "../runtime-requirements.json": "ccd0d79c606d048dbd0756c0dc045c498dcf2b619bdea99812051cabb2b1f1a4",
     "core/method-capabilities.json": "a57f233c6b7a6deec8414c6200737f357717f1fca1735691b3d2a19ce9679ab9",
     "core/tools/run_core.R": "a802e7ebc1f7410dd3914431dfcbb1cea66d4124bace6ec0acd72634ea28ec8e",
-    "module-lock.json": "41ac1e5d12efbacde0d655d75610d8b87c39bd62eace34a96fee4d1cc660a383"
+    "module-lock.json": "ce4fb4bb9354811e5c8b39e9d1d5d83f5930c2782cdecfe8c12a151054237407"
   },
   "catalog_item_counts": {
     "analysis_leaf_aliases": 8,

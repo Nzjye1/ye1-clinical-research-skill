@@ -19,6 +19,9 @@ class RetiredConfirmation(unittest.TestCase):
   result=subprocess.run([sys.executable,'-I','-B',str(INTEGRATION/'real_engineering.py'),'prepare','--task','missing-source','--output','missing-output'],stdin=subprocess.DEVNULL,capture_output=True,text=True,encoding='utf8')
   self.assertEqual(result.returncode,2)
   self.assertEqual(json.loads(result.stdout)['reason_code'],'LEGACY_ENGINEERING_RETIRED')
+  schema=json.loads((INTEGRATION/'contracts/real-engineering-task.schema.json').read_text(encoding='utf8'))
+  self.assertNotIn('authorization_ref',schema.get('properties',{}))
+  self.assertIn('Retired',schema['description'])
  def test_explicit_external_file_binding_needs_no_confirmation_fields(self):
   auth={'external_files':[{'path':'/declared/file.csv','sha256':'a'*64}]}
   schema=contracts.STUDY_SCHEMA['properties']['authorization']
