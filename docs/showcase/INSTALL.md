@@ -16,7 +16,7 @@ Apple 芯片 Mac 的联网和离线安装方式见 [Mac 安装说明](../../maco
 
 ## 环境与手工安装细节
 
-交付分为 Windows 客户 ZIP 和源码 ZIP。客户 ZIP 解压后从 `toolkit/START-HERE.md` 开始，完整操作说明位于 `toolkit/skills/ye1-clinical-analysis/INSTALL.md`。下载：[Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip) · [SHA256 校验清单](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/SHA256SUMS.txt)。正式版本见 [v0.3.0 发布页](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/tag/v0.3.0)；GitHub 自动生成的 Source code ZIP 是仓库快照。
+交付分为 Windows 客户 ZIP 和源码 ZIP。客户 ZIP 解压后从 `toolkit/START-HERE.md` 开始，完整操作说明位于 `toolkit/skills/ye1-clinical-analysis/INSTALL.md`。下载：[Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-client-0.3.1-windows-local-noninteractive1-a4db8d94.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-source-0.3.1-windows-local-noninteractive1-a4db8d94.zip) · [SHA256 校验清单](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/SHA256SUMS.txt)。正式版本见 [v0.3.1 发布页](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/tag/v0.3.1)；GitHub 自动生成的 Source code ZIP 是仓库快照。
 
 ### 环境准备与首次安装
 

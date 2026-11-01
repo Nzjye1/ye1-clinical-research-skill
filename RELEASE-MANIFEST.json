@@ -1,25 +1,38 @@
 {
   "schema_version": "ye1-public-release@1.0",
-  "release_tag": "v0.3.0",
+  "release_tag": "v0.3.1",
   "product": "Ye1 临床分析 Skill",
-  "platform": "Windows x64 + Codex",
-  "source_baseline_commit": "4a3afa9bdf80035e0e4ef5b688f15bc54eb77516",
-  "package_internal_version": "0.3.0-windows-local-integrated2",
-  "version_mapping": "Public v0.3.0 distributes the original integrated2 archives without renaming or rebuilding; the public source snapshot adds reviewed documentation.",
+  "platform": "Windows x64 and macOS arm64",
+  "source_baseline_commit": "a4db8d94ce6fe7b4f8fbeeb8bb4db86ac1dcc370",
+  "windows_internal_version": "0.3.1-windows-local-noninteractive1",
+  "macos_internal_version": "0.3.1-macos-arm64-noninteractive1",
+  "macos_validation": "https://github.com/Nzjye1/ye1-clinical-research-skill/actions/runs/41293365454",
   "assets": [
     {
-      "name": "ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip",
-      "bytes": 40303377,
-      "sha256": "a0870cf5e6085c6033b707b4b34f7de44641a0fda05c8ebdf52081dfca4df159",
-      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-client-0.3.0-windows-local-integrated2-4a3afa9b.zip"
+      "name": "ye1-clinical-client-0.3.1-windows-local-noninteractive1-a4db8d94.zip",
+      "bytes": 40302887,
+      "sha256": "df3fbe4a063e38e296186eb8657fad08da3b1393fb69368731e15f4776f49bb9",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-client-0.3.1-windows-local-noninteractive1-a4db8d94.zip"
     },
     {
-      "name": "ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip",
-      "bytes": 40700459,
-      "sha256": "6d2f5dd0c83164f76c41932587b2a95d8adfc793753c41f2236b6c0f097e61a6",
-      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/ye1-clinical-source-0.3.0-windows-local-integrated2-4a3afa9b.zip"
+      "name": "ye1-clinical-source-0.3.1-windows-local-noninteractive1-a4db8d94.zip",
+      "bytes": 40713718,
+      "sha256": "40f6ac62d5880ccedbc266c2aba8a0c14897d05a3e9f6241ac8769e038c08fa5",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-source-0.3.1-windows-local-noninteractive1-a4db8d94.zip"
+    },
+    {
+      "name": "ye1-clinical-0.3.1-macos-arm64-online-a4db8d94.zip",
+      "bytes": 41903447,
+      "sha256": "03541cced1bfd86e4f5adf2b5d0fae217c84e70e33401b9c2fa3b5ba565d5257",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-0.3.1-macos-arm64-online-a4db8d94.zip"
+    },
+    {
+      "name": "ye1-clinical-0.3.1-macos-arm64-offline-a4db8d94.zip",
+      "bytes": 702122730,
+      "sha256": "67cab6bdbdc5d98d274448662c21468a22f89ca575049fba5f78764fc969975f",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-0.3.1-macos-arm64-offline-a4db8d94.zip"
     }
   ],
-  "sha256_list_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.0/SHA256SUMS.txt",
-  "license": "MIT for Ye1-owned code; bundled third-party components retain original licenses"
+  "sha256_list_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/SHA256SUMS.txt",
+  "license": "MIT for Ye1-owned code; third-party components retain original licenses"
 }
