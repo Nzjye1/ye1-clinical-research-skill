@@ -102,6 +102,18 @@ def _read(path):
     return raw, _decode(raw)
 
 
+def _read_history(path):
+    _need(path.is_file() and path.stat().st_size <= MAX_METADATA_BYTES,
+          "CAPTURED_METADATA_FILE_REQUIRED")
+    raw = path.read_bytes()
+    _need(len(raw) <= MAX_METADATA_BYTES, "CAPTURED_METADATA_BYTE_LIMIT")
+    value = json.loads(raw.decode("utf-8-sig"), object_pairs_hook=_pairs,
+                       parse_constant=lambda _: (_ for _ in ()).throw(
+                           CapturedStudyError("CAPTURED_METADATA_NONFINITE")))
+    _need(isinstance(value, list), "PROJECT_PRIVACY_CONTEXT_REQUIRED")
+    return raw, value
+
+
 def _unlinked(path):
     for item in (path, *path.parents):
         _need(not item.is_symlink() and not (
@@ -134,7 +146,6 @@ def _layout(core_root):
         "agent_artifacts": backend / "agent/artifact_views.py",
         "agent_catalog": backend / "agent/catalog.json",
         "privacy": backend / "legacy/scripts/privacy_boundary.py",
-        "confirmation": backend / "legacy/scripts/confirmation_evidence.py",
         "study_admission": core / "python/clinical_methods/study_input.py",
         "core_contracts": core / "python/clinical_methods/contracts.py",
         "r_entry": core / "tools/run_core.R",
@@ -242,13 +253,23 @@ def _choice(project, layout):
     # a choice or assert that a user made one.
     path = project / ".ye1-privacy/choice.json"
     if not path.exists():
+        _need(not (project / ".ye1-privacy/history.json").exists(), "PROJECT_PRIVACY_CONTEXT_REQUIRED")
         return None
     try:
-        choice, history = _privacy(layout).load(project)
-        _need(choice["mode"] == "B", "EXISTING_STRICT_MODE_REQUIRES_REVIEW")
         raw, current = _read(_unlinked(path))
-        _need(current == choice and bool(history), "PROJECT_CHOICE_CHANGED")
-        return {"sha256": _sha(raw), "revision": len(history), "mode": choice["mode"]}
+        _, history = _read_history(_unlinked(project / ".ye1-privacy/history.json"))
+        privacy = _privacy(layout)
+        privacy.validate_choice(current)
+        _need(history and current == history[-1]["choice"], "PROJECT_CHOICE_CHANGED")
+        previous = None
+        for revision, item in enumerate(history, 1):
+            body = {k: v for k, v in item.items() if k != "sha256"}
+            _need(item["revision"] == revision and item["previous"] == previous and
+                  item["sha256"] == privacy.digest(privacy.encoded(body)), "PROJECT_CHOICE_CHANGED")
+            previous = item["sha256"]
+        _need(history[-1]["test_only"] is False, "TEST_CONTEXT_CANNOT_AUTHORIZE_REAL_DATA")
+        _need(current["mode"] == "B", "EXISTING_STRICT_MODE_REQUIRES_REVIEW")
+        return {"sha256": _sha(raw), "revision": len(history), "mode": current["mode"]}
     except CapturedStudyError:
         raise
     except (OSError, ValueError, KeyError, TypeError):

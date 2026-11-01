@@ -7,7 +7,7 @@ def main():
     root=Path(__file__).resolve().parents[1];toolkit=root/'windows-v03/toolkit';main=toolkit/'skills/ye1-clinical-analysis'
     def load(p):return json.loads(p.read_text(encoding='utf-8'))
     manifest=load(toolkit/'toolkit-manifest.json');spec=load(main/'runtime-spec.json');cap=load(main/'references/CAPABILITIES.json');index=load(main/'references/ENTRY-INDEX.json')
-    version=manifest['version'];assert version=='0.3.1-windows-local-noninteractive1'
+    version=manifest['version'];assert version=='0.3.2-windows-local-noninteractive1'
     assert spec['product_version']==cap['version']==index['version']==version
     for relative,digest in manifest['files'].items():assert hashlib.sha256((toolkit/relative).read_bytes()).hexdigest()==digest,relative
     counts=dict(collections.Counter(x['kind'] for x in cap['entries']))

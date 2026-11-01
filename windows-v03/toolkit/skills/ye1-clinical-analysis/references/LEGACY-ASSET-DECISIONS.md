@@ -10,7 +10,7 @@
 |同一worker的kind=linear/logistic旧执行路径|不新增平行旧后端|已有登记OLS HC3/Logistic及计划owner承担本版对应关联能力；不复制第二套旧拟合。旧linear还允许classical协方差，此选项未在本版登记公开，不能说与HC3数值等同。若需恢复classical，应明确版本化合同及参考验收。|
 |同一worker的kind=prediction未惩罚Logistic单次分层holdout|未作为本版新增入口|这是另一个旧实现，与本版ridge/树预测并非算法等价；未带完整现行冻结模型/来源/时间/评估合同。本版不把它暗中改成ridge、不声称已完整迁入该旧操作。需另立登记合同后恢复，不能绕开原公开方法目录。|
 |core/python/clinical_methods/survival.py及相关R桥中的AJ/CIF、原因特异Cox兼容源码|原源码保留，未开放客户入口|原稳定目录没有完整登记该设计；普通KM/Cox不等同竞争风险支持。另定竞争事件码、删失/风险集/估计量和产物合同后接入。|
-|legacy/scripts/clinical/trajectory.py及clinical_engine.py的窗口汇总/斜率/规则表型/轨迹特征探索|保留研发资产，不恢复强制前处理|这些是派生/探索流程，不是正式LPA/LCGA；本版已迁入登记的正式高斯模型。需要额外指标/窗口/缺失和单位定义，不能按名称偷换。|
+|legacy/scripts/clinical/trajectory.py的窗口汇总/斜率/规则表型/轨迹特征探索；旧临床引擎入口已移除|保留研发资产，不恢复强制前处理|这些是派生/探索流程，不是正式LPA/LCGA；本版已迁入登记的正式高斯模型。需要额外指标/窗口/缺失和单位定义，不能按名称偷换。|
 |legacy/scripts/clinical/{association,prediction,survival,clustering,plots}.py旧流水线|仅随必要共享引用保留，不新增重复客户端入口|登记后端与展示使用当前受控owner；不恢复数据库→清洗→模型→论文的旧强制流程，也不把历史合成/real协议模拟当本版患者验证。|
 |原35显示项中的复合指标与部分“拟合曲线”等宽泛名称|逐行限制/待定义|ORIGINAL-35.md保留旧16限定、18部分、1待定义；公式、截点、设计和图意未明时不凭空研发。新增统计方法由根协调，不阻断已定义部分的本地交付。|
 |数据库、文献、整篇写作/投稿、内部批量平台|不迁入|用户明确范围排除。|

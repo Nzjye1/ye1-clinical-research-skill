@@ -84,7 +84,7 @@ def main():
         pkg['binary'] = {k: entry[k] for k in ('filename', 'sha256', 'bytes')}
         pkg['binary']['url'] = entry.get('url', 'bundled:github-actions-arm64-build')
 
-    source_spec['product_version'] = '0.3.1-macos-arm64-noninteractive1'
+    source_spec['product_version'] = '0.3.2-macos-arm64-noninteractive1'
     write_json(target / MAIN / 'runtime-spec.json', source_spec)
     write_json(target / MAIN / 'references/MACOS-DEPENDENCIES.json',
                {'python': py_lock, 'R': r_lock, 'R_foundation': '4.6.1 arm64',
@@ -119,7 +119,7 @@ def main():
 ''', encoding='utf-8', newline='\n')
     skill = target / MAIN / 'SKILL.md'
     text = skill.read_text(encoding='utf-8')
-    text = text.replace('0.3.1-windows-local-noninteractive1', '0.3.1-macos-arm64-noninteractive1', 1)
+    text = text.replace('0.3.2-windows-local-noninteractive1', '0.3.2-macos-arm64-noninteractive1', 1)
     skill.write_text(text, encoding='utf-8', newline='\n')
 
     ported = apply_backend_port(target)

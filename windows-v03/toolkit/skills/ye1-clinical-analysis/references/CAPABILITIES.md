@@ -2,7 +2,7 @@
 
 下表保留final8既有方法与合成工程验证口径；本开发分支另增[固定公开PBC软件案例验收](PUBLIC-FIXTURES.md)及[实际检查记录](VERIFICATION-SCOPE.md)。它复用原KM方法，不增加方法数，也不扩大真实客户或临床科学验证声明。
 
-版本：0.3.1-windows-local-noninteractive1。Windows + Codex 本地候选。总入口 `$ye1-clinical-analysis`；下面每行可按稳定 ID 点名。
+版本：0.3.2-windows-local-noninteractive1。Windows + Codex 本地候选。总入口 `$ye1-clinical-analysis`；下面每行可按稳定 ID 点名。
 
 33 个原生数值后端、8 个共享后端的别名、11 个既有结果视图、5 项旧兼容检验及4项样本量/精度规划。另保留1个旧受限入口并拒绝公开执行。48个Skill目录用于发现和组织，不能解释为48种独立算法。
 
@@ -60,7 +60,7 @@
 |惩罚 Cox LASSO 与冻结风险<br>`prediction.survival.cox.lasso`|backend<br>$ye1-prediction-survival-cox-lasso|train/infer<br>base,penalized|core-forward-4；reload-operations-3|
 |右删失 Cox 关联与指定 PH 诊断<br>`survival.cox.association`|backend<br>$ye1-survival-cox-association|analyze<br>base|core-forward-4|
 |右删失 KM 与风险表<br>`survival.kaplan_meier`|backend<br>$ye1-survival-kaplan-meier|analyze<br>base|core-forward-4|
-|真实切片总体描述（仅本地工程验证）<br>`baseline.summary`|legacy_restricted<br>无客户入口|describe<br>|旧工程占位，拒绝执行|
+|旧工程测试入口（已退役）<br>`baseline.summary`|legacy_restricted<br>无客户入口|describe<br>|旧工程占位，拒绝执行|
 |已有总体或分组基线表<br>`result.baseline.table`|existing_result_view<br>$ye1-analysis-result-views|export_existing<br>base|alias-views-1|
 |已有OLS或Logistic效应表图<br>`result.association.effects`|existing_result_view<br>$ye1-analysis-result-views|export_existing<br>base|alias-views-1|
 |独立两组 Welch t 检验<br>`compat.test.welch_t`|compat_test<br>$ye1-compat-test-welch-t|compare<br>base|legacy-forward-2|

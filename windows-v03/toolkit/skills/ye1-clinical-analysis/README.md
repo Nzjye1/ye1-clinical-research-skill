@@ -1,6 +1,6 @@
 # 临床分析总入口
 
-版本 0.3.1-windows-local-noninteractive1。安装后在所选项目使用 `$ye1-clinical-analysis`，也可点名单项Skill；名称/机器ID/限制见 [能力矩阵](references/CAPABILITIES.md)。从 [安装与首次使用](INSTALL.md) 开始。
+版本 0.3.2-windows-local-noninteractive1。安装后在所选项目使用 `$ye1-clinical-analysis`，也可点名单项Skill；名称/机器ID/限制见 [能力矩阵](references/CAPABILITIES.md)。从 [安装与首次使用](INSTALL.md) 开始。
 
 把本地数据路径、变量字典、研究问题交给Codex。缺单位、事件码、时间定义、独立单位或预设方案时先澄清。不要将患者行或标识粘贴到聊天；本地私有任务由脚本读取与转换，Agent不读取其行数据。详见 [隐私](references/PRIVACY.md)、[本地草稿接口](references/LOCAL-DRAFTS.md)。
 

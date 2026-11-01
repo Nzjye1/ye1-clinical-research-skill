@@ -316,11 +316,11 @@
   ],
   "integration_files_sha256": {
     "admitted_modules.py": "65579d17ce0eab32481f64dcb596e0f36d882107ec43accdedce2be99d75abcd",
-    "captured_study.py": "d75c5886237f9994e9a2428b4ba3fbd5a4c0a0fe9c713d6f898c44423d5fa130",
+    "captured_study.py": "119eaf05820e94b919117f82fdab325d41729441d3e597102b94fad1bf2dee0c",
     "contracts/integration-request.schema.json": "6e76a21584116b743fadff661d12107808f538b0e7cabba4eb93eddec075ddaa",
     "contracts/module-request.schema.json": "ca69508cdef7992324ce6b98e2e8aaad7f84ebc64efcb60a4295e6d2cc51c7b4",
     "contracts/module-response.schema.json": "36526b2d8dc26e26763ed4324979dfbbe7f8b86d0e5bda7a3b54981db6befaed",
-    "contracts/module-task-origin.schema.json": "d49485cf3bf5d4b927958cc0eb226bbd8baba2f7b88adeb4fedc8b8558d7eceb",
+    "contracts/module-task-origin.schema.json": "c72110ccaffcff1a9f9e34344b4da20c80339ecb4ea833de1e7efd8acf1e9945",
     "contracts/real-engineering-result.schema.json": "14528451a6ec4086daa1b9b3cae7f86ee13554101f3f8ba924aa3871447eddb0",
     "contracts/real-engineering-task.schema.json": "d5e72c178a6229b1a1214fa4fc6f9927445cbe8c7125e833f066d205fd9094de",
     "data_disclosure.py": "dc8a93adbf4293cc8bb66176c0059c10f44b1392321489d28bd0f2f425b8114e",
@@ -329,7 +329,7 @@
     "module_transport.R": "f62e8a14a89a765b0f5b89b4502af8d51605f3cb5e246272cd48f2411afa7864",
     "module_worker.py": "2c32cd5aa86c08c2314e5db3700625421dcaaee1de4e5c07d7b687a45cab80e8",
     "origin_context.py": "8a52384a3b72e513d161456b2ba03dfdcdfd47e96cb8fd95038525b918a94c3f",
-    "real_engineering.py": "34c3c1854a5efb71c185934cd35e1cd457d06da1c4120df0df9615e49f606c13",
+    "real_engineering.py": "1494cb58e32b27a53e82f3bbae5a59cf56a4ce2d48393b0b880046a268d11113",
     "training_background.py": "85e436de286cbfb021d0f84b7fc112d97f5d9f33e29e4502a697f6a7e7927639",
     "training_background_admission.py": "39e75083d852d758904e27f48e009c86307b7e58cf418fd8f067962fe9570dec",
     "runtime_registry.py": "d505f9d93cead921818fbccd99a9ac24676c3733a4c4674cb007b8fbb627b0a6"

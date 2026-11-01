@@ -1,12 +1,10 @@
 {
   "schema_version": "clinical-legacy-source@1.0",
-  "origin": "Windows clinical extension 0.5.0-rc1 build2; explicit compatibility commands only",
+  "origin": "Retained compatibility assets; retired interactive clinical engine removed",
   "public_main_baseline": "c0501bf330240ce4ac291dd57e7c63aa28d8817b",
   "public_main_existing_dispatch_scripts": 3,
   "new_forwarding_scripts": 7,
   "files_sha256": {
-    "scripts/clinical_engine.py": "8bd246528ab76657af61e8311289c5be3a33a6149c31261c2302f877016add17",
-    "scripts/confirmation_evidence.py": "0565b89b4cb2f2de2989c3c204d8a83af00543deb2b02c9d5b26df8bd25f7321",
     "scripts/font_support.py": "b3c4f8a1c4e2157bcadca8e13458277f0e335ff6faf9d39f41cd409f1d0d967c",
     "scripts/privacy_boundary.py": "4f6d399d0a47c1fe0ea17976cb6c884a115d68cbe98cb589dab5f215ee29cfbb",
     "scripts/clinical/association.py": "b3741bf3ab81b3e3b20d3a5f54dd041c10b063fa79f92bf888dfb4eb2b7000e3",

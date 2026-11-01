@@ -1,6 +1,6 @@
 # Windows 客户候选：从这里开始
 
-内部版本 `0.3.1-windows-local-noninteractive1`。当前为本地修复候选；是否已有实际 ZIP、包 hash 和独立安装验收，查看包外回执，不能套用旧 final8 包身份。正式发布未完成。
+内部版本 `0.3.2-windows-local-noninteractive1`。当前为本地修复候选；是否已有实际 ZIP、包 hash 和独立安装验收，查看包外回执，不能套用旧 final8 包身份。正式发布未完成。
 
 1. 阅读 [安装与首次使用](skills/ye1-clinical-analysis/INSTALL.md)，准备已有的 Python 3.14.5 x64、R 4.6.1 x64 与新研究目录。基础程序不随包。
 2. 在该研究目录使用 Codex，让它从当前解压目录运行 `setup_windows.py` 的预检，再按本地授权安装。先只装 base；按方法加装可选组。离线 wheel 参数指向独立缓存，不是其他项目的 venv。

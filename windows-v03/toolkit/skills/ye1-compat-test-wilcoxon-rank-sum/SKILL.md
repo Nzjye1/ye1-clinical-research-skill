@@ -10,6 +10,6 @@ description: "单独调用两独立组 Wilcoxon 秩和检验，复用旧版R工�
 
 先读主 Skill 的 references/LOCAL-DRAFTS.md。Agent 只处理需求和数据字典，按明确映射生成本地草稿，通过 scripts/prepare_task.py --draft 读取文件，再调用 toolkit.py。private 任务含规范行，真实数据时不得读回模型。
 
-稳定方法 ID：`compat.test.wilcoxon_rank_sum`。这是旧 stats_worker.R 的已实现受限操作；不复制或另写求解器。先 describe/schema/doctor 对应 ID。先明确独立单位、分组顺序、结局类型、缺失规则；配对检验必须每对一行且声明配对含义，拒绝重复单位。走 LOCAL-DRAFTS 的真实确认/本地映射，再 toolkit.py run --method compat.test.wilcoxon_rank_sum --task <私有任务>。Welch、Wilcoxon、Fisher、卡方不相互自动替换。
+稳定方法 ID：`compat.test.wilcoxon_rank_sum`。这是旧 stats_worker.R 的已实现受限操作；不复制或另写求解器。先 describe/schema/doctor 对应 ID。先明确独立单位、分组顺序、结局类型、缺失规则；配对检验必须每对一行且声明配对含义，拒绝重复单位。走 LOCAL-DRAFTS 的本地任务准备与映射，再 toolkit.py run --method compat.test.wilcoxon_rank_sum --task <私有任务>。Welch、Wilcoxon、Fisher、卡方不相互自动替换。
 
 只需读取所选方法的说明与schema。实际安装版本、已测操作、限制和未测项以总Skill的 references/CAPABILITIES.md 为准；先按 references/LOCAL-DRAFTS.md 准备本地元数据。

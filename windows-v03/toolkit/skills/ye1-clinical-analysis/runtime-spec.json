@@ -1,6 +1,6 @@
 {
   "schema_version": "ye1-toolkit-runtime-spec@3.0",
-  "product_version": "0.3.1-windows-local-noninteractive1",
+  "product_version": "0.3.2-windows-local-noninteractive1",
   "python": "3.14.5",
   "R": "4.6.1",
   "python_packages": [

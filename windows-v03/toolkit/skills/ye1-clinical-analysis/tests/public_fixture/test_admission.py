@@ -78,16 +78,36 @@ class Admission(unittest.TestCase):
         with self.assertRaisesRegex(fixture.FixtureBlocked, "REFERENCE_NUMERICAL_MISMATCH"):
             fixture.compare_reference([[0,418,1,1,1]], ref)
 
-    def test_noninteractive_real_preparation_still_requires_human(self):
-        # Only skip dependency installation inspection. Admission and console
-        # detection are the actual final8 functions; input/materialize must not run.
-        with patch.object(prepare_task, "check"), patch.object(prepare_task.i, "materialize") as read:
-            with self.assertRaises(ValueError) as error:
-                prepare_task.prepare(self.draft())
-            self.assertEqual(error.exception.code, "LOCAL_HUMAN_CONFIRMATION_REQUIRED")
-            read.assert_not_called()
-        self.assertFalse((self.project/".ye1-privacy").exists())
-        self.assertFalse((self.project/"private").exists())
+    def test_noninteractive_real_preparation_needs_no_confirmation(self):
+        # Generated fixture bytes are routed through the real-input contract.
+        core = ROOT / "_shared/clinical_analysis/integration/core"
+        sys.path.insert(0, str(core / "python"))
+        from clinical_methods import contracts
+        source = self.project / "generated.csv"
+        source.write_text("id,x,z,y\na,1,2,3\nb,2,3,4\n", encoding="utf-8")
+        task = contracts.make_example_task(source, self.output, core, database="SELF_FILE")
+        task.update(schema_version="clinical-study-input@1.0", data_origin="real",
+                    task_purpose="research_analysis", project_root=str(self.project), authorization=None)
+        task["execution"].update(mode="local", authorization_ref=None, privacy_profile="captured_local_process",
+                                 max_rows=1000, max_bytes=2000000, max_decoded_bytes=4000000)
+        task["time"]["policy"] = "ordered_observation"
+        for item in task["sources"]:
+            item.update(source_kind="user_clinical_file", verification_status="local_bytes_bound",
+                        source_fingerprint={"$file_sha256": str(source)})
+        for view in task["views"]:
+            view.update(local_ref=str(source), format="csv", unselected_columns=[], location_policy="project_local",
+                        content_hash={"$file_sha256": str(source)})
+        draft = {"schema_version":"ye1-toolkit-draft@1.0", "method_id":"association.linear",
+                 "data_origin":"real", "task_purpose":"research_analysis", "project_root":str(self.project),
+                 "local_tables":{}, "task":task}
+        path = self.project / "generated-draft.json"
+        path.write_text(json.dumps(draft), encoding="utf-8")
+        with patch.object(prepare_task, "check"):
+            result = prepare_task.prepare(path)
+        prepared = json.loads(Path(result["task"]).read_text(encoding="utf-8"))
+        self.assertIsNone(prepared["authorization"])
+        self.assertIsNone(prepared["execution"]["authorization_ref"])
+        self.assertFalse((self.project / ".ye1-privacy").exists())
 
     def test_public_origin_not_accepted_by_customer_preparer(self):
         with self.assertRaises(ValueError) as error:

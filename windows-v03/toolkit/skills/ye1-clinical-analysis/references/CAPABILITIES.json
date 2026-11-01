@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1-windows-local-noninteractive1",
+  "version": "0.3.2-windows-local-noninteractive1",
   "scope": "Bounded inherited implementations; counts are not algorithm or validation counts",
   "entries": [
     {
@@ -3771,7 +3771,7 @@
     },
     {
       "method_id": "baseline.summary",
-      "chinese_name": "真实切片总体描述（仅本地工程验证）",
+      "chinese_name": "旧工程测试入口（已退役）",
       "kind": "legacy_restricted",
       "backend_method_id": "baseline.summary",
       "skill": null,
@@ -3782,9 +3782,7 @@
       "local_synthetic_test": [],
       "callable": false,
       "limits": [
-        "formal clinical hypothesis/model/forecast",
-        "unregistered source permission or direct identifiers",
-        "unknown units, grain, joins, weights or missingness"
+        "Retired; use the registered customer methods."
       ],
       "supported_options": {
         "group_comparison": false,

@@ -137,11 +137,6 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "choice_sha256",
-            "plan_sha256",
-            "confirmation"
-          ],
           "properties": {
             "choice_sha256": {
               "type": "string",

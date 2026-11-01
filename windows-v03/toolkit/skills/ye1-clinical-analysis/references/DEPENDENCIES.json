@@ -1,6 +1,6 @@
 {
   "schema_version": "ye1-clinical-dependencies@1.0",
-  "product_version": "0.3.1-windows-local-noninteractive1",
+  "product_version": "0.3.2-windows-local-noninteractive1",
   "own_code_license": "MIT; see LICENSE and LICENSE-SCOPE.md",
   "foundation": {
     "Python": {

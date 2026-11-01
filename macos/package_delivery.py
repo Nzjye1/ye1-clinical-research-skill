@@ -32,7 +32,7 @@ def main():
         raise ValueError('CI proof does not identify the requested source commit and run')
     if proof.get('schema_version') == 'clinical-noninteractive-proof@1.0':
         suites = proof.get('noninteractive_suites', [])
-        if {r['suite'] for r in suites} != {'core', 'compat', 'module', 'legacy'} or len(suites) != 4 or any(r['status'] != 'PASS' for r in suites):
+        if {r['suite'] for r in suites} != {'core', 'compat', 'module', 'legacy', 'retired'} or len(suites) != 5 or any(r['status'] != 'PASS' for r in suites):
             raise ValueError('all affected noninteractive suites must pass')
     elif (proof.get('public_pbc', {}).get('status') != 'PUBLIC_FIXTURE_ACCEPTANCE_PASSED' or
           len(proof.get('synthetic_regression_suites', [])) != 9 or
@@ -67,7 +67,7 @@ def main():
              + ('本包包括离线基础程序、依赖、许可与源码材料。\n' if args.kind == 'offline' else
                 '本包联网获取固定官方 Python wheel 和缺失的基础程序。\n'))
     revision = {'schema': 'clinical-macos-delivery@1.0', 'kind': args.kind,
-                'product_version': '0.3.1-macos-arm64-noninteractive1', 'source_commit': args.source_commit,
+                'product_version': '0.3.2-macos-arm64-noninteractive1', 'source_commit': args.source_commit,
                 'ci_url': args.ci_url, 'ci_toolkit_manifest_sha256': sha(args.ci_toolkit_manifest),
                 'ci_runtime_manifest_sha256': sha(args.ci_runtime_manifest),
                 'archive_directly_extracted_in_ci': False,

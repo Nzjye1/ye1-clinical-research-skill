@@ -3,7 +3,7 @@
     "../runtime-requirements.json": "ccd0d79c606d048dbd0756c0dc045c498dcf2b619bdea99812051cabb2b1f1a4",
     "core/method-capabilities.json": "a57f233c6b7a6deec8414c6200737f357717f1fca1735691b3d2a19ce9679ab9",
     "core/tools/run_core.R": "a802e7ebc1f7410dd3914431dfcbb1cea66d4124bace6ec0acd72634ea28ec8e",
-    "module-lock.json": "0b928a8710fe685d5014940dc78a7f7a32ce8171022efcf9da6edc0aeb86ac90"
+    "module-lock.json": "41ac1e5d12efbacde0d655d75610d8b87c39bd62eace34a96fee4d1cc660a383"
   },
   "catalog_item_counts": {
     "analysis_leaf_aliases": 8,
@@ -5633,14 +5633,11 @@
       "backend_method_id": "baseline.summary",
       "deprecated_engineering_entry": true,
       "errors": [
-        "REAL_SOURCE_PERMISSION_REQUIRED",
-        "REAL_SOURCE_SCOPE_MISMATCH",
-        "IDENTITY_VALUE_REVIEW_REQUIRED",
-        "REAL_UNIT_UNCONFIRMED"
+        "LEGACY_ENGINEERING_RETIRED"
       ],
       "example": {
-        "command": "python scripts/analysis_call.py run baseline.summary --task LOCAL_ENGINEERING_TASK.json",
-        "request": "只做已授权真实切片的总体工程描述，不拟合模型。"
+        "command": "",
+        "request": "该入口已退役，请使用现行基线分析方法。"
       },
       "group": "baseline",
       "input_schema_version": "clinical-real-engineering-task@1.0",
@@ -5659,8 +5656,7 @@
         22
       ],
       "prerequisites": [
-        "Explicit inherited local engineering authorization and byte-bound source scope.",
-        "One selected encounter per patient; unverified measurement clock only supports descriptive use."
+        "Retired; no data access or analysis is performed."
       ],
       "provider": {
         "id": "clinanalysis.table1::table1_group_summary",
@@ -5669,7 +5665,7 @@
       },
       "real_input_admission": {
         "scientific_review": "pending",
-        "status": "legacy_narrow_engineering_only",
+        "status": "retired",
         "supported_contract": null
       },
       "result_contract": {
@@ -5696,13 +5692,13 @@
         ]
       },
       "task_family": "real_engineering",
-      "title": "真实切片总体描述（仅本地工程验证）",
+      "title": "旧工程测试入口（已退役）",
       "unsupported_conditions": [
         "formal clinical hypothesis/model/forecast",
         "unregistered source permission or direct identifiers",
         "unknown units, grain, joins, weights or missingness"
       ],
-      "validation_owner": "Scoped local source authorization; strict real engineering contracts"
+      "validation_owner": "Retired entry; no execution"
     },
     {
       "accepted_input_schema_versions": [

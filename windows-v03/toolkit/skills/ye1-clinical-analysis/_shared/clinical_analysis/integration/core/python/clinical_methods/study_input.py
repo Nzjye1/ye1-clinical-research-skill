@@ -35,7 +35,7 @@ def make_schema(base):
             "source_kind": {"enum": ["direct_user", "delegated_user_instruction"]},
             **{k: {"type": "string", "minLength": 1} for k in ("source_path", "source_locator", "quote")}}}
     p["authorization"] = {"anyOf": [{"type": "null"}, {"type": "object", "additionalProperties": False,
-        "required": ["choice_sha256", "plan_sha256", "confirmation"], "properties": {
+        "properties": {
             "choice_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
             "external_files": {"type":"array","items":{"type":"object","additionalProperties":False,"required":["path","sha256"],"properties":{"path":{"type":"string","minLength":1},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"}}}},
             "plan_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "scope_kind": {"enum": ["engineering_instruction", "research_plan"]}, "confirmation": confirmation}}]}

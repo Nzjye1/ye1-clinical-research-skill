@@ -41,7 +41,7 @@ with nullcontext(target) as directory:
                 assert archive.read('offline-cache/wheels/example.whl') == b'synthetic-wheel'
     focused = {'status':'PASS', 'schema_version':'clinical-noninteractive-proof@1.0',
                'source_commit':commit, 'ci_url':url,
-               'noninteractive_suites':[{'suite':s,'status':'PASS'} for s in ('core','compat','module','legacy')]}
+               'noninteractive_suites':[{'suite':s,'status':'PASS'} for s in ('core','compat','module','legacy','retired')]}
     (root / 'proof.json').write_text(json.dumps(focused), encoding='utf-8')
     subprocess.run(common + ['--kind','online','--output',str(root/'focused.zip')], check=True, capture_output=True)
     focused['noninteractive_suites'].pop()

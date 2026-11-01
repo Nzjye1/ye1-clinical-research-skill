@@ -55,7 +55,7 @@
     },
     {
       "path": "_shared/clinical_analysis/integration/contracts/module-task-origin.schema.json",
-      "sha256": "d49485cf3bf5d4b927958cc0eb226bbd8baba2f7b88adeb4fedc8b8558d7eceb"
+      "sha256": "c72110ccaffcff1a9f9e34344b4da20c80339ecb4ea833de1e7efd8acf1e9945"
     },
     {
       "path": "_shared/clinical_analysis/integration/contracts/real-engineering-result.schema.json",
@@ -1103,7 +1103,7 @@
     },
     {
       "path": "_shared/clinical_analysis/integration/real_engineering.py",
-      "sha256": "34c3c1854a5efb71c185934cd35e1cd457d06da1c4120df0df9615e49f606c13"
+      "sha256": "1494cb58e32b27a53e82f3bbae5a59cf56a4ce2d48393b0b880046a268d11113"
     },
     {
       "path": "_shared/clinical_analysis/integration/training_background.py",
@@ -1150,14 +1150,6 @@
       "sha256": "872fb46e7638a38b58c0cb675f5d5a34418fd2d5102584000d5ec195e6d6b975"
     },
     {
-      "path": "_shared/clinical_analysis/legacy/scripts/clinical_engine.py",
-      "sha256": "8bd246528ab76657af61e8311289c5be3a33a6149c31261c2302f877016add17"
-    },
-    {
-      "path": "_shared/clinical_analysis/legacy/scripts/confirmation_evidence.py",
-      "sha256": "0565b89b4cb2f2de2989c3c204d8a83af00543deb2b02c9d5b26df8bd25f7321"
-    },
-    {
       "path": "_shared/clinical_analysis/legacy/scripts/font_support.py",
       "sha256": "b3c4f8a1c4e2157bcadca8e13458277f0e335ff6faf9d39f41cd409f1d0d967c"
     },
@@ -1167,7 +1159,7 @@
     },
     {
       "path": "_shared/clinical_analysis/legacy/source-manifest.json",
-      "sha256": "bbc167f0540071cd081052ced35694298ce65c87f2d95dcaba3184a4ed157911"
+      "sha256": "0a17c160ff5b8b449c062f32b00b67a912ac5521278a84e79109b81626e5704b"
     },
     {
       "path": "_shared/clinical_analysis/materialize_fixtures.py",
