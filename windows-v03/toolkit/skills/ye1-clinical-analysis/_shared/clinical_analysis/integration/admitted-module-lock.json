@@ -2,7 +2,7 @@
   "schema_version": "clinical-admitted-module-lock@1.0",
   "integration_files_sha256": {
     "admitted_modules.py": "65579d17ce0eab32481f64dcb596e0f36d882107ec43accdedce2be99d75abcd",
-    "captured_study.py": "87ead454cfe9317672918966f1d45ae8ac91fc19eb3b3089e0cd6365be1311b8",
+    "captured_study.py": "d75c5886237f9994e9a2428b4ba3fbd5a4c0a0fe9c713d6f898c44423d5fa130",
     "contracts/module-request.schema.json": "ca69508cdef7992324ce6b98e2e8aaad7f84ebc64efcb60a4295e6d2cc51c7b4",
     "contracts/module-response.schema.json": "36526b2d8dc26e26763ed4324979dfbbe7f8b86d0e5bda7a3b54981db6befaed",
     "contracts/module-task-origin.schema.json": "d49485cf3bf5d4b927958cc0eb226bbd8baba2f7b88adeb4fedc8b8558d7eceb",

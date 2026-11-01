@@ -155,7 +155,8 @@ def _layout(core_root):
 
 
 def _bindings(layout):
-    executable = _unlinked(Path(sys.executable)).resolve()
+    # macOS venv executables may be symlinks to the bound framework.
+    executable = Path(sys.executable).resolve()
     _need(executable.is_file(), "CAPTURED_PYTHON_UNAVAILABLE")
     return {
         "code_sha256": {name: _sha(path.read_bytes()) for name, path in layout["files"].items()},
