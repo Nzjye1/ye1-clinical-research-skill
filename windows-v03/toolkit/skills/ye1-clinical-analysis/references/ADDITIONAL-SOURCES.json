@@ -10,7 +10,7 @@
     {
       "upstream": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/manifest.json",
       "product": "_shared/clinical_analysis/modules/cox-evaluation-explanation/real_admission/manifest.json",
-      "sha256": "48f7fa65b0535f618e48e3f9bffef789dc4607386330b03276650600d09ae90a",
+      "sha256": "03afb97a02ec356d1437a3edd96e710d3ee8e16cc7c5668a42135e8f08be6773",
       "bytes": 1783
     },
     {

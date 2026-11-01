@@ -72,16 +72,17 @@ def build(plan):
     need(plan.get("schema_version") == "ye1-analysis-plan@1.0", "PLAN_VERSION_INVALID")
     method = plan.get("method"); need(method in METHODS, "METHOD_NOT_SUPPORTED")
     need(plan.get("independent_subjects") is True, "INDEPENDENT_SUBJECTS_REQUIRED")
-    need(plan.get("plan_confirmation") and isinstance(plan["plan_confirmation"], str), "PLAN_CONFIRMATION_REQUIRED")
     origin = plan.get("data_origin"); need(origin in {"synthetic", "real"}, "DATA_ORIGIN_REQUIRED")
     project = Path(plan["project"]).resolve(); source = Path(plan["source"]).resolve(); out = Path(plan["output"]).resolve()
     need(project.is_dir() and source.is_relative_to(project), "SOURCE_INSIDE_PROJECT_REQUIRED")
     need(out.is_relative_to(project) and out != project and not out.exists() and out.parent.is_dir(), "FRESH_OUTPUT_REQUIRED")
-    if origin == "real":
-        need(isinstance(plan.get("authorization"), dict) and plan.get("source_sha256") and
-            (project / ".ye1-privacy/choice.json").is_file(), "EXISTING_PRIVACY_AND_PLAN_AUTHORIZATION_REQUIRED")
-    else:
-        need(plan.get("task_purpose", "engineering_test") == "engineering_test" and not plan.get("authorization"), "SYNTHETIC_ENGINEERING_SCOPE_REQUIRED")
+    import ingestion
+    ingestion.confined(plan["source"], project)
+    need(source.is_file(), "SOURCE_FILE_REQUIRED")
+    need(plan.get("task_purpose", "engineering_test") == ("research_analysis" if origin == "real" else "engineering_test"), "ORIGIN_PURPOSE_CONFLICT")
+    need(source.stat().st_size <= plan.get("max_bytes", 2_000_000), "INPUT_BYTE_BUDGET_EXCEEDED")
+    actual_sha256 = hashlib.sha256(source.read_bytes()).hexdigest()
+    need(not plan.get("source_sha256") or plan["source_sha256"] == actual_sha256, "SOURCE_CHANGED")
     fields = plan.get("fields"); need(isinstance(fields, list) and fields, "FIELDS_REQUIRED")
     names = [f.get("name") for f in fields]
     need(all(isinstance(n, str) and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", n) for n in names) and len(set(names))==len(names), "FIELD_NAMES_INVALID")
@@ -95,10 +96,10 @@ def build(plan):
     task = c.make_survival_task(dummy, out, CORE, method, "SELF_FILE") if method.startswith("survival.") else c.make_example_task(dummy, out, CORE, "SELF_FILE")
     task.update(schema_version="clinical-study-input@1.0", data_origin=origin,
         task_purpose=plan.get("task_purpose", "engineering_test"), project_root=str(project),
-        authorization=plan.get("authorization"), study_id=plan["study_id"], estimand=plan["estimand"])
+        authorization=None, study_id=plan["study_id"], estimand=plan["estimand"])
     task["sources"][0].update(source_kind="synthetic_fixture" if origin=="synthetic" else "user_clinical_file",
         snapshot=plan["study_id"], period="user_declared", verification_status="local_bytes_bound",
-        source_fingerprint=plan.get("source_sha256", "0"*64), evidence_refs=["local_plan_and_source_bytes"])
+        source_fingerprint=actual_sha256, evidence_refs=["local_plan_and_source_bytes"])
     task["identity"].update(subject_key=ids[0], record_keys=[ids[0]])
     task["split"]["group_key"] = ids[0]
     task["variables"] = []
@@ -117,10 +118,10 @@ def build(plan):
             "codes":{v:v for v in levels}, "missing_codes":["", "NA"], "occurred_at":plan.get("survival", {}).get("observation_end") if endpoint else 0 if survival else None,
             "available_at":plan.get("survival", {}).get("observation_end") if endpoint else 0 if survival else None,
             "concept":f.get("definition", f["name"]), "codebook_version":"user-plan-v1", "aggregation":"already_one_value_per_row"})
-    task["views"][0].update(local_ref=str(source), content_hash=plan.get("source_sha256", "0"*64),
+    task["views"][0].update(local_ref=str(source), content_hash=actual_sha256,
         column_map=column_map, keys=ids,
         format="csv_gzip" if source.name.endswith(".gz") else "csv", unselected_columns=plan.get("unselected_columns", []))
-    task["execution"].update(mode="local", authorization_ref=plan.get("authorization_ref"),
+    task["execution"].update(mode="local", authorization_ref=None,
         max_rows=plan.get("max_rows",1000), max_bytes=plan.get("max_bytes",2_000_000), max_decoded_bytes=plan.get("max_decoded_bytes",4_000_000))
     if origin=="real": task["execution"]["privacy_profile"]="captured_local_process"
     task["analysis"].update(method_id=method, baseline=None, spec=None)

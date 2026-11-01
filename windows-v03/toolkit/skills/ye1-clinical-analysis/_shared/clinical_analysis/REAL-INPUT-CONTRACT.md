@@ -4,8 +4,8 @@
 
 - data_origin：real/synthetic；每源source_kind、原字节hash和明确本地视图独立绑定，hash只证明所读字节一致，不证明来源机构、去标识或医学定义真实性。
 - task_purpose：engineering_test/research_analysis；与来源独立。scientific_review始终pending，不由任务调用者升格。
-- real任务复用同一项目的.ye1-privacy选择、历史链及有来源的当次权限记录；不创建固定全客户授权，不以旧窄工程receipt替代研究确认。研究任务需真实用户方案确认；代理转达的工程指令只能支持engineering_test，不能批准研究。
-- `captured_local_process` 是新登记的本次调用范围：固定Agent命令捕获stdout/stderr到项目私有日志，返回固定状态；任务、choice、源码及运行时绑定，结束后receipt失效。它不是全局宿主沙箱、网络隔离或用户身份认证。旧exclusive gateway仍保留原检查，没有失败自动切换。新项目可依据确有的当前用户指令建立自己的记录，不能伪造旧登记。
+- real 研究任务根据明确的项目、文件与任务参数运行；不要求或生成用户确认记录。已有历史记录保留，既有严格项目限制仍然生效。
+- `captured_local_process` 固定调用并捕获标准输出和错误到本地日志，绑定任务、源码与运行时；不代表主机沙箱、网络隔离或用户身份认证。
 - 变量任意命名，声明类型/单位/类别/缺失/角色；描述可用descriptive_measure、stratification_label/outcome_summary，不把结局分层描述误判为预测泄漏。未知时间显式null；只有描述或明确横断面关联可用未定时序，不能声称预测/因果。
 - 总体或分组描述；人数和人次分开。关联仅独立患者、无权重、完整案例、固定OLS HC3或Logistic model方差。重复患者、调查设计、竞争风险等按方法明确拒绝。
 - 选定CSV/gzip视图、列映射、显式不参与列、单视图、不执行join。来源/项目/输出路径绑定，资源预算由任务明确声明，取消200人科学门槛。

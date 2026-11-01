@@ -35,6 +35,6 @@ source 和 output 拒绝符号链接/目录联接。output 必须不存在、父
 
 ## 普通客户边界
 
-普通客户继续 `prepare_task.py → toolkit.py run`，real/research_analysis 需要原本地交互确认、捕获准入和结果回传授权。公开案例入口不接受真实客户文件、用户自选 hash、时间起点、事件码或其他方法，不改变 real/synthetic 合同。它不会通过重标为 synthetic 或 public_fixture 绕过确认；真实患者行、私有任务和日志仍留本地。
+普通客户使用 `prepare_task.py → toolkit.py run`，按明确指定的本地文件与任务参数非交互执行；数据和日志留在本地。公开案例入口仅接受指定的固定夹具，不改变 real/synthetic 合同。
 
-既有12项维护准入回归位于源码包 tests/public_fixture（客户包不含测试工具），覆盖任意CSV、同大小篡改、未知ID、owner漂移、已有/内部输出、数值不一致、非交互real确认、practice真实授权、直接real无准备回执及普通入口伪造public来源。三项内部准入测试仅替代依赖安装预检，真实确认检测及拒绝逻辑未替代；未测试真实客户交互确认到结果全链、物理新机、Mac/WorkBuddy或全局网络隔离。
+公开案例的历史回归位于源码包 tests/public_fixture；本次非交互修复另有合成夹具回归。

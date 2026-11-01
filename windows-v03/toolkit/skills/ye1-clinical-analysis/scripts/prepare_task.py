@@ -1,4 +1,4 @@
-"""Compile an Agent-authored local draft; customers review a local scope file."""
+"""Compile an explicit local draft without interactive prompts."""
 from pathlib import Path
 import argparse,copy,datetime,importlib.util,json,os,subprocess,sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -6,33 +6,6 @@ from runtime_toolkit import ROOT,BACKEND,CORE,env,check,save,sha
 from runtime_platform import runtime_python
 import ingestion as i
 import toolkit
-
-def module(name,path):
-    spec=importlib.util.spec_from_file_location(name,path);value=importlib.util.module_from_spec(spec);spec.loader.exec_module(value);return value
-def review(draft,method):
-    return "\n".join(["本次本地分析范围（不含数据行）", "", "普通 Codex 具有文件和命令权限。本工具只捕获本次调用，不保证全局主机或网络隔离。", "B 选项仅允许本次指定文件与计划的本地计算；不增加任何对话回传或外发授权。需要严格隔离时请停止。", "", "方法："+method["title"]+" / "+draft["method_id"],"",json.dumps(draft,ensure_ascii=False,indent=2),"", "请核对字段、单位、结局、时间、分组、缺失规则、模型参数、样本划分及冻结模型来源。缺失项由 Agent 澄清和修改，不让客户修代码。", "原始行、private 和日志留本地，统计结果仍需科学复核。"])
-
-def confirm(draft,project,stamp,method):
-    from local_console import interactive_input
-    i.need(interactive_input(),"LOCAL_HUMAN_CONFIRMATION_REQUIRED")
-    privacy=module("toolkit_original_choice",BACKEND/"legacy/scripts/privacy_boundary.py");existing=None
-    if (project/".ye1-privacy/choice.json").exists():
-        existing,_=privacy.load(project);i.need(existing["mode"]=="B","EXISTING_STRICT_MODE_REQUIRES_REVIEW")
-    scope=project/"local-review"/("scope-"+stamp+".txt");scope.parent.mkdir(exist_ok=True);scope.write_text(review(draft,method),encoding="utf-8")
-    print("请在本地打开并核对："+str(scope));print("不要上传 CSV 原始行。范围不正确时取消，由 Agent 修改计划。")
-    history=input("请如实说明此前是否上传过该文件、上传到何处；不要输入患者信息：").strip();i.need(0<len(history)<=500,"ATTACHMENT_HISTORY_STATEMENT_REQUIRED")
-    phrase="确认本次指定文件和分析计划的本地分析，不自动外发";print("同意上述范围时手动输入："+phrase)
-    answer=input().strip();i.need(answer==phrase,"USER_DID_NOT_CONFIRM")
-    state=project/".ye1-privacy";record=state/"evidence"/("terminal-"+stamp+".txt");record.parent.mkdir(parents=True,exist_ok=True)
-    record.write_text("本地终端确认；不是身份认证或主机隔离证明。\n实际输入："+answer+"\n历史上传声明："+history+"\n范围 SHA256："+sha(scope)+"\n",encoding="utf-8")
-    choice=existing or {"schema":"ye1-data-choice/1","mode":"B","attachment_history":[{"user_statement":history}],"grants":[]}
-    evidence={"kind":"direct_user","path":record.relative_to(project).as_posix(),"sha256":sha(record),"locator":"local terminal input "+stamp,"quote":answer,"scope_sha256":privacy.digest(privacy.encoded(choice))}
-    if not existing:privacy.save_choice(project,choice,evidence,test_only=False)
-    probe=subprocess.run([sys.executable,"-I","-c","import sys;print('capture-stdout');print('capture-stderr',file=sys.stderr)"],capture_output=True,env=env(),timeout=15)
-    i.need(probe.returncode==0 and b"capture-stdout" in probe.stdout and b"capture-stderr" in probe.stderr,"LOCAL_CAPTURE_ASSESSMENT_FAILED")
-    assessment=state/("capture-assessment-"+stamp+".json");save(assessment,{"scope":"this fixed captured invocation only","stdout_stderr_capture_checked":True,"global_host_isolation":False,"network_isolation":False,"identity_authentication":False,"adapter_sha256":sha(BACKEND/"integration/captured_study.py")})
-    capture=module("toolkit_capture_registration",BACKEND/"integration/captured_study.py");capture.register(project,CORE,str(assessment)+" sha256="+sha(assessment))
-    return {"choice_sha256":sha(state/"choice.json"),"plan_sha256":"0"*64,"scope_kind":"research_plan","confirmation":{"source_kind":"direct_user","source_path":str(record),"source_locator":"local terminal input "+stamp,"quote":answer}},sha(record)
 
 def prepare(path,practice=False):
     path=Path(path).resolve();draft=toolkit.load(path)
@@ -53,7 +26,10 @@ def prepare(path,practice=False):
     sys.path.insert(0,str(CORE/"python"));from clinical_methods import resource_budget
     resolved=resource_budget.resolve(task["execution"],method["backend_method_id"])
     limits={k:resolved[k] for k in ("max_rows","max_bytes","max_decoded_bytes")}
-    check(draft["method_id"]);authorization,reference=confirm(draft,project,stamp,method) if origin=="real" else (None,None)
+    check(draft["method_id"]);authorization,reference=None,None
+    if origin == "real" and (project/".ye1-privacy/choice.json").exists():
+        sys.path.insert(0,str(BACKEND/"integration"));import captured_study
+        captured_study._choice(project,captured_study._layout(CORE))
     files=[];task=i.materialize(copy.deepcopy(task),draft["local_tables"],project,limits,files);i.need(files,"LOCAL_BOUND_SOURCE_REQUIRED")
     receipt=project/"private/prepared"/(stamp+"-ingestion.json");save(receipt,{"schema_version":"ye1-local-ingestion@1.0","draft_sha256":sha(path),"data_origin":origin,"files":files,"normalization":"explicit mapping/types/missing codes; no sampling, renaming, model or design inference","source_identity_authenticated":False})
     task["sources"][0]["evidence_refs"].append(i.PREFIX+sha(receipt)+":"+receipt.relative_to(project).as_posix())
@@ -88,7 +64,7 @@ if __name__=="__main__":
         if selected.is_file() and Path(sys.executable).resolve()!=selected.resolve():raise SystemExit(subprocess.run([str(selected),"-I","-B","-X","utf8",str(Path(__file__).resolve()),*sys.argv[1:]],env=env()).returncode)
         main()
     except (OSError,ValueError,KeyError,TypeError,ImportError,EOFError,KeyboardInterrupt,subprocess.TimeoutExpired) as error:
-        fallback="LOCAL_HUMAN_CONFIRMATION_REQUIRED" if isinstance(error,EOFError) else "USER_CANCELLED" if isinstance(error,KeyboardInterrupt) else "LOCAL_DRAFT_OR_CONFIRMATION_INVALID"
+        fallback="USER_CANCELLED" if isinstance(error,KeyboardInterrupt) else "LOCAL_DRAFT_INVALID"
         value={"status":"LOCAL_TASK_NOT_PREPARED","reason_code":getattr(error,"code",fallback),"action":"Keep local evidence; the Agent should clarify or repair the draft. Do not edit raw data, scientific contracts or authorization records to force success."}
         try:
             index=sys.argv.index("--draft");folder=Path(sys.argv[index+1]).resolve().parent/"support-logs";folder.mkdir(exist_ok=True)

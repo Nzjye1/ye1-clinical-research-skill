@@ -5,14 +5,14 @@ description: "完成基线描述表与明确分母；适用于该方法及其已
 
 # 基线描述表与明确分母
 
-先读同级[总入口](../ye1-clinical-analysis/SKILL.md)的安装、数据与权限规则。只加载本方法的schema/说明，不强跑完整流程。用户不手写JSON；缺结局、单位、参考类别、样本/时间或设计先集中澄清，不为显著性换模型。真实患者行/标识留本地，真实数据由用户本人确认，不能把合成演练当真人授权。
+先读同级[总入口](../ye1-clinical-analysis/SKILL.md)的安装、数据与权限规则。只加载本方法的schema/说明，不强跑完整流程。用户不手写JSON；缺结局、单位、参考类别、样本/时间或设计先集中澄清，不为显著性换模型。真实患者行/标识留本地，根据用户指定的本地文件和任务参数直接调用，不创建确认记录。
 
 
 先读主 Skill 的 references/LOCAL-DRAFTS.md。Agent 只处理需求和数据字典，按明确映射生成本地草稿，通过 scripts/prepare_task.py --draft 读取文件，再调用 toolkit.py。private 任务含规范行，真实数据时不得读回模型。
 
 稳定方法ID：`baseline.table1`；已有操作：`analyze`。这些操作共享原owner，不是新增多套算法。
 
-使用主Skill的scripts/toolkit.py：先`describe --method baseline.table1`与`schema --method baseline.table1`，再`doctor --method baseline.table1`。Agent按原版本契约准备本地task，获准后`run --method baseline.table1 --task <项目私有task>`。单独调用只执行这项；需要多个已确认步骤时由总入口组合并保留模型/来源绑定。
+使用主Skill的scripts/toolkit.py：先`describe --method baseline.table1`与`schema --method baseline.table1`，再`doctor --method baseline.table1`。Agent按原版本契约准备本地task，然后`run --method baseline.table1 --task <项目私有task>`。单独调用只执行这项；需要多个已确认步骤时由总入口组合并保留模型/来源绑定。
 
 当前v0.3处于迁入验收，不把已有源码、schema发现或历史测试当本版功能/临床验收通过；实测状态以最终能力矩阵为准。表图解释以实际结果和method限制为准，科学复核pending。
 

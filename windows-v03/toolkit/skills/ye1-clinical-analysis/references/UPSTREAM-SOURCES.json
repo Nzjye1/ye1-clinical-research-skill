@@ -3,7 +3,7 @@
   "files": [
     {
       "path": "_shared/clinical_analysis/REAL-INPUT-CONTRACT.md",
-      "sha256": "1a86aa03dd06c637ec4b354d8ab6f80640a582c54d1ad4633c902345270d88c1"
+      "sha256": "aa13a2df42efd347ccd00f8e7693ec4c694a6070b22e837875698bfe3574a13b"
     },
     {
       "path": "_shared/clinical_analysis/agent/analysis_call.py",
@@ -255,7 +255,7 @@
     },
     {
       "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_common.R",
-      "sha256": "45f033965b0f7bb7ac68be5218634b5971522d0810b14248708fcf6d949e8dcc"
+      "sha256": "19999429b4f33cc30d71bc4518a0f217d74e6c24f9b7c5221fa9ab3944cb545d"
     },
     {
       "path": "_shared/clinical_analysis/integration/core/src/clinanalysis/R/clinical_cox_penalized_v10.R",
@@ -1579,7 +1579,7 @@
     },
     {
       "path": "_shared/clinical_analysis/runtime-requirements.json",
-      "sha256": "06108926d18b48733470a64e29a8503cf840cbc4f09799bf55f4bc30e4a918e1"
+      "sha256": "ccd0d79c606d048dbd0756c0dc045c498dcf2b619bdea99812051cabb2b1f1a4"
     }
   ]
 }

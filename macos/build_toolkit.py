@@ -84,7 +84,7 @@ def main():
         pkg['binary'] = {k: entry[k] for k in ('filename', 'sha256', 'bytes')}
         pkg['binary']['url'] = entry.get('url', 'bundled:github-actions-arm64-build')
 
-    source_spec['product_version'] = '0.3.0-macos-arm64-candidate1'
+    source_spec['product_version'] = '0.3.1-macos-arm64-noninteractive1'
     write_json(target / MAIN / 'runtime-spec.json', source_spec)
     write_json(target / MAIN / 'references/MACOS-DEPENDENCIES.json',
                {'python': py_lock, 'R': r_lock, 'R_foundation': '4.6.1 arm64',
@@ -113,13 +113,13 @@ def main():
 
 在已创建的研究项目使用 `bash setup-online.sh <项目路径>`。离线交付解压后使用 `bash setup-offline.sh <项目路径>`；离线缓存包含固定 Python wheel、基础程序和许可证。可追加 `--method <方法ID>` 或 `--all`。安装器不覆盖同名 Skill；依赖中断后保留 `.runtime` 与 install-logs，从已安装主 Skill 的 `scripts/install_macos.py` 按原组或方法加 `--install` 恢复。已有结果使用新输出目录。
 
-使用 `$ye1-clinical-analysis` 或单项 Skill，提供本地 CSV 路径、研究问题与变量定义，先自检方法。真实研究的首次本地准备按产品确认规则由用户在控制台核对。
+使用 `$ye1-clinical-analysis` 或单项 Skill，提供本地 CSV 路径、研究问题与变量定义，先自检方法。按指定的本地文件和任务参数非交互准备，不需要打开终端确认。
 
 固定公开 PBC 案例使用安装时 `.runtime/toolkit-profile.json` 中已解析并绑定的 `rscript` 真实路径。案例输入、输出和 Rscript 路径仍按原规则检查链接及文件身份。
 ''', encoding='utf-8', newline='\n')
     skill = target / MAIN / 'SKILL.md'
     text = skill.read_text(encoding='utf-8')
-    text = text.replace('0.3.0-windows-local-integrated2', '0.3.0-macos-arm64-candidate1', 1)
+    text = text.replace('0.3.1-windows-local-noninteractive1', '0.3.1-macos-arm64-noninteractive1', 1)
     skill.write_text(text, encoding='utf-8', newline='\n')
 
     ported = apply_backend_port(target)

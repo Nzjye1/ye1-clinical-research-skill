@@ -113,53 +113,18 @@ def admit(task, core_root, g, *, allowed_methods=None):
              "SYNTHETIC_ENGINEERING_SCOPE_REQUIRED", "admission")
         return {"project": project, "authorization_ref": None,
                 "source_verification": "local_bytes_bound_not_source_identity_authenticated"}
-    legacy = Path(core_root).resolve().parents[1] / "legacy/scripts"
-    privacy = _module(legacy / "privacy_boundary.py", "clinical_study_project_privacy")
-    evidence = _module(legacy / "confirmation_evidence.py", "clinical_study_confirmation")
-    need(os.environ.get("YE1_PRIVACY_CONTROLLED_RUN") == "1", "CONTROLLED_ADAPTER_REQUIRED", "admission")
-    need(bool(os.environ.get("YE1_PRIVACY_PROJECT")) and Path(os.environ["YE1_PRIVACY_PROJECT"]).resolve() == project,
-         "PROJECT_CHOICE_CONTEXT_MISMATCH", "admission")
-    # Test fixtures must never authorize real input through a test host/choice.
-    need(os.environ.get("YE1_PRIVACY_SYNTHETIC_TEST") != "1", "TEST_CONTEXT_CANNOT_AUTHORIZE_REAL_DATA", "admission")
+    # Bind one local invocation to its task and source bytes. Historical
+    # confirmation metadata, if present, is retained but not required.
+    need(task["task_purpose"] == "research_analysis", "REAL_RESEARCH_SCOPE_REQUIRED", "admission")
+    need(task["execution"].get("privacy_profile") == "captured_local_process",
+         "CONTROLLED_ADAPTER_REQUIRED", "admission")
     try:
-        choice, history = privacy.load(project)
-        if task["execution"].get("privacy_profile", "legacy_exclusive_gateway") == "captured_local_process":
-            capture = _module(Path(core_root).resolve().parent / "captured_study.py", "clinical_study_captured_adapter")
-            capture.verify_context(project, task, core_root)
-        else:
-            privacy.host_check(project, choice["mode"], test_only=False)
-    except (OSError, ValueError, KeyError, TypeError) as e:
-        code = str(e) if str(e).isupper() and " " not in str(e) else "PROJECT_PRIVACY_CONTEXT_REQUIRED"
-        need(False, code, "admission", ["existing project choice and assessed controlled adapter"])
-    auth = task["authorization"]
-    need(isinstance(auth, dict), "PROJECT_PLAN_CONFIRMATION_REQUIRED", "admission")
-    choice_hash = hashlib.sha256((project / ".ye1-privacy/choice.json").read_bytes()).hexdigest()
-    need(auth["choice_sha256"] == choice_hash, "PROJECT_CHOICE_CHANGED", "admission")
-    need(auth["plan_sha256"] == plan_scope_hash(task, g["canonical_hash"]), "CONFIRMED_PLAN_CHANGED", "admission")
-    scope_kind = auth.get("scope_kind", "research_plan")
-    need(scope_kind == "research_plan" or task["task_purpose"] == "engineering_test",
-         "ENGINEERING_PERMISSION_CANNOT_APPROVE_RESEARCH", "admission")
-    try:
-        record = auth["confirmation"]
-        if isinstance(record, dict) and record.get("source_kind") == "delegated_user_instruction":
-            need(scope_kind == "engineering_instruction" and task["task_purpose"] == "engineering_test",
-                 "DELEGATED_INSTRUCTION_CANNOT_APPROVE_RESEARCH", "admission")
-            path = Path(record["source_path"]).resolve()
-            need(path.is_relative_to(project) and path.is_file() and not path.is_symlink(),
-                 "INSTRUCTION_RECORD_REQUIRED", "admission")
-            raw = path.read_bytes()
-            need(len(raw) <= 524288 and bool(record["source_locator"]) and bool(record["quote"])
-                 and record["quote"] in raw.decode("utf-8-sig"), "INSTRUCTION_RECORD_CHANGED", "admission")
-            confirmed = {"source_sha256": hashlib.sha256(raw).hexdigest(), "kind": "delegated_user_instruction"}
-        else:
-            confirmed = evidence.validate(record, simulated=False)
+        capture = _module(Path(core_root).resolve().parent / "captured_study.py", "clinical_study_captured_adapter")
+        capture.verify_context(project, task, core_root)
     except (OSError, ValueError, KeyError, TypeError):
-        need(False, "ACTUAL_USER_CONFIRMATION_REQUIRED", "admission")
-    need(task["execution"]["authorization_ref"] == confirmed["source_sha256"],
-         "AUTHORIZATION_SOURCE_CHANGED", "admission")
-    return {"project": project, "authorization_ref": confirmed["source_sha256"],
-            "choice_revision": len(history), "choice_sha256": choice_hash,
-            "host_isolation": "descriptor_is_not_isolation_proof",
+        need(False, "CAPTURED_CONTEXT_INVALID", "admission")
+    return {"project": project, "authorization_ref": None,
+            "host_isolation": "not_established",
             "source_verification": "local_bytes_bound_not_source_identity_authenticated"}
 
 
@@ -213,7 +178,7 @@ def resolve_view(task, view, admission, g):
         return g["confined"](view["local_ref"], admission["project"], "VIEW_OUTSIDE_ISOLATED_ROOT")
     g["need"](task["data_origin"] == "real", "EXTERNAL_VIEW_REQUIRES_REAL_ADMISSION", "binding")
     path = Path(view["local_ref"]).resolve()
-    refs = task["authorization"].get("external_files", [])
+    refs = (task["authorization"] or {}).get("external_files", [])
     matches = [ref for ref in refs if Path(ref["path"]).resolve() == path and ref["sha256"] == view["content_hash"]]
     g["need"](len(matches) == 1, "EXTERNAL_SOURCE_BINDING_REQUIRED", "binding")
     # Read permission still comes from the selected execution environment. This

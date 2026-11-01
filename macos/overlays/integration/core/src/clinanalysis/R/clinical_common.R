@@ -446,7 +446,7 @@ run_clinical_common <- function(task, data=NULL, output_dir=NULL, original_task_
         code_hash=common_hash(.clinical_common$runtime$code_hashes),runtime_hash=common_sha(file.path(root,"runtime-lock.json")),model_hash=NULL)
       result$source_refs <- lapply(task$sources,function(s) list(source_id=s$source_id,database=s$database,source_fingerprint=s$source_fingerprint,recipe_version=s$recipe_version))
       result$provenance <- list(adapter_version=if(study_is_task(task))"declared-local-view@1.0" else "synthetic-mapping@0.1.0-candidate1",view_hash=validated$selected_view$content_hash,
-        transformation_ledger=validated$ledger,host_isolation_evidence="not_established",authorization_scope=if(study_is_task(task))"project-bound; evidence checked; no isolation guarantee" else "delegated_synthetic_local_only")
+        transformation_ledger=validated$ledger,host_isolation_evidence="not_established",authorization_scope=if(study_is_task(task))"project-bound local task and source bytes; no identity or isolation guarantee" else "delegated_synthetic_local_only")
       result$counts <- list(source_rows=validated$ledger$source_rows,subjects=validated$ledger$subjects,eligible=length(validated$rows),model_n=NULL,excluded_missing=NULL)
         result$stage <- "compute"
       data <- common_rows_df(validated$rows,task$variables)

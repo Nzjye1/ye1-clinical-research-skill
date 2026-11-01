@@ -1,0 +1,57 @@
+name: Clinical noninteractive local analysis (macOS arm64)
+on:
+  push:
+    branches: [fix/noninteractive-clinical-031]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  focused:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Fetch locked dependencies and install official frameworks
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64 && test "$RUNNER_ARCH" = ARM64
+          /usr/bin/python3 -B macos/prefetch.py --root "$RUNNER_TEMP/clinical-cache"
+          CACHE="$RUNNER_TEMP/clinical-cache/bootstrap"
+          PY="$CACHE/b28a8dc33c456dd06c97024697d63ca916cfb494594c06fa3e4ef4d41fa82335_python-3.14.5-macos11.pkg"
+          R="$CACHE/67f6eea4ced4ce48f0a0d4fa3a1cac43d1859a05a88993ee3dff7c52e7edbc4b_R-4.6.1-arm64.pkg"
+          pkgutil --check-signature "$PY" | grep 'Python Software Foundation'
+          pkgutil --check-signature "$R" | grep 'Developer ID Installer: Simon Urbanek'
+          sudo /usr/sbin/installer -pkg "$PY" -target /
+          sudo /usr/sbin/installer -pkg "$R" -target /
+      - name: Assemble and install exact toolkit
+        shell: bash
+        run: |
+          set -euo pipefail
+          PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14
+          "$PY" -I -B -X utf8 macos/build_toolkit.py --output "$RUNNER_TEMP/clinical-toolkit" --r-cache "$RUNNER_TEMP/clinical-cache/r"
+          "$PY" -I -B -X utf8 macos/check_python_syntax.py "$RUNNER_TEMP/clinical-toolkit"
+          "$PY" -I -B -X utf8 macos/verify_toolkit.py "$RUNNER_TEMP/clinical-toolkit"
+          "$PY" -I -B -X utf8 macos/runtime_manifest.py --toolkit "$RUNNER_TEMP/clinical-toolkit" --cache "$RUNNER_TEMP/clinical-cache" --output "$RUNNER_TEMP/RUNTIME-MANIFEST.json"
+          mkdir -p "$RUNNER_TEMP/clinical-project"
+          YE1_CLINICAL_OFFLINE_CACHE="$RUNNER_TEMP/clinical-cache" /bin/bash "$RUNNER_TEMP/clinical-toolkit/setup-offline.sh" "$RUNNER_TEMP/clinical-project" --groups base ml plot
+      - name: Run only affected noninteractive paths on generated data
+        shell: bash
+        run: |
+          set -euo pipefail
+          MAIN="$RUNNER_TEMP/clinical-project/.agents/skills/ye1-clinical-analysis"
+          PY="$MAIN/.runtime/python/bin/python3"
+          "$PY" -I -B -X utf8 tests/test_noninteractive_pipeline.py --package "$MAIN" --area "$RUNNER_TEMP/test-core"
+          "$PY" -I -B -X utf8 tests/test_noninteractive_compat.py --package "$MAIN" --area "$RUNNER_TEMP/test-compat"
+          "$PY" -I -B -X utf8 tests/test_noninteractive_module.py --package "$MAIN" --area "$RUNNER_TEMP/test-module" --methods exploration.cluster.kmeans
+          "$PY" -I -B -X utf8 tests/test_noninteractive_legacy_plan.py --package "$MAIN" --area "$RUNNER_TEMP/test-legacy"
+          mkdir -p "$RUNNER_TEMP/focused-proof"
+          cp "$RUNNER_TEMP/clinical-toolkit/toolkit-manifest.json" "$RUNNER_TEMP/focused-proof/"
+          cp "$RUNNER_TEMP/RUNTIME-MANIFEST.json" "$RUNNER_TEMP/focused-proof/"
+          "$PY" -I -B -c 'import json,os,pathlib; p=pathlib.Path(os.environ["RUNNER_TEMP"])/"focused-proof/RESULT.json"; p.write_text(json.dumps({"status":"PASS","schema_version":"clinical-noninteractive-proof@1.0","source_commit":os.environ["GITHUB_SHA"],"ci_url":os.environ["GITHUB_SERVER_URL"]+"/"+os.environ["GITHUB_REPOSITORY"]+"/actions/runs/"+os.environ["GITHUB_RUN_ID"],"noninteractive_suites":[{"suite":s,"status":"PASS"} for s in ["core","compat","module","legacy"]]},indent=2)+"\n",encoding="utf-8")'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: clinical-noninteractive-macos-proof
+          path: ${{ runner.temp }}/focused-proof/
+          if-no-files-found: error
+          retention-days: 7

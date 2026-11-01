@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0-windows-local-integrated2",
+  "version": "0.3.1-windows-local-noninteractive1",
   "scope": "Bounded inherited implementations; counts are not algorithm or validation counts",
   "entries": [
     {

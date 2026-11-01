@@ -4,8 +4,8 @@ The ``captured_local_process`` profile is new and deliberately narrower than
 legacy host_check. It establishes consistency of one cooperating invocation,
 not global identity, network isolation, protected state, or denial of other
 tools' access to raw files. Environment values route descendants (Agent -> R ->
-Python); they are not sandbox authentication. Existing choice/evidence and core
-source/plan checks remain necessary. All outward artifacts still need the
+Python); they are not sandbox authentication. Core source and plan checks remain.
+All outward artifacts still need the
 legacy authorize/export gate. This module never sends data or installs tools.
 """
 from __future__ import annotations
@@ -223,13 +223,9 @@ def register(project, core_root, assessment_reference):
 
 
 def _registration(project, layout):
-    raw, value = _read(_unlinked(_state(project) / "study-adapter.json"))
-    reference = value.get("assessment_reference")
-    _need(isinstance(reference, str) and bool(reference.strip()), "CAPTURED_ADAPTER_NOT_REGISTERED")
-    expected = _registration_fields(project, layout, reference)
-    _need(set(value) == set(expected) | {"registered_at"} and
-          all(value.get(k) == v for k, v in expected.items()), "CAPTURED_CODE_BINDING_CHANGED")
-    return _sha(raw)
+    # Bind actual executable and code bytes for this invocation without inventing
+    # a human assessment, choice, or confirmation record.
+    return _canonical(_bindings(layout))
 
 
 def _privacy(layout):
@@ -241,12 +237,15 @@ def _privacy(layout):
 
 
 def _choice(project, layout):
-    # Reject the legacy synthetic-test override; real choices stay real.
-    _need(os.environ.get("YE1_PRIVACY_SYNTHETIC_TEST") != "1",
-          "TEST_CONTEXT_CANNOT_AUTHORIZE_REAL_DATA")
+    # Preserve an existing explicit strict choice. New local tasks do not create
+    # a choice or assert that a user made one.
+    path = project / ".ye1-privacy/choice.json"
+    if not path.exists():
+        return None
     try:
         choice, history = _privacy(layout).load(project)
-        raw, current = _read(_unlinked(_state(project) / "choice.json"))
+        _need(choice["mode"] == "B", "EXISTING_STRICT_MODE_REQUIRES_REVIEW")
+        raw, current = _read(_unlinked(path))
         _need(current == choice and bool(history), "PROJECT_CHOICE_CHANGED")
         return {"sha256": _sha(raw), "revision": len(history), "mode": choice["mode"]}
     except CapturedStudyError:
@@ -368,7 +367,7 @@ def _verify(project, task, core_root, env):
           receipt.get("method_id") == method, "CAPTURED_TASK_CHANGED")
     _need(receipt.get("runtime") == _runtime(receipt["runtime"]["path"], layout),
           "CAPTURED_RUNTIME_CHANGED")
-    return {**_capability(), "choice_revision": choice["revision"], "choice_sha256": choice["sha256"]}
+    return {**_capability(), "choice_revision": choice["revision"] if choice else None, "choice_sha256": choice["sha256"] if choice else None}
 
 
 def verify_context(project, task, core_root):
@@ -411,6 +410,7 @@ def run(project, task_path, core_root, runtime_path, *, action="run"):
         _need(not os.environ.get(ENV_RECEIPT), "CAPTURED_NESTED_RUN_FORBIDDEN")
         project = _project(project)
         layout = _layout(core_root)
+        _state(project, create=True)
         registration_hash = _registration(project, layout)
         raw, task = _read(_unlinked(Path(task_path)).resolve())
         method = _task_metadata(task, project)

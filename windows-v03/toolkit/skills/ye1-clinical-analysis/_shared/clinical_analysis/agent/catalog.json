@@ -1,9 +1,9 @@
 {
   "backend_bindings_sha256": {
-    "../runtime-requirements.json": "06108926d18b48733470a64e29a8503cf840cbc4f09799bf55f4bc30e4a918e1",
+    "../runtime-requirements.json": "ccd0d79c606d048dbd0756c0dc045c498dcf2b619bdea99812051cabb2b1f1a4",
     "core/method-capabilities.json": "a57f233c6b7a6deec8414c6200737f357717f1fca1735691b3d2a19ce9679ab9",
     "core/tools/run_core.R": "a802e7ebc1f7410dd3914431dfcbb1cea66d4124bace6ec0acd72634ea28ec8e",
-    "module-lock.json": "a2d61af703113645257b145fcb906d68d8020875a47f8f3b264f8d442e8a1ba7"
+    "module-lock.json": "c273485ced1723c6d780993df5371131c7f41ec22f504757f1cbf00bd3c8e5f0"
   },
   "catalog_item_counts": {
     "analysis_leaf_aliases": 8,

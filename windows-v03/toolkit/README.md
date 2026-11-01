@@ -1,6 +1,6 @@
 # 叶一临床分析工具箱 — Windows + Codex
 
-0.3.0-windows-local-integrated2，本地源码整合主线，未制作本版安装包或发布。先阅读 [安装教程](skills/ye1-clinical-analysis/INSTALL.md)；能力、限制与单项名称见 [能力表](skills/ye1-clinical-analysis/references/CAPABILITIES.md)。
+0.3.1-windows-local-noninteractive1，本地源码整合主线，未制作本版安装包或发布。先阅读 [安装教程](skills/ye1-clinical-analysis/INSTALL.md)；能力、限制与单项名称见 [能力表](skills/ye1-clinical-analysis/references/CAPABILITIES.md)。
 
 这是独立分析产品：接合规的本地CSV与明确研究问题，先自检/澄清，再调用已实现的方法，输出表、图和解释。保留总入口与单项Skill，使用同一数值底座。没有数据库获取、论文写作/投稿或整套强制流水线。
 

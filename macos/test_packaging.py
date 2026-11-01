@@ -39,6 +39,15 @@ with nullcontext(target) as directory:
             assert archive.testzip() is None and archive.read('toolkit/skills/example.txt') == (toolkit / 'skills/example.txt').read_bytes()
             if kind == 'offline':
                 assert archive.read('offline-cache/wheels/example.whl') == b'synthetic-wheel'
+    focused = {'status':'PASS', 'schema_version':'clinical-noninteractive-proof@1.0',
+               'source_commit':commit, 'ci_url':url,
+               'noninteractive_suites':[{'suite':s,'status':'PASS'} for s in ('core','compat','module','legacy')]}
+    (root / 'proof.json').write_text(json.dumps(focused), encoding='utf-8')
+    subprocess.run(common + ['--kind','online','--output',str(root/'focused.zip')], check=True, capture_output=True)
+    focused['noninteractive_suites'].pop()
+    (root / 'proof.json').write_text(json.dumps(focused), encoding='utf-8')
+    assert subprocess.run(common + ['--kind','online','--output',str(root/'incomplete.zip')], capture_output=True).returncode != 0
+    (root / 'proof.json').write_text(json.dumps(proof), encoding='utf-8')
     (root / 'ci-runtime.json').write_text('changed\n', encoding='utf-8')
     refused = root / 'refused.zip'
     result = subprocess.run(common + ['--kind','online','--output',str(refused)], capture_output=True)

@@ -58,7 +58,7 @@ d=case('decoded-budget');d['task']['execution']['max_decoded_bytes']=50;negative
 d=case('not-utf8');file=MP/(AREA.name+'-not-utf8.csv');file.write_bytes(b'\xff\xfe\x81\x82\x83');d['local_tables']['input']['path']=str(file);negative.append(('not-utf8',d,'UTF8_CSV_REQUIRED'))
 d=case('method-mismatch');d['task']['method_id']='exploration.cluster.gmm';negative.append(('method-mismatch',d,'DRAFT_METHOD_MISMATCH'))
 d=case('synthetic-research');d['task_purpose']=d['task']['task_purpose']='research_analysis';negative.append(('synthetic-research',d,'ORIGIN_PURPOSE_CONFLICT'))
-d=case('real-without-human');d['data_origin']=d['task']['data_origin']='real';d['task_purpose']=d['task']['task_purpose']='research_analysis';d['task']['sources'][0]['source_kind']='user_clinical_file';d['local_tables']['input']['path']=str(MP/'this-real-file-must-not-be-read.csv');negative.append(('real-without-human',d,'LOCAL_HUMAN_CONFIRMATION_REQUIRED'))
+d=case('real-missing-file');d['data_origin']=d['task']['data_origin']='real';d['task_purpose']=d['task']['task_purpose']='research_analysis';d['task']['sources'][0]['source_kind']='user_clinical_file';d['local_tables']['input']['path']=str(MP/'missing-file.csv');negative.append(('real-missing-file',d,'INPUT_FILE_MISSING_OR_BYTE_BUDGET'))
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
  for value in pool.map(lambda x:prepare(x[0],x[1],x[2]),negative):results.append(value);save(AREA/'receipt.json',{'results':results})
 d=case('real-practice');d['data_origin']=d['task']['data_origin']='real';d['task_purpose']=d['task']['task_purpose']='research_analysis';results.append(prepare('real-practice',d,'PRACTICE_CANNOT_AUTHORIZE_REAL_DATA',practice=True))

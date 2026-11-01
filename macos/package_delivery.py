@@ -26,12 +26,18 @@ def main():
     if args.output.exists() or args.output.with_suffix('.receipt.json').exists():
         raise ValueError('existing archive or receipt preserved')
     proof = json.loads(args.ci_proof.read_text(encoding='utf-8'))
-    if proof['status'] != 'PASS' or proof['public_pbc']['status'] != 'PUBLIC_FIXTURE_ACCEPTANCE_PASSED':
+    if proof['status'] != 'PASS':
         raise ValueError('successful actual CI proof is required')
     if proof.get('source_commit') != args.source_commit or proof.get('ci_url') != args.ci_url:
         raise ValueError('CI proof does not identify the requested source commit and run')
-    if len(proof['synthetic_regression_suites']) != 9 or any(r['status'] != 'PASS' for r in proof['synthetic_regression_suites']):
-        raise ValueError('all nine synthetic regression suites are required')
+    if proof.get('schema_version') == 'clinical-noninteractive-proof@1.0':
+        suites = proof.get('noninteractive_suites', [])
+        if {r['suite'] for r in suites} != {'core', 'compat', 'module', 'legacy'} or len(suites) != 4 or any(r['status'] != 'PASS' for r in suites):
+            raise ValueError('all affected noninteractive suites must pass')
+    elif (proof.get('public_pbc', {}).get('status') != 'PUBLIC_FIXTURE_ACCEPTANCE_PASSED' or
+          len(proof.get('synthetic_regression_suites', [])) != 9 or
+          any(r['status'] != 'PASS' for r in proof['synthetic_regression_suites'])):
+        raise ValueError('full historical CI proof is required')
     if sha(args.toolkit / 'toolkit-manifest.json') != sha(args.ci_toolkit_manifest):
         raise ValueError('local toolkit differs from tested CI toolkit manifest')
     if sha(args.runtime_manifest) != sha(args.ci_runtime_manifest):
@@ -61,7 +67,7 @@ def main():
              + ('本包包括离线基础程序、依赖、许可与源码材料。\n' if args.kind == 'offline' else
                 '本包联网获取固定官方 Python wheel 和缺失的基础程序。\n'))
     revision = {'schema': 'clinical-macos-delivery@1.0', 'kind': args.kind,
-                'product_version': '0.3.0-macos-arm64-candidate1', 'source_commit': args.source_commit,
+                'product_version': '0.3.1-macos-arm64-noninteractive1', 'source_commit': args.source_commit,
                 'ci_url': args.ci_url, 'ci_toolkit_manifest_sha256': sha(args.ci_toolkit_manifest),
                 'ci_runtime_manifest_sha256': sha(args.ci_runtime_manifest),
                 'archive_directly_extracted_in_ci': False,
