@@ -10,9 +10,9 @@
 完成后告诉我安装的版本、是否成功，以及如何开始使用。
 ```
 
-[下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-client-0.3.1-windows-local-noninteractive1-a4db8d94.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-source-0.3.1-windows-local-noninteractive1-a4db8d94.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md)
+[下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-client-0.3.2-windows-local-noninteractive1-72d31b8c.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-source-0.3.2-windows-local-noninteractive1-72d31b8c.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md)
 
-[Apple 芯片 Mac 联网安装包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-0.3.1-macos-arm64-online-a4db8d94.zip) · [Mac 离线包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.1/ye1-clinical-0.3.1-macos-arm64-offline-a4db8d94.zip) · [Mac 安装说明](macos/INSTALL.md)
+[Apple 芯片 Mac 联网安装包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-online-72d31b8c.zip) · [Mac 离线包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-offline-72d31b8c.zip) · [Mac 安装说明](macos/INSTALL.md)
 
 <p align="center">
   <img src="assets/showcase/clinical-cover.png" alt="Ye1 临床分析 · 本地 CSV 到统计表图与结果说明" width="960">

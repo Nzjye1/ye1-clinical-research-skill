@@ -1,7 +1,7 @@
 {
   "schema_version": "ye1-source-revision@1.0",
-  "commit": "a4db8d94ce6fe7b4f8fbeeb8bb4db86ac1dcc370",
-  "product_version": "0.3.1-windows-local-noninteractive1",
+  "commit": "72d31b8c79346325e88b9ff5ec46b993cef4c01a",
+  "product_version": "0.3.2-windows-local-noninteractive1",
   "package_kind": "source",
   "source_dirty_when_planned": false,
   "package_acceptance": "synthetic noninteractive regression passed; macOS toolkit tested on hosted arm64; archive bytes verified",
