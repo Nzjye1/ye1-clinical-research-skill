@@ -6,7 +6,7 @@
 
 - [ ] 记录版本、源码 commit、发布分支、manifest 与适用平台；核对功能和安装行为。
 - [ ] 构建并核验 Windows 与 Mac 各包类型，记录文件名、大小、SHA256、下载及本地路径；确认联网/离线依赖边界。
-- [ ] 检查各包内 START-HERE、安装说明、脚本和 manifest 与实际版本一致；执行对应安装、自检或注明未验范围。
+- [ ] 从已修订的 Windows 源文档 `windows-v03/toolkit/START-HERE.md` 和 `windows-v03/toolkit/skills/ye1-clinical-analysis/INSTALL.md` 生成下一版安装包，重新生成 manifest 并核验所有文件哈希；检查各包内说明、脚本和实际版本一致，执行对应安装、自检或注明未验范围。
 - [ ] 更新 GitHub README、安装文档、版本引用、下载及 SHA256 链接；检查旧 PDF 不被误当新版。
 - [ ] 从同一内容制作中文 MD 和 PDF，逐页渲染检查中文、分页、命令及链接。
 - [ ] 将新版放入本地产品资料版本目录并更新索引；保留旧版、标历史。
