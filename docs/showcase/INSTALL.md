@@ -48,7 +48,7 @@ Python 依赖按固定版本与 SHA256 从官方来源取得；R 附加包二进
 
 使用 `$ye1-clinical-analysis`，提供本地 CSV 位置、研究问题、结局和变量字典。UTF-8 CSV 可带 BOM；中文列名按字典映射。生存任务补充时间起点、单位、事件码与删失含义。
 
-也可独立调用 `$ye1-baseline-table1`、`$ye1-survival-kaplan-meier`、`$ye1-association-logistic` 等单项 Skill。真实研究的首次准备按包内指引，在本地交互控制台阅读并确认文件和字段。
+也可独立调用 `$ye1-baseline-table1`、`$ye1-survival-kaplan-meier`、`$ye1-association-logistic` 等单项 Skill。v0.3.2 按指定的本地文件和任务参数非交互准备，不需要打开终端确认。Windows 包内的旧候选和终端确认表述尚未随包修订，以此说明为准。
 
 ## 中断恢复与结果保留
 
