@@ -1,6 +1,6 @@
 # Apple 芯片 Mac 安装
 
-适用于 macOS 14 或更新版本的 Apple 芯片 Mac，以及 Codex。下载并解压 [Mac 联网安装包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-online-72d31b8c.zip)，让 Agent 阅读包内 `toolkit/START-HERE.md` 并安装到当前研究项目。
+适用于 macOS 14 或更新版本的 Apple 芯片 Mac，以及 Codex。下载并解压 [Mac 联网安装包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-0.3.2-macos-arm64-online-cc-by-nc-20261104.zip)，让 Agent 阅读包内 `toolkit/START-HERE.md` 并安装到当前研究项目。
 
 联网安装从解压目录的 `toolkit` 中运行 `bash setup-online.sh <已有研究项目目录>`；可按需要添加 `--method <方法ID>` 或 `--all`。完整离线交付包解压后，在同一位置使用 `bash setup-offline.sh <已有研究项目目录>`。路径含空格时请加引号。
 
