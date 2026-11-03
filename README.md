@@ -10,15 +10,15 @@
 完成后告诉我安装的版本、是否成功，以及如何开始使用。
 ```
 
-[下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-client-0.3.2-windows-local-noninteractive1-72d31b8c.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-source-0.3.2-windows-local-noninteractive1-72d31b8c.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md) · [v0.3.2 中文安装指南](docs/showcase/INSTALL-v0.3.2-zh.md)
+[下载 Windows 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-client-0.3.2-windows-cc-by-nc-20261104.zip) · [源码包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-source-0.3.2-windows-cc-by-nc-20261104.zip) · [SHA256](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/SHA256SUMS.txt) · [详细安装、环境与恢复说明](docs/showcase/INSTALL.md) · [v0.3.2 中文安装指南](docs/showcase/INSTALL-v0.3.2-zh.md)
 
-[Apple 芯片 Mac 联网安装包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-online-72d31b8c.zip) · [Mac 离线包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-offline-72d31b8c.zip) · [Mac 安装说明](macos/INSTALL.md)
+[Apple 芯片 Mac 联网安装包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-0.3.2-macos-arm64-online-cc-by-nc-20261104.zip) · [Mac 离线包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-0.3.2-macos-arm64-offline-cc-by-nc-20261104.zip) · [Mac 安装说明](macos/INSTALL.md)
 
 <p align="center">
   <img src="assets/showcase/clinical-cover.png" alt="Ye1 临床分析 · 本地 CSV 到统计表图与结果说明" width="960">
 </p>
 
-**提供本地 CSV 和研究问题，让 Agent 帮你完成统计分析、结果表图与说明。免费使用，自有代码采用 MIT 许可。**
+**提供本地 CSV 和研究问题，让 Agent 帮你完成统计分析、结果表图与说明。免费使用，Ye1 拥有授权权利的内容采用 CC BY-NC 4.0。**
 
 面向医生与临床科研团队，在 Windows x64 或 Apple 芯片 Mac 的 Codex 中使用。已有数据，需要基线描述、关联分析、生存分析、预测建模、匹配或纵向分析时，可以从统一入口选择方法，也可以独立调用单项 Skill。
 
@@ -82,6 +82,6 @@ Agent 核对输入和所选方法后调用本地分析，成果写入独立新�
 
 反馈时提供版本、系统和脱敏问题摘要；患者行、标识及本地日志留在本地。
 
-自有代码采用 [MIT 许可](LICENSE)，第三方组件保留各自许可与原声明。见[许可与来源](docs/RIGHTS.md)。
+Ye1 拥有授权权利的内容采用 [CC BY-NC 4.0](LICENSE)，第三方组件保留各自许可与原声明；历史授权见 [许可说明](LICENSING.md)。见[许可与来源](docs/RIGHTS.md)。
 
 版本维护者请按[交付清单](RELEASE-CHECKLIST.md)同步安装包与资料。

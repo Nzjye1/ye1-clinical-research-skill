@@ -8,4 +8,4 @@
 
 final8既有包的工程验证使用合成数据；本主线已继承[固定公开PBC案例](skills/ye1-clinical-analysis/references/PUBLIC-FIXTURES.md)的软件验收，科学适用性仍需研究判断。包SHA、隔离安装与复验结果在随交接的包外回执中。本次源码整合没有重新打包或正式发布；远端源码状态以Git回执为准。
 
-当前候选构建/安装入口：[START-HERE.md](START-HERE.md)。自有代码 MIT 范围与第三方原许可见主 Skill LICENSE-SCOPE.md / THIRD-PARTY.md；不把全部依赖称为 MIT。新 ZIP 与独立验收均以包外回执为准。
+当前候选构建/安装入口：[START-HERE.md](START-HERE.md)。Ye1 内容许可范围与第三方原许可见主 Skill LICENSE-SCOPE.md / THIRD-PARTY.md；不把全部依赖称为同一许可。新 ZIP 与独立验收均以包外回执为准。

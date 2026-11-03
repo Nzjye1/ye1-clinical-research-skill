@@ -1,23 +1,23 @@
 # Ye1 临床分析 v0.3.2 安装与首次使用
 
-Windows x64 / Apple 芯片 Mac · 免费开源科研工具
+Windows x64 / Apple 芯片 Mac · 免费科研工具
 
 ## 复制这段话，交给 Codex
 
 在 Codex 中打开已创建的研究项目，复制以下内容发送给 Agent：
 
 ```text
-请识别我的系统，从 https://github.com/Nzjye1/ye1-clinical-research-skill/releases/tag/v0.3.2 获取适用的 Ye1 临床分析 v0.3.2 客户包。Mac 如果已有离线包，请使用离线包。
+请识别我的系统，从 https://github.com/Nzjye1/ye1-clinical-research-skill 获取适用的 Ye1 临床分析 v0.3.2 客户包。Mac 如果已有离线包，请使用离线包。
 请先阅读安装说明，准备所需依赖，将 Skill 安装到当前研究项目并完成基础自检。
 完成后告诉我安装版本、自检结果和开始使用的方法。患者行和标识留在本地。
 ```
 
 ## 下载与准备
 
-- [Windows x64 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-client-0.3.2-windows-local-noninteractive1-72d31b8c.zip)
-- [Apple 芯片 Mac 联网包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-online-72d31b8c.zip)
-- [Apple 芯片 Mac 离线包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-offline-72d31b8c.zip)
-- [发布页与 SHA256 清单](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/tag/v0.3.2)
+- [Windows x64 客户包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-client-0.3.2-windows-cc-by-nc-20261104.zip)
+- [Apple 芯片 Mac 联网包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-0.3.2-macos-arm64-online-cc-by-nc-20261104.zip)
+- [Apple 芯片 Mac 离线包](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2-license.20261104/ye1-clinical-0.3.2-macos-arm64-offline-cc-by-nc-20261104.zip)
+- [发布页与 SHA256 清单](https://github.com/Nzjye1/ye1-clinical-research-skill/releases/tag/v0.3.2-license.20261104)
 
 完整解压到独立文件夹，准备一个已创建的研究项目。Mac 要求 Apple 芯片及 macOS 14 或更新版本。Windows 客户包不含 Python 和 R 基础程序，Python 依赖默认需要联网；已有核验的官方 wheel 缓存时可指定 `--wheelhouse`，不应把此包当作完整离线环境。Mac 离线包含固定依赖缓存和基础程序；联网包在安装时获取所需组件。
 

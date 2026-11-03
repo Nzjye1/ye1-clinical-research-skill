@@ -2,7 +2,7 @@
 
 | 项目 | 源码包 `source/` | Windows 客户包 `toolkit/` |
 |---|---|---|
-| 自有源码 MIT、原版权与第三方许可 | 保留 | 保留 |
+| Ye1 内容许可、原版权与第三方许可 | 保留 | 保留 |
 | 48 Skill、当前 CLI/注册/核心源代码 | 保留完整静态源码 | 保留运行需要的原字节 |
 | 维护回归、参考源、构建/核验工具 | 保留源码与合成生成器；无测试结果 | 排除测试专用工具 |
 | 历史 tests 路径内的 `nonlinear_prediction/tests/render.R` | 保留 | 保留：实际 run_module.py 调用且原锁绑定的运行投影器 |
@@ -20,4 +20,4 @@
 
 客户包从原静态 toolkit 选择成员，再在内存中生成只覆盖实际 Skill 文件的 `toolkit-manifest.json`，不改仓库主清单。48 Skill 发现目录保留；未安装依赖、旧 PDF 和旧测试摘要不作当前包能力或下载承诺。完整逐文件清单由构建计划生成，不靠此表猜测成员。
 
-许可权属按 `LICENSE-SCOPE.md` 分开：自有部分 MIT；第三方依其 GPL/LGPL/Apache/BSD/MPL/PSF/MIT 等原条款。GPL R 组件的匹配源码随二进制归档一并保留；Python 复杂捆绑许可以实际 METADATA / 原许可文本为准，不将分类器简化为整个 wheel 的唯一许可。公开 PBC 不含数据行，不对独立数据许可作额外保证。
+许可权属按 `LICENSE-SCOPE.md` 分开：Ye1 拥有授权权利的部分采用 CC BY-NC 4.0；第三方依其 GPL/LGPL/Apache/BSD/MPL/PSF/MIT 等原条款。GPL R 组件的匹配源码随二进制归档一并保留；Python 复杂捆绑许可以实际 METADATA / 原许可文本为准，不将分类器简化为整个 wheel 的唯一许可。公开 PBC 不含数据行，不对独立数据许可作额外保证。

@@ -1,6 +1,6 @@
 # 第三方组件与来源
 
-自有源码与适配部分按 MIT 提供，范围见 LICENSE / LICENSE-SCOPE.md；继承原版权及第三方 license/notice。MIT 不覆盖下列第三方组件或数据，也不替全部依赖声明同一许可。实际归档、METADATA、许可文件及 SHA 见 references/DEPENDENCIES.json 和 licenses/python/，原声明逐字节保留。
+Ye1 拥有授权权利的源码与适配部分按 CC BY-NC 4.0 提供，范围见 LICENSE / LICENSE-SCOPE.md；继承原版权及第三方 license/notice。CC BY-NC 4.0 不覆盖下列第三方组件或数据，也不替全部依赖声明同一许可。实际归档、METADATA、许可文件及 SHA 见 references/DEPENDENCIES.json 和 licenses/python/，原声明逐字节保留。
 
 Python与R基础程序不随包。Python26发行包（含隔离SHAP3项）从官方固定wheel安装，保留各.dist-info许可。R14项原CRAN二进制与对应源码tar.gz随包，原版权/许可保留。来源、hash与版本见runtime-spec.json。GPL文本在third-party/licenses。
 

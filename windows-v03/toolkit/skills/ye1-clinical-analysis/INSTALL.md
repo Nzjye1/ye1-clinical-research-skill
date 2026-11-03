@@ -1,6 +1,6 @@
 # Windows安装与首次使用
 
-版本 0.3.2-windows-local-noninteractive1。适用于 Windows x64 与 Codex。请以 v0.3.2 发布页提供的包名及 SHA256 清单核验下载文件；Python 和 R 基础程序需要另行准备。安装 Skill 和依赖会写入所选研究项目。
+版本 0.3.2-windows-local-noninteractive1。适用于 Windows x64 与 Codex。请以 对应发布页提供的包名及 SHA256 清单核验下载文件；Python 和 R 基础程序需要另行准备。安装 Skill 和依赖会写入所选研究项目。
 
 ## 1. 准备基础程序与研究目录
 

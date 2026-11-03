@@ -1,0 +1,38 @@
+{
+  "schema_version": "ye1-public-release@1.0",
+  "release_tag": "v0.3.2",
+  "product": "Ye1 临床分析 Skill",
+  "platform": "Windows x64 and macOS arm64",
+  "source_baseline_commit": "72d31b8c79346325e88b9ff5ec46b993cef4c01a",
+  "windows_internal_version": "0.3.2-windows-local-noninteractive1",
+  "macos_internal_version": "0.3.2-macos-arm64-noninteractive1",
+  "macos_validation": "https://github.com/Nzjye1/ye1-clinical-research-skill/actions/runs/41295098636",
+  "assets": [
+    {
+      "name": "ye1-clinical-client-0.3.2-windows-local-noninteractive1-72d31b8c.zip",
+      "bytes": 40292444,
+      "sha256": "6332e007dfb16087b0e6fcc40a790dd14ab279be2fde5b73acb78168c8b41774",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-client-0.3.2-windows-local-noninteractive1-72d31b8c.zip"
+    },
+    {
+      "name": "ye1-clinical-source-0.3.2-windows-local-noninteractive1-72d31b8c.zip",
+      "bytes": 40705200,
+      "sha256": "0335999ce36a4572966e5eb537f6ca8a80eab2844e3271c9f7535c62ec0fa73d",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-source-0.3.2-windows-local-noninteractive1-72d31b8c.zip"
+    },
+    {
+      "name": "ye1-clinical-0.3.2-macos-arm64-online-72d31b8c.zip",
+      "bytes": 41893310,
+      "sha256": "31e280cb74506983d521af4d535080d74942fb20cd8820d9c07c068e3ebf5e30",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-online-72d31b8c.zip"
+    },
+    {
+      "name": "ye1-clinical-0.3.2-macos-arm64-offline-72d31b8c.zip",
+      "bytes": 702112593,
+      "sha256": "361d50c11603ce526b423b0faf7ad03492c3911947b68906052e9ed868fe5ee4",
+      "download_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/ye1-clinical-0.3.2-macos-arm64-offline-72d31b8c.zip"
+    }
+  ],
+  "sha256_list_url": "https://github.com/Nzjye1/ye1-clinical-research-skill/releases/download/v0.3.2/SHA256SUMS.txt",
+  "license": "MIT for Ye1-owned code; third-party components retain original licenses"
+}
